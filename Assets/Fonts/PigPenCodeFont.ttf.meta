@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 3f5db70ba9d4a1d40b59dd75ffc2532b
+timeCreated: 1564173578
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: PigPenCodeFont
+  fontNames:
+  - PigPenCodeFont
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c50c6b24044611c408d0ed44c35fd1c1, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
