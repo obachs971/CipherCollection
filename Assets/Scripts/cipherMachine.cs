@@ -157,7 +157,6 @@ public class cipherMachine : MonoBehaviour
     }
     private void getScreens()
     {
-        submitText.text = (page + 1) + "";
         for (int aa = 0; aa < 8; aa++)
         {
             screenTexts[aa].text = pages[page].Screens[aa].Text;
@@ -173,6 +172,7 @@ public class cipherMachine : MonoBehaviour
                 screenMeshes[aa].material = pages[page].Screens[aa].FontMaterial;
             }
         }
+        submitText.text = (page + 1) + "" + pages[page].Screens[8].Text;
     }
     void submitWord(KMSelectable submitButton)
     {
