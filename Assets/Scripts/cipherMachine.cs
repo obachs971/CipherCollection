@@ -59,34 +59,6 @@ public class cipherMachine : MonoBehaviour
          * The amount of ciphers required by default should be 3
          * There's another thing to add involving boolean expressions
          * This will determine things like if the keyword goes before the alphabet or after
-         * Here's a list of variables it can use:
-         * A: Bat
-         * B: BH
-         * C: Ind
-         * D: Lit
-         * E: Unlit
-         * F: Ports
-         * G: Plates
-         * H: 1st SN Chara
-         * I: 2nd SN Chara
-         * J: 3rd SN Chara
-         * K: 4th SN Chara
-         * L: 5th SN Chara
-         * M: 6th SN Chara
-         * N: 1st SN Let
-         * O: 2nd SN Let
-         * P: 2nd to Last SN Let
-         * Q: Last SN Let
-         * R: 1st SN Dig
-         * S: 2nd SN Dig
-         * T: 2nd to Last SN Dig
-         * U: Last SN Dig
-         * V: Sum of SN Digs 
-         * W: Sum of SN Lets
-         * X: Day of the week the bomb started on (Sunday = 1, Monday = 2,...)
-         * Y: Day that the bomb started on
-         * Z: Month that the bomb started on
-         * 
          * Here's a list of boolean expressions that it can use (note that some expressions require more than 1 variable):
          * A: Is an even number
          * B: Is an odd number
