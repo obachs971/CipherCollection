@@ -51,28 +51,23 @@ public class cipherMachine : MonoBehaviour
         submitText.text = "1";
         page = 0;
         //Generating random word
-        answer = wordList[2][UnityEngine.Random.Range(0, wordList[2].Count)].ToUpper();
+        int ansLength = UnityEngine.Random.Range(0, 5);
+        answer = wordList[ansLength][UnityEngine.Random.Range(0, wordList[ansLength].Count)].ToUpper();
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
+        string encrypt = answer + "";
+        
+        PageInfo[] temp = new VigenereCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb);
+        encrypt = temp[0].Screens[0].ToString();
+        pages.Insert(0, temp[1]);
+        temp = new AtbashCipher().encrypt(encrypt, "AB", "[Cipher Machine #" + moduleId + "]");
+        encrypt = temp[0].Screens[0].ToString();
+        pages.Insert(0, temp[1]);
 
-        /*
-         * Start Encrypting the word below.
-         * The amount of ciphers required by default should be 3
-         * There's another thing to add involving boolean expressions
-         * This will determine things like if the keyword goes before the alphabet or after
-         * Here's a list of boolean expressions that it can use (note that some expressions require more than 1 variable):
-         * A: Is an even number
-         * B: Is an odd number
-         * C: Is an prime number
-         * D: Is an composite Number
-         * E: Is an Fibonacci number
-         * F: number X and Y share the same parity 
-         * G: number X and Y are different parity
-         * H: number X and Y are coprime
-         * I: number X and Y are not coprime 
-         *
-         * Feel free to add more boolean expressions ^^
-         */
-
+        ScreenInfo[] firstScreen = new ScreenInfo[9];
+        firstScreen[0] = new ScreenInfo(encrypt, 25);
+        for(int i = 1; i < 9; i++)
+            firstScreen[i] = new ScreenInfo();
+        pages.Insert(0, new PageInfo(firstScreen));
         getScreens();
     }
     

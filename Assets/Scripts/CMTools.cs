@@ -14,6 +14,13 @@ namespace CipherMachine
 		{
 			this.Bomb = Bomb;
 		}
+
+		public int mod(int n, int m)
+		{
+			while (n < 0)
+				n += m;
+			return (n % m);
+		}
 		public string getKey(string kw, string alphabet, bool kwFirst)
 		{
 			return (kwFirst ? (kw + alphabet) : alphabet.Except(kw).Concat(kw)).Distinct().Join("");
@@ -22,44 +29,44 @@ namespace CipherMachine
 		{
 			string boolExp = "ABCDEFGHIJ";
 			string alphaVar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			string exp = (alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)] + "" + boolExp[UnityEngine.Random.Range(0, boolExp.Length)]);
-			alphaVar = alphaVar.Replace(exp[0].ToString(), "");
+			string exp = boolExp[UnityEngine.Random.Range(0, boolExp.Length)] + "" + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)]; 
+			alphaVar = alphaVar.Replace(exp[1].ToString(), "");
 			bool result = false;
-			switch(exp[1])
+			switch(exp[0])
 			{
 				case 'A':
-					result = (getValue(exp[0]) % 2 == 0);
+					result = (getValue(exp[1]) % 2 == 0);
 					break;
 				case 'B':
-					result = (getValue(exp[0]) % 2 == 1);
+					result = (getValue(exp[1]) % 2 == 1);
 					break;
 				case 'C':
-					result = isPrime(getValue(exp[0]));
+					result = isPrime(getValue(exp[1]));
 					break;
 				case 'D':
-					result = !(isPrime(getValue(exp[0])));
+					result = isComposite(getValue(exp[1]));
 					break;
 				case 'E':
-					result = isFibo(getValue(exp[0]));
+					result = isFibo(getValue(exp[1]));
 					break;
 				case 'F':
-					result = !(isFibo(getValue(exp[0])));
+					result = !(isFibo(getValue(exp[1])));
 					break;
 				case 'G':
-					exp = exp[0] + "" + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)] + "" + exp[1];
-					result = (getValue(exp[0]) % 2 == getValue(exp[1]) % 2);
+					exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
+					result = (getValue(exp[1]) % 2 == getValue(exp[2]) % 2);
 					break;
 				case 'H':
-					exp = exp[0] + "" + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)] + "" + exp[1];
-					result = (getValue(exp[0]) % 2 != getValue(exp[1]) % 2);
+					exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)]; 
+					result = (getValue(exp[1]) % 2 != getValue(exp[2]) % 2);
 					break;
 				case 'I':
-					exp = exp[0] + "" + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)] + "" + exp[1];
-					result = coprime(getValue(exp[0]), getValue(exp[1]));
+					exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)]; 
+					result = coprime(getValue(exp[1]), getValue(exp[2]));
 					break;
 				case 'J':
-					exp = exp[0] + "" + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)] + "" + exp[1];
-					result = !(coprime(getValue(exp[0]), getValue(exp[1])));
+					exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)]; 
+					result = !(coprime(getValue(exp[1]), getValue(exp[2])));
 					break;
 			}
 			return new string[] { exp, result + "" };
