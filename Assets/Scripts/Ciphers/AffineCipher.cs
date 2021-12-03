@@ -19,16 +19,28 @@ public class AffineCipher
 		int[] bVal = cm.generateValue();
 		int b = (bVal[1] % 24) + 1;
 		string encrypt = "";
-		foreach (char c in word)	
-			encrypt = encrypt + "" + (char)(cm.mod(((c - 65) * choices[0][a]) + b, 26) + 65);
+		string[] invert = cm.generateBoolExp();
+		if(invert[1][0] == 'T')
+		{
+			foreach (char c in word)
+				encrypt = encrypt + "" + (char)(cm.mod(((c - 65) - b) * choices[1][a], 26) + 65);
+		}
+		else
+		{
+			foreach (char c in word)
+				encrypt = encrypt + "" + (char)(cm.mod(((c - 65) * choices[0][a]) + b, 26) + 65);
+		}
+		
+		Debug.LogFormat("{0} [Affine Cipher] Bool Expression: {1} -> {2}", log, invert[0], invert[1]);
 		Debug.LogFormat("{0} [Affine Cipher] A: {1}", log, choices[0][a]);
 		Debug.LogFormat("{0} [Affine Cipher] Value Generated: {1} -> {2}", log, (char)bVal[0], bVal[1]);
 		Debug.LogFormat("{0} [Affine Cipher] B: {1}", log, b);
 		Debug.LogFormat("{0} [Affine Cipher] {1} -> {2}", log, word, encrypt);
-		Debug.LogFormat("{0} [Affine Cipher] Inverted of A: {1}", log, choices[1][a]);
+		Debug.LogFormat("{0} [Affine Cipher] A Inverted: {1}", log, choices[1][a]);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(choices[0][a] + ", " + ((char)bVal[0]), 35);
-		for (int i = 1; i < 8; i++)
+		screens[1] = new ScreenInfo(invert[0], 25);
+		for (int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		PageInfo[] page = { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) };
