@@ -62,6 +62,9 @@ public class cipherMachine : MonoBehaviour
         temp = new AtbashCipher().encrypt(encrypt, "AB", "[Cipher Machine #" + moduleId + "]");
         encrypt = temp[0].Screens[0].ToString();
         pages.Insert(0, temp[1]);
+        temp = new AffineCipher().encrypt(encrypt, "AC", "[Cipher Machine #" + moduleId + "]", Bomb);
+        encrypt = temp[0].Screens[0].ToString();
+        pages.Insert(0, temp[1]);
 
         ScreenInfo[] firstScreen = new ScreenInfo[9];
         firstScreen[0] = new ScreenInfo(encrypt, 25);
@@ -146,20 +149,23 @@ public class cipherMachine : MonoBehaviour
         if (!moduleSolved)
         {
             submitButton.AddInteractionPunch();
-            if (screenTexts[2].text.Equals(answer))
+            if(submitScreen)
             {
-                Audio.PlaySoundAtTransform(sounds[2].name, transform);
-                module.HandlePass();
-                moduleSolved = true;
-                screenTexts[2].text = "";
-            }
-            else
-            {
-                Audio.PlaySoundAtTransform(sounds[3].name, transform);
-                module.HandleStrike();
-                page = 0;
-                getScreens();
-                submitScreen = false;
+                if (screenTexts[6].text.Equals(answer))
+                {
+                    Audio.PlaySoundAtTransform(sounds[2].name, transform);
+                    module.HandlePass();
+                    moduleSolved = true;
+                    screenTexts[6].text = "";
+                }
+                else
+                {
+                    Audio.PlaySoundAtTransform(sounds[3].name, transform);
+                    module.HandleStrike();
+                    page = 0;
+                    getScreens();
+                    submitScreen = false;
+                }
             }
         }
     }
@@ -171,18 +177,18 @@ public class cipherMachine : MonoBehaviour
             Audio.PlaySoundAtTransform(sounds[1].name, transform);
             if (submitScreen)
             {
-                if (screenTexts[2].text.Length < 6)
-                {
-                    screenTexts[2].text = screenTexts[2].text + "" + pressed.GetComponentInChildren<TextMesh>().text;
-                }
+                if (screenTexts[6].text.Length < answer.Length)
+                    screenTexts[6].text = screenTexts[6].text + "" + pressed.GetComponentInChildren<TextMesh>().text;
             }
             else
             {
                 submitText.text = "SUB";
                 screenTexts[0].text = "";
                 screenTexts[1].text = "";
-                screenTexts[2].text = pressed.GetComponentInChildren<TextMesh>().text;
-                screenTexts[2].fontSize = 40;
+                for(int aa = 0; aa < 8; aa++)
+                    screenTexts[aa].text = "";
+                screenTexts[6].text = pressed.GetComponentInChildren<TextMesh>().text;
+                screenTexts[6].fontSize = 25;
                 submitScreen = true;
             }
         }

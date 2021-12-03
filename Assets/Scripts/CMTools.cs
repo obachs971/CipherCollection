@@ -71,9 +71,15 @@ namespace CipherMachine
 			}
 			return new string[] { exp, result + "" };
 		}
+		public int[] generateValue()
+		{
+			int[] vals = new int[2];
+			vals[0] = UnityEngine.Random.Range(0, 26) + 65;
+			vals[1] = getValue((char)vals[0]);
+			return vals;
+		}
 		private int getValue(char l)
 		{
-			string s = DateTime.Now.Date.DayOfWeek.ToString();
 			switch (l)
 			{
 				case 'A': return Bomb.GetBatteryCount();
