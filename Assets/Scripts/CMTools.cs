@@ -85,7 +85,7 @@ namespace CipherMachine
 				case 'A': return Bomb.GetBatteryCount();
 				case 'B': return Bomb.GetBatteryHolderCount();
 				case 'C': return Bomb.GetBatteryCount(Battery.D);
-				case 'D': return (Bomb.GetBatteryCount(Battery.AA) / 2);
+				case 'D': return ((Bomb.GetBatteryCount(Battery.AA) / 2) + (Bomb.GetBatteryCount(Battery.AA) % 2)); //In the case that people have the widgets mod, round up the number
 				case 'E': return Bomb.GetIndicators().Count();
 				case 'F': return Bomb.GetOnIndicators().Count();
 				case 'G': return Bomb.GetOffIndicators().Count();
