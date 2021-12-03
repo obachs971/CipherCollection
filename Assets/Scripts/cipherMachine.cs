@@ -67,7 +67,7 @@ public class cipherMachine : MonoBehaviour
         pages.Insert(0, temp[1]);
 
         ScreenInfo[] firstScreen = new ScreenInfo[9];
-        firstScreen[0] = new ScreenInfo(encrypt, 25);
+        firstScreen[0] = new ScreenInfo(encrypt, new int[] { 35, 35, 35, 30, 25 }[answer.Length - 4]);
         for(int i = 1; i < 9; i++)
             firstScreen[i] = new ScreenInfo();
         pages.Insert(0, new PageInfo(firstScreen));

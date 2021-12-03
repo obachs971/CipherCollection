@@ -39,7 +39,7 @@ public class AffineCipher
 		Debug.LogFormat("{0} [Affine Cipher] A Inverted: {1}", log, choices[1][a]);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(choices[0][a] + ", " + ((char)bVal[0]), 35);
-		screens[1] = new ScreenInfo(invert[0], 25);
+		screens[1] = new ScreenInfo(invert[0], new int[] { 25, 20 }[invert[0].Length - 2]);
 		for (int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
