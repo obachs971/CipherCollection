@@ -31,7 +31,7 @@ public class VigenereCipher
 		}
 		Debug.LogFormat("{0} [Vigenere Cipher] {1} + {2} -> {3}", log, word, keyword, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(keyword, new int[] { 35, 35, 35, 30, 25 }[keyword.Length - 4]);
+		screens[0] = new ScreenInfo(keyword, new int[] { 35, 35, 30, 25, 25 }[keyword.Length - 4]);
 		screens[1] = new ScreenInfo(invert[0], new int[] {25, 20}[invert[0].Length - 2]);
 		for(int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
