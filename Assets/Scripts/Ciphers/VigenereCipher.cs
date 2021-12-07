@@ -18,7 +18,7 @@ public class VigenereCipher
 		CMTools cm = new CMTools(Bomb);
 		string[] invert = cm.generateBoolExp();
 		Debug.LogFormat("{0} [Vigenere Cipher] Keyword: {1}", log, keyword);
-		Debug.LogFormat("{0} [Vigenere Cipher] Bool Expression: {1} => {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Vigenere Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
 		if (invert[1][0] == 'T')
 		{
 			for (int i = 0; i < word.Length; i++)
@@ -31,8 +31,8 @@ public class VigenereCipher
 		}
 		Debug.LogFormat("{0} [Vigenere Cipher] {1} + {2} -> {3}", log, word, keyword, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(keyword, new int[] { 35, 35, 30, 25, 25 }[keyword.Length - 4]);
-		screens[1] = new ScreenInfo(invert[0], new int[] {25, 20}[invert[0].Length - 2]);
+		screens[0] = new ScreenInfo(keyword, new int[] { 35, 35, 35, 32, 28 }[keyword.Length - 4]);
+		screens[1] = new ScreenInfo(invert[0], 25);
 		for(int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);

@@ -53,9 +53,12 @@ public class cipherMachine : MonoBehaviour
         //Generating random word
         int ansLength = UnityEngine.Random.Range(0, 5);
         answer = wordList[ansLength][UnityEngine.Random.Range(0, wordList[ansLength].Count)].ToUpper();
+        //answer = "ADJUST";
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
         string encrypt = answer + "";
-        
+
+       
+
         PageInfo[] temp = new VigenereCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb);
         encrypt = temp[0].Screens[0].ToString();
         pages.Insert(0, temp[1]);
@@ -65,9 +68,15 @@ public class cipherMachine : MonoBehaviour
         temp = new AffineCipher().encrypt(encrypt, "AC", "[Cipher Machine #" + moduleId + "]", Bomb);
         encrypt = temp[0].Screens[0].ToString();
         pages.Insert(0, temp[1]);
+        temp = new PlayfairCipher().encrypt(encrypt, "AD", "[Cipher Machine #" + moduleId + "]", Bomb);
+        encrypt = temp[0].Screens[0].ToString();
+        pages.Insert(0, temp[1]);
+        temp = new ConjugatedMatrixBifidCipher().encrypt(encrypt, "AE", "[Cipher Machine #" + moduleId + "]", Bomb);
+        encrypt = temp[0].Screens[0].ToString();
+        pages.Insert(0, temp[1]);
 
         ScreenInfo[] firstScreen = new ScreenInfo[9];
-        firstScreen[0] = new ScreenInfo(encrypt, new int[] { 35, 35, 30, 25, 25 }[answer.Length - 4]);
+        firstScreen[0] = new ScreenInfo(encrypt, new int[] { 35, 35, 35, 32, 28 }[answer.Length - 4]);
         for(int i = 1; i < 9; i++)
             firstScreen[i] = new ScreenInfo();
         pages.Insert(0, new PageInfo(firstScreen));
