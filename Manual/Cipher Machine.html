@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>The Cipher Machine — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .dark table, table {
+            margin: 1em auto;
+            border: none;
+        }
+        .strip-change-one td,
+        .strip-change-one th {
+            padding: .3em .5em .2em;
+        }
+        .tablea {
+            font-size: 20px;
+            width: 100%;
+        }
+        .rotor {
+            font-size: 13px;
+        }
+        .reflector {
+            font-size: 14px;
+        }
+        .alpha {
+            font-size: 13px;
+        }
+        .beta {
+            font-size: 11px;
+        }
+
+        .img-pigpen {
+            width: 50%;
+        }
+        .dark .img-pigpen {
+            filter: invert(86.5%);
+        }
+        a::after {
+            font-size: .7em;
+        }
+        @media print {
+            .img-pigpen {
+                width: 38%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">The Cipher Machine</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Ultimate Cipher.svg" class="diagram">
+                <h2>On the Subject of the Cipher Machine</h2>
+                <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
+                <ul>
+                <li>Each screen is labeled 1 - 8 in reading order.</li>
+                <li>The screen on the bottom right not only displays the current page number, but also displays what cipher it uses via a 2 letter key. It also acts like a submit button while in submission mode.</li>
+                <li>To enter submission mode, type on the module using the keyboard below. Submit the decrypted word to solve the module.</li>
+                </ul>
+                
+                <p>The text on the 1st screen on page 1 is the encrypted word. This word can be 4 - 8 letters long. Each page after the 1st one is a cipher that the module used to encrypt the encrypted word.</p>
+                <p>Each cipher has at least 1 page to display what cipher it uses on the page number/submit button screen. Use the 2 letter key after the page number to determine which cipher it used. Then, follow the steps to decrypt the encrypted word. By default, there is a total of 3 ciphers that the word was encrypted by. Follow the instruction for each cipher in page number order to decrypt your encrypted word.</p>
+                <p>Sometimes a cipher might refer to a Value Table. Use the letter on the Value Table to get a value from it.</p>
+	            <p>More often, a cipher might refer to a Boolean Expression. In which the 1st, and sometimes the 2nd if there are 3 letters, letter uses the Value Table. This will be refered to as X and Y. The last letter determines which boolean expression it uses. Use the value(s) and the boolean expression to get a boolean value.</p>
+            
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 2</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Ultimate Cipher</span>
+            </div>
+            <div class="page-content">
+            <h4>Value Table</h4>
+			<table>
+            <tr><th>A</th><td>Batteries</td><th>J</th><td>1st SN Character (Base 36)</td><th>S</th><td>2nd SN Digit</td></tr>
+			<tr><th>B</th><td>Battery Holders</td><th>K</th><td>2nd SN Character (Base 36)</td><th>T</th><td>Sum of SN Digit</td></tr>
+			<tr><th>C</th><td>D Batteries</td><th>L</th><td>3rd SN Character</td><th>U</th><td>Sum of SN Letters (A1Z26)</td></tr>
+			<tr><th>D</th><td>AA Batteries</td><th>M</th><td>4th SN Character (A1Z26)</td><th>V</th><td>Sum of SN Characters (Base 36)</td></tr>
+			<tr><th>E</th><td>Indicators</td><th>N</th><td>5th SN Character (A1Z26)</td><th>W</th><td>Day of the Week* (Sunday is 0)</td></tr>
+			<tr><th>F</th><td>Lit Indicators</td><th>O</th><td>6th SN Character</td><th>X</th><td>Day*</td></tr>
+			<tr><th>G</th><td>Unlit Indicators</td><th>P</th><td>1st SN Letter (A1Z26)</td><th>Y</th><td>Month*</td></tr>
+			<tr><th>H</th><td>Ports</td><th>Q</th><td>2nd SN Letter (A1Z26)</td><th>Z</th><td>Digital Root of (Year* mod 1000)</td></tr>
+			<tr><th>I</th><td>Port Plates</td><th>R</th><td>1st SN Digit</td><th></th><th></th></tr>
+            </table>
+            <p class="page-footer relative-footer">*This is recorded at the time when the bomb has started.</p>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 2</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Ultimate Cipher</span>
+            </div>
+            <div class="page-content">
+			<table>
+            <tr><th>A</th><td>X is even</td></tr>
+			<tr><th>B</th><td>X is odd</td></tr>
+			<tr><th>C</th><td>X is prime</td></tr>
+			<tr><th>D</th><td>X is composite</td></tr>
+			<tr><th>E</th><td>X is part of the Fibonacci Sequence</td></tr>
+			<tr><th>F</th><td>X is NOT part of the Fibonacci Sequence</td></tr>
+			<tr><th>G</th><td>X and Y share the same parity</td></tr>
+			<tr><th>H</th><td>X and Y are opposite parities</td></tr>
+			<tr><th>I</th><td>X and Y are coprime</td></tr>
+			<tr><th>J</th><td>X and Y are NOT coprime</td></tr>
+            </table>
+            <p>The Fibonacci sequence starts with (1, 1) and each number after is determined by the sum of the previous 2 numbers.</p>
+            <p>2 numbers are coprime if the Greatest Common Divider/Denominator between them is 1.</p>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 2</div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
