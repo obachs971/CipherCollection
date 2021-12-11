@@ -17,18 +17,19 @@ public class AffineCipher
 		int a = UnityEngine.Random.Range(0, choices[0].Length);
 		CMTools cm = new CMTools(Bomb);
 		int[] bVal = cm.generateValue();
-		int b = (bVal[1] % 24) + 1;
+		int b = (bVal[1] % 25) + 1;
 		string encrypt = "";
 		string[] invert = cm.generateBoolExp();
-		if(invert[1][0] == 'T')
+		string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
+		if (invert[1][0] == 'T')
 		{
 			foreach (char c in word)
-				encrypt = encrypt + "" + (char)(cm.mod(((c - 65) - b) * choices[1][a], 26) + 65);
+				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) - b) * choices[1][a], 26)];
 		}
 		else
 		{
 			foreach (char c in word)
-				encrypt = encrypt + "" + (char)(cm.mod(((c - 65) * choices[0][a]) + b, 26) + 65);
+				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) * choices[0][a]) + b, 26)];
 		}
 		Debug.LogFormat("{0} [Affine Cipher] A: {1}", log, choices[0][a]);
 		Debug.LogFormat("{0} [Affine Cipher] A Inverted: {1}", log, choices[1][a]);
@@ -43,7 +44,6 @@ public class AffineCipher
 		for (int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		PageInfo[] page = { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) };
-		return page;
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
 	}
 }

@@ -36,10 +36,7 @@ public class VigenereCipher
 		for(int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		PageInfo[] pageInfo = new PageInfo[2];
-		pageInfo[0] = new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) });
-		pageInfo[1] = new PageInfo(screens);
-		return pageInfo;
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
 	}
 	
 }

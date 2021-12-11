@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Affine CM — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .dark table, table {
+            margin: 1em auto;
+            border: none;
+        }
+        .strip-change-one td,
+        .strip-change-one th {
+            padding: .3em .5em .2em;
+        }
+        .tablea {
+            font-size: 20px;
+            width: 100%;
+        }
+        .rotor {
+            font-size: 13px;
+        }
+        .reflector {
+            font-size: 14px;
+        }
+        .alpha {
+            font-size: 13px;
+        }
+        .beta {
+            font-size: 11px;
+        }
+
+        .img-pigpen {
+            width: 50%;
+        }
+        .dark .img-pigpen {
+            filter: invert(86.5%);
+        }
+        a::after {
+            font-size: .7em;
+        }
+        @media print {
+            .img-pigpen {
+                width: 38%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Affine CM</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Cipher Machine.svg" class="diagram">
+                <h2>On the Subject of the Affine CM</h2>
+                <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
+                <p>Turn each letter of the encrypted word into its alphabetic position (A = 1, B = 2...Z = 26). These numbers will be your Cs to decrypt.</p>
+                <p>Take the 2 variables from screen 1. The number on the left is A and the letter on the right is B.</p>
+                <p>Convert the variable B to a Value via the Value Table. Take the resulting value, modulo 25, plus 1. This is your actual B value.</p>
+                <p>If the Boolean Expression on screen A is true, use Equation A. Otherwise, use Equation B.</p>
+                <p>Take each number C through the equation then turn it back to a letter. Note: Because the equation modulos by 26, Z is considered to be both 0 and 26.</p>
+                <h4 style="text-align:center">Equation A</h4>
+                <p style="text-align:center">((C * A) + B) mod 26</p>
+                <h4 style="text-align:center">Equation B</h4>
+                <p style="text-align:center">((C - B) * Ai) mod 26</p>
+	            <p>The instructions to determine Ai are written on the next pages.</p>
+                <h4 style="text-align:center">Example</h4>
+                <p style="text-align:center">Encrypted Word: PUKNE<br>A: 7<br>B: S -> (9 % 25) + 1 = 10<br>Boolean Expression: True</p>
+                <p style="text-align:center">
+                P -> ((16 * 7) + 10) % 26 -> 18 -> R<br>
+                U -> ((21 * 7) + 10) % 26 -> 1 -> A<br>
+                K -> ((11 * 7) + 10) % 26 -> 9 -> I<br>
+                N -> ((14 * 7) + 10) % 26 -> 4 -> D<br>
+                E -> ((5 * 7) + 10) % 26 -> 19 -> S 
+                </p>
+                <p style="text-align:center">Decrypted Word: RAIDS</p>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 3</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Affine CM</span>
+            </div>
+            <div class="page-content">
+                <h3>Determining Ai - Logic Way</h3>
+                <ul>
+                <p>1. Set up 7 variables: M, N, Q, R, T1, T2, T3.</p>
+                <p>2. Set M equal to 26.</p>
+                <p>3. Set N equal to A.</p>
+                <p>4. Q is equal to M / N, rounded down.</p>
+                <p>5. R is equal to M mod N.</p>
+                <p>6. Set T1 equal to 0.</p>
+                <p>7. Set T2 equal to 1.</p>
+                <p>8. T3 is equal to T1 - (T2 * Q).</p>
+                <p>9. Set M equal to N.</p>
+                <p>10. Set N equal to R.</p>
+                <p>11. Q is equal to M / N, rounded down.</p>
+                <p>12. R is equal to M mod N.</p>
+                <p>13. Set T1 equal to T2.</p>
+                <p>14. Set T2 equal to T3.</p>
+                <p>15. T3 is equal to T1 - (T2 * Q).</p>
+                <p>16. Repeat steps 9 - 15 until R is equal to 0, stopping at step 12.</p>
+                <p>17. Your Ai is equal to T2 mod 26.</p>
+                </ul>
+             <h3>Determining Ai - Brute Force Way</h3>
+                <ul>
+                <p>1. Find I in this equation: ((I * 26) + 1) mod A = 0</p>
+                <p>2: Ai is equal to: ((I * 26) + 1) / A</p>
+                <p>A: This can be used as well: (Ai * A) mod 26 = 1</p>
+                </ul>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 3</div>
+        </div>
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Affine CM</span>
+            </div>
+            <div class="page-content">
+            <h3>Determining Ai - Degenerate Way</h3>
+            <p>There's going to be a cheat sheet somewhere down the line. I might as well do it for them:</p>
+            <table>
+            <tr><th>A</th><td>3</td><td>5</td><td>7</td><td>9</td><td>11</td><td>15</td><td>17</td><td>19</td><td>21</td><td>23</td><td>25</td></tr>
+            <tr><th>Ai</th><td>9</td><td>21</td><td>15</td><td>3</td><td>19</td><td>7</td><td>23</td><td>11</td><td>5</td><td>17</td><td>25</td></tr>
+            </table>
+            </div>
+            <div class="page-footer relative-footer">Page 3 of 3</div>
+        </div>
+    </div>
+    
+</body>
+</html>

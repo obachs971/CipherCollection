@@ -28,7 +28,7 @@ public class ConjugatedMatrixBifidCipher
 				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[UnityEngine.Random.Range(0, 24)];
 		}
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] After Replacing Js: {1}", log, word);
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Screen 1: {1}", log, replaceJ);
+		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Screen 3: {1}", log, replaceJ);
 		CMTools cm = new CMTools(Bomb);
 		string[] kws = new string[2];
 		string[] keys = new string[2];
@@ -72,12 +72,12 @@ public class ConjugatedMatrixBifidCipher
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1}", log, String.Join("", pos[1].Select(p => (p + 1).ToString()).ToArray()));
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
-		screens[1] = new ScreenInfo(inverted[0], 25);
-		screens[2] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
-		screens[3] = new ScreenInfo(kwFronts[0][0], 25);
-		screens[4] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
-		screens[5] = new ScreenInfo(kwFronts[1][0], 25);
+		screens[0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
+		screens[1] = new ScreenInfo(kwFronts[0][0], 25);
+		screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
+		screens[3] = new ScreenInfo(kwFronts[1][0], 25);
+		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
+		screens[5] = new ScreenInfo(inverted[0], 25);
 		screens[8] = new ScreenInfo(id, 35);
 		for (int aa = 6; aa < screens.Length - 1; aa++)
 			screens[aa] = new ScreenInfo();

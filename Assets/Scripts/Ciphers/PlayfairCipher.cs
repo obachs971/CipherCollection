@@ -28,15 +28,15 @@ public class PlayfairCipher
 				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[UnityEngine.Random.Range(0, 24)];
 		}
 		Debug.LogFormat("{0} [Playfair Cipher] After Replacing Js: {1}", log, word);
-		Debug.LogFormat("{0} [Playfair Cipher] Screen 1: {1}", log, replaceJ);
+		Debug.LogFormat("{0} [Playfair Cipher] Screen 2: {1}", log, replaceJ);
 		CMTools cm = new CMTools(Bomb);
 		string[] invert = cm.generateBoolExp();
 		string[] keyFront = cm.generateBoolExp();
-		string key = cm.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');
-		Debug.LogFormat("{0} [Playfair Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		string key = cm.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');	
 		Debug.LogFormat("{0} [Playfair Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Playfair Cipher] Keyword Front Rule: {1} -> {2}", log, keyFront[0], keyFront[1]);
 		Debug.LogFormat("{0} [Playfair Cipher] Key: {1}", log, key);
+		Debug.LogFormat("{0} [Playfair Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
 		for (int i = 0; i < word.Length / 2; i++)
 		{
 			int r1 = key.IndexOf(word[i * 2]) / 5;
@@ -54,26 +54,26 @@ public class PlayfairCipher
 			{
 				if (invert[1][0] == 'T')
 				{
-					c1 = cm.mod(c1 + 1, 5);
-					c2 = cm.mod(c2 + 1, 5);
+					c1 = cm.mod(c1 - 1, 5);
+					c2 = cm.mod(c2 - 1, 5);
 				}
 				else
 				{
-					c1 = cm.mod(c1 - 1, 5);
-					c2 = cm.mod(c2 - 1, 5);
+					c1 = cm.mod(c1 + 1, 5);
+					c2 = cm.mod(c2 + 1, 5);
 				}
 			}
 			else if(c1 == c2)
 			{
 				if (invert[1][0] == 'T')
 				{
-					r1 = cm.mod(r1 + 1, 5);
-					r2 = cm.mod(r2 + 1, 5);
+					r1 = cm.mod(r1 - 1, 5);
+					r2 = cm.mod(r2 - 1, 5);
 				}
 				else
 				{
-					r1 = cm.mod(r1 - 1, 5);
-					r2 = cm.mod(r2 - 1, 5);
+					r1 = cm.mod(r1 + 1, 5);
+					r2 = cm.mod(r2 + 1, 5);
 				}
 			}
 			else
@@ -89,14 +89,13 @@ public class PlayfairCipher
 			encrypt = encrypt + "" + word[word.Length - 1];
 		Debug.LogFormat("{0} [Playfair Cipher] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
-		screens[1] = new ScreenInfo(invert[0], 25);
-		screens[2] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[3] = new ScreenInfo(keyFront[0], 25);
+		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
+		screens[1] = new ScreenInfo(keyFront[0], 25);
+		screens[2] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
+		screens[3] = new ScreenInfo(invert[0], 25);
 		screens[8] = new ScreenInfo(id, 35);
 		for (int i = 4; i < 8; i++)
 			screens[i] = new ScreenInfo();
-		PageInfo[] pageInfo = new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) };
-		return pageInfo;
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
 	}
 }

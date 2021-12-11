@@ -28,7 +28,7 @@ public class CollonCipher
 				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[UnityEngine.Random.Range(0, 24)];
 		}
 		Debug.LogFormat("{0} [Collon Cipher] After Replacing Js: {1}", log, word);
-		Debug.LogFormat("{0} [Collon Cipher] Screen 1: {1}", log, replaceJ);
+		Debug.LogFormat("{0} [Collon Cipher] Screen 3: {1}", log, replaceJ);
 		CMTools cm = new CMTools(Bomb);
 		string[] keyFront = cm.generateBoolExp();
 		string key = cm.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');
@@ -45,16 +45,15 @@ public class CollonCipher
 		}
 		Debug.LogFormat("{0} [Collon Cipher] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
-		screens[1] = new ScreenInfo();
+		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
+		screens[1] = new ScreenInfo(keyFront[0], 25);
 		screens[2] = new ScreenInfo(encrypt.Substring(word.Length, word.Length), new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
 		screens[3] = new ScreenInfo();
-		screens[4] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[5] = new ScreenInfo(keyFront[0], 25);
+		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
+		screens[5] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		for (int i = 6; i < 8; i++)
 			screens[i] = new ScreenInfo();
-		PageInfo[] pageInfo = new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt.Substring(0, word.Length), 35) }), new PageInfo(screens) };
-		return pageInfo;
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt.Substring(0, word.Length), 35) }), new PageInfo(screens) });
 	}
 }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Trisquare CM — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .dark table, table {
+            margin: 1em auto;
+            border: none;
+        }
+        .strip-change-one td,
+        .strip-change-one th {
+            padding: .3em .5em .2em;
+        }
+        .tablea {
+            font-size: 20px;
+            width: 100%;
+        }
+        .rotor {
+            font-size: 13px;
+        }
+        .reflector {
+            font-size: 14px;
+        }
+        .alpha {
+            font-size: 13px;
+        }
+        .beta {
+            font-size: 11px;
+        }
+
+        .img-pigpen {
+            width: 50%;
+        }
+        .dark .img-pigpen {
+            filter: invert(86.5%);
+        }
+        a::after {
+            font-size: .7em;
+        }
+        @media print {
+            .img-pigpen {
+                width: 38%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Trisquare CM</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Cipher Machine.svg" class="diagram">
+                <h2>On the Subject of the Trisquare CM</h2>
+                <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>                
+                <p>Create a key using the keyword on screen 1 and the Boolean Expression on screen A. Make sure to replace any Js with Is. Rearrange the key into a 5x5 matrix. This will be called Matrix A.</p>
+                <p>Create a 2nd and 3rd matrix by doing the same steps to create Matrix A but with the keyword on screen 2 and the Boolean Expression on screen B to create Matrix B and the keyword on screen 3 and the Boolean Expression on screen C to create Matrix C.</p>
+                <p>Form an L shape pattern with Matrix C being in the corner of the L, Matrix A at the top point, and Matrix B at the right point.</p>
+                <p>Split the encrypted word into pairs of letters. If there is an odd amount of letters, leave the last letter as the odd letter.</p> 
+				<p>For each letter pair of the encrypted word and the letters on screen D, do the following:</p>
+                <ul>
+                <li>Find the 1st letter of the Nth letter pair in Matrix A.</li>
+                <li>Find the 2nd letter of the Nth letter pair in Matrix B.</li>
+                <li>Find the Nth letter of screen D in Matrix C.</li>
+                <li>Use the intersection of Matrix A and Matrix C to get the 1st letter of the Nth decrypted pair.</li>
+                <li>Use the intersection of Matrix B and Matrix C to get the 2nd letter of the Nth decrypted pair.</li>
+                </ul>
+                <p>Finally, if any of the letters on screen 4 match at the same position as any of the letters of your encrypted word, replace that letter with a J. You should now have an decrypted word.</p>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 2</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Trisquare CM</span>
+            </div>
+            <div class="page-content">
+            <h4 style="text-align:center">Example</h4>
+            <p style="text-align:center">Encrypted Word: TMSXODY<br>Screen 4: KLXTPHW<br>Matrix A: ABDFGHIKMNOPQRTUVWXYZCELS<br>Matrix B: ABCDGHIKMNPQTVWXZYOURSELF<br>Matrix C: HEAVBCDFGIKLMNOPQRSTUWXYZ<br>Screen D: KXQ</p>
+            <table>
+            <tr><td>A</td><td>B</td><td>D</td><td>F</td><td>G</td></tr>
+            <tr><td>H</td><td>I</td><td>K</td><td>M</td><td>N</td></tr>
+            <tr><td>O</td><td>P</td><td>Q</td><td>R</td><td>T</td></tr>
+            <tr><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td></tr>
+            <tr><td>Z</td><td>C</td><td>E</td><td>L</td><td>S</td></tr>
+            <tr><td>H</td><td>E</td><td>A</td><td>V</td><td>B</td><td>A</td><td>B</td><td>C</td><td>D</td><td>G</td></tr>
+            <tr><td>C</td><td>D</td><td>F</td><td>G</td><td>I</td><td>H</td><td>I</td><td>K</td><td>M</td><td>N</td></tr>
+            <tr><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>T</td><td>V</td><td>W</td></tr>
+            <tr><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>X</td><td>Z</td><td>Y</td><td>O</td><td>U</td></tr>
+            <tr><td>U</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>R</td><td>S</td><td>E</td><td>L</td><td>F</td></tr>
+            </table>
+            <p style="text-align:center">
+            TM + K -> OV<br>
+            SX + X -> ER<br>
+            OD + Q -> PO<br>
+            OVERPOY + KLXTPHW -> OVERJOY<br>
+            Decrypted Word: OVERJOY
+            </p>
+            
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 2</div>
+        </div>
+    </div>
+</body>
+</html>

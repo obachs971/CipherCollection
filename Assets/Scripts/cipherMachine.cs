@@ -53,32 +53,14 @@ public class cipherMachine : MonoBehaviour
         //Generating random word
         int ansLength = UnityEngine.Random.Range(0, 5);
         answer = wordList[ansLength][UnityEngine.Random.Range(0, wordList[ansLength].Count)].ToUpper();
-        //answer = "ADJUST";
+        //answer = "SUBJECT";
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
         string encrypt = answer + "";
        
-        PageInfo[] temp = new VigenereCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb);
+        PageInfo[] temp = new BazeriesCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb);
         encrypt = temp[0].Screens[0].ToString();
         pages.Insert(0, temp[1]);
-        temp = new AtbashCipher().encrypt(encrypt, "AB", "[Cipher Machine #" + moduleId + "]");
-        encrypt = temp[0].Screens[0].ToString();
-        pages.Insert(0, temp[1]);
-        temp = new AffineCipher().encrypt(encrypt, "AC", "[Cipher Machine #" + moduleId + "]", Bomb);
-        encrypt = temp[0].Screens[0].ToString();
-        pages.Insert(0, temp[1]);
-        temp = new PlayfairCipher().encrypt(encrypt, "AD", "[Cipher Machine #" + moduleId + "]", Bomb);
-        encrypt = temp[0].Screens[0].ToString();
-        pages.Insert(0, temp[1]);
-        temp = new ConjugatedMatrixBifidCipher().encrypt(encrypt, "AE", "[Cipher Machine #" + moduleId + "]", Bomb);
-        encrypt = temp[0].Screens[0].ToString();
-        pages.Insert(0, temp[1]);
-        temp = new TrisquareCipher().encrypt(encrypt, "AF", "[Cipher Machine #" + moduleId + "]", Bomb);
-        encrypt = temp[0].Screens[0].ToString();
-        pages.Insert(0, temp[1]);
-        temp = new CollonCipher().encrypt(encrypt, "AG", "[Cipher Machine #" + moduleId + "]", Bomb);
-        encrypt = temp[0].Screens[0].ToString();
-        pages.Insert(0, temp[1]);
-
+        
 
         ScreenInfo[] firstScreen = new ScreenInfo[9];
         firstScreen[0] = new ScreenInfo(encrypt, new int[] { 35, 35, 35, 32, 28 }[answer.Length - 4]);
