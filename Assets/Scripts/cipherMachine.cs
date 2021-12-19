@@ -53,13 +53,15 @@ public class cipherMachine : MonoBehaviour
         //Generating random word
         int ansLength = UnityEngine.Random.Range(0, 5);
         answer = wordList[ansLength][UnityEngine.Random.Range(0, wordList[ansLength].Count)].ToUpper();
-        //answer = "SUBJECT";
+        //answer = "TEEAAEET";
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
         string encrypt = answer + "";
        
-        PageInfo[] temp = new BazeriesCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb);
+        PageInfo[] temp = new FractionatedMorseCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb); //Test your cipher right here
         encrypt = temp[0].Screens[0].ToString();
-        pages.Insert(0, temp[1]);
+        for(int i = temp.Length - 1; i >= 1; i--)
+            pages.Insert(0, temp[i]);
+
         
 
         ScreenInfo[] firstScreen = new ScreenInfo[9];

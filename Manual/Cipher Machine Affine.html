@@ -70,7 +70,7 @@
                 <p style="text-align:center">((C * A) + B) mod 26</p>
                 <h4 style="text-align:center">Equation B</h4>
                 <p style="text-align:center">((C - B) * Ai) mod 26</p>
-	            <p>The instructions to determine Ai are written on the next pages.</p>
+                <p>The instructions to determine Ai are written on the next pages.</p>
                 <h4 style="text-align:center">Example</h4>
                 <p style="text-align:center">Encrypted Word: PUKNE<br>A: 7<br>B: S -> (9 % 25) + 1 = 10<br>Boolean Expression: True</p>
                 <p style="text-align:center">
@@ -82,7 +82,7 @@
                 </p>
                 <p style="text-align:center">Decrypted Word: RAIDS</p>
             </div>
-            <div class="page-footer relative-footer">Page 1 of 3</div>
+            <div class="page-footer relative-footer">Page 1 of 2</div>
         </div>
         <div class="page page-bg-02">
             <div class="page-header">
@@ -92,39 +92,30 @@
             <div class="page-content">
                 <h3>Determining Ai - Logic Way</h3>
                 <ul>
-                <p>1. Set up 7 variables: M, N, Q, R, T1, T2, T3.</p>
-                <p>2. Set M equal to 26.</p>
-                <p>3. Set N equal to A.</p>
-                <p>4. Q is equal to M / N, rounded down.</p>
-                <p>5. R is equal to M mod N.</p>
-                <p>6. Set T1 equal to 0.</p>
-                <p>7. Set T2 equal to 1.</p>
-                <p>8. T3 is equal to T1 - (T2 * Q).</p>
-                <p>9. Set M equal to N.</p>
-                <p>10. Set N equal to R.</p>
-                <p>11. Q is equal to M / N, rounded down.</p>
-                <p>12. R is equal to M mod N.</p>
-                <p>13. Set T1 equal to T2.</p>
-                <p>14. Set T2 equal to T3.</p>
-                <p>15. T3 is equal to T1 - (T2 * Q).</p>
-                <p>16. Repeat steps 9 - 15 until R is equal to 0, stopping at step 12.</p>
-                <p>17. Your Ai is equal to T2 mod 26.</p>
+                <li>1. Set up 7 variables: M, N, Q, R, T1, T2, T3.</li>
+                <li>2. Set M equal to 26.</li>
+                <li>3. Set N equal to A.</li>
+                <li>4. Q is equal to M / N, rounded down.</li>
+                <li>5. R is equal to M mod N.</li>
+                <li>6. Set T1 equal to 0.</li>
+                <li>7. Set T2 equal to 1.</li>
+                <li>8. T3 is equal to T1 - (T2 * Q).</li>
+                <li>9. Set M equal to N.</li>
+                <li>10. Set N equal to R.</li>
+                <li>11. Q is equal to M / N, rounded down.</li>
+                <li>12. R is equal to M mod N.</li>
+                <li>13. Set T1 equal to T2.</li>
+                <li>14. Set T2 equal to T3.</li>
+                <li>15. T3 is equal to T1 - (T2 * Q).</li>
+                <li>16. Repeat steps 9 - 15 until R is equal to 0, stopping at step 12.</li>
+                <li>17. Your Ai is equal to T2 mod 26.</li>
                 </ul>
              <h3>Determining Ai - Brute Force Way</h3>
                 <ul>
-                <p>1. Find I in this equation: ((I * 26) + 1) mod A = 0</p>
-                <p>2: Ai is equal to: ((I * 26) + 1) / A</p>
-                <p>A: This can be used as well: (Ai * A) mod 26 = 1</p>
+                <li>1. Find I in this equation: ((I * 26) + 1) mod A = 0</li>
+                <li>2: Ai is equal to: ((I * 26) + 1) / A</li>
+                <li>A: This can be used as well: (Ai * A) mod 26 = 1</li>
                 </ul>
-            </div>
-            <div class="page-footer relative-footer">Page 2 of 3</div>
-        </div>
-        <div class="page page-bg-03">
-            <div class="page-header">
-                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                <span class="page-header-section-title">Affine CM</span>
-            </div>
-            <div class="page-content">
             <h3>Determining Ai - Degenerate Way</h3>
             <p>There's going to be a cheat sheet somewhere down the line. I might as well do it for them:</p>
             <table>
@@ -132,9 +123,8 @@
             <tr><th>Ai</th><td>9</td><td>21</td><td>15</td><td>3</td><td>19</td><td>7</td><td>23</td><td>11</td><td>5</td><td>17</td><td>25</td></tr>
             </table>
             </div>
-            <div class="page-footer relative-footer">Page 3 of 3</div>
+            <div class="page-footer relative-footer">Page 2 of 2</div>
         </div>
     </div>
-    
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
-    <title>Collon CM — Keep Talking and Nobody Explodes Module</title>
+    <title>Tridigital CM — Keep Talking and Nobody Explodes Module</title>
     <link rel="stylesheet" type="text/css" href="css/font.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -55,34 +55,30 @@
         <div class="page page-bg-01">
             <div class="page-header">
                 <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                <span class="page-header-section-title">Collon CM</span>
+                <span class="page-header-section-title">Tridigital CM</span>
             </div>
             <div class="page-content">
                 <img src="img/Component/Cipher Machine.svg" class="diagram">
-                <h2>On the Subject of the Collon CM</h2>
-                <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>                
-                <p>Create a key using the keyword on screen 1 and the Boolean Expression on screen A. Make sure to replace any Js with Is. Rearrange the key into a 5x5 matrix.</p>
-                <p>Concatenate the encrypted word and screen 2 in that order. Split the newly created string into letter pairs.</p> 
-                <p>Do the following for each letter pair:</p>
-                <ul>
-                <li>Find the 1st letter in the pair in the matrix and use that as the row.</li>
-                <li>Find the 2nd letter in the pair in the matrix and use that as the column.</li>                
-                <li>The intersection of the 2 letters will give you a decrypted letter.</li>
-                </ul>
-                <p>Finally, if any of the letters on screen 3 match at the same position as any of the letters of your encrypted word, replace that letter with a J. You should now have an decrypted word.</p>
+                <h2>On the Subject of the Tridigital CM</h2>
+                <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
+                <p>Create a key using the keyword on screen 1 and the Boolean Expression on screen A. Then split the key into 3 rows of 9 letters with the last row only being 8 letters. This will be refered to as the Tridigital Key.</p>
+                <p>Turn each letter of the encrypted word into its alphabetic position (A = 1, B = 2...Z = 26). Subtract 9 from each number until it is within the range of 1-9.</p>
+                <p>Take the digit string from screen 2 and place it above the digit string you created with the encrypted word.</p>
+                <p>Read each number pair, top to bottom, left to right. These will be your row/col pairs.</p>
+                <p>For each row/col pair, use the intersection in the Tridigital Key to get a decrypted letter. Do this for all row/col pairs to get a decrypted word.</p>
                 <h4 style="text-align:center">Example</h4>
-                <p style="text-align:center">Encrypted Word: YGQZRGS<br>Screen 2: AOBDTZN<br>Key: ABCFKMNOPQRSUVWXYZDELIGHT<br>Screen 3: ZPLEEAE</p>
+                <p style="text-align:center">Encrypted Word: DXSKMTTK<br>Key: DEFCTABGHIJKLMNOPQRSUVWXYZ<br>Digit String: 11312133</p>
                 <p style="text-align:center">
-                YG -> Z<br>
-                QZ -> O<br>
-                RG -> U<br>
-                SA -> R<br>
-                OB -> N<br>
-                DT -> E<br>
-                ZN -> Y<br>
-                ZOURNEY + ZPLEEAE -> JOURNEY<br>
-                Decrypted Word: JOURNEY
+                1 + D -> 14 -> C<br>
+                1 + X -> 16 -> A<br>
+                3 + S -> 31 -> R<br>
+                1 + K -> 12 -> E<br>
+                2 + M -> 24 -> L<br>
+                1 + T -> 12 -> E<br>
+                3 + T -> 32 -> S<br>  
+                3 + K -> 32 -> S  
                 </p>
+                <p style="text-align:center">Decrypted Word: CARELESS</p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 1</div>
         </div>

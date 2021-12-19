@@ -69,14 +69,14 @@
                 
                 <p>The text on the 1st screen on page 1 is the encrypted word. This word can be 4 - 8 letters long. Each page after the first displays the cipher that the module used as well as some information that the cipher used.</p>
                 <p>Each cipher has at least 1 page to display what cipher it uses on the page number/submit button screen. Use the 2 letter key after the page number to determine which cipher it used. Then, follow the steps to decrypt the encrypted word.</p> 
-				<p>By default, there is a total of 3 ciphers that the word was encrypted by. Follow the instruction for each cipher in page number order to decrypt your encrypted word.</p>
+                <p>By default, there is a total of 3 ciphers that the word was encrypted by. Follow the instruction for each cipher in page number order to decrypt your encrypted word.</p>
                 <p>Sometimes a cipher might say "Convert the letter on screen N to a Value via the Value Table". Use the letter on the Value Table to get a value from it.</p>
-	            <p>More often, a cipher might say "If the Boolean Expression on sceen N is true...". The first letter determines the Boolean Expression it uses. Convert the letter(s) after that via the Value Table to represent X and/or Y.</p>
+                <p>More often, a cipher might say "If the Boolean Expression on sceen N is true...". The first letter determines the Boolean Expression it uses. Convert the letter(s) after that via the Value Table to represent X and/or Y.</p>
                 <p>If a cipher says to "Create a key using the keyword and the Boolean Expression", do the following instructions:</p>
                 <ul>
-                <p>1. Remove any duplicate letters from the keyword, keeping each letter's first occurrence.</p>
-                <p>2. Then take the alphabet and remove any occurences of all the letters in your current key.</p>
-                <p>3. If the Boolean expression is true, place the alphabet at the end of your key. Otherwise place the alphabet at the beginning of your key.</p>
+                <li>1. Remove any duplicate letters from the keyword, keeping each letter's first occurrence.</li>
+                <li>2. Then take the alphabet and remove any occurences of all the letters in your current key.</li>
+                <li>3. If the Boolean expression is true, place the alphabet at the end of your key. Otherwise place the alphabet at the beginning of your key.</li>
                 </ul>
             </div>
             <div class="page-footer relative-footer">Page 1 of 3</div>
@@ -88,16 +88,16 @@
             </div>
             <div class="page-content">
             <h4 style="text-align:center">Value Table</h4>
-			<table>
+            <table>
             <tr><th>A</th><td>Batteries</td><th>J</th><td>1st SN Character (Base 36)</td><th>S</th><td>2nd SN Digit</td></tr>
-			<tr><th>B</th><td>Battery Holders</td><th>K</th><td>2nd SN Character (Base 36)</td><th>T</th><td>Sum of SN Digit</td></tr>
-			<tr><th>C</th><td>D Batteries</td><th>L</th><td>3rd SN Character</td><th>U</th><td>Sum of SN Letters (A1Z26)</td></tr>
-			<tr><th>D</th><td>AA Batteries</td><th>M</th><td>4th SN Character (A1Z26)</td><th>V</th><td>Sum of SN Characters (Base 36)</td></tr>
-			<tr><th>E</th><td>Indicators</td><th>N</th><td>5th SN Character (A1Z26)</td><th>W</th><td>Day of the Week* (Sunday is 0)</td></tr>
-			<tr><th>F</th><td>Lit Indicators</td><th>O</th><td>6th SN Character</td><th>X</th><td>Day*</td></tr>
-			<tr><th>G</th><td>Unlit Indicators</td><th>P</th><td>1st SN Letter (A1Z26)</td><th>Y</th><td>Month*</td></tr>
-			<tr><th>H</th><td>Ports</td><th>Q</th><td>2nd SN Letter (A1Z26)</td><th>Z</th><td>Digital Root of (Year* mod 1000)</td></tr>
-			<tr><th>I</th><td>Port Plates</td><th>R</th><td>1st SN Digit</td><th></th><th></th></tr>
+            <tr><th>B</th><td>Battery Holders</td><th>K</th><td>2nd SN Character (Base 36)</td><th>T</th><td>Sum of SN Digit</td></tr>
+            <tr><th>C</th><td>D Batteries</td><th>L</th><td>3rd SN Character</td><th>U</th><td>Sum of SN Letters (A1Z26)</td></tr>
+            <tr><th>D</th><td>AA Batteries</td><th>M</th><td>4th SN Character (A1Z26)</td><th>V</th><td>Sum of SN Characters (Base 36)</td></tr>
+            <tr><th>E</th><td>Indicators</td><th>N</th><td>5th SN Character (A1Z26)</td><th>W</th><td>Day of the Week* (Sunday is 0)</td></tr>
+            <tr><th>F</th><td>Lit Indicators</td><th>O</th><td>6th SN Character</td><th>X</th><td>Day*</td></tr>
+            <tr><th>G</th><td>Unlit Indicators</td><th>P</th><td>1st SN Letter (A1Z26)</td><th>Y</th><td>Month*</td></tr>
+            <tr><th>H</th><td>Ports</td><th>Q</th><td>2nd SN Letter (A1Z26)</td><th>Z</th><td>Digital Root of (Year* mod 1000)</td></tr>
+            <tr><th>I</th><td>Port Plates</td><th>R</th><td>1st SN Digit</td><th></th><th></th></tr>
             </table>
             <p class="page-footer relative-footer">*This is recorded at the time when the bomb has started.</p>
             </div>
@@ -109,23 +109,22 @@
                 <span class="page-header-section-title">Cipher Machine</span>
             </div>
             <div class="page-content">
-			<table>
+            <table>
             <tr><th>A</th><td>X is even</td></tr>
-			<tr><th>B</th><td>X is odd</td></tr>
-			<tr><th>C</th><td>X is prime</td></tr>
-			<tr><th>D</th><td>X is composite</td></tr>
-			<tr><th>E</th><td>X is part of the Fibonacci Sequence</td></tr>
-			<tr><th>F</th><td>X is NOT part of the Fibonacci Sequence</td></tr>
-			<tr><th>G</th><td>X and Y share the same parity</td></tr>
-			<tr><th>H</th><td>X and Y are opposite parities</td></tr>
-			<tr><th>I</th><td>X and Y are coprime</td></tr>
-			<tr><th>J</th><td>X and Y are NOT coprime</td></tr>
+            <tr><th>B</th><td>X is odd</td></tr>
+            <tr><th>C</th><td>X is prime</td></tr>
+            <tr><th>D</th><td>X is composite</td></tr>
+            <tr><th>E</th><td>X is part of the Fibonacci Sequence</td></tr>
+            <tr><th>F</th><td>X is NOT part of the Fibonacci Sequence</td></tr>
+            <tr><th>G</th><td>X and Y share the same parity</td></tr>
+            <tr><th>H</th><td>X and Y are opposite parities</td></tr>
+            <tr><th>I</th><td>X and Y are coprime</td></tr>
+            <tr><th>J</th><td>X and Y are NOT coprime</td></tr>
             </table>
             <p>The Fibonacci sequence starts with (1, 1) and each number after is determined by the sum of the previous 2 numbers.</p>
             <p>2 numbers are coprime if the Greatest Common Divider/Denominator between them is 1.</p>
             </div>
             <div class="page-footer relative-footer">Page 3 of 3</div>
-        </div>
         </div>
     </div>
 </body>
