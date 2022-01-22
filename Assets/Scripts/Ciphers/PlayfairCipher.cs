@@ -29,9 +29,9 @@ public class PlayfairCipher
 		}
 		Debug.LogFormat("{0} [Playfair Cipher] After Replacing Js: {1}", log, word);
 		Debug.LogFormat("{0} [Playfair Cipher] Screen 2: {1}", log, replaceJ);
-		CMTools cm = new CMTools(Bomb);
-		string[] invert = cm.generateBoolExp();
-		string[] keyFront = cm.generateBoolExp();
+		CMTools cm = new CMTools();
+		string[] invert = cm.generateBoolExp(Bomb);
+		string[] keyFront = cm.generateBoolExp(Bomb);
 		string key = cm.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');	
 		Debug.LogFormat("{0} [Playfair Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Playfair Cipher] Keyword Front Rule: {1} -> {2}", log, keyFront[0], keyFront[1]);

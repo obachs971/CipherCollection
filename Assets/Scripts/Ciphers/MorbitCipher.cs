@@ -29,9 +29,7 @@ public class MorbitCipher
 		temp = "";
 		foreach (char c in word)
 			temp = temp + letterToMorse(c) + "x";
-		if (temp.Length % 2 == 1)
-			temp = temp.Substring(0, temp.Length - 1);
-
+		temp = temp.Substring(0, temp.Length - (temp.Length % 2));
 
 		string nums = "";
 		for(int i = 0; i < temp.Length / 2; i++)

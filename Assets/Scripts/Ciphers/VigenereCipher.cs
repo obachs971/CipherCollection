@@ -15,8 +15,8 @@ public class VigenereCipher
 		string keyword = data.allWords[kwLength][UnityEngine.Random.Range(0, data.allWords[kwLength].Count())];
 		string encrypt = "";
 		string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
-		CMTools cm = new CMTools(Bomb);
-		string[] invert = cm.generateBoolExp();
+		CMTools cm = new CMTools();
+		string[] invert = cm.generateBoolExp(Bomb);
 		Debug.LogFormat("{0} [Vigenere Cipher] Keyword: {1}", log, keyword);
 		Debug.LogFormat("{0} [Vigenere Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
 		if (invert[1][0] == 'T')

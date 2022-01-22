@@ -11,9 +11,9 @@ public class RagbabyCipher
 	{
 		Debug.LogFormat("{0} Begin Ragbaby Cipher", log);
 		Data data = new Data();
-		CMTools cm = new CMTools(Bomb);
-		string[] keyFront = cm.generateBoolExp();
-		string[] invert = cm.generateBoolExp();
+		CMTools cm = new CMTools();
+		string[] keyFront = cm.generateBoolExp(Bomb);
+		string[] invert = cm.generateBoolExp(Bomb);
 		int length = UnityEngine.Random.Range(0, 5);
 		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
 		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');

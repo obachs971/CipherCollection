@@ -28,7 +28,7 @@ public class FoursquareCipher {
 		}
 		Debug.LogFormat("{0} [Foursquare Cipher] After Replacing Js: {1}", log, word);
 		Debug.LogFormat("{0} [Foursquare Cipher] Screen 1 Page 2: {1}", log, replaceJ);
-		CMTools cm = new CMTools(Bomb);
+		CMTools cm = new CMTools();
 		string[] kws = new string[4];
 		string[] keys = new string[4];
 		string[][] kwFronts = new string[4][];
@@ -37,13 +37,13 @@ public class FoursquareCipher {
 			int length = UnityEngine.Random.Range(0, 5);
 			kws[i] = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
 			data.allWords[length].Remove(kws[i]);
-			kwFronts[i] = cm.generateBoolExp();
+			kwFronts[i] = cm.generateBoolExp(Bomb);
 			keys[i] = cm.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
 			Debug.LogFormat("{0} [Foursquare Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
 			Debug.LogFormat("{0} [Foursquare Cipher] Keyword Front Rule #{1}: {2} -> {3}", log, (i + 1), kwFronts[i][0], kwFronts[i][1]);
 			Debug.LogFormat("{0} [Foursquare Cipher] Key #{1}: {2}", log, (i + 1), keys[i]);
 		}
-		string[] invert = cm.generateBoolExp();
+		string[] invert = cm.generateBoolExp(Bomb);
 		Debug.LogFormat("{0} [Foursquare Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
 		if(invert[1][0] == 'T')
 		{

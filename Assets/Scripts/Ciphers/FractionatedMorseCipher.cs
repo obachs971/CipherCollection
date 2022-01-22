@@ -12,11 +12,11 @@ public class FractionatedMorseCipher
 	{
 		Debug.LogFormat("{0} Begin Fractionated Morse Cipher", log);
 		Data data = new Data();
-		CMTools cm = new CMTools(Bomb);
+		CMTools cm = new CMTools();
 		int length = UnityEngine.Random.Range(0, 5);
 		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
 		string encrypt = "", morse = "", extra;
-		string[] keyFront = cm.generateBoolExp();
+		string[] keyFront = cm.generateBoolExp(Bomb);
 		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
 
 		//Convert the letters of the word into morse

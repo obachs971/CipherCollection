@@ -11,12 +11,12 @@ public class TridigitalCipher
 	{
 		Debug.LogFormat("{0} Begin Tridigital Cipher", log);
 		Data data = new Data();
-		CMTools cm = new CMTools(Bomb);
+		CMTools cm = new CMTools();
 		int length = UnityEngine.Random.Range(0, 5);
 		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
 		string encrypt = "";
 		string nums = "";
-		string[] keyFront = cm.generateBoolExp();
+		string[] keyFront = cm.generateBoolExp(Bomb);
 		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
         Debug.LogFormat("{0} [Tridigital Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Tridigital Cipher] Key Front Rule: {1} -> {2}", log, keyFront[0], keyFront[1]);

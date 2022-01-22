@@ -10,7 +10,7 @@ public class HillCipher {
 	{
 		Debug.LogFormat("{0} Begin Hill Cipher", log);
         string encrypt = "";
-        CMTools cm = new CMTools(Bomb);
+        CMTools cm = new CMTools();
         //Generate Initial Matrix
         int[] matrix = new int[4];
         matrix[1] = UnityEngine.Random.Range(0, 26);
@@ -57,7 +57,7 @@ public class HillCipher {
         Debug.LogFormat("{0} [Hill Cipher] Bi: {1}", log, matrixI[1]);
         Debug.LogFormat("{0} [Hill Cipher] Ci: {1}", log, matrixI[2]);
         Debug.LogFormat("{0} [Hill Cipher] Di: {1}", log, matrixI[3]);
-        string[] invert = cm.generateBoolExp();
+        string[] invert = cm.generateBoolExp(Bomb);
         string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
         Debug.LogFormat("{0} [Hill Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
         if(invert[1][0] == 'T')

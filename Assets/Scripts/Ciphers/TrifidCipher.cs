@@ -12,9 +12,9 @@ public class TrifidCipher
 	{
 		Debug.LogFormat("{0} Begin Trifid Cipher", log);
 		List < List<string> > words = new Data().allWords;
-		CMTools cm = new CMTools(Bomb);
-		string[] invert = cm.generateBoolExp();
-		string[] keyFront = cm.generateBoolExp();
+		CMTools cm = new CMTools();
+		string[] invert = cm.generateBoolExp(Bomb);
+		string[] keyFront = cm.generateBoolExp(Bomb);
 		int[][] numbers = new int[3][] { new int[word.Length], new int[word.Length], new int[word.Length] };
 		string key;
 		string encrypt;

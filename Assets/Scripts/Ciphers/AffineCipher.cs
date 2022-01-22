@@ -15,11 +15,11 @@ public class AffineCipher
 			new int[]{ 9, 21, 15, 3, 19, 7, 23, 11, 5, 17, 25 },
 		};
 		int a = UnityEngine.Random.Range(0, choices[0].Length);
-		CMTools cm = new CMTools(Bomb);
-		int[] bVal = cm.generateValue();
+		CMTools cm = new CMTools();
+		int[] bVal = cm.generateValue(Bomb);
 		int b = (bVal[1] % 25) + 1;
 		string encrypt = "";
-		string[] invert = cm.generateBoolExp();
+		string[] invert = cm.generateBoolExp(Bomb);
 		string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
 		if (invert[1][0] == 'T')
 		{

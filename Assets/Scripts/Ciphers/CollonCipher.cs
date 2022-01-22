@@ -29,8 +29,8 @@ public class CollonCipher
 		}
 		Debug.LogFormat("{0} [Collon Cipher] After Replacing Js: {1}", log, word);
 		Debug.LogFormat("{0} [Collon Cipher] Screen 3: {1}", log, replaceJ);
-		CMTools cm = new CMTools(Bomb);
-		string[] keyFront = cm.generateBoolExp();
+		CMTools cm = new CMTools();
+		string[] keyFront = cm.generateBoolExp(Bomb);
 		string key = cm.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');
 		Debug.LogFormat("{0} [Collon Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Collon Cipher] Keyword Front Rule: {1} -> {2}", log, keyFront[0], keyFront[1]);

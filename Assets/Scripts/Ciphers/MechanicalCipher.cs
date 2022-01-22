@@ -40,8 +40,8 @@ public class MechanicalCipher
 	{
 		Debug.LogFormat("{0} Begin Mechanical Cipher", log);
 		Data data = new Data();
-		CMTools cm = new CMTools(Bomb);
-		string[] invert = cm.generateBoolExp();
+		CMTools cm = new CMTools();
+		string[] invert = cm.generateBoolExp(Bomb);
 		int length = UnityEngine.Random.Range(0, word.Length - 3);
 		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
 		string encrypt = "";

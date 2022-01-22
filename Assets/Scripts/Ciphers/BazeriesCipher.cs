@@ -48,11 +48,11 @@ public class BazeriesCipher {
 			Array.Reverse(c);
 			temp = temp + "" + new string(c);
 		}
-		CMTools cm = new CMTools(Bomb);
-		string[] keyFront = cm.generateBoolExp();
+		CMTools cm = new CMTools();
+		string[] keyFront = cm.generateBoolExp(Bomb);
 		string key = cm.getKey(kw, alpha, keyFront[1][0] == 'T');
 		alpha = "AFLQVBGMRWCHNSXDIOTYEKPUZ";
-		string[] invert = cm.generateBoolExp();
+		string[] invert = cm.generateBoolExp(Bomb);
 		if(invert[1][0] == 'T')
 		{
 			foreach (char c in temp)

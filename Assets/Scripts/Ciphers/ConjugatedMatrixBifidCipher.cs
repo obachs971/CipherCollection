@@ -29,7 +29,7 @@ public class ConjugatedMatrixBifidCipher
 		}
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] After Replacing Js: {1}", log, word);
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Screen 3: {1}", log, replaceJ);
-		CMTools cm = new CMTools(Bomb);
+		CMTools cm = new CMTools();
 		string[] kws = new string[2];
 		string[] keys = new string[2];
 		string[][] kwFronts = new string[2][];
@@ -38,14 +38,14 @@ public class ConjugatedMatrixBifidCipher
 			int length = UnityEngine.Random.Range(0, 5);
 			kws[i] = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
 			data.allWords[length].Remove(kws[i]);
-			kwFronts[i] = cm.generateBoolExp();
+			kwFronts[i] = cm.generateBoolExp(Bomb);
 			keys[i] = cm.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
 			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
 			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Keyword Front Rule #{1}: {2} -> {3}", log, (i + 1), kwFronts[i][0], kwFronts[i][1]);
 			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Key #{1}: {2}", log, (i + 1), keys[i]);
 		}
 		int[][] pos = new int[2][] { new int[word.Length], new int[word.Length] };
-		string[] inverted = cm.generateBoolExp();
+		string[] inverted = cm.generateBoolExp(Bomb);
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Invert Rule: {1} -> {2}", log, inverted[0], inverted[1]);
 		if (inverted[1][0] == 'T')
 		{

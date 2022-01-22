@@ -28,7 +28,7 @@ public class TrisquareCipher
 		}
 		Debug.LogFormat("{0} [Trisquare Cipher] After Replacing Js: {1}", log, word);
 		Debug.LogFormat("{0} [Trisquare Cipher] Screen 4: {1}", log, replaceJ);
-		CMTools cm = new CMTools(Bomb);
+		CMTools cm = new CMTools();
 		string[] kws = new string[3];
 		string[] keys = new string[3];
 		string[][] kwFronts = new string[3][];
@@ -37,7 +37,7 @@ public class TrisquareCipher
 			int length = UnityEngine.Random.Range(0, 5);
 			kws[i] = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
 			data.allWords[length].Remove(kws[i]);
-			kwFronts[i] = cm.generateBoolExp();
+			kwFronts[i] = cm.generateBoolExp(Bomb);
 			keys[i] = cm.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
 			Debug.LogFormat("{0} [Trisquare Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
 			Debug.LogFormat("{0} [Trisquare Cipher] Keyword Front Rule #{1}: {2} -> {3}", log, (i + 1), kwFronts[i][0], kwFronts[i][1]);
