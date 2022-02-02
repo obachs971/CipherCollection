@@ -16,30 +16,30 @@ public class AffineCipher
 		};
 		int a = UnityEngine.Random.Range(0, choices[0].Length);
 		CMTools cm = new CMTools();
-		int[] bVal = cm.generateValue(Bomb);
-		int b = (bVal[1] % 25) + 1;
+		int[] xVal = cm.generateValue(Bomb);
+		int x = (xVal[1] % 25) + 1;
 		string encrypt = "";
 		string[] invert = cm.generateBoolExp(Bomb);
 		string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
 		if (invert[1][0] == 'T')
 		{
 			foreach (char c in word)
-				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) - b) * choices[1][a], 26)];
+				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) - x) * choices[1][a], 26)];
 		}
 		else
 		{
 			foreach (char c in word)
-				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) * choices[0][a]) + b, 26)];
+				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) * choices[0][a]) + x, 26)];
 		}
-		Debug.LogFormat("{0} [Affine Cipher] A: {1}", log, choices[0][a]);
-		Debug.LogFormat("{0} [Affine Cipher] A Inverted: {1}", log, choices[1][a]);
-		Debug.LogFormat("{0} [Affine Cipher] Value Generated: {1} -> {2}", log, (char)bVal[0], bVal[1]);
-		Debug.LogFormat("{0} [Affine Cipher] B: {1}", log, b);
+		Debug.LogFormat("{0} [Affine Cipher] E: {1}", log, choices[0][a]);
+		Debug.LogFormat("{0} [Affine Cipher] D: {1}", log, choices[1][a]);
+		Debug.LogFormat("{0} [Affine Cipher] Value Generated: {1} -> {2}", log, (char)xVal[0], xVal[1]);
+		Debug.LogFormat("{0} [Affine Cipher] X: {1}", log, x);
 		Debug.LogFormat("{0} [Affine Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
 		Debug.LogFormat("{0} [Affine Cipher] {1} -> {2}", log, word, encrypt);
 		
 		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(choices[0][a] + "," + ((char)bVal[0]), 30);
+		screens[0] = new ScreenInfo(choices[0][a] + "," + ((char)xVal[0]), 30);
 		screens[1] = new ScreenInfo(invert[0], 25);
 		for (int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();

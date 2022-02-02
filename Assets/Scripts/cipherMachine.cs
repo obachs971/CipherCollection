@@ -57,7 +57,7 @@ public class cipherMachine : MonoBehaviour
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
         string encrypt = answer + "";
        
-        PageInfo[] temp = new LogicCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb); //Test your cipher right here
+        PageInfo[] temp = new BitSwitchCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]"); //Test your cipher right here
         encrypt = temp[0].Screens[0].ToString();
         for(int i = temp.Length - 1; i >= 1; i--)
             pages.Insert(0, temp[i]);

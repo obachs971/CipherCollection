@@ -9,9 +9,8 @@ public class FoursquareCipher {
 
 	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
-		Debug.LogFormat("{0} Being Trisquare Cipher", log);
+		Debug.LogFormat("{0} Being Foursquare Cipher", log);
 		Data data = new Data();
-		List<int> toReplace = new List<int>();
 		string encrypt = "";
 		string replaceJ = "";
 		string alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ";

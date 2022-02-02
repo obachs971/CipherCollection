@@ -11,7 +11,6 @@ public class TrisquareCipher
 	{
 		Debug.LogFormat("{0} Being Trisquare Cipher", log);
 		Data data = new Data();
-		List<int> toReplace = new List<int>();
 		string encrypt = "";
 		string replaceJ = "";
 		string alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ";

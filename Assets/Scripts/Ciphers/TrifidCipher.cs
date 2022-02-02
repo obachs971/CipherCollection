@@ -52,7 +52,6 @@ public class TrifidCipher
 					encrypt = encrypt + "" + key[(numbers[(i * 3) / word.Length][(i * 3) % word.Length] * 9) + (numbers[((i * 3) + 1) / word.Length][((i * 3) + 1) % word.Length] * 3) + (numbers[((i * 3) + 2) / word.Length][((i * 3) + 2) % word.Length])];
 			}
 		} while (encrypt.Contains("-"));
-		string s = String.Join(",", numbers[0].Select(p => (p + 1).ToString()).ToArray());
 		Debug.LogFormat("{0} [Trifid Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Trifid Cipher] Key: {1}", log, key);
 		Debug.LogFormat("{0} [Trifid Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);

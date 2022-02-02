@@ -15,7 +15,6 @@ public class HillCipher {
         int[] matrix = new int[4];
         matrix[1] = UnityEngine.Random.Range(0, 26);
         matrix[2] = UnityEngine.Random.Range(0, 26);
-        int value = 0;
         if ((matrix[1] * matrix[2]) % 2 == 1)
             matrix[0] = UnityEngine.Random.Range(0, 12) * 2;
         else

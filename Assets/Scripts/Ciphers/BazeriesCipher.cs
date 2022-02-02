@@ -10,7 +10,6 @@ public class BazeriesCipher {
 	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Bazeries Cipher", log);
-		Data data = new Data();
 		string encrypt = "";
 		string replaceJ = "";
 		string alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
