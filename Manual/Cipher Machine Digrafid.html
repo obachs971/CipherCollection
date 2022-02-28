@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Digrafid CM — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .dark table, table {
+            margin: 1em auto;
+            border: none;
+        }
+        .strip-change-one td,
+        .strip-change-one th {
+            padding: .3em .5em .2em;
+        }
+        .tablea {
+            font-size: 20px;
+            width: 100%;
+        }
+        .rotor {
+            font-size: 13px;
+        }
+        .reflector {
+            font-size: 14px;
+        }
+        .alpha {
+            font-size: 13px;
+        }
+        .beta {
+            font-size: 11px;
+        }
+
+        .img-pigpen {
+            width: 50%;
+        }
+        .dark .img-pigpen {
+            filter: invert(86.5%);
+        }
+        a::after {
+            font-size: .7em;
+        }
+        @media print {
+            .img-pigpen {
+                width: 38%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Digrafid CM</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Cipher Machine.svg" class="diagram">
+                <h2>On the Subject of the Digrafid CM</h2>
+                <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
+                <p>Create a key using the keyword on screen 1 and the Boolean Expression on screen A. Place a # at the end of the key. This will be called Key A.</p>
+                <p>Create a 2nd key by doing the same steps to create Key A but with the keyword on screen 2 and the Boolean Expression on screen B. This will be called Key B.</p>
+                <p>Swap the character shown on screen 3 with the #, using the left character for Key A, and the right character for Key B.</p>
+                <p>Create a matrix by placing Key A above a string of Arabic numerals going from 1-9 and put another string of Arabic numerals going from 1-9 on the side in reading order forming a 3×3 square. Then take Key B and put it below the string of numbers where Key A is, then put a string of Arabic numerals going from 1-9 on the side going top to bottom, left to right forming a 3×3 square.</p>
+                <p>Split the encrypted word into letter pairs. If there is an odd amount of letters, set aside the last letter. Do the following for each letter pair:</p>
+                <ul>
+                <li>Find the 1st letter in Key A.</li>
+                <li>Find the second letter in Key B.</li>
+                <li>Use the column of the first letter to get the 1st number.</li>
+                <li>Use the column of the second letter to get the 3rd number.</li>
+                <li>Find the rows of both letters and look at the 3×3 number grids, one number will be on both and that is the 2nd number.</li>
+                <li>Write the number top to bottom, to the right of any previous numbers.</li>
+                </ul>
+                <p>Now read the 3 number combinations in reading order to get new numbers. For each 3 number combination do the following:</p>
+                <ul>
+                <li>Take the 1st number as the column and the 2nd number as the row in Key A to get the 1st letter.</li>
+                <li>Take the 3rd number as the column and the 2nd number as the row in Key B to get the 2nd letter.</li>
+                </ul>
+                <p>You should now have an decrypted word.</p>
+                
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 2</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Digrafid CM</span>
+            </div>
+            <div class="page-content">
+                <h4 style="text-align:center">Example</h4>
+                <p style="text-align:center">Encrypted Word: LXSEOKD<br>Key A: AB#FGHIJKMNPQRSTVWXYZCLOUDE<br>Key B: BDFGJKMNOPQRSUVWXYZATHLEI#C</p>
+                <table>
+                <tr><td>A</td><td>B</td><td>#</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>1</td><td>2</td><td>3</td></tr>
+                <tr><td>M</td><td>N</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>V</td><td>W</td><td>4</td><td>5</td><td>6</td></tr>
+                <tr><td>X</td><td>Y</td><td>Z</td><td>C</td><td>L</td><td>O</td><td>U</td><td>D</td><td>E</td><td>7</td><td>8</td><td>9</td></tr>
+                <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td class="corner" colspan="3"></tr>
+                <tr><td>B</td><td>D</td><td>F</td><td>G</td><td>J</td><td>K</td><td>M</td><td>N</td><td>O</td><td>1</td><td>4</td><td>7</td></tr>
+                <tr><td>P</td><td>Q</td><td>R</td><td>S</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>2</td><td>5</td><td>8</td></tr>
+                <tr><td>Z</td><td>A</td><td>T</td><td>H</td><td>L</td><td>E</td><td>I</td><td>#</td><td>C</td><td>3</td><td>6</td><td>9</td></tr>
+                </table>
+                <p style="text-align:center">
+                LX -> 588<br>
+                SE -> 666<br>
+                OK -> 676
+                </p>
+                <p style="text-align:center">
+                566<br>
+                867<br>
+                866
+                </p>
+                <p style="text-align:center">
+                566 -> RE<br>
+                867 -> VI<br>
+                866 -> VE
+                </p>
+                <p style="text-align:center">Decrypted Word: REVIVED</p>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 2</div>
+        </div>
+    </div>
+</body>
+</html>

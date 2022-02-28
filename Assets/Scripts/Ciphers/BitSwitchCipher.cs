@@ -5,7 +5,7 @@ using Words;
 
 public class BitSwitchCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log)
+	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Bit Switch Cipher", log);
 		string scrambler = new string("12345".ToCharArray().Shuffle());
@@ -13,6 +13,8 @@ public class BitSwitchCipher
 			scrambler = new string("12345".ToCharArray().Shuffle());
 		Debug.LogFormat("{0} [Bit Switch Cipher] Scrambler: {1}", log, scrambler);
 		int[] puzzleNums = generateNumbers(log, scrambler);
+		string[] invert = new CMTools().generateBoolExp(Bomb);
+		Debug.LogFormat("{0} [Bit Switch Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
 		string puzzle = "", alpha = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		for(int i = 0; i < puzzleNums.Length; i++)
 		{
@@ -25,7 +27,7 @@ public class BitSwitchCipher
 		foreach(char c in word)
 		{
 			string alphaBin = numberToBin(alpha.IndexOf(c));
-			string encryptBin = scramble(alphaBin, scrambler);
+			string encryptBin = scramble(alphaBin, scrambler, invert[1][0] == 'T');
 			string invertBin = encryptBin.Replace("0", "*").Replace("1", "0").Replace("*", "1");
 			int check = binToNumber(encryptBin);
 			if (check > 26)
@@ -44,7 +46,7 @@ public class BitSwitchCipher
 		}
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(puzzle.Substring(0, 8), 28);
-		screens[1] = new ScreenInfo();
+		screens[1] = new ScreenInfo(invert[0], 25);
 		screens[2] = new ScreenInfo(puzzle.Substring(8), 28);
 		screens[3] = new ScreenInfo();
 		screens[4] = new ScreenInfo(bin, new int[] { 35, 35, 35, 32, 28 }[bin.Length - 4]);
@@ -67,7 +69,7 @@ public class BitSwitchCipher
 			else
 				initialBins[0] = initialBins[0] + "" + num;
 		}
-		resultBins[0] = scramble(initialBins[0], scrambler);
+		resultBins[0] = scramble(initialBins[0], scrambler, false);
 		for(int i = 1; i < 4; i++)
 		{
 			num = UnityEngine.Random.Range(0, 2);
@@ -80,7 +82,7 @@ public class BitSwitchCipher
 				else
 					initialBins[i] = initialBins[i] + "" + num;
 			}
-			resultBins[i] = scramble(initialBins[i], scrambler);
+			resultBins[i] = scramble(initialBins[i], scrambler, false);
 		}
 		string[] temp1 = new string[4], temp2 = new string[4];
 		order = new string("0123".ToCharArray().Shuffle());
@@ -90,19 +92,28 @@ public class BitSwitchCipher
 			temp2[i] = resultBins[(order[i] - '0')];
 		}
 		int[] nums = new int[8];
-		for(int i = 0; i < 8; i+=2)
+		for(int i = 0; i < 4; i++)
 		{
-			nums[i] = binToNumber(temp1[i / 2]);
-			nums[i + 1] = binToNumber(temp2[i / 2]);
-			Debug.LogFormat("{0} [Bit Switch Cipher] {1} -> {2} -> {3} -> {4}", log, nums[i], temp1[i / 2], temp2[i / 2], nums[i + 1]);
+			nums[i] = binToNumber(temp1[i]);
+			nums[i + 4] = binToNumber(temp2[i]);
+			Debug.LogFormat("{0} [Bit Switch Cipher] {1} -> {2} -> {3} -> {4}", log, nums[i], temp1[i], temp2[i], nums[i + 4]);
 		}
 		return nums;
 	}
-	private string scramble(string bin, string scrambler)
+	private string scramble(string bin, string scrambler, bool invert)
 	{
 		string temp = "";
-		for (int i = 0; i < scrambler.Length; i++)
-			temp = temp + "" + bin["12345".IndexOf(scrambler[i])];
+		if(invert)
+		{
+			for (int i = 0; i < scrambler.Length; i++)
+				temp = temp + "" + bin[scrambler.IndexOf("12345"[i])];
+		}
+		else
+		{
+			for (int i = 0; i < scrambler.Length; i++)
+				temp = temp + "" + bin["12345".IndexOf(scrambler[i])];
+		}
+		
 		return temp;
 	}
 	private int binToNumber(string bin)
