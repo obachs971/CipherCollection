@@ -31,6 +31,7 @@ public class cipherMachine : MonoBehaviour
     public KMSelectable rightArrow;
     public KMSelectable submit;
     public KMSelectable[] keyboard;
+    private bool moduleSelected;
     public Font DEFAULT_FONT;
     public Material DEFAULT_FONT_MAT;
     private Color[] textColors = { Color.white, Color.black };
@@ -40,6 +41,8 @@ public class cipherMachine : MonoBehaviour
         leftArrow.OnInteract += delegate () { left(leftArrow); return false; };
         rightArrow.OnInteract += delegate () { right(rightArrow); return false; };
         submit.OnInteract += delegate () { submitWord(submit); return false; };
+        module.GetComponent<KMSelectable>().OnFocus += delegate { moduleSelected = true; };
+        module.GetComponent<KMSelectable>().OnDefocus += delegate { moduleSelected = false; };
         foreach (KMSelectable keybutton in keyboard)
         {
             KMSelectable pressedButton = keybutton;
@@ -55,7 +58,7 @@ public class cipherMachine : MonoBehaviour
         page = 0;
         //Generating random word
         int ansLength = UnityEngine.Random.Range(0, 5);
-        ansLength = 0;
+        //ansLength = 0;
         answer = wordList[ansLength][UnityEngine.Random.Range(0, wordList[ansLength].Count)].ToUpper();
         //answer = "DARLING";
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
@@ -192,7 +195,7 @@ public class cipherMachine : MonoBehaviour
                 for(int aa = 0; aa < 8; aa++)
                     screenTexts[aa].text = "";
                 screenTexts[6].text = pressed.GetComponentInChildren<TextMesh>().text;
-                screenTexts[6].fontSize = 25;
+                screenTexts[6].fontSize = new int[] { 35, 35, 35, 32, 28}[answer.Length - 4];
                 submitScreen = true;
                 submitMesh.material = materials[0];
                 submitText.color = textColors[0];
@@ -255,5 +258,16 @@ public class cipherMachine : MonoBehaviour
     private int getPositionFromChar(char c)
     {
         return "QWERTYUIOPASDFGHJKLZXCVBNM".IndexOf(c);
+    }
+    void Update()
+    {
+        if (moduleSelected)
+        {
+            for (var ltr = 0; ltr < 26; ltr++)
+                if (Input.GetKeyDown(((char)('a' + ltr)).ToString()))
+                    keyboard[getPositionFromChar((char)('A' + ltr))].OnInteract();
+            if (Input.GetKeyDown(KeyCode.Return))
+                submit.OnInteract();
+        }
     }
 }
