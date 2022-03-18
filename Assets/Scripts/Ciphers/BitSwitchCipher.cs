@@ -5,7 +5,7 @@ using Words;
 
 public class BitSwitchCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Bit Switch Cipher", log);
 		string scrambler = new string("12345".ToCharArray().Shuffle());
@@ -13,8 +13,7 @@ public class BitSwitchCipher
 			scrambler = new string("12345".ToCharArray().Shuffle());
 		Debug.LogFormat("{0} [Bit Switch Cipher] Scrambler: {1}", log, scrambler);
 		int[] puzzleNums = generateNumbers(log, scrambler);
-		string[] invert = new CMTools().generateBoolExp(Bomb);
-		Debug.LogFormat("{0} [Bit Switch Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Bit Switch Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		string puzzle = "", alpha = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		for(int i = 0; i < puzzleNums.Length; i++)
 		{
@@ -27,7 +26,7 @@ public class BitSwitchCipher
 		foreach(char c in word)
 		{
 			string alphaBin = numberToBin(alpha.IndexOf(c));
-			string encryptBin = scramble(alphaBin, scrambler, invert[1][0] == 'T');
+			string encryptBin = scramble(alphaBin, scrambler, invert);
 			string invertBin = encryptBin.Replace("0", "*").Replace("1", "0").Replace("*", "1");
 			int check = binToNumber(encryptBin);
 			if (check > 26)
@@ -35,7 +34,7 @@ public class BitSwitchCipher
 			else
 			{
 				check = binToNumber(invertBin);
-				if (check <= 26 && UnityEngine.Random.Range(0, 3) == 0)
+				if (check <= 26 && UnityEngine.Random.Range(0, 2) == 0)
 					bin = bin + "1";
 				else
 					bin = bin + "0";
@@ -46,14 +45,14 @@ public class BitSwitchCipher
 		}
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(puzzle.Substring(0, 8), 28);
-		screens[1] = new ScreenInfo(invert[0], 25);
+		screens[1] = new ScreenInfo();
 		screens[2] = new ScreenInfo(puzzle.Substring(8), 28);
 		screens[3] = new ScreenInfo();
 		screens[4] = new ScreenInfo(bin, new int[] { 35, 35, 35, 32, 28 }[bin.Length - 4]);
 		for (int i = 5; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
 	}
 	private int[] generateNumbers(string log, string scrambler)
 	{

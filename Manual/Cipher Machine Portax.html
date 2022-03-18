@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -91,11 +56,12 @@
                 <tr><td>Z</td><td>S</td><td>V</td></tr>
                 <tr><td>P</td><td>W</td><td>F</td></tr>
                 <tr><td>E</td><td>J</td><td>U</td></tr>
-                <tr><td>D</td><td> </td><td> </td></tr>
+                <tr><td>D</td><td class="no-border"> </td><td class="no-border"> </td></tr>
                 </table>
-                <table class="alpha">
-                <tr><td class="corner" colspan="12"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td></tr>
+                <table style="font-size: 13px">
+                <tr><td class="no-border" colspan="12"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td></tr>
                 <tr><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td></tr>
+                <tr><td colspan="25" style="background-color: rgb(0, 0, 0)"></td></tr>
                 <tr><td>A</td><td>C</td><td>E</td><td>G</td><td>I</td><td>K</td><td>M</td><td>O</td><td>Q</td><td>S</td><td>U</td><td>W</td><td>Y</td><td>A</td><td>C</td><td>E</td><td>G</td><td>I</td><td>K</td><td>M</td><td>O</td><td>Q</td><td>S</td><td>U</td><td>W</td></tr>
                 <tr><td>B</td><td>D</td><td>F</td><td>H</td><td>J</td><td>L</td><td>N</td><td>P</td><td>R</td><td>T</td><td>V</td><td>X</td><td>Z</td><td>B</td><td>D</td><td>F</td><td>H</td><td>J</td><td>L</td><td>N</td><td>P</td><td>R</td><td>T</td><td>V</td><td>X</td></tr>
                 </table>
@@ -103,11 +69,12 @@
                 <tr><td>Z</td><td>S</td><td>V</td></tr>
                 <tr><td>D</td><td>W</td><td>F</td></tr>
                 <tr><td>F</td><td>J</td><td>U</td></tr>
-                <tr><td>D</td><td> </td><td> </td></tr>
+                <tr><td>D</td><td class="no-border"> </td><td class="no-border"> </td></tr>
                 </table>
-                <table class="alpha">
-                <tr><td class="corner" colspan="9"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td class="corner" colspan="3"></td></tr>
+                <table style="font-size: 13px">
+                <tr><td class="no-border" colspan="9"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td class="no-border" colspan="3"></td></tr>
                 <tr><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td></tr>
+                <tr><td colspan="25" style="background-color: rgb(0, 0, 0)"></td></tr>
                 <tr><td>A</td><td>C</td><td>E</td><td>G</td><td>I</td><td>K</td><td>M</td><td>O</td><td>Q</td><td>S</td><td>U</td><td>W</td><td>Y</td><td>A</td><td>C</td><td>E</td><td>G</td><td>I</td><td>K</td><td>M</td><td>O</td><td>Q</td><td>S</td><td>U</td><td>W</td></tr>
                 <tr><td>B</td><td>D</td><td>F</td><td>H</td><td>J</td><td>L</td><td>N</td><td>P</td><td>R</td><td>T</td><td>V</td><td>X</td><td>Z</td><td>B</td><td>D</td><td>F</td><td>H</td><td>J</td><td>L</td><td>N</td><td>P</td><td>R</td><td>T</td><td>V</td><td>X</td></tr>
                 </table>
@@ -115,7 +82,7 @@
                 <tr><td>Z</td><td>S</td><td>V</td></tr>
                 <tr><td>D</td><td>R</td><td>F</td></tr>
                 <tr><td>F</td><td>T</td><td>U</td></tr>
-                <tr><td>D</td><td> </td><td> </td></tr>
+                <tr><td>D</td><td class="no-border"> </td><td class="no-border"> </td></tr>
                 </table> 
             </div>
             <div class="page-footer relative-footer">Page 2 of 3</div>
@@ -126,9 +93,10 @@
                 <span class="page-header-section-title">Portax CM</span>
             </div>
             <div class="page-content">
-                <table class="alpha">
-                <tr><td class="corner" colspan="10"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td class="corner" colspan="2"></td></tr>
+                <table style="font-size: 13px">
+                <tr><td class="no-border" colspan="10"></td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td class="no-border" colspan="2"></td></tr>
                 <tr><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td></tr>
+                <tr><td colspan="25" style="background-color: rgb(0, 0, 0)"></td></tr>
                 <tr><td>A</td><td>C</td><td>E</td><td>G</td><td>I</td><td>K</td><td>M</td><td>O</td><td>Q</td><td>S</td><td>U</td><td>W</td><td>Y</td><td>A</td><td>C</td><td>E</td><td>G</td><td>I</td><td>K</td><td>M</td><td>O</td><td>Q</td><td>S</td><td>U</td><td>W</td></tr>
                 <tr><td>B</td><td>D</td><td>F</td><td>H</td><td>J</td><td>L</td><td>N</td><td>P</td><td>R</td><td>T</td><td>V</td><td>X</td><td>Z</td><td>B</td><td>D</td><td>F</td><td>H</td><td>J</td><td>L</td><td>N</td><td>P</td><td>R</td><td>T</td><td>V</td><td>X</td></tr>
                 </table>
@@ -136,7 +104,7 @@
                 <tr><td>Z</td><td>S</td><td>V</td></tr>
                 <tr><td>D</td><td>R</td><td>A</td></tr>
                 <tr><td>F</td><td>T</td><td>E</td></tr>
-                <tr><td>D</td><td> </td><td> </td></tr>
+                <tr><td>D</td><td class="no-border"> </td><td class="no-border"> </td></tr>
                 </table>
                 <p style="text-align:center">Decrypted Word: DRAFTED</p>
             </div>

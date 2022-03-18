@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -69,7 +34,7 @@
                 <li>Shift the alphabet strip until the left most letter is the Nth letter of the encrypted word.</li>
                 <li>This alphabet strip becomes the Nth row of your Strip Key.</li>
                 </ul>
-                <p>Convert the letter on screen A to a Value via the Value Table. Take the value, modulo 25, plus 2. If the Boolean Expression on screen B is true, then subtract 28 by the value. The final resulting value is the column to read, top to bottom, in the Strip Key to get a decrypted word.</p>
+                <p>Convert the letter on screen A to a Value via the Value Table. Take the value, modulo 25, plus 2. If the Submit Button is white, then subtract 28 by the value. The final resulting value is the column to read, top to bottom, in the Strip Key to get a decrypted word.</p>
                 <h4 style="text-align:center">Example</h4>
                 <p style="text-align:center">Encrypted Word: TPHEY<br>Screen 1: 19957<br>Screen 2: 50604<br>Screen B: FX -> True<br>Screen A: Y -> (2 mod 25) + 2 -> 28 - 4 -> 24</p>
                 <table style="font-size:12px">

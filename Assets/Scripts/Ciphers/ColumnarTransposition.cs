@@ -5,21 +5,22 @@ using Words;
 
 public class ColumnarTransposition
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Columnar Transposition", log);
-		string key = "1234567".Substring(0, 2 + UnityEngine.Random.Range(0, word.Length - 2));
+		string key = "12345678".Substring(0, 2 + UnityEngine.Random.Range(0, word.Length - 1));
 		key = new string(key.ToCharArray().Shuffle());
-		string[] invert = new CMTools().generateBoolExp(Bomb);
+		while("12345678".Contains(key))
+			key = new string(key.ToCharArray().Shuffle());
 		Debug.LogFormat("{0} [Columnar Transposition] Key: {1}", log, key);
-		Debug.LogFormat("{0} [Columnar Transposition] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Columnar Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		string encrypt = "";
 		while (word.Length % key.Length != 0)
 			word += "-";
 		char[][] grid = new char[word.Length / key.Length][];
 		for(int i = 0; i < grid.Length; i++)
 			grid[i] = new char[key.Length];
-		if(invert[1][0] == 'T')
+		if(invert)
 		{
 			int bot = word.Length / key.Length - 1;
 			word = word.Replace("-", "");
@@ -58,10 +59,9 @@ public class ColumnarTransposition
 		Debug.LogFormat("{0} [Columnar Transposition] {1} - > {2}", log, word.Replace("-", ""), encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(key, (key.Length == 7 ? 32 : 35));
-		screens[1] = new ScreenInfo(invert[0], 25);
-		for (int i = 2; i < 8; i++)
+		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
 	}
 }

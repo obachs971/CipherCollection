@@ -39,8 +39,7 @@ public class TrisquareCipher
 			kwFronts[i] = cm.generateBoolExp(Bomb);
 			keys[i] = cm.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
 			Debug.LogFormat("{0} [Trisquare Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
-			Debug.LogFormat("{0} [Trisquare Cipher] Keyword Front Rule #{1}: {2} -> {3}", log, (i + 1), kwFronts[i][0], kwFronts[i][1]);
-			Debug.LogFormat("{0} [Trisquare Cipher] Key #{1}: {2}", log, (i + 1), keys[i]);
+			Debug.LogFormat("{0} [Trisquare Cipher] Key #{1}: {2} -> {3} -> {4}", log, (i + 1), kwFronts[i][0], kwFronts[i][1], keys[i]);
 		}
 		string intersection = "";
 		for(int i = 0; i < (word.Length / 2); i ++)
@@ -49,9 +48,9 @@ public class TrisquareCipher
 			int c1 = keys[0].IndexOf(word[i * 2]) % 5;
 			int r2 = keys[1].IndexOf(word[(i * 2) + 1]) / 5;
 			int c2 = keys[1].IndexOf(word[(i * 2) + 1]) % 5;
-			intersection = intersection + "" + keys[2][(r2 * 5) + c1];
-			r2 = (r2 + UnityEngine.Random.Range(0, 4) + 1) % 5;
-			c1 = (c1 + UnityEngine.Random.Range(0, 4) + 1) % 5;
+			intersection = intersection + "" + keys[2][(r1 * 5) + c2];
+			r1 = (r1 + UnityEngine.Random.Range(0, 4) + 1) % 5;
+			c2 = (c2 + UnityEngine.Random.Range(0, 4) + 1) % 5;
 			encrypt = encrypt + "" + keys[0][(r1 * 5) + c1] + "" + keys[1][(r2 * 5) + c2];
 			Debug.LogFormat("{0} [Trisquare Cipher] {1}{2} -> {3}{4}{5}", log, word[i * 2], word[(i * 2) + 1], encrypt[i * 2], encrypt[(i * 2) + 1], intersection[i]);
 		}

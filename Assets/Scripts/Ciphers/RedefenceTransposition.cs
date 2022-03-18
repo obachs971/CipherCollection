@@ -5,19 +5,18 @@ using Words;
 
 public class RedefenceTransposition
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Redefence Transposition", log);
-		string[] invert = new CMTools().generateBoolExp(Bomb);
 		string key = new string("1234567".Substring(0, UnityEngine.Random.Range(2, word.Length - 1)).ToCharArray().Shuffle());
 		Debug.LogFormat("{0} [Redefence Transposition] Key: {1}", log, key);
-		Debug.LogFormat("{0} [Redefence Transposition] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Redefence Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		int offset = 1, cursor = 1;
 		string encrypt = "";
 		string[] grid = new string[key.Length];
 		for (int i = 0; i < grid.Length; i++)
 			grid[i] = "";
-		if (invert[1][0] == 'T')
+		if (invert)
 		{
 			grid[0] += "*";
 			for (int i = 1; i < word.Length; i++)
@@ -68,10 +67,9 @@ public class RedefenceTransposition
 		Debug.LogFormat("{0} [Redefence Transposition] {1} - > {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(key, key.Length < 7 ? 35 : 32);
-		screens[1] = new ScreenInfo(invert[0], 25);
-		for (int i = 2; i < 8; i++)
+		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
 	}
 }

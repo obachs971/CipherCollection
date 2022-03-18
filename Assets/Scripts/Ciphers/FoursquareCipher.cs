@@ -7,7 +7,7 @@ using Words;
 
 public class FoursquareCipher {
 
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Being Foursquare Cipher", log);
 		Data data = new Data();
@@ -39,12 +39,10 @@ public class FoursquareCipher {
 			kwFronts[i] = cm.generateBoolExp(Bomb);
 			keys[i] = cm.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
 			Debug.LogFormat("{0} [Foursquare Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
-			Debug.LogFormat("{0} [Foursquare Cipher] Keyword Front Rule #{1}: {2} -> {3}", log, (i + 1), kwFronts[i][0], kwFronts[i][1]);
-			Debug.LogFormat("{0} [Foursquare Cipher] Key #{1}: {2}", log, (i + 1), keys[i]);
+			Debug.LogFormat("{0} [Foursquare Cipher] Key #{1}: {2} -> {3} -> {4}", log, (i + 1), kwFronts[i][0], kwFronts[i][1], keys[i]);
 		}
-		string[] invert = cm.generateBoolExp(Bomb);
-		Debug.LogFormat("{0} [Foursquare Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
-		if(invert[1][0] == 'T')
+		Debug.LogFormat("{0} [Foursquare Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+		if(invert)
 		{
 			for (int i = 0; i < word.Length / 2; i++)
 			{
@@ -80,10 +78,9 @@ public class FoursquareCipher {
 		screens[0][7] = new ScreenInfo(kwFronts[3][0], 25);
 		screens[0][8] = new ScreenInfo(id, 35);
 		screens[1][0] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
-		screens[1][1] = new ScreenInfo(invert[0], 25);
 		screens[1][8] = new ScreenInfo(id, 35);
-		for (int i = 2; i < 8; i++)
+		for (int i = 1; i < 8; i++)
 			screens[1][i] = new ScreenInfo();
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens[0]), new PageInfo(screens[1])});
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens[0], invert), new PageInfo(screens[1], invert)});
 	}
 }

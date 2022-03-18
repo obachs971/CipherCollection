@@ -5,11 +5,9 @@ using Words;
 
 public class MonoalphabeticCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Monoalphabetic Cipher", log);
-		CMTools cm = new CMTools();
-		string[] invert = cm.generateBoolExp(Bomb);
 		string[] kws = generateKeywords();
 		while (kws == null)
 			kws = generateKeywords();
@@ -17,9 +15,9 @@ public class MonoalphabeticCipher
 		for (int i = 0; i < kws.Length; i++)
 			Debug.LogFormat("{0} [Monoalphabetic Cipher] KW{1}: {2}", log, (i + 1), kws[i]);
 		Debug.LogFormat("{0} [Monoalphabetic Cipher] Key: {1}", log, key);
-		Debug.LogFormat("{0} [Monoalphabetic Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Monoalphabetic Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		string encrypt = "";
-		if(invert[1][0] == 'T')
+		if(invert)
 		{
 			foreach (char c in word)
 				encrypt = encrypt + "" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[key.IndexOf(c)];
@@ -31,9 +29,7 @@ public class MonoalphabeticCipher
 		}
 		Debug.LogFormat("{0} [Monoalphabetic Cipher] {1} - > {2}", log, word, encrypt);
 		ScreenInfo[][] screens = { new ScreenInfo[9], new ScreenInfo[9] };
-		screens[0][0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
-		screens[0][1] = new ScreenInfo(invert[0], 25);
-		for(int i = 2; i < 8; i+=2)
+		for(int i = 0; i < 8; i+=2)
 		{
 			screens[0][i] = new ScreenInfo(kws[i/2], new int[] { 35, 35, 35, 32, 28 }[kws[i/2].Length - 4]);
 			screens[0][i + 1] = new ScreenInfo();
@@ -45,7 +41,7 @@ public class MonoalphabeticCipher
 		for (int i = 3; i < 8; i++)
 			screens[1][i] = new ScreenInfo();
 		screens[1][8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens[0]), new PageInfo(screens[1])});
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens[0], invert), new PageInfo(screens[1], invert)});
 	}
 	private string[] generateKeywords()
 	{

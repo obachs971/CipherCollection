@@ -8,12 +8,11 @@ using Words;
 
 public class TrifidCipher 
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Trifid Cipher", log);
 		List < List<string> > words = new Data().allWords;
 		CMTools cm = new CMTools();
-		string[] invert = cm.generateBoolExp(Bomb);
 		string[] keyFront = cm.generateBoolExp(Bomb);
 		int[][] numbers = new int[3][] { new int[word.Length], new int[word.Length], new int[word.Length] };
 		string key;
@@ -27,7 +26,7 @@ public class TrifidCipher
 			words[length].Remove(kw);
 			key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
 			key = key + "-";
-			if (invert[1][0] == 'T')
+			if (invert)
 			{
 				for(int i = 0; i < word.Length; i++)
 				{
@@ -54,7 +53,7 @@ public class TrifidCipher
 		} while (encrypt.Contains("-"));
 		Debug.LogFormat("{0} [Trifid Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Trifid Cipher] Key: {1}", log, key);
-		Debug.LogFormat("{0} [Trifid Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Trifid Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		Debug.LogFormat("{0} [Trifid Cipher] {1}", log, String.Join("", numbers[0].Select(p => (p + 1).ToString()).ToArray()));
 		Debug.LogFormat("{0} [Trifid Cipher] {1}", log, String.Join("", numbers[1].Select(p => (p + 1).ToString()).ToArray()));
 		Debug.LogFormat("{0} [Trifid Cipher] {1}", log, String.Join("", numbers[2].Select(p => (p + 1).ToString()).ToArray()));
@@ -62,10 +61,9 @@ public class TrifidCipher
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
 		screens[1] = new ScreenInfo(keyFront[0], 25);
-		screens[2] = new ScreenInfo(invert[0], 35);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int i = 3; i < 8; i++)
+		for (int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
 	}
 }

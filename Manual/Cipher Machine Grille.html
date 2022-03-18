@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -63,8 +28,8 @@
                 <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
                 <p>Use the shape that has the same amount of sides equal to the length of the encrypted word:</p>
                 <img src="img/Cipher Machine/Shapes Numbered.png" style="width: 100%">
-                <p>Rotate* the shape an X amount of times where X is equal to the number on screen 1.</p>
-                <p>If the Boolean Expression on screen A is true, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
+                <p>Rotate* the shape an X amount of times where X is equal to the letter on screen 1, converting it to a Value via the Value Table.</p>
+                <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
                 <h4 style="text-align:center">Encrypt Instructions</h4>
                 <ul>
                 <li>Fill in each point of the shape with the letters of the encrypted word in reading order.</li>

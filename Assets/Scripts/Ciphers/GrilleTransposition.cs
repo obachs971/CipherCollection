@@ -3,17 +3,16 @@ using UnityEngine;
 
 public class GrilleTransposition
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Grille Transposition", log);
-		int number = UnityEngine.Random.Range(0, word.Length);
-		string[] invert = new CMTools().generateBoolExp(Bomb);
+		int[] value = new CMTools().generateValue(Bomb);
 		string encrypt = "";
-		Debug.LogFormat("{0} [Grille Transposition] Key Number: {1}", log, number);
-		Debug.LogFormat("{0} [Grille Transposition] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Grille Transposition] Key Number: {1} -> {2}", log, (char)value[0], value[1]);
+		Debug.LogFormat("{0} [Grille Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		char[] temp = new char[word.Length];
-		int n1 = number, n2 = (number + (word.Length / 2)) % word.Length;
-		if (invert[1][0] == 'T')
+		int n1 = value[1] % word.Length, n2 = (value[1] + (word.Length / 2)) % word.Length;
+		if (invert)
 		{
 			for (int i = 0; i < (word.Length / 2); i++)
 			{
@@ -21,7 +20,7 @@ public class GrilleTransposition
 				temp[(n2 + i) % temp.Length] = word[(i * 2) + 1];
 			}
 			if (word.Length % 2 == 1)
-				temp[(number + (temp.Length - 1)) % temp.Length] = word[word.Length - 1];
+				temp[(value[1] + (temp.Length - 1)) % temp.Length] = word[word.Length - 1];
 			encrypt = encrypt + "" + temp[0];
 			for (int i = 0; i < (word.Length - 1) / 2; i++)
 			{
@@ -45,15 +44,14 @@ public class GrilleTransposition
 			for(int i = 0; i < (temp.Length / 2); i++)
 				encrypt = encrypt + "" + temp[(n1 + i) % temp.Length] + "" + temp[(n2 + i) % temp.Length];
 			if (word.Length % 2 == 1)
-				encrypt = encrypt + "" + temp[(number + (temp.Length - 1)) % temp.Length];
+				encrypt = encrypt + "" + temp[(value[1] + (temp.Length - 1)) % temp.Length];
 		}
 		Debug.LogFormat("{0} [Grille Transposition] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(number + "", 35);
-		screens[1] = new ScreenInfo(invert[0], 25);
-		for (int i = 2; i < 8; i++)
+		screens[0] = new ScreenInfo(((char)value[0]) + "", 35);
+		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
 	}
 }

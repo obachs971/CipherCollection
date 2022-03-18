@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -63,7 +28,7 @@
                 <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>                
                 <p>Create a key using the keyword on screen 1 and the Boolean Expression on screen A. Make sure to replace any Js with Is. Rearrange the key into a 5x5 matrix. This will be called Matrix A.</p>
                 <p>Create a 2nd and 3rd matrix by doing the same steps to create Matrix A but with the keyword on screen 2 and the Boolean Expression on screen B to create Matrix B and the keyword on screen 3 and the Boolean Expression on screen C to create Matrix C.</p>
-                <p>Form an L shape pattern with Matrix C being in the corner of the L, Matrix A at the top point, and Matrix B at the right point.</p>
+                <p>Form an backwards L shape pattern with Matrix C being in the bottom right, Matrix A in the bottom left, and Matrix B in the top right.</p>
                 <p>Split the encrypted word into pairs of letters. If there is an odd amount of letters, leave the last letter as the odd letter.</p> 
                 <p>For each letter pair of the encrypted word and the letters on screen D, do the following:</p>
                 <ul>
@@ -84,25 +49,25 @@
             </div>
             <div class="page-content">
             <h4 style="text-align:center">Example</h4>
-            <p style="text-align:center">Encrypted Word: TMSXODY<br>Screen 4: KLXTPHW<br>Matrix A: ABDFGHIKMNOPQRTUVWXYZCELS<br>Matrix B: ABCDGHIKMNPQTVWXZYOURSELF<br>Matrix C: HEAVBCDFGIKLMNOPQRSTUWXYZ<br>Screen D: KXQ</p>
+            <p style="text-align:center">Encrypted Word: UFHAWPS<br>Screen 4: MGXXVIT<br>Matrix A: BDFGIKLNOPQRTUVWXYZSCHEMA<br>Matrix B: ABCEFGHIKMNPQTUVWXYZLORDS<br>Matrix C: SPENDABCFGHIKLMOQRTUVWXYZ<br>Screen D: BTY</p>
             <table>
-            <tr><td>A</td><td>B</td><td>D</td><td>F</td><td>G</td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td></tr>
-            <tr><td>H</td><td>I</td><td>K</td><td>M</td><td>N</td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td></tr>
-            <tr><td>O</td><td>P</td><td>Q</td><td>R</td><td>T</td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td></tr>
-            <tr><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td></tr>
-            <tr><td>Z</td><td>C</td><td>E</td><td>L</td><td>S</td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td></tr>
-            <tr><td>H</td><td>E</td><td>A</td><td>V</td><td>B</td><td>A</td><td>B</td><td>C</td><td>D</td><td>G</td></tr>
-            <tr><td>C</td><td>D</td><td>F</td><td>G</td><td>I</td><td>H</td><td>I</td><td>K</td><td>M</td><td>N</td></tr>
-            <tr><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>T</td><td>V</td><td>W</td></tr>
-            <tr><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>X</td><td>Z</td><td>Y</td><td>O</td><td>U</td></tr>
-            <tr><td>U</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>R</td><td>S</td><td>E</td><td>L</td><td>F</td></tr>
+            <tr><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td>A</td><td>B</td><td>C</td><td>E</td><td>F</td></tr>
+            <tr><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td>G</td><td>H</td><td>I</td><td>K</td><td>M</td></tr>
+            <tr><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td>N</td><td>P</td><td>Q</td><td>T</td><td>U</td></tr>
+            <tr><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
+            <tr><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td><td>L</td><td>O</td><td>R</td><td>D</td><td>S</td></tr>
+            <tr><td>B</td><td>D</td><td>F</td><td>G</td><td>I</td><td>S</td><td>P</td><td>E</td><td>N</td><td>D</td></tr>
+            <tr><td>K</td><td>L</td><td>N</td><td>O</td><td>P</td><td>A</td><td>B</td><td>C</td><td>F</td><td>G</td></tr>
+            <tr><td>Q</td><td>R</td><td>T</td><td>U</td><td>V</td><td>H</td><td>I</td><td>K</td><td>L</td><td>M</td></tr>
+            <tr><td>W</td><td>X</td><td>Y</td><td>Z</td><td>S</td><td>O</td><td>Q</td><td>R</td><td>T</td><td>U</td></tr>
+            <tr><td>C</td><td>H</td><td>E</td><td>M</td><td>A</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
             </table>
             <p style="text-align:center">
-            TM + K -> OV<br>
-            SX + X -> ER<br>
-            OD + Q -> PO<br>
-            OVERPOY + KLXTPHW -> OVERJOY<br>
-            Decrypted Word: OVERJOY
+            UF + B -> OB<br>
+            HA + T -> XE<br>
+            WP + Y -> CT<br>
+            OBXECTS + MGXXVIT -> OBJECTS<br>
+            Decrypted Word: OBJECTS
             </p>
             
             </div>

@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -61,14 +26,41 @@
                 <img src="img/Component/Cipher Machine.svg" class="diagram">
                 <h2>On the Subject of the Vigenere CM</h2>
                 <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
-                <p>Take the first letter of your encrypted word and the first letter of the keyword from screen 1 and turn them into their alphabetic positions (A = 1, B = 2...Z = 26).</p>
-                <p>If the Boolean Expression on screen A is true, take the sum of the 2 numbers (if it is above 26, subtract 26).</p>
-                <p>Otherwise, take the first number minus the second number (if it is 0 or below, add 26).</p>
-                <p>Convert the number back into a letter.</p>
+                <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
+                <h4 style="text-align:center">Encrypt Instructions</h4>
+                <ul>
+                <li>Take the sum of the alphabetic positions of the Nth letter of the encrypted word and the Nth letter of the keyword on screen 1.</li>
+                <li>If the resulting number is above 26, subtract 26 until the number is between 1 - 26.</li>
+                <li>Turn the number back into a letter to get your Nth decrypted letter.</li>
+                </ul>
+                <h4 style="text-align:center">Decrypt Instructions</h4>
+                <ul>
+                <li>Take the alphabetic position of the Nth letter of the encrypted word and subtract it by the alphabetic position of the Nth letter of the keyword on screen 1.</li>
+                <li>If the resulting number is below 1, add 26 until the number is between 1 - 26.</li>
+                <li>Turn the number back into a letter to get your Nth decrypted letter.</li>
+                </ul>
                 <p>Do this for each letter of the encrypted word and the keyword to get your decrypted word.</p>
                 <p>When you reach the end of the keyword, treat it as if it wraps around to the beginning of the keyword.</p>
                 <h4 style="text-align:center">Example 1</h4>
-                <p style="text-align:center">Encrypted Word: PIPOCQWS<br>Keyword: CHIN<br>Boolean Expression: False</p>
+                <p style="text-align:center">Encrypted Word: KLEJ<br>Keyword: BOG<br>Using Encrypt Rules</p>
+                <p style="text-align:center">
+                K + B -> 11 + 2 -> 13 -> M<br>
+                L + O -> 12 + 15 -> 27 - 26 -> 1 -> A<br>
+                E + G -> 5 + 7 -> 12 -> L<br>
+                J + B -> 10 + 2 -> 12 -> L
+                </p>
+                <p style="text-align:center">Decrypted Word: MALL</p>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 3</div>
+        </div>
+         <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Vigenere CM</span>
+            </div>
+            <div class="page-content">
+                <h4 style="text-align:center">Example 2</h4>
+                <p style="text-align:center">Encrypted Word: PIPOCQWS<br>Keyword: CHIN<br>Using Decrypt Rules</p>
                 <p style="text-align:center">
                 P - C -> 16 - 3 -> 13 -> M<br>
                 I - H -> 9 - 8 -> 1 -> A<br>
@@ -81,27 +73,6 @@
                 </p>
                 <p style="text-align:center">Decrypted Word: MAGAZINE</p>
             </div>
-            <div class="page-footer relative-footer">Page 1 of 3</div>
-        </div>
-         <div class="page page-bg-02">
-            <div class="page-header">
-                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                <span class="page-header-section-title">Vigenere CM</span>
-            </div>
-            <div class="page-content">
-             <h4 style="text-align:center">Example 2</h4>
-                <p style="text-align:center">Encrypted Word: HZNCAI<br>Keyword: DEEP<br>Boolean Expression: True</p>
-                <p style="text-align:center">
-                H + D -> 8 + 4 -> 12 -> L<br>
-                Z + E -> 26 + 5 -> 31 -> 5 -> E<br>
-                N + E -> 14 + 5 -> 19 -> S<br>
-                C + P -> 3 + 16 -> 19 -> S<br>
-                A + D -> 1 + 4 -> 5 -> E<br>
-                I + E -> 9 + 5 -> 14 -> N<br>
-                </p>
-                <p style="text-align:center">Decrypted Word: LESSEN</p>
-            <p>The table on the next page shows the result of adding up each letter. For subtraction, use the letter of the keyword as the row and find the letter of the encrypted word in that row. Then decrypt it to the letter's column.</p>
-            </div>
             <div class="page-footer relative-footer">Page 2 of 3</div>
         </div>
         <div class="page page-bg-03">
@@ -110,8 +81,14 @@
                 <span class="page-header-section-title">Vigenere CM</span>
             </div>
             <div class="page-content">
-            <table class="alpha">
-            <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th><th>N</th><th>O</th><th>P</th><th>Q</th><th>R</th><th>S</th><th>T</th><th>U</th><th>V</th><th>W</th><th>X</th><th>Y</th><th>Z</th></tr>
+            <p>You can use this table as a way to get your decrypted letters. To do so, follow the instructions below:</p>
+            <ul>
+            <li>Use the keyword's letter as the row.</li>
+            <li>If you are adding, use the encrypted word's letter as the column. The intersection of the 2 will be your decrypted letter.</li>
+            <li>If you are subtracting, find the encrypted word's letter within the row. The column that the letter is in becomes your decrypted letter.</li>
+            </ul>
+            <table style="font-size:13px">
+            <tr><th class="no-border"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th><th>N</th><th>O</th><th>P</th><th>Q</th><th>R</th><th>S</th><th>T</th><th>U</th><th>V</th><th>W</th><th>X</th><th>Y</th><th>Z</th></tr>
             <tr><th>A</th><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td></tr>
             <tr><th>B</th><td>C</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td></tr>
             <tr><th>C</th><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td><td>C</td></tr>

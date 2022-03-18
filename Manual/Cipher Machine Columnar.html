@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -61,7 +26,7 @@
                 <img src="img/Component/Cipher Machine.svg" class="diagram">
                 <h2>On the Subject of the Columnar CM</h2>
                 <p>The numbers shown on screen 1 will be referred to as the Columnar Key.</p>
-                <p>If the Boolean Expression on screen A is true, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
+                <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
                 <h4 style="text-align:center">Encrypt Instructions</h4>
                 <ul>
                 <li>Write the encrypted word underneath the Columnar Key so that it fits in the columns of the key.</li>
@@ -79,9 +44,14 @@
                 <table>
                 <tr><td>4</td><td>3</td><td>1</td><td>5</td><td>2</td></tr>
                 <tr><td>T</td><td>E</td><td>T</td><td>R</td><td>H</td></tr>
-                <tr><td>E</td><td>A</td><td> </td><td> </td><td> </td></tr>
+                <tr><td>E</td><td>A</td><td class="no-border"></td><td class="no-border"></td><td class="no-border"></td></tr>
                 </table>
-                <p style="text-align:center">TETRHEA -> THEATER</p>
+                <table>
+                <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                <tr><td>T</td><td>H</td><td>E</td><td>T</td><td>R</td></tr>
+                <tr><td class="no-border"></td><td class="no-border"></td><td>A</td><td>E</td><td class="no-border"></td></tr>
+                </table>
+                <p style="text-align:center">Decrypted Word: THEATER</p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 2</div>
         </div>
@@ -95,10 +65,25 @@
             <p style="text-align:center">Encrypted Word: OTNUAMNI<br>Columnar Key: 312<br>Using Decrypt Rules</p>
             <table>
             <tr><td>3</td><td>1</td><td>2</td></tr>
+            <tr><td>-</td><td>-</td><td>-</td></tr>
+            <tr><td>-</td><td>-</td><td>-</td></tr>
+            <tr><td>-</td><td>-</td><td class="no-border"></td></tr>
+            </table><table>
+            <tr><td>3</td><td>1</td><td>2</td></tr>
+            <tr><td>-</td><td>O</td><td>-</td></tr>
+            <tr><td>-</td><td>T</td><td>-</td></tr>
+            <tr><td>-</td><td>N</td><td class="no-border"></td></tr>
+            </table><table>
+            <tr><td>3</td><td>1</td><td>2</td></tr>
+            <tr><td>-</td><td>O</td><td>U</td></tr>
+            <tr><td>-</td><td>T</td><td>A</td></tr>
+            <tr><td>-</td><td>N</td><td class="no-border"></td></tr>
+            </table><table>
+            <tr><td>3</td><td>1</td><td>2</td></tr>
             <tr><td>M</td><td>O</td><td>U</td></tr>
             <tr><td>N</td><td>T</td><td>A</td></tr>
-            <tr><td>I</td><td>N</td><td></td></tr>
-            </table>
+            <tr><td>I</td><td>N</td><td class="no-border"></td></tr>
+            </table><table>
             <p style="text-align:center">OTNUAMNI -> MOUNTAIN</p>
             
             </div>

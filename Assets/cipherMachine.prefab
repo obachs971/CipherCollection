@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 102359001400833546}
   - component: {fileID: 114406944216028618}
   m_Layer: 0
-  m_Name: screen1kText
+  m_Name: screenAText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -619,7 +619,7 @@ GameObject:
   - component: {fileID: 23446482030724108}
   - component: {fileID: 114986632088168522}
   m_Layer: 0
-  m_Name: screen3k
+  m_Name: screenC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 102931172733059800}
   - component: {fileID: 114239478771820962}
   m_Layer: 0
-  m_Name: screen3kText
+  m_Name: screenCText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 102533553855034070}
   - component: {fileID: 114027502823581456}
   m_Layer: 0
-  m_Name: screen2kText
+  m_Name: screenBText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 23688212264649940}
   - component: {fileID: 114339019113075744}
   m_Layer: 0
-  m_Name: screen1k
+  m_Name: screenA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -973,7 +973,7 @@ GameObject:
   - component: {fileID: 102982682726320634}
   - component: {fileID: 114561226052703454}
   m_Layer: 0
-  m_Name: screen4kText
+  m_Name: screenDText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 23063863202534316}
   - component: {fileID: 114560018443208644}
   m_Layer: 0
-  m_Name: screen2k
+  m_Name: screenB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1954,7 +1954,7 @@ GameObject:
   - component: {fileID: 23342132025249994}
   - component: {fileID: 114862209927551770}
   m_Layer: 0
-  m_Name: screen4k
+  m_Name: screenD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6619,7 +6619,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375894577387748}
-  m_Text: ASDFGH
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -6871,7 +6871,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161480885154530}
-  m_Text: ASD
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -6920,7 +6920,7 @@ TextMesh:
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 54
+  m_FontSize: 65
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: ba7010d57c10ead479d3d248c0477d79, type: 3}
@@ -6955,7 +6955,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1390084793090854}
-  m_Text: ASD
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -7060,7 +7060,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013973405618624}
-  m_Text: ASDFGH
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -7081,7 +7081,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652831948463608}
-  m_Text: ASDFGH
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -7144,7 +7144,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1393258480670904}
-  m_Text: ASDFGH
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -7312,7 +7312,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1355302344709338}
-  m_Text: ASD
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -7333,7 +7333,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1521075658984070}
-  m_Text: ASD
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -7691,7 +7691,7 @@ MonoBehaviour:
   - {fileID: 102931172733059800}
   - {fileID: 102777754904276912}
   - {fileID: 102982682726320634}
-  screenMeshes:
+  screenTextMeshes:
   - {fileID: 23070455274408680}
   - {fileID: 23130717500019754}
   - {fileID: 23652703445205140}
@@ -7700,6 +7700,10 @@ MonoBehaviour:
   - {fileID: 23581546256951972}
   - {fileID: 23187019309414644}
   - {fileID: 23948965678032820}
+  submitMesh: {fileID: 23354526032757844}
+  materials:
+  - {fileID: 2100000, guid: 5a830770b132e4649b3d6e69ada787b0, type: 2}
+  - {fileID: 2100000, guid: 06321107eb3787f4994b36e85f6d6536, type: 2}
   Bomb: {fileID: 114391075436509608}
   module: {fileID: 114166227491927130}
   sounds:

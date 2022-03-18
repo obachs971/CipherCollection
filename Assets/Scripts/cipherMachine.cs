@@ -11,7 +11,9 @@ public class cipherMachine : MonoBehaviour
 {
 
     public TextMesh[] screenTexts;
-    public MeshRenderer[] screenMeshes;
+    public MeshRenderer[] screenTextMeshes;
+    public MeshRenderer submitMesh;
+    public Material[] materials;
     public KMBombInfo Bomb;
     public KMBombModule module;
     public AudioClip[] sounds;
@@ -31,6 +33,7 @@ public class cipherMachine : MonoBehaviour
     public KMSelectable[] keyboard;
     public Font DEFAULT_FONT;
     public Material DEFAULT_FONT_MAT;
+    private Color[] textColors = { Color.white, Color.black };
     void Awake()
     {
         moduleId = moduleIdCounter++;
@@ -52,18 +55,19 @@ public class cipherMachine : MonoBehaviour
         page = 0;
         //Generating random word
         int ansLength = UnityEngine.Random.Range(0, 5);
+        ansLength = 0;
         answer = wordList[ansLength][UnityEngine.Random.Range(0, wordList[ansLength].Count)].ToUpper();
-        //answer = "TEEAAEET";
+        //answer = "DARLING";
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
         string encrypt = answer + "";
-       
-        PageInfo[] temp = new RedefenceTransposition().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb); //Test your cipher right here
+        bool invert = (UnityEngine.Random.Range(0, 2) == 0);
+        //invert = true;
+        PageInfo[] temp = new SolitaireCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", invert); //Test your cipher right here
         encrypt = temp[0].Screens[0].ToString();
         for(int i = temp.Length - 1; i >= 1; i--)
             pages.Insert(0, temp[i]);
 
         
-
         ScreenInfo[] firstScreen = new ScreenInfo[9];
         firstScreen[0] = new ScreenInfo(encrypt, new int[] { 35, 35, 35, 32, 28 }[answer.Length - 4]);
         for(int i = 1; i < 9; i++)
@@ -132,14 +136,16 @@ public class cipherMachine : MonoBehaviour
             if(pages[page].Screens[aa].TextFont == null)
             {
                 screenTexts[aa].font = DEFAULT_FONT;
-                screenMeshes[aa].material = DEFAULT_FONT_MAT;
+                screenTextMeshes[aa].material = DEFAULT_FONT_MAT;
             }
             else
             {
                 screenTexts[aa].font = pages[page].Screens[aa].TextFont;
-                screenMeshes[aa].material = pages[page].Screens[aa].FontMaterial;
+                screenTextMeshes[aa].material = pages[page].Screens[aa].FontMaterial;
             }
         }
+        submitMesh.material = materials[pages[page].Invert ? 1 : 0] ;
+        submitText.color = textColors[pages[page].Invert ? 1 : 0];
         submitText.text = (page + 1) + "" + pages[page].Screens[8].Text;
     }
     void submitWord(KMSelectable submitButton)
@@ -188,6 +194,8 @@ public class cipherMachine : MonoBehaviour
                 screenTexts[6].text = pressed.GetComponentInChildren<TextMesh>().text;
                 screenTexts[6].fontSize = 25;
                 submitScreen = true;
+                submitMesh.material = materials[0];
+                submitText.color = textColors[0];
             }
         }
     }

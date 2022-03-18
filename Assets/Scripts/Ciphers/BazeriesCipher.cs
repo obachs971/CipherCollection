@@ -7,7 +7,7 @@ using Words;
 
 public class BazeriesCipher {
 
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Bazeries Cipher", log);
 		string encrypt = "";
@@ -51,8 +51,7 @@ public class BazeriesCipher {
 		string[] keyFront = cm.generateBoolExp(Bomb);
 		string key = cm.getKey(kw, alpha, keyFront[1][0] == 'T');
 		alpha = "AFLQVBGMRWCHNSXDIOTYEKPUZ";
-		string[] invert = cm.generateBoolExp(Bomb);
-		if(invert[1][0] == 'T')
+		if(invert)
 		{
 			foreach (char c in temp)
 				encrypt = encrypt + "" + alpha[key.IndexOf(c)];
@@ -63,18 +62,16 @@ public class BazeriesCipher {
 				encrypt = encrypt + "" + key[alpha.IndexOf(c)];
 		}
 		Debug.LogFormat("{0} [Bazeries Cipher] Digit Key: {1}{2}{3}{4}", log, digits[0], digits[1], digits[2], digits[3]);
-		Debug.LogFormat("{0} [Bazeries Cipher] Keyword Front Rule: {1} -> {2}", log, keyFront[0], keyFront[1]);
-		Debug.LogFormat("{0} [Bazeries Cipher] Key: {1}", log, key);
-		Debug.LogFormat("{0} [Bazeries Cipher] Invert Rule: {1} -> {2}", log, invert[0], invert[1]);
+		Debug.LogFormat("{0} [Bazeries Cipher] Key: {1} -> {2} -> {3}", log, keyFront[0], keyFront[1], key);
+		Debug.LogFormat("{0} [Bazeries Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		Debug.LogFormat("{0} [Bazeries Cipher] {1} -> {2} -> {3}", log, word, temp, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(digits[0] + "" + digits[1] + "" + digits[2] + "" + digits[3], 35);
 		screens[1] = new ScreenInfo(keyFront[0], 25);
 		screens[2] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
-		screens[3] = new ScreenInfo(invert[0], 25);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int i = 4; i < 8; i++)
+		for (int i = 3; i < 8; i++)
 			screens[i] = new ScreenInfo();
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
 	}
 }

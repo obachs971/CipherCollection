@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class StripCipher
 {
-    public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+    public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
     {
         Debug.LogFormat("{0} Begin Strip Cipher", log);
         CMTools cm = new CMTools();
         int[] val = cm.generateValue(Bomb);
-        string[] invert = cm.generateBoolExp(Bomb);
-        int col = invert[1][0] == 'T' ? ((val[1] % 25) + 1) : (25 - (val[1] % 25));
+        int col = (invert) ? ((val[1] % 25) + 1) : (25 - (val[1] % 25));
         string[] temp = getStrips(word.Length), strips = new string[word.Length], nums = { "", "" };
         string encrypt = "";
         for(int i = 0; i < temp.Length; i++)
@@ -27,18 +26,17 @@ public class StripCipher
         Debug.LogFormat("{0} [Strip Cipher] {1}", log, nums[1]);
         for (int i = 0; i < strips.Length; i++)
             Debug.LogFormat("{0} [Strip Cipher] {1}", log, strips[i]);
-        Debug.LogFormat("{0} [Strip Cipher] Screen B: {1} -> {2}", log, invert[0], invert[1]);
+        Debug.LogFormat("{0} [Strip Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
         Debug.LogFormat("{0} [Strip Cipher] Column: {1} -> {2} -> {3}", log, ((char)val[0]), val[1], (col + 1));
         Debug.LogFormat("{0} [Strip Cipher] {1} -> {2}", log, word, encrypt);
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(nums[0], new int[] { 35, 35, 35, 32, 28 }[nums[0].Length - 4]);
         screens[1] = new ScreenInfo(((char)val[0]) + "", 25);
         screens[2] = new ScreenInfo(nums[1], new int[] { 35, 35, 35, 32, 28 }[nums[1].Length - 4]);
-        screens[3] = new ScreenInfo(invert[0], 25);
-        for (int i = 4; i < 8; i++)
+        for (int i = 3; i < 8; i++)
             screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
-        return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+        return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
     }
     private string[] getStrips(int length)
     {

@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -72,9 +37,20 @@
                 <p>Turn each number on screen 1 into their word formats. Then create a key using the words as the keyword and the Boolean Expression on screen A. Make sure to replace any Js with Is. Rearrange the key into a 5x5 matrix. This will be called Matrix B.</p>
                 <p>Divide the encrypted word into subgroups of N letters where N equals the sum of the numbers on screen 1, modulo the length of the encrypted word minus 1, plus 2.</p>
                 <p>For each subgroup, reverse the letters inside of it.</p>
-                <p>For each letter: If the Boolean Expression on screen A is true, find the letter in Matrix A and use the same position in Matrix B to get a new letter. Otherwise find the letter in Matrix B and use the same position in Matrix A to get a new letter.</p>
-               
-                <p>Finally, if any of the letters on screen 2 match at the same position as any of the letters of your encrypted word, replace that letter with a J. You should now have an decrypted word.</p>
+                <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
+               <h4 style="text-align:center">Encrypt Instructions</h4>
+               <ul>
+               <li>Find the Nth letter of the encrypted word in Matrix A.</li>
+               <li>Use the row/col from Matrix A in Matrix B to get your Nth decrypted letter.</li>
+               <li>Do this for each letter of the encrypted word to get a decrypted word.</li>
+               </ul>
+               <h4 style="text-align:center">Decrypt Instructions</h4>
+               <ul>
+               <li>Find the Nth letter of the encrypted word in Matrix B.</li>
+               <li>Use the row/col from Matrix B in Matrix A to get your Nth decrypted letter.</li>
+               <li>Do this for each letter of the encrypted word to get a decrypted word.</li>
+               </ul>
+               <p>Finally, if any of the letters on screen 2 match at the same position as any of the letters of your encrypted word, replace that letter with a J. You should now have an decrypted word.</p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 2</div>
         </div>

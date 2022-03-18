@@ -8,7 +8,7 @@ using Words;
 
 public class ConjugatedMatrixBifidCipher 
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Conjugated Matrix Bifid Cipher", log);
 		Data data = new Data();
@@ -40,13 +40,11 @@ public class ConjugatedMatrixBifidCipher
 			kwFronts[i] = cm.generateBoolExp(Bomb);
 			keys[i] = cm.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
 			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
-			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Keyword Front Rule #{1}: {2} -> {3}", log, (i + 1), kwFronts[i][0], kwFronts[i][1]);
-			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Key #{1}: {2}", log, (i + 1), keys[i]);
+			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Key #{1}: {2} -> {3} -> {4}", log, (i + 1), kwFronts[i][0], kwFronts[i][1], keys[i]);
 		}
 		int[][] pos = new int[2][] { new int[word.Length], new int[word.Length] };
-		string[] inverted = cm.generateBoolExp(Bomb);
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Invert Rule: {1} -> {2}", log, inverted[0], inverted[1]);
-		if (inverted[1][0] == 'T')
+		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+		if (invert)
 		{
 			for (int aa = 0; aa < word.Length; aa++)
 			{
@@ -66,7 +64,6 @@ public class ConjugatedMatrixBifidCipher
 			for (int aa = 0; aa < word.Length; aa++)
 				encrypt = encrypt + "" + keys[1][((pos[(aa * 2) / word.Length][(aa * 2) % word.Length]) * 5) + pos[((aa * 2) + 1) / word.Length][((aa * 2) + 1) % word.Length]];
 		}
-
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1}", log, String.Join("", pos[0].Select(p => (p + 1).ToString()).ToArray()));
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1}", log, String.Join("", pos[1].Select(p => (p + 1).ToString()).ToArray()));
 		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1} -> {2}", log, word, encrypt);
@@ -76,10 +73,9 @@ public class ConjugatedMatrixBifidCipher
 		screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
 		screens[3] = new ScreenInfo(kwFronts[1][0], 25);
 		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
-		screens[5] = new ScreenInfo(inverted[0], 25);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int aa = 6; aa < screens.Length - 1; aa++)
+		for (int aa = 5; aa < screens.Length - 1; aa++)
 			screens[aa] = new ScreenInfo();
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
 	}
 }

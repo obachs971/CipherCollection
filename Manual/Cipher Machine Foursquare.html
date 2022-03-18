@@ -13,41 +13,6 @@
             margin: 1em auto;
             border: none;
         }
-        .strip-change-one td,
-        .strip-change-one th {
-            padding: .3em .5em .2em;
-        }
-        .tablea {
-            font-size: 20px;
-            width: 100%;
-        }
-        .rotor {
-            font-size: 13px;
-        }
-        .reflector {
-            font-size: 14px;
-        }
-        .alpha {
-            font-size: 13px;
-        }
-        .beta {
-            font-size: 11px;
-        }
-
-        .img-pigpen {
-            width: 50%;
-        }
-        .dark .img-pigpen {
-            filter: invert(86.5%);
-        }
-        a::after {
-            font-size: .7em;
-        }
-        @media print {
-            .img-pigpen {
-                width: 38%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -66,7 +31,7 @@
                 <p>Create a 2nd, 3rd, and 4th matrix by doing the same steps to create Matrix A but with the keyword on screen 2 page 1 and the Boolean Expression on screen B page 1 to create Matrix B, the keyword on screen 3 page 1 and the Boolean Expression on screen C page 1 to create Matrix C, and the keyword on screen 4 page 1 and the Boolean Expression on screen D page 1 to create Matrix D.</p>
                 <p>Form an 2x2 square of matrices with A in the top left, B in the top right, C in the bottom left, and D in the bottom right.</p>
                 <p>Split the encrypted word into pairs of letters. If there is an odd amount of letters, leave the last letter as the odd letter. Depending on which instruction is required, apply it to each pair of letters.</p> 
-                <p>If the Boolean Expression on screen A page 2 is true, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
+                <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
                 <h4 style="text-align:center">Encrypt Instructions</h4>
                 <ul>
                 <li>Find the 1st letter in Matrix A. Find the 2nd letter in Matrix D.</li>
@@ -92,16 +57,17 @@
             <h4 style="text-align:center">Example</h4>
             <p style="text-align:center">Encrypted Word: LVVSNCE<br>Screen 1 Page 2: FRNZMXI<br>Matrix A: BCDGHIKMOPQRSTUVWXYZFALEN<br>Matrix B: ABDFGIKMNPQRSUVWXYZCLOTHE<br>Matrix C: REMBACDFGHIKLNOPQSTUVWXYZ<br>Matrix D: WRAPINGBCDEFHKLMOQSTUVXYZ<br>Using Decrypt Rules</p>
             <table>
-            <tr><td>B</td><td>C</td><td>D</td><td>G</td><td>H</td><td>A</td><td>B</td><td>D</td><td>F</td><td>G</td></tr>
-            <tr><td>I</td><td>K</td><td>M</td><td>O</td><td>P</td><td>I</td><td>K</td><td>M</td><td>N</td><td>P</td></tr>
-            <tr><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>Q</td><td>R</td><td>S</td><td>U</td><td>V</td></tr>
-            <tr><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>C</td></tr>
-            <tr><td>F</td><td>A</td><td>L</td><td>E</td><td>N</td><td>L</td><td>O</td><td>T</td><td>H</td><td>E</td></tr>
-            <tr><td>R</td><td>E</td><td>M</td><td>B</td><td>A</td><td>W</td><td>R</td><td>A</td><td>P</td><td>I</td></tr>
-            <tr><td>C</td><td>D</td><td>F</td><td>G</td><td>H</td><td>N</td><td>G</td><td>B</td><td>C</td><td>D</td></tr>
-            <tr><td>I</td><td>K</td><td>L</td><td>N</td><td>O</td><td>E</td><td>F</td><td>H</td><td>K</td><td>L</td></tr>
-            <tr><td>P</td><td>Q</td><td>S</td><td>T</td><td>U</td><td>M</td><td>O</td><td>Q</td><td>S</td><td>T</td></tr>
-            <tr><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>U</td><td>V</td><td>X</td><td>Y</td><td>Z</td></tr>
+            <tr><td>B</td><td>C</td><td>D</td><td>G</td><td>H</td><td style="background-color: rgb(0, 0, 0)"></td><td>A</td><td>B</td><td>D</td><td>F</td><td>G</td></tr>
+            <tr><td>I</td><td>K</td><td>M</td><td>O</td><td>P</td><td style="background-color: rgb(0, 0, 0)"></td><td>I</td><td>K</td><td>M</td><td>N</td><td>P</td></tr>
+            <tr><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td style="background-color: rgb(0, 0, 0)"></td><td>Q</td><td>R</td><td>S</td><td>U</td><td>V</td></tr>
+            <tr><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td style="background-color: rgb(0, 0, 0)"></td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>C</td></tr>
+            <tr><td>F</td><td>A</td><td>L</td><td>E</td><td>N</td><td style="background-color: rgb(0, 0, 0)"></td><td>L</td><td>O</td><td>T</td><td>H</td><td>E</td></tr>
+            <tr><td colspan="11" style="background-color: rgb(0, 0, 0)"></td></tr>
+            <tr><td>R</td><td>E</td><td>M</td><td>B</td><td>A</td><td style="background-color: rgb(0, 0, 0)"></td><td>W</td><td>R</td><td>A</td><td>P</td><td>I</td></tr>
+            <tr><td>C</td><td>D</td><td>F</td><td>G</td><td>H</td><td style="background-color: rgb(0, 0, 0)"></td><td>N</td><td>G</td><td>B</td><td>C</td><td>D</td></tr>
+            <tr><td>I</td><td>K</td><td>L</td><td>N</td><td>O</td><td style="background-color: rgb(0, 0, 0)"></td><td>E</td><td>F</td><td>H</td><td>K</td><td>L</td></tr>
+            <tr><td>P</td><td>Q</td><td>S</td><td>T</td><td>U</td><td style="background-color: rgb(0, 0, 0)"></td><td>M</td><td>O</td><td>Q</td><td>S</td><td>T</td></tr>
+            <tr><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td style="background-color: rgb(0, 0, 0)"></td><td>U</td><td>V</td><td>X</td><td>Y</td><td>Z</td></tr>
             </table>
             <p style="text-align:center">
             LV -> FU<br>
