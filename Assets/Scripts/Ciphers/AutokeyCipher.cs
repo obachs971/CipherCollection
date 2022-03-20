@@ -7,7 +7,7 @@ using Words;
 
 public class AutokeyCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Autokey Cipher", log);
 		string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY", encrypt = "";
@@ -44,6 +44,11 @@ public class AutokeyCipher
 		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+		};
 	}
 }

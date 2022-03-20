@@ -5,7 +5,7 @@ using Words;
 
 public class DigrafidCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Digrafid Cipher", log);
 		string[] kws = new string[2], keys = new string[2], choices = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ#", "ABCDEFGHIJKLMNOPQRSTUVWXYZ#" }, nums;
@@ -81,7 +81,12 @@ public class DigrafidCipher
 		for (int i = 5; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 	
 }

@@ -7,7 +7,7 @@ using Words;
 
 public class RSACipher
 {
-	public PageInfo[] encrypt(string word, string id, string log)
+	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin RSA Cipher", log);
 		CMTools cm = new CMTools();
@@ -74,7 +74,12 @@ public class RSACipher
 		screens[1] = new ScreenInfo(N + "", (N < 1000) ? 25 : 20);
 		screens[3] = new ScreenInfo(E + "", (E < 1000) ? 25 : 20);
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens)});
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 	private int[] generateValues(int len)
 	{

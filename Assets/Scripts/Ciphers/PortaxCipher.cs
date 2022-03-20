@@ -5,7 +5,7 @@ using Words;
 
 public class PortaxCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log)
+	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin Portax Cipher", log);
 		string key = new string("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle()).Substring(0, word.Length / 2);
@@ -43,6 +43,11 @@ public class PortaxCipher
 		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 }

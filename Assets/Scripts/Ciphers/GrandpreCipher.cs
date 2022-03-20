@@ -7,7 +7,7 @@ using Words;
 
 public class GrandpreCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log)
+	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin Grandpré Cipher", log);
 		int len = UnityEngine.Random.Range(0, 3) + 2;
@@ -56,7 +56,12 @@ public class GrandpreCipher
 			screens[1][i] = new ScreenInfo();
 		screens[0][8] = new ScreenInfo(id, 35);
 		screens[1][8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens[0]), new PageInfo(screens[1])});
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens[0]), new PageInfo(screens[1]) }
+		};
 	}
 	private string[] generateWords(int len)
 	{

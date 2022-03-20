@@ -5,7 +5,7 @@ using Words;
 
 public class BitSwitchCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Bit Switch Cipher", log);
 		string scrambler = new string("12345".ToCharArray().Shuffle());
@@ -52,7 +52,12 @@ public class BitSwitchCipher
 		for (int i = 5; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+		};
 	}
 	private int[] generateNumbers(string log, string scrambler)
 	{

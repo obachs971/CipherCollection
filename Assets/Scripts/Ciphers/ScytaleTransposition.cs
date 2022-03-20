@@ -5,7 +5,7 @@ using Words;
 
 public class ScytaleTransposition
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Scytale Transposition", log);
 		CMTools cm = new CMTools();
@@ -48,6 +48,11 @@ public class ScytaleTransposition
 		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+		};
 	}
 }

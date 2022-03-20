@@ -7,7 +7,7 @@ using Words;
 
 public class TrisquareCipher 
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Being Trisquare Cipher", log);
 		Data data = new Data();
@@ -68,6 +68,11 @@ public class TrisquareCipher
 		screens[6] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
 		screens[7] = new ScreenInfo(intersection, new int[] { 25, 25, 20 }[intersection.Length - 2]);
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 }

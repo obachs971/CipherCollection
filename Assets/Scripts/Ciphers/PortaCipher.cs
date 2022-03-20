@@ -5,7 +5,7 @@ using Words;
 
 public class PortaCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log)
+	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin Porta Cipher", log);
 		List<string> words = new Data().allWords[UnityEngine.Random.Range(0, word.Length - 3)];
@@ -25,6 +25,11 @@ public class PortaCipher
 		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 }

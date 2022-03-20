@@ -5,7 +5,7 @@ using Words;
 
 public class MonoalphabeticCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Monoalphabetic Cipher", log);
 		string[] kws = generateKeywords();
@@ -41,7 +41,12 @@ public class MonoalphabeticCipher
 		for (int i = 3; i < 8; i++)
 			screens[1][i] = new ScreenInfo();
 		screens[1][8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens[0], invert), new PageInfo(screens[1], invert)});
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens[0], invert), new PageInfo(screens[1]) }
+		};
 	}
 	private string[] generateKeywords()
 	{

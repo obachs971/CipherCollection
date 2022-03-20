@@ -7,7 +7,7 @@ using Words;
 
 public class AMSCOTransposition
 {
-	public PageInfo[] encrypt(string word, string id, string log, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin AMSCO Transposition", log);
 		int[] nums = { 2, 2, 3, 4, 4 };
@@ -93,7 +93,12 @@ public class AMSCOTransposition
 		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+		};
 	}
 	private int sum(string s)
 	{

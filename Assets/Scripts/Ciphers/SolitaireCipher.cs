@@ -7,7 +7,7 @@ using Words;
 
 public class SolitaireCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Solitaire Cipher", log);
 		string key = new string("12ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle());
@@ -70,7 +70,12 @@ public class SolitaireCipher
 		}
 		screens[1] = new ScreenInfo(letters, 25);
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+		};
 	}
 	private int getNumber(char c, string lets)
 	{

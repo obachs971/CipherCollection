@@ -65,10 +65,10 @@ public class cipherMachine : MonoBehaviour
         string encrypt = answer + "";
         bool invert = (UnityEngine.Random.Range(0, 2) == 0);
         //invert = true;
-        PageInfo[] temp = new SolitaireCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", invert); //Test your cipher right here
-        encrypt = temp[0].Screens[0].ToString();
-        for(int i = temp.Length - 1; i >= 1; i--)
-            pages.Insert(0, temp[i]);
+        ResultInfo temp = new AffineCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb, invert); //Test your cipher right here
+        encrypt = temp.Encrypted;
+        for(int i = temp.Pages.Length - 1; i >= 1; i--)
+            pages.Insert(0, temp.Pages[i]);
 
         
         ScreenInfo[] firstScreen = new ScreenInfo[9];

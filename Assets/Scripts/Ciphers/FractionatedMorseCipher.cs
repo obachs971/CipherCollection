@@ -8,7 +8,7 @@ using Words;
 
 public class FractionatedMorseCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Fractionated Morse Cipher", log);
 		Data data = new Data();
@@ -55,7 +55,12 @@ public class FractionatedMorseCipher
 		screens[8] = new ScreenInfo(id, 35);
 		for (int i = 3; i < 8; i++)
 			screens[i] = new ScreenInfo();
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 	private string letterToMorse(char c)
 	{

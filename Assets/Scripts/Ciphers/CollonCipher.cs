@@ -7,7 +7,7 @@ using Words;
 public class CollonCipher 
 {
 
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Collon Cipher", log);
 		Data data = new Data();
@@ -53,6 +53,11 @@ public class CollonCipher
 		screens[8] = new ScreenInfo(id, 35);
 		for (int i = 5; i < 8; i++)
 			screens[i] = new ScreenInfo();
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(rc[0], 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = rc[0],
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 }

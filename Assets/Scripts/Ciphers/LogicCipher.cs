@@ -7,7 +7,7 @@ using Words;
 
 public class LogicCipher 
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Logic Cipher", log);
 		string[] puzzle = generatePuzzle();
@@ -52,7 +52,12 @@ public class LogicCipher
 		screens[6] = new ScreenInfo(puzzle[1], new int[] { 35, 35, 32, 28 }[puzzle[1].Length - 5]);
 		screens[7] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 	private string[] generatePuzzle()
 	{

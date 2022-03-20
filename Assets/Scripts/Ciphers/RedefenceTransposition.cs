@@ -5,7 +5,7 @@ using Words;
 
 public class RedefenceTransposition
 {
-	public PageInfo[] encrypt(string word, string id, string log, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Redefence Transposition", log);
 		string key = new string("1234567".Substring(0, UnityEngine.Random.Range(2, word.Length - 1)).ToCharArray().Shuffle());
@@ -70,6 +70,11 @@ public class RedefenceTransposition
 		for (int i = 1; i < 8; i++)
 			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+		};
 	}
 }

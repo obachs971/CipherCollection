@@ -8,7 +8,7 @@ using Words;
 
 public class TrifidCipher 
 {
-	public PageInfo[] encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
+	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Trifid Cipher", log);
 		List < List<string> > words = new Data().allWords;
@@ -64,6 +64,11 @@ public class TrifidCipher
 		screens[8] = new ScreenInfo(id, 35);
 		for (int i = 2; i < 8; i++)
 			screens[i] = new ScreenInfo();
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens, invert) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+		};
 	}
 }

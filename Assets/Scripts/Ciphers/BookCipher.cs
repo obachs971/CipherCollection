@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BookCipher 
 {
-    public PageInfo[] encrypt(string word, string id, string log)
+    public ResultInfo encrypt(string word, string id, string log)
     {
         Debug.LogFormat("{0} Begin Book Cipher", log);
         string key = new string("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle()).Substring(0, 2), alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", storedLetters = "", encrypt = "";
@@ -57,7 +57,12 @@ public class BookCipher
         for (int i = 3; i < 8; i+=2)
             screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
-        return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+        return new ResultInfo
+        {
+            Encrypted = encrypt,
+            Score = 5,
+            Pages = new PageInfo[] { new PageInfo(screens) }
+        };
     }
     private string[][][] getBook(string key)
     {

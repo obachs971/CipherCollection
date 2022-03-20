@@ -5,7 +5,7 @@ using Words;
 
 public class EnigmaCipher
 {
-	public PageInfo[] encrypt(string word, string id, string log)
+	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin Engima Cipher", log);
 		string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypt = "";
@@ -42,7 +42,12 @@ public class EnigmaCipher
 		screens[6] = new ScreenInfo();
 		screens[7] = new ScreenInfo(reflector + "", 25);
 		screens[8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens) });
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens) }
+		};
 	}
 	//Generates the Plugboard
 	private string generatePlugboard(int length)

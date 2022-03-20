@@ -6,7 +6,7 @@ using Words;
 
 public class M209Cipher
 {
-	public PageInfo[] encrypt(string word, string id, string log)
+	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin M-209 Cipher", log);
 		string[][] key = generatePins(log, word.Length);
@@ -54,7 +54,12 @@ public class M209Cipher
 		screens[1][4] = new ScreenInfo(rotorLets, 35);
 		screens[1][6] = new ScreenInfo();
 		screens[1][8] = new ScreenInfo(id, 35);
-		return (new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(encrypt, 35) }), new PageInfo(screens[0]), new PageInfo(screens[1])});
+		return new ResultInfo
+		{
+			Encrypted = encrypt,
+			Score = 5,
+			Pages = new PageInfo[] { new PageInfo(screens[0]), new PageInfo (screens[1]) }
+		}; 
 	}
 	private string[][] generatePins(string log, int length)
 	{
