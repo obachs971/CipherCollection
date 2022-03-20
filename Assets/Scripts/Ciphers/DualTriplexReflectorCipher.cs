@@ -10,21 +10,14 @@ public class DualTriplexReflectorCipher
     {
         Debug.LogFormat("{0} Begin Dual Triplex Reflector Cipher", log);
         string alpha = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypt = "";
-        CMTools cm = new CMTools();
-        List<List<string>> words = new Data().allWords;
-        int len = UnityEngine.Random.Range(0, words.Count);
-        string kw1 = words[len][UnityEngine.Random.Range(0, words[len].Count)];
-        words[len].Remove(kw1);
-        len = UnityEngine.Random.Range(0, words.Count);
-        string kw2 = words[len][UnityEngine.Random.Range(0, words[len].Count)];
-        words[len].Remove(kw2);
-        words.Insert(0, new Data().word3);
-        len = UnityEngine.Random.Range(0, word.Length - 3);
-        string kw3 = words[len][UnityEngine.Random.Range(0, words[len].Count)];
-        string[] kw1front = cm.generateBoolExp(Bomb), kw2front = cm.generateBoolExp(Bomb);
-        string ref1 = cm.getKey(kw1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw1front[1][0] == 'T');
+        var wordList = new Data();
+        string kw1 = wordList.PickWord(4, 8);
+        string kw2 = wordList.PickWord(4, 8);
+        string kw3 = wordList.PickWord(word.Length);
+        string[] kw1front = CMTools.generateBoolExp(Bomb), kw2front = CMTools.generateBoolExp(Bomb);
+        string ref1 = CMTools.getKey(kw1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw1front[1][0] == 'T');
         ref1 = ref1.Substring(0, 13) + " " + ref1.Substring(13);
-        string ref2 = cm.getKey(kw2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw2front[1][0] == 'T');
+        string ref2 = CMTools.getKey(kw2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw2front[1][0] == 'T');
         ref2 = ref2.Substring(0, 13) + " " + ref2.Substring(13);
         Debug.LogFormat("{0} [Dual Triplex Reflector Cipher] Keyword 1: {1}", log, kw1);
         Debug.LogFormat("{0} [Dual Triplex Reflector Cipher] Keyword 2: {1}", log, kw2);
@@ -65,7 +58,7 @@ public class DualTriplexReflectorCipher
                 indexA = ref2.IndexOf(temp[2]);
                 indexB = ref1.IndexOf(temp[1]);
             }
-            if(i < (word.Length - 1))
+            if (i < (word.Length - 1))
             {
                 int[] tri = { alpha.IndexOf(kw3[i % kw3.Length]) / 9, (alpha.IndexOf(kw3[i % kw3.Length]) % 9) / 3, alpha.IndexOf(kw3[i % kw3.Length]) % 3 };
                 ref2 = putRowBack(ref2, shiftLets(ref2.Substring((indexA / 9) * 9, 9), (tri[0] * 3) + tri[1]), indexA / 9);

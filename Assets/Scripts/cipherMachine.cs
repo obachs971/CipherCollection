@@ -26,7 +26,7 @@ public class cipherMachine : MonoBehaviour
     static int moduleIdCounter = 1;
     int moduleId;
     private bool moduleSolved;
-    private List<List<String>> wordList;
+    private Data wordList;
     public KMSelectable leftArrow;
     public KMSelectable rightArrow;
     public KMSelectable submit;
@@ -53,13 +53,11 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         pages = new List<PageInfo>();
-        wordList = new Data().allWords;
+        wordList = new Data();
         submitText.text = "1";
         page = 0;
         //Generating random word
-        int ansLength = UnityEngine.Random.Range(0, 5);
-        //ansLength = 0;
-        answer = wordList[ansLength][UnityEngine.Random.Range(0, wordList[ansLength].Count)].ToUpper();
+        answer = wordList.PickWord(4, 8);
         //answer = "DARLING";
         Debug.LogFormat("[Cipher Machine #{0}] Generated Word: {1}", moduleId, answer);
         string encrypt = answer + "";
@@ -67,18 +65,18 @@ public class cipherMachine : MonoBehaviour
         //invert = true;
         ResultInfo temp = new AffineCipher().encrypt(encrypt, "AA", "[Cipher Machine #" + moduleId + "]", Bomb, invert); //Test your cipher right here
         encrypt = temp.Encrypted;
-        for(int i = temp.Pages.Length - 1; i >= 1; i--)
+        for (int i = temp.Pages.Length - 1; i >= 1; i--)
             pages.Insert(0, temp.Pages[i]);
 
-        
+
         ScreenInfo[] firstScreen = new ScreenInfo[9];
         firstScreen[0] = new ScreenInfo(encrypt, new int[] { 35, 35, 35, 32, 28 }[answer.Length - 4]);
-        for(int i = 1; i < 9; i++)
+        for (int i = 1; i < 9; i++)
             firstScreen[i] = new ScreenInfo();
         pages.Insert(0, new PageInfo(firstScreen));
         getScreens();
     }
-    
+
     string getKey(string k, string alpha, bool start)
     {
         for (int aa = 0; aa < k.Length; aa++)
@@ -136,7 +134,7 @@ public class cipherMachine : MonoBehaviour
         {
             screenTexts[aa].text = pages[page].Screens[aa].Text;
             screenTexts[aa].fontSize = pages[page].Screens[aa].FontSize;
-            if(pages[page].Screens[aa].TextFont == null)
+            if (pages[page].Screens[aa].TextFont == null)
             {
                 screenTexts[aa].font = DEFAULT_FONT;
                 screenTextMeshes[aa].material = DEFAULT_FONT_MAT;
@@ -147,7 +145,7 @@ public class cipherMachine : MonoBehaviour
                 screenTextMeshes[aa].material = pages[page].Screens[aa].FontMaterial;
             }
         }
-        submitMesh.material = materials[pages[page].Invert ? 1 : 0] ;
+        submitMesh.material = materials[pages[page].Invert ? 1 : 0];
         submitText.color = textColors[pages[page].Invert ? 1 : 0];
         submitText.text = (page + 1) + "" + pages[page].Screens[8].Text;
     }
@@ -156,7 +154,7 @@ public class cipherMachine : MonoBehaviour
         if (!moduleSolved)
         {
             submitButton.AddInteractionPunch();
-            if(submitScreen)
+            if (submitScreen)
             {
                 if (screenTexts[6].text.Equals(answer))
                 {
@@ -192,10 +190,10 @@ public class cipherMachine : MonoBehaviour
                 submitText.text = "SUB";
                 screenTexts[0].text = "";
                 screenTexts[1].text = "";
-                for(int aa = 0; aa < 8; aa++)
+                for (int aa = 0; aa < 8; aa++)
                     screenTexts[aa].text = "";
                 screenTexts[6].text = pressed.GetComponentInChildren<TextMesh>().text;
-                screenTexts[6].fontSize = new int[] { 35, 35, 35, 32, 28}[answer.Length - 4];
+                screenTexts[6].fontSize = new int[] { 35, 35, 35, 32, 28 }[answer.Length - 4];
                 submitScreen = true;
                 submitMesh.material = materials[0];
                 submitText.color = textColors[0];
@@ -264,8 +262,8 @@ public class cipherMachine : MonoBehaviour
         if (moduleSelected)
         {
             for (var ltr = 0; ltr < 26; ltr++)
-                if (Input.GetKeyDown(((char)('a' + ltr)).ToString()))
-                    keyboard[getPositionFromChar((char)('A' + ltr))].OnInteract();
+                if (Input.GetKeyDown(((char) ('a' + ltr)).ToString()))
+                    keyboard[getPositionFromChar((char) ('A' + ltr))].OnInteract();
             if (Input.GetKeyDown(KeyCode.Return))
                 submit.OnInteract();
         }

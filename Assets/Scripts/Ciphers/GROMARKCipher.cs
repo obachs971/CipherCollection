@@ -10,11 +10,9 @@ public class GROMARKCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin GROMARK Cipher", log);
-		int len = UnityEngine.Random.Range(0, 5);
-		List<string> words = new Data().allWords[len];
-		CMTools cm = new CMTools();
-		string kw = words[UnityEngine.Random.Range(0, words.Count)], alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypt = "";
-		string[] kwfront = cm.generateBoolExp(Bomb);
+		string kw = new Data().PickWord(4, 8);
+		string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypt = "";
+		string[] kwfront = CMTools.generateBoolExp(Bomb);
 		int[] key = new int[kw.Length];
 		char[] order = kw.ToArray();
 		Array.Sort(order);
@@ -29,7 +27,7 @@ public class GROMARKCipher
 				}
 			}
 		}
-		string temp = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+		string temp = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
 		while (temp.Length % kw.Length > 0)
 			temp += "-";
 		string alphakey = "";
@@ -47,7 +45,7 @@ public class GROMARKCipher
 			numkey = new string("123456789".ToCharArray().Shuffle()).Substring(0, 2 + UnityEngine.Random.Range(0, word.Length - 2));
 			repeat = check(numkey);
 		}
-		len = numkey.Length;
+		var len = numkey.Length;
 		Debug.LogFormat("{0} [GROMARK Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [GROMARK Cipher] Columns: {1}", log, string.Join("", key.Select(x => x + "").ToArray()));
 		Debug.LogFormat("{0} [GROMARK Cipher] Alphabet Key: {1} -> {2} -> {3}", log, kwfront[0], kwfront[1], alphakey);
@@ -57,7 +55,7 @@ public class GROMARKCipher
 		{
 			for (int i = 0; i < word.Length; i++)
 			{
-				encrypt = encrypt + "" + alpha[cm.mod(alphakey.IndexOf(word[i]) - (numkey[i] - '0'), 26)];
+				encrypt = encrypt + "" + alpha[CMTools.mod(alphakey.IndexOf(word[i]) - (numkey[i] - '0'), 26)];
 				int n = ((numkey[i] - '0') + (numkey[i + 1] - '0')) % 10;
 				numkey = numkey + "" + n;
 			}
@@ -66,7 +64,7 @@ public class GROMARKCipher
 		{
 			for(int i = 0; i < word.Length; i++)
 			{
-				encrypt = encrypt + "" + alphakey[cm.mod(alpha.IndexOf(word[i]) + (numkey[i] - '0'), 26)];
+				encrypt = encrypt + "" + alphakey[CMTools.mod(alpha.IndexOf(word[i]) + (numkey[i] - '0'), 26)];
 				int n = ((numkey[i] - '0') + (numkey[i + 1] - '0')) % 10;
 				numkey = numkey + "" + n;
 			}

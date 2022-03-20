@@ -10,7 +10,7 @@ public class FoursquareCipher {
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Being Foursquare Cipher", log);
-		Data data = new Data();
+		Data words = new Data();
 		string encrypt = "";
 		string replaceJ = "";
 		string alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
@@ -19,25 +19,22 @@ public class FoursquareCipher {
 		{
 			if (word[i] == 'J')
 			{
-				word = word.Substring(0, i) + "" + alpha[UnityEngine.Random.Range(0, alpha.Length)] + "" + word.Substring(i + 1);
+				word = word.Substring(0, i) + "" + alpha[Random.Range(0, alpha.Length)] + "" + word.Substring(i + 1);
 				replaceJ = replaceJ + "" + word[i];
 			}
 			else
-				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[UnityEngine.Random.Range(0, 24)];
+				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[Random.Range(0, 24)];
 		}
 		Debug.LogFormat("{0} [Foursquare Cipher] After Replacing Js: {1}", log, word);
 		Debug.LogFormat("{0} [Foursquare Cipher] Screen 1 Page 2: {1}", log, replaceJ);
-		CMTools cm = new CMTools();
 		string[] kws = new string[4];
 		string[] keys = new string[4];
 		string[][] kwFronts = new string[4][];
 		for (int i = 0; i < 4; i++)
 		{
-			int length = UnityEngine.Random.Range(0, 5);
-			kws[i] = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
-			data.allWords[length].Remove(kws[i]);
-			kwFronts[i] = cm.generateBoolExp(Bomb);
-			keys[i] = cm.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
+			kws[i] = words.PickWord(4, 8);
+			kwFronts[i] = CMTools.generateBoolExp(Bomb);
+			keys[i] = CMTools.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
 			Debug.LogFormat("{0} [Foursquare Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
 			Debug.LogFormat("{0} [Foursquare Cipher] Key #{1}: {2} -> {3} -> {4}", log, (i + 1), kwFronts[i][0], kwFronts[i][1], keys[i]);
 		}

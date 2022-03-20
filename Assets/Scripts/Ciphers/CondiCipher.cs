@@ -10,14 +10,11 @@ public class CondiCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Condi Cipher", log);
-		Data data = new Data();
-		CMTools cm = new CMTools();
-		int length = UnityEngine.Random.Range(0, 5);
-		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
+        string kw = new Data().PickWord(4, 8);
 		string encrypt = "";
-		string[] keyFront = cm.generateBoolExp(Bomb);
-		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
-		int[] vals = cm.generateValue(Bomb);
+		string[] keyFront = CMTools.generateBoolExp(Bomb);
+		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
+		int[] vals = CMTools.generateValue(Bomb);
 		char letter = (char)vals[0];
 		int offset = vals[1];
 		Debug.LogFormat("{0} [Condi Cipher] Keyword: {1}", log, kw);
@@ -28,7 +25,7 @@ public class CondiCipher
 		{
 			foreach (char c in word)
 			{
-				encrypt = encrypt + "" + key[cm.mod(key.IndexOf(c) - offset, 26)];
+				encrypt = encrypt + "" + key[CMTools.mod(key.IndexOf(c) - offset, 26)];
 				offset = key.IndexOf(encrypt[encrypt.Length - 1]) + 1;
 			}
 		}
@@ -36,7 +33,7 @@ public class CondiCipher
 		{
 			foreach (char c in word)
 			{
-				encrypt = encrypt + "" + key[cm.mod(key.IndexOf(c) + offset, 26)];
+				encrypt = encrypt + "" + key[CMTools.mod(key.IndexOf(c) + offset, 26)];
 				offset = key.IndexOf(c) + 1;
 			}
 		}

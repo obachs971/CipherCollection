@@ -8,8 +8,7 @@ public class StripCipher
     public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
     {
         Debug.LogFormat("{0} Begin Strip Cipher", log);
-        CMTools cm = new CMTools();
-        int[] val = cm.generateValue(Bomb);
+        int[] val = CMTools.generateValue(Bomb);
         int col = (invert) ? ((val[1] % 25) + 1) : (25 - (val[1] % 25));
         string[] temp = getStrips(word.Length), strips = new string[word.Length], nums = { "", "" };
         string encrypt = "";
@@ -151,7 +150,7 @@ public class StripCipher
         };
         for(int i = 0; i < key.Length; i++)
         {
-            key[i] = strips[UnityEngine.Random.Range(0, strips.Count)].ToUpperInvariant();
+            key[i] = strips[Random.Range(0, strips.Count)].ToUpperInvariant();
             strips.Remove(key[i]);
         }
         return key;

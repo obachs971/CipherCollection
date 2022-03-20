@@ -8,7 +8,7 @@ public class ColumnarTransposition
 	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Columnar Transposition", log);
-		string key = "12345678".Substring(0, 2 + UnityEngine.Random.Range(0, word.Length - 1));
+		string key = "12345678".Substring(0, 2 + Random.Range(0, word.Length - 1));
 		key = new string(key.ToCharArray().Shuffle());
 		while("12345678".Contains(key))
 			key = new string(key.ToCharArray().Shuffle());

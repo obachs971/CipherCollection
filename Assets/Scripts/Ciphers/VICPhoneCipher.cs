@@ -10,12 +10,9 @@ public class VICPhoneCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin VIC Phone Cipher", log);
-		List<List<string>> words = new Data().allWords;
-		CMTools cm = new CMTools();
-		int len = UnityEngine.Random.Range(0, words.Count);
-		string kw = words[len][UnityEngine.Random.Range(0, words[len].Count)];
-		string[] kwfront = cm.generateBoolExp(Bomb);
-		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+		string kw = new Data().PickWord(4, 8);
+		string[] kwfront = CMTools.generateBoolExp(Bomb);
+		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
 		string rows = new string("0123456789".ToCharArray().Shuffle()).Substring(0, 4);
 		Debug.LogFormat("{0} [VIC Phone Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [VIC Phone Cipher] Screen B: {1}", log, rows);

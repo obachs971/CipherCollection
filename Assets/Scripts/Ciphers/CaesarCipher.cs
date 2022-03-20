@@ -8,19 +8,18 @@ public class CaesarCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Caesar Cipher", log);
-		CMTools cm = new CMTools();
-		int[] val = cm.generateValue(Bomb);
+		int[] val = CMTools.generateValue(Bomb);
 		int offset = (val[1] % 25) + 1;
 		string encrypt = "", alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		if(invert)
 		{
 			foreach(char c in word)
-				encrypt = encrypt + "" + alpha[cm.mod(alpha.IndexOf(c) + offset, 26)];
+				encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(c) + offset, 26)];
 		}
 		else
 		{
 			foreach (char c in word)
-				encrypt = encrypt + "" + alpha[cm.mod(alpha.IndexOf(c) - offset, 26)];
+				encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(c) - offset, 26)];
 		}
 		Debug.LogFormat("{0} [Caesar Cipher] Generated Value: {1} -> {2}", log, (char)val[0], val[1]);
 		Debug.LogFormat("{0} [Caesar Cipher] Offset: {1}", log, offset);

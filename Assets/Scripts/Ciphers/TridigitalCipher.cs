@@ -10,14 +10,11 @@ public class TridigitalCipher
     public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Tridigital Cipher", log);
-		Data data = new Data();
-		CMTools cm = new CMTools();
-		int length = UnityEngine.Random.Range(0, 5);
-		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
+        string kw = new Data().PickWord(4, 8);
 		string encrypt = "";
 		string nums = "";
-		string[] keyFront = cm.generateBoolExp(Bomb);
-		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
+		string[] keyFront = CMTools.generateBoolExp(Bomb);
+		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
         Debug.LogFormat("{0} [Tridigital Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Tridigital Cipher] Key Front Rule: {1} -> {2}", log, keyFront[0], keyFront[1]);
 		Debug.LogFormat("{0} [Tridigital Cipher] Key: {1}", log, key);
@@ -26,7 +23,7 @@ public class TridigitalCipher
 		{
 			int index = key.IndexOf(c);
 			nums = nums + "" + ((index / 9) + 1);
-			encrypt = encrypt + "" + alpha[index % 9][UnityEngine.Random.Range(0, alpha[index % 9].Length)];
+			encrypt = encrypt + "" + alpha[index % 9][Random.Range(0, alpha[index % 9].Length)];
 			Debug.LogFormat("{0} [Tridigital Cipher] {1} -> {2}{3} -> {4}{5}", log, c, nums[nums.Length - 1], ((index % 9) + 1), nums[nums.Length - 1], encrypt[encrypt.Length - 1]);
 		}
 		ScreenInfo[] screens = new ScreenInfo[9];

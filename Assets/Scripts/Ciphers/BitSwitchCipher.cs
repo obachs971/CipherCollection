@@ -34,7 +34,7 @@ public class BitSwitchCipher
 			else
 			{
 				check = binToNumber(invertBin);
-				if (check <= 26 && UnityEngine.Random.Range(0, 2) == 0)
+				if (check <= 26 && Random.Range(0, 2) == 0)
 					bin = bin + "1";
 				else
 					bin = bin + "0";
@@ -64,7 +64,7 @@ public class BitSwitchCipher
 		string order = new string("01234".ToCharArray().Shuffle());
 		string[] initialBins = new string[4];
 		string[] resultBins = new string[4];
-		int num = UnityEngine.Random.Range(0, 2);
+		int num = Random.Range(0, 2);
 		initialBins[0] = "";
 		for(int i = 0; i < 5; i++)
 		{
@@ -76,8 +76,8 @@ public class BitSwitchCipher
 		resultBins[0] = scramble(initialBins[0], scrambler, false);
 		for(int i = 1; i < 4; i++)
 		{
-			num = UnityEngine.Random.Range(0, 2);
-			int pos = UnityEngine.Random.Range(0, i);
+			num = Random.Range(0, 2);
+			int pos = Random.Range(0, i);
 			initialBins[i] = "";
 			for (int j = 0; j < 5; j++)
 			{

@@ -9,9 +9,7 @@ public class PlayfairCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Playfair Cipher", log);
-		Data data = new Data();
-		int length = UnityEngine.Random.Range(0, 5);
-		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count)];
+        string kw = new Data().PickWord(4, 8);
 		string encrypt = "";
 		string replaceJ = "";
 		string alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
@@ -21,17 +19,16 @@ public class PlayfairCipher
 		{
 			if (word[i] == 'J')
 			{
-				word = word.Substring(0, i) + "" + alpha[UnityEngine.Random.Range(0, alpha.Length)] + "" + word.Substring(i + 1);
+				word = word.Substring(0, i) + "" + alpha[Random.Range(0, alpha.Length)] + "" + word.Substring(i + 1);
 				replaceJ = replaceJ + "" + word[i];
 			}
 			else
-				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[UnityEngine.Random.Range(0, 24)];
+				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[Random.Range(0, 24)];
 		}
 		Debug.LogFormat("{0} [Playfair Cipher] After Replacing Js: {1}", log, word);
 		Debug.LogFormat("{0} [Playfair Cipher] Screen 2: {1}", log, replaceJ);
-		CMTools cm = new CMTools();
-		string[] keyFront = cm.generateBoolExp(Bomb);
-		string key = cm.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');	
+		string[] keyFront = CMTools.generateBoolExp(Bomb);
+		string key = CMTools.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');	
 		Debug.LogFormat("{0} [Playfair Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Playfair Cipher] Keyword Front Rule: {1} -> {2}", log, keyFront[0], keyFront[1]);
 		Debug.LogFormat("{0} [Playfair Cipher] Key: {1}", log, key);
@@ -53,26 +50,26 @@ public class PlayfairCipher
 			{
 				if (invert)
 				{
-					c1 = cm.mod(c1 - 1, 5);
-					c2 = cm.mod(c2 - 1, 5);
+					c1 = CMTools.mod(c1 - 1, 5);
+					c2 = CMTools.mod(c2 - 1, 5);
 				}
 				else
 				{
-					c1 = cm.mod(c1 + 1, 5);
-					c2 = cm.mod(c2 + 1, 5);
+					c1 = CMTools.mod(c1 + 1, 5);
+					c2 = CMTools.mod(c2 + 1, 5);
 				}
 			}
 			else if(c1 == c2)
 			{
 				if (invert)
 				{
-					r1 = cm.mod(r1 - 1, 5);
-					r2 = cm.mod(r2 - 1, 5);
+					r1 = CMTools.mod(r1 - 1, 5);
+					r2 = CMTools.mod(r2 - 1, 5);
 				}
 				else
 				{
-					r1 = cm.mod(r1 + 1, 5);
-					r2 = cm.mod(r2 + 1, 5);
+					r1 = CMTools.mod(r1 + 1, 5);
+					r2 = CMTools.mod(r2 + 1, 5);
 				}
 			}
 			else

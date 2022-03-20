@@ -1,11 +1,113 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Words
 {
     class Data
     {
-        public readonly List<List<string>> allWords = new List<List<string>>()
+        private const int MinLength = 3;
+        private const int MaxLength = 8;
+
+        public string PickWord(int length)
         {
+            if (length < MinLength || length > MaxLength)
+                throw new ArgumentOutOfRangeException("length", string.Format("length must be between {0} and {1}.", MinLength, MaxLength));
+            return PickWord(length, length);
+        }
+
+        public string PickWord(int minLength, int maxLength)
+        {
+            if (minLength > MaxLength)
+                throw new ArgumentOutOfRangeException("minLength", string.Format("minLength must not be greater than {0}.", MaxLength));
+            if (maxLength < MinLength)
+                throw new ArgumentOutOfRangeException("maxLength", string.Format("maxLength must not be smaller than {0}.", MinLength));
+            if (maxLength < minLength)
+                throw new ArgumentOutOfRangeException("maxLength", "maxLength must be greater than or equal to minLength.");
+
+            var words = _allWords[UnityEngine.Random.Range(minLength, maxLength + 1) - MinLength];
+            var ix = UnityEngine.Random.Range(0, words.Count);
+            var word = words[ix];
+            words.RemoveAt(ix);
+            return word;
+        }
+
+        /// <summary>
+        /// Calculates a score for every word, finds the words with the highest score, and then picks (and removes) a random one of those.
+        /// </summary>
+        /// <param name="length">Desired length.</param>
+        /// <param name="scorer">Function to determine the score of a word.</param>
+        public string PickBestWord(int length, Func<string, int> scorer)
+        {
+            return PickBestWord(length, length, scorer);
+        }
+
+        /// <summary>
+        /// Calculates a score for every word, finds the words with the highest score, and then picks (and removes) a random one of those.
+        /// </summary>
+        /// <param name="length">Desired length.</param>
+        /// <param name="scorer">Function to determine the score of a word.</param>
+        public string PickBestWord(int minLength, int maxLength, Func<string, int> scorer)
+        {
+            if (minLength > MaxLength)
+                throw new ArgumentOutOfRangeException("minLength", string.Format("minLength must not be greater than {0}.", MaxLength));
+            if (maxLength < MinLength)
+                throw new ArgumentOutOfRangeException("maxLength", string.Format("maxLength must not be smaller than {0}.", MinLength));
+            if (maxLength < minLength)
+                throw new ArgumentOutOfRangeException("maxLength", "maxLength must be greater than or equal to minLength.");
+
+            int best = 0;
+            List<string> bestWords = new List<string>();
+            for (int length = minLength; length <= maxLength; length++)
+            {
+                for (int j = 0; j < _allWords[length - MinLength].Count; j++)
+                {
+                    int score = scorer(_allWords[length - MinLength][j]);
+                    if (score > best)
+                    {
+                        bestWords.Clear();
+                        bestWords.Add(_allWords[length - MinLength][j]);
+                        best = score;
+                    }
+                    else if (score == best)
+                        bestWords.Add(_allWords[length - MinLength][j]);
+                }
+            }
+            var kw = bestWords[UnityEngine.Random.Range(0, bestWords.Count)];
+            _allWords[kw.Length - MinLength].Remove(kw);
+            return kw;
+        }
+
+        private readonly List<string>[] _allWords = new List<string>[]
+        {
+            new List<string>()
+            {
+                "ABS", "ACE", "ACT", "ADD", "ADO", "AFT", "AGE", "AGO", "AHA", "AID", "AIL", "AIM", "AIR", "ALB", "ALE", "ALL", "ALP", "AMP", "AND", "ANT", "ANY", "APE", "APT", "ARC", "ARE", "ARK", "ARM", "ART", "ASH", "ASK", "ASP", "ATE", "AUK", "AWE", "AWL", "AWN", "AXE", "AYE",
+                "BAA", "BAD", "BAG", "BAH", "BAN", "BAR", "BAT", "BAY", "BED", "BEE", "BEG", "BET", "BIB", "BID", "BIG", "BIN", "BIO", "BIT", "BIZ", "BOA", "BOB", "BOG", "BOO", "BOP", "BOW", "BOX", "BOY", "BRA", "BRO", "BUB", "BUD", "BUG", "BUM", "BUN", "BUS", "BUT", "BUY", "BYE",
+                "CAB", "CAD", "CAM", "CAN", "CAP", "CAR", "CAT", "CAW", "CAY", "CHI", "COB", "COD", "COG", "CON", "COO", "COP", "COT", "COW", "COY", "CRY", "CUB", "CUD", "CUE", "CUP", "CUR", "CUT",
+                "DAB", "DAD", "DAM", "DAY", "DEN", "DEW", "DID", "DIE", "DIG", "DIM", "DIN", "DIP", "DOC", "DOE", "DOG", "DON", "DOT", "DRY", "DUB", "DUD", "DUE", "DUG", "DUN", "DUO", "DYE",
+                "EAR", "EAT", "EBB", "EEK", "EEL", "EGG", "EGO", "EKE", "ELF", "ELK", "ELL", "ELM", "EMU", "END", "EON", "ERA", "ERG", "ERR", "ETA", "EVE", "EWE", "EYE",
+                "FAD", "FAN", "FAR", "FAT", "FAX", "FAY", "FED", "FEE", "FEN", "FEW", "FEY", "FEZ", "FIB", "FIE", "FIG", "FIN", "FIR", "FIT", "FIX", "FLU", "FLY", "FOB", "FOE", "FOG", "FOR", "FOX", "FRO", "FRY", "FUN", "FUR",
+                "GAB", "GAD", "GAG", "GAL", "GAP", "GAR", "GAS", "GAY", "GEE", "GEL", "GEM", "GET", "GIG", "GIN", "GNU", "GOB", "GOD", "GOO", "GOT", "GUM", "GUN", "GUT", "GUY", "GYM", "GYP",
+                "HAD", "HAG", "HAH", "HAM", "HAP", "HAS", "HAT", "HAW", "HAY", "HEM", "HEN", "HEP", "HER", "HEW", "HEX", "HEY", "HID", "HIE", "HIM", "HIP", "HIS", "HIT", "HOB", "HOD", "HOE", "HOG", "HOP", "HOT", "HOW", "HUB", "HUE", "HUG", "HUH", "HUM", "HUT",
+                "ICE", "ICY", "ILK", "ILL", "IMP", "INK", "INN", "ION", "IRE", "IRK", "ITS", "IVY",
+                "JAB", "JAG", "JAM", "JAR", "JAW", "JAY", "JET", "JEW", "JIB", "JIG", "JOB", "JOG", "JOT", "JOY", "JUG", "JUT",
+                "KEG", "KEN", "KEY", "KID", "KIN", "KIT",
+                "LAB", "LAD", "LAG", "LAM", "LAP", "LAW", "LAX", "LAY", "LED", "LEE", "LEG", "LEI", "LET", "LID", "LIE", "LIP", "LIT", "LOB", "LOG", "LOP", "LOT", "LOW", "LUG", "LYE",
+                "MAD", "MAN", "MAP", "MAR", "MAT", "MAW", "MAX", "MAY", "MEN", "MET", "MEW", "MID", "MIX", "MOB", "MOD", "MOM", "MOO", "MOP", "MOW", "MUD", "MUG", "MUM",
+                "NAB", "NAG", "NAP", "NAY", "NET", "NEW", "NIB", "NIL", "NIP", "NIT", "NIX", "NOD", "NOR", "NOT", "NOW", "NUB", "NUN", "NUT",
+                "OAF", "OAK", "OAR", "OAT", "ODD", "ODE", "OFF", "OFT", "OHM", "OHO", "OIL", "OLD", "OLE", "ONE", "OPT", "ORB", "ORE", "OUR", "OUT", "OVA", "OWE", "OWL", "OWN",
+                "PAD", "PAL", "PAN", "PAR", "PAT", "PAW", "PAY", "PEA", "PEG", "PEN", "PEP", "PER", "PET", "PEW", "PHI", "PIE", "PIG", "PIN", "PIP", "PIT", "PLY", "POD", "POI", "POP", "POT", "POX", "PRO", "PRY", "PSI", "PUB", "PUG", "PUN", "PUP", "PUT", "PYX",
+                "QUA",
+                "RAD", "RAG", "RAM", "RAN", "RAP", "RAT", "RAW", "RAY", "RED", "REF", "REM", "REP", "REV", "RHO", "RIB", "RID", "RIG", "RIM", "RIP", "ROB", "ROD", "ROT", "ROW", "RUB", "RUE", "RUG", "RUM", "RUN", "RUT", "RYE",
+                "SAC", "SAD", "SAG", "SAP", "SAT", "SAW", "SAX", "SAY", "SEA", "SEE", "SET", "SEW", "SHE", "SHH", "SHY", "SIN", "SIP", "SIR", "SIS", "SIT", "SIX", "SKA", "SKI", "SKY", "SLY", "SOB", "SOD", "SOL", "SON", "SOP", "SOW", "SOY", "SPA", "SPY", "STY", "SUB", "SUE", "SUM", "SUN",
+                "TAB", "TAD", "TAG", "TAM", "TAN", "TAP", "TAR", "TAU", "TAX", "TEA", "TEE", "TEN", "THE", "THY", "TIC", "TIE", "TIN", "TIP", "TOE", "TOG", "TON", "TOO", "TOP", "TOR", "TOT", "TOW", "TOY", "TRY", "TUB", "TUG", "TUN", "TUT", "TWO",
+                "UGH", "UMP", "URN", "USE",
+                "VAN", "VAT", "VEG", "VET", "VEX", "VIA", "VIE", "VIM", "VOW",
+                "WAD", "WAG", "WAR", "WAS", "WAX", "WAY", "WEB", "WED", "WEE", "WET", "WHO", "WHY", "WIG", "WIN", "WIT", "WIZ", "WOE", "WOK", "WON", "WOO", "WOW", "WRY",
+                "YAK", "YAM", "YAP", "YAW", "YEN", "YEP", "YES", "YET", "YEW", "YIN", "YIP", "YOU", "YOW", "YUK", "YUM", "YUP",
+                "ZAP", "ZED", "ZIP", "ZIT", "ZOO"
+            },
             new List<string>()
             {
                 "ABLE", "ACHE", "ACID", "ACNE", "ACRE", "AGED", "AIDE", "AKIN", "ALAS", "ALLY", "ALSO", "AMEN", "AMID", "APEX", "AQUA", "ARCH", "AREA", "ARID", "ARMY", "ATOM", "AUNT", "AURA", "AWAY", "AXES", "AXIS", "AXLE",
@@ -150,34 +252,6 @@ namespace Words
                 "YEARBOOK", "YIELDING", "YOURSELF", "YOUTHFUL",
                 "ZUCCHINI"
             }
-        };
-        public readonly List<string> word3 = new List<string>()
-        {
-            "ABS","ACE","ACT","ADD","ADO","AFT","AGE","AGO","AHA","AID","AIL","AIM","AIR","ALB","ALE","ALL","ALP","AMP","AND","ANT","ANY","APE","APT","ARC","ARE","ARK","ARM","ART","ASH","ASK","ASP","ATE","AUK","AWE","AWL","AWN","AXE","AYE",
-            "BAA","BAD","BAG","BAH","BAN","BAR","BAT","BAY","BED","BEE","BEG","BET","BIB","BID","BIG","BIN","BIO","BIT","BIZ","BOA","BOB","BOG","BOO","BOP","BOW","BOX","BOY","BRA","BRO","BUB","BUD","BUG","BUM","BUN","BUS","BUT","BUY","BYE",
-            "CAB","CAD","CAM","CAN","CAP","CAR","CAT","CAW","CAY","CHI","COB","COD","COG","CON","COO","COP","COT","COW","COY","CRY","CUB","CUD","CUE","CUP","CUR","CUT",
-            "DAB","DAD","DAM","DAY","DEN","DEW","DID","DIE","DIG","DIM","DIN","DIP","DOC","DOE","DOG","DON","DOT","DRY","DUB","DUD","DUE","DUG","DUN","DUO","DYE",
-            "EAR","EAT","EBB","EEK","EEL","EGG","EGO","EKE","ELF","ELK","ELL","ELM","EMU","END","EON","ERA","ERG","ERR","ETA","EVE","EWE","EYE",
-            "FAD","FAN","FAR","FAT","FAX","FAY","FED","FEE","FEN","FEW","FEY","FEZ","FIB","FIE","FIG","FIN","FIR","FIT","FIX","FLU","FLY","FOB","FOE","FOG","FOR","FOX","FRO","FRY","FUN","FUR",
-            "GAB","GAD","GAG","GAL","GAP","GAR","GAS","GAY","GEE","GEL","GEM","GET","GIG","GIN","GNU","GOB","GOD","GOO","GOT","GUM","GUN","GUT","GUY","GYM","GYP",
-            "HAD","HAG","HAH","HAM","HAP","HAS","HAT","HAW","HAY","HEM","HEN","HEP","HER","HEW","HEX","HEY","HID","HIE","HIM","HIP","HIS","HIT","HOB","HOD","HOE","HOG","HOP","HOT","HOW","HUB","HUE","HUG","HUH","HUM","HUT",
-            "ICE","ICY","ILK","ILL","IMP","INK","INN","ION","IRE","IRK","ITS","IVY",
-            "JAB","JAG","JAM","JAR","JAW","JAY","JET","JEW","JIB","JIG","JOB","JOG","JOT","JOY","JUG","JUT",
-            "KEG","KEN","KEY","KID","KIN","KIT",
-            "LAB","LAD","LAG","LAM","LAP","LAW","LAX","LAY","LED","LEE","LEG","LEI","LET","LID","LIE","LIP","LIT","LOB","LOG","LOP","LOT","LOW","LUG","LYE",
-            "MAD","MAN","MAP","MAR","MAT","MAW","MAX","MAY","MEN","MET","MEW","MID","MIX","MOB","MOD","MOM","MOO","MOP","MOW","MUD","MUG","MUM",
-            "NAB","NAG","NAP","NAY","NET","NEW","NIB","NIL","NIP","NIT","NIX","NOD","NOR","NOT","NOW","NUB","NUN","NUT",
-            "OAF","OAK","OAR","OAT","ODD","ODE","OFF","OFT","OHM","OHO","OIL","OLD","OLE","ONE","OPT","ORB","ORE","OUR","OUT","OVA","OWE","OWL","OWN",
-            "PAD","PAL","PAN","PAR","PAT","PAW","PAY","PEA","PEG","PEN","PEP","PER","PET","PEW","PHI","PIE","PIG","PIN","PIP","PIT","PLY","POD","POI","POP","POT","POX","PRO","PRY","PSI","PUB","PUG","PUN","PUP","PUT","PYX",
-            "QUA",
-            "RAD","RAG","RAM","RAN","RAP","RAT","RAW","RAY","RED","REF","REM","REP","REV","RHO","RIB","RID","RIG","RIM","RIP","ROB","ROD","ROT","ROW","RUB","RUE","RUG","RUM","RUN","RUT","RYE",
-            "SAC","SAD","SAG","SAP","SAT","SAW","SAX","SAY","SEA","SEE","SET","SEW","SHE","SHH","SHY","SIN","SIP","SIR","SIS","SIT","SIX","SKA","SKI","SKY","SLY","SOB","SOD","SOL","SON","SOP","SOW","SOY","SPA","SPY","STY","SUB","SUE","SUM","SUN",
-            "TAB","TAD","TAG","TAM","TAN","TAP","TAR","TAU","TAX","TEA","TEE","TEN","THE","THY","TIC","TIE","TIN","TIP","TOE","TOG","TON","TOO","TOP","TOR","TOT","TOW","TOY","TRY","TUB","TUG","TUN","TUT","TWO",
-            "UGH","UMP","URN","USE",
-            "VAN","VAT","VEG","VET","VEX","VIA","VIE","VIM","VOW",
-            "WAD","WAG","WAR","WAS","WAX","WAY","WEB","WED","WEE","WET","WHO","WHY","WIG","WIN","WIT","WIZ","WOE","WOK","WON","WOO","WOW","WRY",
-            "YAK","YAM","YAP","YAW","YEN","YEP","YES","YET","YEW","YIN","YIP","YOU","YOW","YUK","YUM","YUP",
-            "ZAP","ZED","ZIP","ZIT","ZOO"
         };
     }
 }

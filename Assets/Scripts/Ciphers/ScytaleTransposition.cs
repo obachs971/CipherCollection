@@ -8,8 +8,7 @@ public class ScytaleTransposition
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Scytale Transposition", log);
-		CMTools cm = new CMTools();
-		int[] key = cm.generateValue(Bomb);
+		int[] key = CMTools.generateValue(Bomb);
 		int rows = (key[1] % (word.Length - 2)) + 2;
 		Debug.LogFormat("{0} [Scytale Transposition] Number Rows: {1} -> {2} -> {3}", log, (char)key[0], key[1], rows);
 		Debug.LogFormat("{0} [Scytale Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");

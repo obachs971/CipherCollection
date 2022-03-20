@@ -7,7 +7,7 @@ public class RouteTransposition
 	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Route Transposition", log);
-		int number = UnityEngine.Random.Range(0, word.Length) + 1;
+		int number = Random.Range(0, word.Length) + 1;
 		string encrypt;
 		Debug.LogFormat("{0} [Route Transposition] Key Number: {1}", log, number);
 		Debug.LogFormat("{0} [Route Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");

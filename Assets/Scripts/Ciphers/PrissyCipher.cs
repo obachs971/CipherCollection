@@ -10,13 +10,11 @@ public class PrissyCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Prissy Cipher", log);
-		List<List<string>> words = new Data().allWords;
-		CMTools cm = new CMTools();
-		int len = UnityEngine.Random.Range(0, words.Count);
-		string kw = words[len][UnityEngine.Random.Range(0, words[len].Count)], encrypt = "";
-		string[] kwfront = cm.generateBoolExp(Bomb);
-		int[] value = cm.generateValue(Bomb);
-		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+		string kw = new Data().PickWord(4, 8);
+		string encrypt = "";
+		string[] kwfront = CMTools.generateBoolExp(Bomb);
+		int[] value = CMTools.generateValue(Bomb);
+		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
 		int offset = value[1] % 13;
 		Debug.LogFormat("{0} [Prissy Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Prissy Cipher] Key: {1} -> {2} -> {3}", log, kwfront[0], kwfront[1], key);
@@ -27,7 +25,7 @@ public class PrissyCipher
 			for (int i = 0; i < word.Length; i++)
 			{
 				int index = key.IndexOf(word[i]);
-				encrypt = encrypt + "" + key[cm.mod((index % 13) - offset, 13) + ((((index / 13) + 1) % 2) * 13)];
+				encrypt = encrypt + "" + key[CMTools.mod((index % 13) - offset, 13) + ((((index / 13) + 1) % 2) * 13)];
 				offset = (offset + "-ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(encrypt[i])) % 13;
 				Debug.LogFormat("{0} [Prissy Cipher] {1} -> {2}", log, word[i], encrypt[i]);
 				Debug.LogFormat("{0} [Prissy Cipher] New Offset: {1}", log, offset, offset);
@@ -38,7 +36,7 @@ public class PrissyCipher
 			for (int i = 0; i < word.Length; i++)
 			{
 				int index = key.IndexOf(word[i]);
-				encrypt = encrypt + "" + key[cm.mod((index % 13) + offset, 13) + ((((index / 13) + 1) % 2) * 13)];
+				encrypt = encrypt + "" + key[CMTools.mod((index % 13) + offset, 13) + ((((index / 13) + 1) % 2) * 13)];
 				offset = (offset + "-ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(word[i])) % 13;
 				Debug.LogFormat("{0} [Prissy Cipher] {1} -> {2}", log, word[i], encrypt[i]);
 				Debug.LogFormat("{0} [Prissy Cipher] New Offset: {1}", log, offset, offset);

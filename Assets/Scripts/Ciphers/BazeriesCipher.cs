@@ -47,9 +47,8 @@ public class BazeriesCipher {
 			Array.Reverse(c);
 			temp = temp + "" + new string(c);
 		}
-		CMTools cm = new CMTools();
-		string[] keyFront = cm.generateBoolExp(Bomb);
-		string key = cm.getKey(kw, alpha, keyFront[1][0] == 'T');
+		string[] keyFront = CMTools.generateBoolExp(Bomb);
+		string key = CMTools.getKey(kw, alpha, keyFront[1][0] == 'T');
 		alpha = "AFLQVBGMRWCHNSXDIOTYEKPUZ";
 		if(invert)
 		{

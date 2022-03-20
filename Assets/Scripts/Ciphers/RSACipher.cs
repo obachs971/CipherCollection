@@ -10,14 +10,13 @@ public class RSACipher
 	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin RSA Cipher", log);
-		CMTools cm = new CMTools();
 		string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		int[] vals = generateValues(word.Length);
 		int N = vals[2], LN = vals[3], E = vals[4];
 		Debug.LogFormat("{0} [RSA Cipher] N: {1}", log, N);
 		Debug.LogFormat("{0} [RSA Cipher] λ(N): {1}", log, LN);
 		Debug.LogFormat("{0} [RSA Cipher] E: {1}", log, E);
-		int D = cm.mod(EEA(LN, E, log), LN);
+		int D = CMTools.mod(EEA(LN, E, log), LN);
 		Debug.LogFormat("{0} [RSA Cipher] D: {1}", log, D);
 		string[] page1 = { "", "", "", "" };
 		int[] encryptSums = new int[word.Length];

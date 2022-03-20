@@ -1,9 +1,6 @@
-﻿using CipherMachine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using CipherMachine;
 using UnityEngine;
-using Words;
 
 public class LogicCipher 
 {
@@ -14,8 +11,7 @@ public class LogicCipher
 		Debug.LogFormat("{0} [Logic Cipher] Gate: {1}", log, puzzle[0]);
 		Debug.LogFormat("{0} [Logic Cipher] {1}", log, puzzle[1]);
 		string encrypt = "", key = "";
-		CMTools cm = new CMTools();
-		string[] right = cm.generateBoolExp(Bomb);
+		string[] right = CMTools.generateBoolExp(Bomb);
 		Debug.LogFormat("{0} [Logic Cipher] Boolean Expression: {1} -> {2}", log, right[0], right[1]);
 		string[] bins = { "", "" };
 		if(right[1][0] == 'T')
@@ -69,34 +65,34 @@ public class LogicCipher
 		};
 		string pos1 = "012345";
 		string pos0 = "";
-		int num0 = UnityEngine.Random.Range(2, 5);
+		int num0 = Random.Range(2, 5);
 		for (int aa = 0; aa < num0; aa++)
 		{
-			pos0 = pos0 + "" + pos1[UnityEngine.Random.Range(0, pos1.Length)];
+			pos0 = pos0 + "" + pos1[Random.Range(0, pos1.Length)];
 			bins[0][pos0[aa] - '0'] = 0;
 			pos1 = pos1.Replace(pos0[aa] + "", "");
 		}
 		for (int aa = 0; aa < 2; aa++)
 		{
-			int n = pos0[UnityEngine.Random.Range(0, pos0.Length)] - '0';
+			int n = pos0[Random.Range(0, pos0.Length)] - '0';
 			bins[1][n] = aa;
 			pos0 = pos0.Replace(n + "", "");
 		}
 		for (int aa = 0; aa < 2; aa++)
 		{
-			int n = pos1[UnityEngine.Random.Range(0, pos1.Length)] - '0';
+			int n = pos1[Random.Range(0, pos1.Length)] - '0';
 			bins[1][n] = aa;
 			pos1 = pos1.Replace(n + "", "");
 		}
 		string pos2 = pos0 + pos1;
-		num0 = UnityEngine.Random.Range(0, 3);
+		num0 = Random.Range(0, 3);
 		for (int aa = 0; aa < num0; aa++)
 		{
-			int n = pos2[UnityEngine.Random.Range(0, pos2.Length)] - '0';
+			int n = pos2[Random.Range(0, pos2.Length)] - '0';
 			bins[1][n] = 0;
 			pos2 = pos2.Replace(n + "", "");
 		}
-		string oper = new string[] { "AND", "OR", "XOR", "NAND", "NOR", "XNOR", "->", "<-", "!->", "<-!"}[UnityEngine.Random.Range(0, 10)];
+		string oper = new string[] { "AND", "OR", "XOR", "NAND", "NOR", "XNOR", "->", "<-", "!->", "<-!"}[Random.Range(0, 10)];
 		for (int aa = 0; aa < 6; aa++)
 		{
 			switch (oper)
@@ -233,7 +229,7 @@ public class LogicCipher
 						options = new string[] { "00", "10", "11" }; 
 					break;
 			}
-			string result = options[UnityEngine.Random.Range(0, options.Length)];
+			string result = options[Random.Range(0, options.Length)];
 			bins[0] += result[0];
 			bins[1] += result[1];
 		}
@@ -252,7 +248,7 @@ public class LogicCipher
 				string temp = bins[i].Replace("1", "*");
 				temp =  temp.Replace("0", "1");
 				temp = temp.Replace("*", "0");
-				if (binalpha.Contains(temp) && UnityEngine.Random.Range(0, 3) == 0)
+				if (binalpha.Contains(temp) && Random.Range(0, 3) == 0)
 				{
 					over += "1";
 					bins[i] = temp.ToUpperInvariant();

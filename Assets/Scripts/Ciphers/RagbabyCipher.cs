@@ -10,22 +10,19 @@ public class RagbabyCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Ragbaby Cipher", log);
-		Data data = new Data();
-		CMTools cm = new CMTools();
-		string[] keyFront = cm.generateBoolExp(Bomb);
-		int length = UnityEngine.Random.Range(0, 5);
-		string kw = data.allWords[length][UnityEngine.Random.Range(0, data.allWords[length].Count())];
-		string key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
+		string[] keyFront = CMTools.generateBoolExp(Bomb);
+		string kw = new Data().PickWord(4, 8);
+		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
 		string encrypt = "";
 		if(invert)
 		{
 			for(int i = 0; i < word.Length; i++)
-				encrypt = encrypt + "" + key[cm.mod(key.IndexOf(word[i]) - (i + 1), 26)];
+				encrypt = encrypt + "" + key[CMTools.mod(key.IndexOf(word[i]) - (i + 1), 26)];
 		}
 		else
 		{
 			for (int i = 0; i < word.Length; i++)
-				encrypt = encrypt + "" + key[cm.mod(key.IndexOf(word[i]) + (i + 1), 26)];
+				encrypt = encrypt + "" + key[CMTools.mod(key.IndexOf(word[i]) + (i + 1), 26)];
 		}
 		Debug.LogFormat("{0} [Ragbaby Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Ragbaby Cipher] Key: {1} -> {2} -> {3}", log, keyFront[0], keyFront[1], key);

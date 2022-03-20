@@ -6,7 +6,7 @@ public class GrilleTransposition
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Grille Transposition", log);
-		int[] value = new CMTools().generateValue(Bomb);
+		int[] value = CMTools.generateValue(Bomb);
 		string encrypt = "";
 		Debug.LogFormat("{0} [Grille Transposition] Key Number: {1} -> {2}", log, (char)value[0], value[1]);
 		Debug.LogFormat("{0} [Grille Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");

@@ -40,7 +40,7 @@ public class BookCipher
                 storedPositions.Add(tempStorage);
             }
             int index = storedLetters.IndexOf(word[i]);
-            string temp = storedPositions[index][UnityEngine.Random.Range(0, storedPositions[index].Count)];
+            string temp = storedPositions[index][Random.Range(0, storedPositions[index].Count)];
             Debug.LogFormat("{0} [Book Cipher] {1}", log, temp);
             encrypt = encrypt + "" + temp[0];
             for (int j = 1; j < temp.Length; j++)

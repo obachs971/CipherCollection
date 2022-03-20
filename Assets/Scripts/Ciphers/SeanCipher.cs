@@ -8,13 +8,10 @@ public class SeanCipher
 	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
 	{
 		Debug.LogFormat("{0} Begin Sean Cipher", log);
-		CMTools cm = new CMTools();
-		List<List<string>> words = new Data().allWords;
-		string[] cw = cm.generateBoolExp(Bomb);
-		string[] kwfront = cm.generateBoolExp(Bomb);
-		int length = UnityEngine.Random.Range(0, words.Count);
-		string kw = words[length][UnityEngine.Random.Range(0, words[length].Count)];
-		string encrypt = "", key = cm.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+		string[] cw = CMTools.generateBoolExp(Bomb);
+		string[] kwfront = CMTools.generateBoolExp(Bomb);
+		string kw = new Data().PickWord(4, 8);
+		string encrypt = "", key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
 		Debug.LogFormat("{0} [Sean Cipher] Keyword: {1}", log, kw);
 		Debug.LogFormat("{0} [Sean Cipher] Key Front Rule: {1} -> {2}", log, kwfront[0], kwfront[1]);
 		Debug.LogFormat("{0} [Sean Cipher] Clockwise Rule: {1} -> {2}", log, cw[0], cw[1]);

@@ -1,7 +1,6 @@
-﻿using CipherMachine;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using CipherMachine;
 using UnityEngine;
 using Words;
 
@@ -10,11 +9,9 @@ public class MyszkowskiTransposition
 	public ResultInfo encrypt(string word, string id, string log, bool invert)
 	{
 		Debug.LogFormat("{0} Begin Myszkowski Transposition", log);
-		List<List<string>> words = new Data().allWords;
-		words.Insert(0, new Data().word3);
+		
 		string encrypt = "";
-		int len = UnityEngine.Random.Range(0, word.Length - 3);
-		string kw = words[len][UnityEngine.Random.Range(0, words[len].Count)];
+		string kw = new Data().PickWord(4, word.Length);
 		char[] order = kw.ToCharArray();
 		Array.Sort(order);
 		order = order.Distinct().ToArray();

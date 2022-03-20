@@ -11,8 +11,8 @@ public class EnigmaCipher
 		string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypt = "";
 		string plugboard = generatePlugboard(word.Length);
 		string[] rotorNums = generateRotors();
-		string rotorLets = alpha[UnityEngine.Random.Range(0, 26)] + "" + alpha[UnityEngine.Random.Range(0, 26)] + "" + alpha[UnityEngine.Random.Range(0, 26)];
-		char reflector = alpha[UnityEngine.Random.Range(0, 3)];
+		string rotorLets = alpha[Random.Range(0, 26)] + "" + alpha[Random.Range(0, 26)] + "" + alpha[Random.Range(0, 26)];
+		char reflector = alpha[Random.Range(0, 3)];
 		string[][] enigma = createEnigmaMachine(plugboard, rotorNums, rotorLets, reflector);
 		string[] plugboardDisplay = { plugboard.Substring(0, 1), plugboard.Substring(1, 1) };
 		for (int i = 2; i < plugboard.Length; i += 2)
@@ -55,9 +55,9 @@ public class EnigmaCipher
 		string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", plugboard = "";
 		for (int i = 0; i < (12 - length); i++)
 		{
-			plugboard = plugboard + "" + alpha[UnityEngine.Random.Range(0, alpha.Length)];
+			plugboard = plugboard + "" + alpha[Random.Range(0, alpha.Length)];
 			alpha = alpha.Replace(plugboard[plugboard.Length - 1] + "", "");
-			plugboard = plugboard + "" + alpha[UnityEngine.Random.Range(0, alpha.Length)];
+			plugboard = plugboard + "" + alpha[Random.Range(0, alpha.Length)];
 			alpha = alpha.Replace(plugboard[plugboard.Length - 1] + "", "");
 		}
 		return plugboard;
@@ -69,7 +69,7 @@ public class EnigmaCipher
 		string[] rotorNums = new string[3];
 		for (int i = 0; i < 3; i++)
 		{
-			rotorNums[i] = rotorList[UnityEngine.Random.Range(0, rotorList.Count)].ToUpperInvariant();
+			rotorNums[i] = rotorList[Random.Range(0, rotorList.Count)].ToUpperInvariant();
 			rotorList.Remove(rotorNums[i]);
 		}
 		return rotorNums;

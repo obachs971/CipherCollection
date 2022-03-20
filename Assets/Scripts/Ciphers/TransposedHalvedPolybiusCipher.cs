@@ -4,19 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Words;
 
-public class TransposedHalvedPolybiusCipher  
+public class TransposedHalvedPolybiusCipher
 {
     public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
     {
         Debug.LogFormat("{0} Begin Transposed Halved Polybius Cipher", log);
-        CMTools cm = new CMTools();
-        List<List<string>> words = new Data().allWords;
-        int length = UnityEngine.Random.Range(0, words.Count);
-        string kwa = words[length][UnityEngine.Random.Range(0, words[length].Count)];
-        words[length].Remove(kwa);
-        string kwb = words[8 - word.Length][UnityEngine.Random.Range(0, words[8 - word.Length].Count)];
-        string[] coords = { "", "", "" }, kwfront = cm.generateBoolExp(Bomb);
-        string key = cm.getKey(kwa, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+        var wordList = new Data();
+        var kwa = wordList.PickWord(4, 8);
+        var kwb = wordList.PickWord(12 - word.Length);
+        string[] coords = { "", "", "" }, kwfront = CMTools.generateBoolExp(Bomb);
+        string key = CMTools.getKey(kwa, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
         key = key.Substring(0, 5) + key.Substring(13, 5) + key.Substring(5, 5) + key.Substring(18, 5) + key.Substring(10, 3) + "##" + key.Substring(23) + "##";
         for (int i = 0; i < word.Length; i++)
         {

@@ -11,8 +11,7 @@ public class MorbitCipher
 	public ResultInfo encrypt(string word, string id, string log)
 	{
 		Debug.LogFormat("{0} Begin Morbit Cipher", log);
-		Data data = new Data();
-		string keyword = data.allWords[4][UnityEngine.Random.Range(0, data.allWords[4].Count())];
+        string keyword = new Data().PickWord(8);
 		string encrypt = "";
 		string alpha = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		int[] key = { 0, 0, 0, 0, 0, 0, 0, 0 };

@@ -11,19 +11,15 @@ public class AutokeyCipher
 	{
 		Debug.LogFormat("{0} Begin Autokey Cipher", log);
 		string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY", encrypt = "";
-		CMTools cm = new CMTools();
-		List<List<string>> words = new Data().allWords;
-		words.Insert(0, new Data().word3);
-		int len = UnityEngine.Random.Range(0, word.Length - 3);
-		string kw = words[len][UnityEngine.Random.Range(0, words[len].Count)];
+		string kw = new Data().PickWord(word.Length);
 		Debug.LogFormat("{0} [Autokey Cipher] Keyword: {1}", log, kw);
-		Debug.LogFormat("{0} [Autokey Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+        Debug.LogFormat("{0} [Autokey Cipher] Using {1} Instructions", log, invert ? "Encrypt" : "Decrypt");
 		if (invert)
 		{
 			string key = kw.ToUpperInvariant();
 			for (int i = 0; i < word.Length; i++)
 			{
-				encrypt = encrypt + "" + alpha[cm.mod(alpha.IndexOf(word[i]) - alpha.IndexOf(key[i]), 26)];
+				encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(word[i]) - alpha.IndexOf(key[i]), 26)];
 				key = key + "" + encrypt[i];
 				Debug.LogFormat("{0} [Autokey Cipher] {1} - {2} -> {3}", log, word[i], key[i], encrypt[i]);
 			}
@@ -33,7 +29,7 @@ public class AutokeyCipher
 			string key = kw + word;
 			for (int i = 0; i < word.Length; i++)
 			{
-				encrypt = encrypt + "" + alpha[cm.mod(alpha.IndexOf(word[i]) + alpha.IndexOf(key[i]), 26)];
+				encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(word[i]) + alpha.IndexOf(key[i]), 26)];
 				Debug.LogFormat("{0} [Autokey Cipher] {1} + {2} -> {3}", log, word[i], key[i], encrypt[i]);
 			}
 

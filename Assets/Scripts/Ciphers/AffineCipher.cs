@@ -13,21 +13,20 @@ public class AffineCipher
 			new int[]{ 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 },
 			new int[]{ 9, 21, 15, 3, 19, 7, 23, 11, 5, 17, 25 },
 		};
-		int e = UnityEngine.Random.Range(0, choices[0].Length);
-		CMTools cm = new CMTools();
-		int[] xVal = cm.generateValue(Bomb);
+		int e = Random.Range(0, choices[0].Length);
+		int[] xVal = CMTools.generateValue(Bomb);
 		int x = (xVal[1] % 25) + 1;
 		string encrypt = "";
 		string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
 		if (invert)
 		{
 			foreach (char c in word)
-				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) - x) * choices[1][e], 26)];
+				encrypt = encrypt + "" + alpha[CMTools.mod((alpha.IndexOf(c) - x) * choices[1][e], 26)];
 		}
 		else
 		{
 			foreach (char c in word)
-				encrypt = encrypt + "" + alpha[cm.mod((alpha.IndexOf(c) * choices[0][e]) + x, 26)];
+				encrypt = encrypt + "" + alpha[CMTools.mod((alpha.IndexOf(c) * choices[0][e]) + x, 26)];
 		}
 		Debug.LogFormat("{0} [Affine Cipher] E: {1}", log, choices[0][e]);
 		Debug.LogFormat("{0} [Affine Cipher] D: {1}", log, choices[1][e]);
