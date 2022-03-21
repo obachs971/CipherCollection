@@ -21,8 +21,6 @@ public class PortaCipher
 
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        for (int i = 1; i < 8; i++)
-            screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {

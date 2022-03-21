@@ -90,8 +90,6 @@ public class AMSCOTransposition
 		Debug.LogFormat("{0} [AMSCO Transposition] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(key, new int[] { 35, 35, 35, 35, 35, 32 }[key.Length - 2]);
-		for (int i = 1; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

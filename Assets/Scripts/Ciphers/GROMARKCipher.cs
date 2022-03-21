@@ -74,8 +74,6 @@ public class GROMARKCipher
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[key.Length - 4]);
 		screens[1] = new ScreenInfo(kwfront[0], 25);
 		screens[2] = new ScreenInfo(numkey.Substring(0, len), new int[] { 35, 35, 35, 35, 35, 32 }[len - 2]);
-		for (int i = 3; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

@@ -52,7 +52,6 @@ public class M209Cipher
 			screens[1][i + 1] = new ScreenInfo(tapcode[(i / 2) + 4], 25);
 		}
 		screens[1][4] = new ScreenInfo(rotorLets, 35);
-		screens[1][6] = new ScreenInfo();
 		screens[1][8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

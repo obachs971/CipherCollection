@@ -75,8 +75,6 @@ public class DigrafidCipher
         screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
         screens[3] = new ScreenInfo(kwFront[1][0], 25);
         screens[4] = new ScreenInfo(letters, 35);
-        for (int i = 5; i < 8; i++)
-            screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {

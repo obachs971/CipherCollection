@@ -86,8 +86,6 @@ public class DualTriplexReflectorCipher
         screens[2] = new ScreenInfo(kw2, new int[] { 35, 35, 35, 32, 28 }[kw2.Length - 4]);
         screens[3] = new ScreenInfo(kw2front[0], 25);
         screens[4] = new ScreenInfo(kw3, new int[] { 35, 35, 35, 35, 32, 28 }[kw3.Length - 3]);
-        for (int i = 5; i < 8; i++)
-            screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {

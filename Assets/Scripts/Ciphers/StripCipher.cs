@@ -32,8 +32,6 @@ public class StripCipher
         screens[0] = new ScreenInfo(nums[0], new int[] { 35, 35, 35, 32, 28 }[nums[0].Length - 4]);
         screens[1] = new ScreenInfo(((char)val[0]) + "", 25);
         screens[2] = new ScreenInfo(nums[1], new int[] { 35, 35, 35, 32, 28 }[nums[1].Length - 4]);
-        for (int i = 3; i < 8; i++)
-            screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {

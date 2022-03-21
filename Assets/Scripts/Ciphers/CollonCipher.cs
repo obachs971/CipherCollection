@@ -45,11 +45,8 @@ public class CollonCipher
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
 		screens[1] = new ScreenInfo(keyFront[0], 25);
 		screens[2] = new ScreenInfo(rc[1], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
-		screens[3] = new ScreenInfo();
 		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int i = 5; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		return new ResultInfo
 		{
 			Encrypted = rc[0],

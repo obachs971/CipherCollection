@@ -60,10 +60,7 @@ public class SolitaireCipher
 		Debug.LogFormat("{0} [Solitaire Cipher] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		for(int i = 0; i < 8; i += 2)
-		{
 			screens[i] = new ScreenInfo(display[i / 2], 32);
-			screens[i + 1] = new ScreenInfo();
-		}
 		screens[1] = new ScreenInfo(letters, 25);
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo

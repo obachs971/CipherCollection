@@ -29,16 +29,10 @@ public class MonoalphabeticCipher
         Debug.LogFormat("{0} [Monoalphabetic Cipher] {1} - > {2}", log, word, encrypt);
         ScreenInfo[][] screens = { new ScreenInfo[9], new ScreenInfo[9] };
         for (int i = 0; i < 8; i += 2)
-        {
             screens[0][i] = new ScreenInfo(kws[i / 2], new int[] { 35, 35, 35, 32, 28 }[kws[i / 2].Length - 4]);
-            screens[0][i + 1] = new ScreenInfo();
-        }
         screens[0][8] = new ScreenInfo(id, 35);
         screens[1][0] = new ScreenInfo(kws[4], new int[] { 35, 35, 35, 32, 28 }[kws[4].Length - 4]);
-        screens[1][1] = new ScreenInfo();
         screens[1][2] = new ScreenInfo(kws[5], new int[] { 35, 35, 35, 32, 28 }[kws[5].Length - 4]);
-        for (int i = 3; i < 8; i++)
-            screens[1][i] = new ScreenInfo();
         screens[1][8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {

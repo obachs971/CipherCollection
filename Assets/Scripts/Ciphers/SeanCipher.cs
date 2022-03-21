@@ -42,8 +42,6 @@ public class SeanCipher
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
 		screens[1] = new ScreenInfo(kwfront[0], 25);
 		screens[2] = new ScreenInfo(cw[0], 35);
-		for (int i = 3; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

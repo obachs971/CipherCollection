@@ -48,13 +48,9 @@ public class MorbitCipher
 		Debug.LogFormat("{0} [Morbit Cipher] Leftover digits: {1}", log, nums);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(keyword, new int[] { 35, 35, 35, 32, 28 }[keyword.Length - 4]);
-		screens[1] = new ScreenInfo();
 		screens[2] = new ScreenInfo(nums.Substring(0, (nums.Length / 2) + (nums.Length % 2)), 35);
-		screens[3] = new ScreenInfo();
 		screens[4] = new ScreenInfo(nums.Substring((nums.Length / 2) + (nums.Length % 2)), 35);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int i = 5; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		return new ResultInfo
 		{
 			Encrypted = encrypt,

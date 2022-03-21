@@ -48,8 +48,6 @@ public class HomophonicCipher
 		screens[0] = new ScreenInfo(tens, new int[] { 35, 35, 35, 32, 28 }[tens.Length - 4]);
 		screens[1] = new ScreenInfo(key, 25);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int i = 2; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		return new ResultInfo
 		{
 			Encrypted = encrypt,

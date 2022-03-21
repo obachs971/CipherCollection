@@ -43,8 +43,6 @@ public class CondiCipher
 		screens[1] = new ScreenInfo(keyFront[0], 25);
 		screens[2] = new ScreenInfo(letter + "", 35);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int i = 3; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		return new ResultInfo
 		{
 			Encrypted = encrypt,

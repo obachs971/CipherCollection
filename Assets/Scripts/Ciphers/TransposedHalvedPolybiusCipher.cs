@@ -75,8 +75,6 @@ public class TransposedHalvedPolybiusCipher
         screens[0] = new ScreenInfo(kwa, new int[] { 35, 35, 35, 32, 28 }[kwa.Length - 4]);
         screens[1] = new ScreenInfo(kwfront[0], 25);
         screens[2] = new ScreenInfo(kwb, new int[] { 35, 35, 35, 32, 28 }[kwb.Length - 4]);
-        for (int i = 3; i < 8; i++)
-            screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {

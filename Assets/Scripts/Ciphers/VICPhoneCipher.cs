@@ -63,8 +63,6 @@ public class VICPhoneCipher
 		screens[2] = new ScreenInfo(numKey, (numKey.Length == 8) ? 28 : (numKey.Length == 7) ? 32 : 35);
 		screens[3] = new ScreenInfo(rows, 20);
 		screens[4] = new ScreenInfo(extra, extra.Length == 8 ? 28 : extra.Length == 7 ? 32 : 35);
-		for (int i = 5; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

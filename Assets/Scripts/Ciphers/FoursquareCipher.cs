@@ -76,8 +76,6 @@ public class FoursquareCipher {
 		screens[0][8] = new ScreenInfo(id, 35);
 		screens[1][0] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
 		screens[1][8] = new ScreenInfo(id, 35);
-		for (int i = 1; i < 8; i++)
-			screens[1][i] = new ScreenInfo();
 		return new ResultInfo
 		{
 			Encrypted = encrypt,

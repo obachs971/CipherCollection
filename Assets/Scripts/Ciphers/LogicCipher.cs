@@ -42,11 +42,8 @@ public class LogicCipher
 		screens[0] = new ScreenInfo(key, new int[] { 35, 35, 35, 32, 28 }[key.Length - 4]);
 		screens[1] = new ScreenInfo(right[0], 25);
 		screens[2] = new ScreenInfo(bins[0], new int[] { 35, 35, 35, 32, 28 }[bins[0].Length - 4]);
-		screens[3] = new ScreenInfo();
 		screens[4] = new ScreenInfo(bins[1], new int[] { 35, 35, 35, 32, 28 }[bins[1].Length - 4]);
-		screens[5] = new ScreenInfo();
 		screens[6] = new ScreenInfo(puzzle[1], new int[] { 35, 35, 32, 28 }[puzzle[1].Length - 5]);
-		screens[7] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

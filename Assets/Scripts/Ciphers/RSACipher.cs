@@ -66,10 +66,7 @@ public class RSACipher
 		Debug.LogFormat("{0} [RSA Cipher] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
 		for(int i = 0; i < 8; i+=2)
-		{
 			screens[i] = new ScreenInfo(page1[i / 2], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
-			screens[i + 1] = new ScreenInfo();
-		}
 		screens[1] = new ScreenInfo(N + "", (N < 1000) ? 25 : 20);
 		screens[3] = new ScreenInfo(E + "", (E < 1000) ? 25 : 20);
 		screens[8] = new ScreenInfo(id, 35);

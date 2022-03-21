@@ -39,7 +39,6 @@ public class EnigmaCipher
 		screens[3] = new ScreenInfo(rotorNums[1], rotorNums[1].Length == 4 ? 20 : 25);
 		screens[4] = new ScreenInfo(plugboardDisplay[1], new int[] { 35, 35, 35, 32, 28 }[plugboardDisplay[1].Length - 4]);
 		screens[5] = new ScreenInfo(rotorNums[2], rotorNums[2].Length == 4 ? 20 : 25);
-		screens[6] = new ScreenInfo();
 		screens[7] = new ScreenInfo(reflector + "", 25);
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo

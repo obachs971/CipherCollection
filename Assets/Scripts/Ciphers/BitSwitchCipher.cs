@@ -45,12 +45,8 @@ public class BitSwitchCipher
 		}
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(puzzle.Substring(0, 8), 28);
-		screens[1] = new ScreenInfo();
 		screens[2] = new ScreenInfo(puzzle.Substring(8), 28);
-		screens[3] = new ScreenInfo();
 		screens[4] = new ScreenInfo(bin, new int[] { 35, 35, 35, 32, 28 }[bin.Length - 4]);
-		for (int i = 5; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

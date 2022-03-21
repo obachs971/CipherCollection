@@ -43,14 +43,8 @@ public class GrandpreCipher
             screens[0][i * 2] = new ScreenInfo(words[i], new int[] { 35, 32, 28 }[words[i].Length - 6]);
         screens[0][1] = new ScreenInfo(screenRows.Substring(0, screenRows.Length / 2), (screenRows.Length) > 7 ? 20 : 25);
         screens[0][3] = new ScreenInfo(screenRows.Substring(screenRows.Length / 2), (screenRows.Length) > 6 ? 20 : 25);
-        screens[0][5] = new ScreenInfo();
-        screens[0][7] = new ScreenInfo();
         for (int i = 0; i < words.Length - 4; i++)
             screens[1][i * 2] = new ScreenInfo(words[i + 4], new int[] { 35, 32, 28 }[words[i].Length - 6]);
-        for (int i = words.Length - 4; i < 4; i++)
-            screens[1][i * 2] = new ScreenInfo();
-        for (int i = 1; i < 8; i += 2)
-            screens[1][i] = new ScreenInfo();
         screens[0][8] = new ScreenInfo(id, 35);
         screens[1][8] = new ScreenInfo(id, 35);
         return new ResultInfo

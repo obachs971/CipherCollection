@@ -71,8 +71,6 @@ public class ConjugatedMatrixBifidCipher
 		screens[3] = new ScreenInfo(kwFronts[1][0], 25);
 		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
 		screens[8] = new ScreenInfo(id, 35);
-		for (int aa = 5; aa < screens.Length - 1; aa++)
-			screens[aa] = new ScreenInfo();
 		return new ResultInfo
 		{
 			Encrypted = encrypt,

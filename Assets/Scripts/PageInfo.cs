@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using CipherMachine;
-
-namespace CipherMachine
+﻿namespace CipherMachine
 {
     public sealed class PageInfo
     {

@@ -37,8 +37,6 @@ public class AffineCipher
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(choices[0][e] + "", 30);
 		screens[1] = new ScreenInfo(((char)xVal[0]) + "", 25);
-		for (int i = 2; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{

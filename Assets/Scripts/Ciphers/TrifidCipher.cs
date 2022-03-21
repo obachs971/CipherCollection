@@ -59,8 +59,6 @@ public class TrifidCipher
         screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
         screens[1] = new ScreenInfo(keyFront[0], 25);
         screens[8] = new ScreenInfo(id, 35);
-        for (int i = 2; i < 8; i++)
-            screens[i] = new ScreenInfo();
         return new ResultInfo
         {
             Encrypted = encrypt,

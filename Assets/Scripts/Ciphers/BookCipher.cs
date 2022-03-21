@@ -54,8 +54,6 @@ public class BookCipher
         for (int i = 0; i < 7; i += 2)
             screens[i] = new ScreenInfo(screenText[i / 2], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
         screens[1] = new ScreenInfo(key, 25);
-        for (int i = 3; i < 8; i+=2)
-            screens[i] = new ScreenInfo();
         screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {

@@ -78,11 +78,8 @@ public class HillCipher {
         Debug.LogFormat("{0} [Hill Cipher] {1} -> {2}", log, word, encrypt);
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(matrix[0] + "," + matrix[1], 30);
-        screens[1] = new ScreenInfo();
         screens[2] = new ScreenInfo(matrix[2] + "," + matrix[3], 30);
         screens[8] = new ScreenInfo(id, 35);
-        for (int i = 3; i < 8; i++)
-            screens[i] = new ScreenInfo();
         return new ResultInfo
         {
             Encrypted = encrypt,

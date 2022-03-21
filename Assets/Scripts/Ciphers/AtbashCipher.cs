@@ -14,8 +14,6 @@ public class AtbashCipher
 			encrypt = encrypt + "" + (char)(155 - c);
 		Debug.LogFormat("{0} [Atbash Cipher] {1} -> {2}", log, word, encrypt);
 		ScreenInfo[] screens = new ScreenInfo[9];
-		for (int i = 0; i < 8; i++)
-			screens[i] = new ScreenInfo();
 		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
