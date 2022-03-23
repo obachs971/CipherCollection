@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
-using UnityEngine;
 using Words;
 
-public class PortaCipher
+public class PortaCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log)
+    public override string Name { get { return "Porta Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "PO"; } }
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Porta Cipher", log);
+        var logMessages = new List<string>();
         string kw = new Data().PickWord(4, word.Length);
-        Debug.LogFormat("{0} [Porta Cipher] Keyword: {1}", log, kw);
+        logMessages.Add(string.Format("Keyword: {0}", kw));
         string encrypt = "", alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (int i = 0; i < word.Length; i++)
         {
@@ -17,15 +19,14 @@ public class PortaCipher
             string temp = alpha.Substring(0, 13) + alpha.Substring(13 + index) + alpha.Substring(13, index);
             encrypt = encrypt + "" + temp[(temp.IndexOf(word[i]) + 13) % 26];
         }
-        Debug.LogFormat("{0} [Porta Cipher] {1} -> {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens) }
         };
     }

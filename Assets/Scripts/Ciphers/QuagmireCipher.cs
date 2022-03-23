@@ -1,12 +1,19 @@
-﻿using CipherMachine;
-using UnityEngine;
+using System.Collections.Generic;
+using CipherMachine;
 using Words;
 
-public class QuagmireCipher
+public class QuagmireCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log, bool invert)
+	public override string Name { get { return invert ? "Inverted Quagmire Cipher" : "Quagmire Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "QU"; } }
+    
+    private readonly bool invert;
+    public QuagmireCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Quagmire Cipher", log);
+        var logMessages = new List<string>();
         var wordList = new Data();
         string kw1 = wordList.PickWord(4, 8);
         string kw2 = wordList.PickWord(4, word.Length);
@@ -17,9 +24,8 @@ public class QuagmireCipher
             int index = key[i].IndexOf(kw2[i]);
             key[i] = key[i].Substring(index) + key[i].Substring(0, index);
         }
-        Debug.LogFormat("{0} [Quagmire Cipher] KW1: {1}", log, kw1);
-        Debug.LogFormat("{0} [Quagmire Cipher] KW2: {1}", log, kw2);
-        Debug.LogFormat("{0} [Quagmire Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+        logMessages.Add(string.Format("KW1: {0}", kw1));
+        logMessages.Add(string.Format("KW2: {0}", kw2));
         string encrypt = "", alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         if (invert)
         {
@@ -31,15 +37,14 @@ public class QuagmireCipher
             for (int i = 0; i < word.Length; i++)
                 encrypt = encrypt + "" + key[i % key.Length][alpha.IndexOf(word[i])];
         }
-        Debug.LogFormat("{0} [Quagmire Cipher] {1} -> {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw1, new int[] { 35, 35, 35, 32, 28 }[kw1.Length - 4]);
         screens[2] = new ScreenInfo(kw2, new int[] { 35, 35, 35, 32, 28 }[kw2.Length - 4]);
-        screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens, invert) }
         };
     }

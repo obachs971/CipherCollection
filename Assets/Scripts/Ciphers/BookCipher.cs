@@ -1,13 +1,16 @@
-﻿using CipherMachine;
+using CipherMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookCipher 
+public class BookCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log)
+	public override string Name { get { return "Book Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "BO"; } }
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Book Cipher", log);
+        var logMessages = new List<string>();
         string key = new string("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle()).Substring(0, 2), alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", storedLetters = "", encrypt = "";
         string[] screenText = { "", "", "", "" };
         List<List<string>> storedPositions = new List<List<string>>();
@@ -41,24 +44,23 @@ public class BookCipher
             }
             int index = storedLetters.IndexOf(word[i]);
             string temp = storedPositions[index][Random.Range(0, storedPositions[index].Count)];
-            Debug.LogFormat("{0} [Book Cipher] {1}", log, temp);
+            logMessages.Add(temp);
             encrypt = encrypt + "" + temp[0];
             for (int j = 1; j < temp.Length; j++)
                 screenText[j - 1] = screenText[j - 1] + "" + temp[j];
         }
-        Debug.LogFormat("{0} [Book Cipher] {1} - > {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
         for (int i = 0; i < screenText.Length; i++)
-            Debug.LogFormat("{0} [Book Cipher] Screen {1}: {2}", log, (i + 1), screenText[i]);
-        Debug.LogFormat("{0} [Book Cipher] Screen A: {1}", log, key);
+            logMessages.Add(string.Format("Screen {0}: {1}", (i + 1), screenText[i]));
+        logMessages.Add(string.Format("Screen A: {0}", key));
         ScreenInfo[] screens = new ScreenInfo[9];
         for (int i = 0; i < 7; i += 2)
             screens[i] = new ScreenInfo(screenText[i / 2], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
         screens[1] = new ScreenInfo(key, 25);
-        screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens) }
         };
     }

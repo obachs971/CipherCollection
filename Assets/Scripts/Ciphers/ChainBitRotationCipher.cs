@@ -1,19 +1,24 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CipherMachine;
-using UnityEngine;
 using Words;
 
-public class ChainBitRotationCipher
+public class ChainBitRotationCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log, bool invert)
+    public override string Name { get { return _invert ? "Inverted Chain Bit-Rotation Cipher" : "Chain Bit-Rotation Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "CB"; } }
+
+    private readonly bool _invert;
+    public ChainBitRotationCipher(bool invert) { _invert = invert; }
+
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        return invert ? encryptInverted(word, id, log) : encryptNormal(word, id, log);
+        return _invert ? encryptInverted(word) : encryptNormal(word);
     }
 
-    private ResultInfo encryptNormal(string word, string id, string log)
+    private ResultInfo encryptNormal(string word)
     {
         var wordList = new Data();
         var logMessages = new List<string>();
@@ -46,18 +51,15 @@ public class ChainBitRotationCipher
         }
 
         logMessages.Add(string.Format("Chain Bit-Rotation Cipher: encrypted: {0}; number: {1}", encrypted, number));
-        foreach (var msg in logMessages)
-            Debug.LogFormat("{0} [Chain Bit-Rotation Cipher] {1}", log, msg);
-
-        var screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(kw, 25);
-        screens[1] = new ScreenInfo(number.ToString(), 35);
-        screens[8] = new ScreenInfo(id, 35);
-
-        return new ResultInfo { Encrypted = encrypted, Pages = new[] { new PageInfo(screens) } };
+        return new ResultInfo
+        {
+            LogMessages = logMessages,
+            Encrypted = encrypted,
+            Pages = new[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(kw, 25), new ScreenInfo(number.ToString(), 35) }) }
+        };
     }
 
-    private ResultInfo encryptInverted(string word, string id, string log)
+    private ResultInfo encryptInverted(string word)
     {
         var wordList = new Data();
         var logMessages = new List<string>();
@@ -96,19 +98,12 @@ public class ChainBitRotationCipher
         }
 
         logMessages.Add(string.Format("Chain Bit-Rotation Cipher: encrypted: {0}; number: {1}", encrypted, number));
-        foreach (var msg in logMessages)
-            Debug.LogFormat("{0} [Inverted Chain Bit-Rotation Cipher] {1}", log, msg);
-
-        var screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(kw, 25);
-        screens[1] = new ScreenInfo(number.ToString(), 35);
-        screens[8] = new ScreenInfo(id, 35);
 
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new PageInfo[] { new PageInfo(screens, invert: true) },
-            Score = 47
+            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(kw, 25), new ScreenInfo(number.ToString(), 35) }, invert: true) }
         };
     }
 }

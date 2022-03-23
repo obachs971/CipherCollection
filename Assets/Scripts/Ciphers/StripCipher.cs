@@ -1,14 +1,20 @@
-﻿using CipherMachine;
-using System.Collections;
 using System.Collections.Generic;
+using CipherMachine;
 using UnityEngine;
 
-public class StripCipher
+public class StripCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
+	public override string Name { get { return invert ? "Inverted Strip Cipher" : "Strip Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "ST"; } }
+    
+    private readonly bool invert;
+    public StripCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Strip Cipher", log);
-        int[] val = CMTools.generateValue(Bomb);
+        var logMessages = new List<string>();
+        int[] val = CMTools.generateValue(bomb);
         int col = (invert) ? ((val[1] % 25) + 1) : (25 - (val[1] % 25));
         string[] temp = getStrips(word.Length), strips = new string[word.Length], nums = { "", "" };
         string encrypt = "";
@@ -21,22 +27,20 @@ public class StripCipher
             strips[i] = strips[i].Substring(index) + strips[i].Substring(0, index);
             encrypt = encrypt + "" + strips[i][col];
         }
-        Debug.LogFormat("{0} [Strip Cipher] {1}", log, nums[0]);
-        Debug.LogFormat("{0} [Strip Cipher] {1}", log, nums[1]);
+        logMessages.Add(nums[0]);
+        logMessages.Add(nums[1]);
         for (int i = 0; i < strips.Length; i++)
-            Debug.LogFormat("{0} [Strip Cipher] {1}", log, strips[i]);
-        Debug.LogFormat("{0} [Strip Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
-        Debug.LogFormat("{0} [Strip Cipher] Column: {1} -> {2} -> {3}", log, ((char)val[0]), val[1], (col + 1));
-        Debug.LogFormat("{0} [Strip Cipher] {1} -> {2}", log, word, encrypt);
+            logMessages.Add(strips[i]);
+        logMessages.Add(string.Format("Column: {0} -> {1} -> {2}", ((char)val[0]), val[1], (col + 1)));
+        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(nums[0], new int[] { 35, 35, 35, 32, 28 }[nums[0].Length - 4]);
         screens[1] = new ScreenInfo(((char)val[0]) + "", 25);
         screens[2] = new ScreenInfo(nums[1], new int[] { 35, 35, 35, 32, 28 }[nums[1].Length - 4]);
-        screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens, invert) }
         };
     }

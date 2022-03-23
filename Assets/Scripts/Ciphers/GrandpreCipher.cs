@@ -1,15 +1,16 @@
-﻿using CipherMachine;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using CipherMachine;
 using Words;
 
-public class GrandpreCipher
+public class GrandpreCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log)
+	public override string Name { get { return "Grandpré Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "GP"; } }
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Grandpré Cipher", log);
+        var logMessages = new List<string>();
         var words = generateWords(UnityEngine.Random.Range(6, 9));
         string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypt = "", screenRows = "", key = "";
         string[] possLets = new string[words.Length];
@@ -17,7 +18,7 @@ public class GrandpreCipher
         {
             key += words[i];
             possLets[i] = "";
-            Debug.LogFormat("{0} [Grandpré Cipher] Keyword #{1}: {2}", log, (i + 1), words[i]);
+            logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), words[i]));
         }
         for (int i = 0; i < alpha.Length; i++)
             possLets[i % possLets.Length] = possLets[i % possLets.Length] + "" + alpha[i];
@@ -31,11 +32,11 @@ public class GrandpreCipher
             }
             int index = poss[UnityEngine.Random.Range(0, poss.Count)];
             int row = index / words.Length, col = (index % words.Length) + 1;
-            Debug.LogFormat("{0} [Grandpré Cipher] {1} -> {2}, {3}", log, word[i], (row + 1), col);
+            logMessages.Add(string.Format("{0} -> {1}, {2}", word[i], (row + 1), col));
             encrypt = encrypt + "" + possLets[row].ToCharArray().Shuffle()[0];
             screenRows = screenRows + "" + col;
         }
-        Debug.LogFormat("{0} [Grandpré Cipher] {1} -> {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[][] screens = new ScreenInfo[2][];
         for (int i = 0; i < screens.Length; i++)
             screens[i] = new ScreenInfo[9];
@@ -45,12 +46,10 @@ public class GrandpreCipher
         screens[0][3] = new ScreenInfo(screenRows.Substring(screenRows.Length / 2), (screenRows.Length) > 6 ? 20 : 25);
         for (int i = 0; i < words.Length - 4; i++)
             screens[1][i * 2] = new ScreenInfo(words[i + 4], new int[] { 35, 32, 28 }[words[i].Length - 6]);
-        screens[0][8] = new ScreenInfo(id, 35);
-        screens[1][8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens[0]), new PageInfo(screens[1]) }
         };
     }

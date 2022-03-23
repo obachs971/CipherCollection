@@ -1,19 +1,25 @@
-﻿using CipherMachine;
+using CipherMachine;
 using System.Collections.Generic;
 using UnityEngine;
 using Words;
 
-public class ColumnarTransposition
+public class ColumnarTransposition : CipherBase
 {
-	public ResultInfo encrypt(string word, string id, string log, bool invert)
-	{
-		Debug.LogFormat("{0} Begin Columnar Transposition", log);
+	public override string Name { get { return invert ? "Inverted Columnar Transposition" : "Columnar Transposition"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "CT"; } }
+    
+    private readonly bool invert;
+    public ColumnarTransposition(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
+    {
+		var logMessages = new List<string>();
 		string key = "12345678".Substring(0, 2 + Random.Range(0, word.Length - 1));
 		key = new string(key.ToCharArray().Shuffle());
 		while("12345678".Contains(key))
 			key = new string(key.ToCharArray().Shuffle());
-		Debug.LogFormat("{0} [Columnar Transposition] Key: {1}", log, key);
-		Debug.LogFormat("{0} [Columnar Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+		logMessages.Add(string.Format("Key: {0}", key));
 		string encrypt = "";
 		while (word.Length % key.Length != 0)
 			word += "-";
@@ -37,7 +43,7 @@ public class ColumnarTransposition
 			}
 			for (int i = 0; i < grid.Length; i++)
 			{
-				Debug.LogFormat("{0} [Columnar Transposition] {1}", log, new string(grid[i]));
+				logMessages.Add(new string(grid[i]));
 				encrypt += new string(grid[i]);
 			}
 				
@@ -47,7 +53,7 @@ public class ColumnarTransposition
 			for(int i = 0; i < grid.Length; i++)
 			{
 				grid[i] = word.Substring(i * key.Length, key.Length).ToCharArray();
-				Debug.LogFormat("{0} [Columnar Transposition] {1}", log, new string(grid[i]));
+				logMessages.Add(new string(grid[i]));
 			}
 			for (int i = 1; i <= key.Length; i++)
 			{
@@ -56,14 +62,13 @@ public class ColumnarTransposition
 			}
 		}
 		encrypt = encrypt.Replace("-", "");
-		Debug.LogFormat("{0} [Columnar Transposition] {1} - > {2}", log, word.Replace("-", ""), encrypt);
+		logMessages.Add(string.Format("{0} - > {1}", word.Replace("-", ""), encrypt));
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(key, (key.Length == 7 ? 32 : 35));
-		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
+			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Score = 5,
 			Pages = new PageInfo[] { new PageInfo(screens, invert) }
 		};
 	}

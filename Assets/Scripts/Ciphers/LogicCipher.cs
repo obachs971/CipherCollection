@@ -1,18 +1,21 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using UnityEngine;
 
-public class LogicCipher 
+public class LogicCipher : CipherBase
 {
-	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb)
+	public override string Name { get { return "Logic Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "LO"; } }
+	public override ResultInfo Encrypt(string word, KMBombInfo bomb)
 	{
-		Debug.LogFormat("{0} Begin Logic Cipher", log);
+		var logMessages = new List<string>();
 		string[] puzzle = generatePuzzle();
-		Debug.LogFormat("{0} [Logic Cipher] Gate: {1}", log, puzzle[0]);
-		Debug.LogFormat("{0} [Logic Cipher] {1}", log, puzzle[1]);
+		logMessages.Add(string.Format("Gate: {0}", puzzle[0]));
+		logMessages.Add(puzzle[1]);
 		string encrypt = "", key = "";
-		string[] right = CMTools.generateBoolExp(Bomb);
-		Debug.LogFormat("{0} [Logic Cipher] Boolean Expression: {1} -> {2}", log, right[0], right[1]);
+		string[] right = CMTools.generateBoolExp(bomb);
+		logMessages.Add(string.Format("Boolean Expression: {0} -> {1}", right[0], right[1]));
 		string[] bins = { "", "" };
 		if(right[1][0] == 'T')
 		{
@@ -24,7 +27,7 @@ public class LogicCipher
 				bins[0] += temp[1][0];
 				bins[1] += temp[1][1];
 			}
-			Debug.LogFormat("{0} [Logic Cipher] {1} -> ({2}, {3}) + ({4}, {5})", log, word, key, bins[0], encrypt, bins[1]);
+			logMessages.Add(string.Format("{0} -> ({1}, {2}) + ({3}, {4})", word, key, bins[0], encrypt, bins[1]));
 		}
 		else
 		{
@@ -36,7 +39,7 @@ public class LogicCipher
 				bins[0] += temp[1][0];
 				bins[1] += temp[1][1];
 			}
-			Debug.LogFormat("{0} [Logic Cipher] {1} -> ({2}, {3}) + ({4}, {5})", log, word, encrypt, bins[0], key, bins[1]);
+			logMessages.Add(string.Format("{0} -> ({1}, {2}) + ({3}, {4})", word, encrypt, bins[0], key, bins[1]));
 		}
 		ScreenInfo[] screens = new ScreenInfo[9]; 
 		screens[0] = new ScreenInfo(key, new int[] { 35, 35, 35, 32, 28 }[key.Length - 4]);
@@ -44,11 +47,10 @@ public class LogicCipher
 		screens[2] = new ScreenInfo(bins[0], new int[] { 35, 35, 35, 32, 28 }[bins[0].Length - 4]);
 		screens[4] = new ScreenInfo(bins[1], new int[] { 35, 35, 35, 32, 28 }[bins[1].Length - 4]);
 		screens[6] = new ScreenInfo(puzzle[1], new int[] { 35, 35, 32, 28 }[puzzle[1].Length - 5]);
-		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
+			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Score = 5,
 			Pages = new PageInfo[] { new PageInfo(screens) }
 		};
 	}

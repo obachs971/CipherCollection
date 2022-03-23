@@ -1,15 +1,18 @@
-﻿using CipherMachine;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+using CipherMachine;
 using Words;
 
-public class Chaocipher
+public class Chaocipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
+	public override string Name { get { return invert ? "Inverted Chaocipher" : "Chaocipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "CH"; } }
+    private readonly bool invert;
+    public Chaocipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Chaocipher", log);
+        var logMessages = new List<string>();
         string[] kws = new string[2], keys = new string[2];
         string[][] kwfronts = new string[2][];
         string encrypt = "";
@@ -17,53 +20,51 @@ public class Chaocipher
         for (int i = 0; i < 2; i++)
         {
             kws[i] = wordList.PickWord(4, 8);
-            kwfronts[i] = CMTools.generateBoolExp(Bomb);
+            kwfronts[i] = CMTools.generateBoolExp(bomb);
             keys[i] = CMTools.getKey(kws[i], "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfronts[i][1][0] == 'T');
-            Debug.LogFormat("{0} [Chaocipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
-            Debug.LogFormat("{0} [Chaocipher] Key #{1}: {2} -> {3} -> {4}", log, (i + 1), kwfronts[i][0], kwfronts[i][1], keys[i]);
+            logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[i]));
+            logMessages.Add(string.Format("Key #{0}: {1} -> {2} -> {3}", (i + 1), kwfronts[i][0], kwfronts[i][1], keys[i]));
         }
-        Debug.LogFormat("{0} [Chaocipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
         if (invert)
         {
             for (int i = 0; i < word.Length; i++)
             {
-                Debug.LogFormat("{0} [Chaocipher] {1}", log, keys[0]);
-                Debug.LogFormat("{0} [Chaocipher] {1}", log, keys[1]);
+                logMessages.Add(keys[0]);
+                logMessages.Add(keys[1]);
                 int index = keys[1].IndexOf(word[i]);
                 encrypt = encrypt + "" + keys[0][index];
                 keys[0] = keys[0].Substring(index + 1) + keys[0].Substring(0, index + 1);
                 keys[0] = keys[0].Substring(0, 2) + keys[0].Substring(3, 11) + keys[0][2] + keys[0].Substring(14);
                 keys[1] = keys[1].Substring(index) + keys[1].Substring(0, index);
                 keys[1] = keys[1].Substring(0, 1) + keys[1].Substring(2, 12) + keys[1][1] + keys[1].Substring(14);
-                Debug.LogFormat("{0} [Chaocipher] {1} -> {2}", log, word[i], encrypt[i]);
+                logMessages.Add(string.Format("{0} -> {1}", word[i], encrypt[i]));
             }
         }
         else
         {
             for (int i = 0; i < word.Length; i++)
             {
-                Debug.LogFormat("{0} [Chaocipher] {1}", log, keys[0]);
-                Debug.LogFormat("{0} [Chaocipher] {1}", log, keys[1]);
+                logMessages.Add(keys[0]);
+                logMessages.Add(keys[1]);
                 int index = keys[0].IndexOf(word[i]);
                 encrypt = encrypt + "" + keys[1][index];
                 keys[0] = keys[0].Substring(index + 1) + keys[0].Substring(0, index + 1);
                 keys[0] = keys[0].Substring(0, 2) + keys[0].Substring(3, 11) + keys[0][2] + keys[0].Substring(14);
                 keys[1] = keys[1].Substring(index) + keys[1].Substring(0, index);
                 keys[1] = keys[1].Substring(0, 1) + keys[1].Substring(2, 12) + keys[1][1] + keys[1].Substring(14);
-                Debug.LogFormat("{0} [Chaocipher] {1} -> {2}", log, word[i], encrypt[i]);
+                logMessages.Add(string.Format("{0} -> {1}", word[i], encrypt[i]));
             }
         }
-        Debug.LogFormat("{0} [Chaocipher] {1} -> {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
         screens[1] = new ScreenInfo(kwfronts[0][0], 25);
         screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
         screens[3] = new ScreenInfo(kwfronts[1][0], 25);
-        screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens, invert) }
         };
     }

@@ -3,6 +3,7 @@
     public sealed class PageInfo
     {
         public ScreenInfo[] Screens { get; private set; }
+        public string Code { get; set; }
         public bool Invert { get; private set; }
         public PageInfo(ScreenInfo[] screens, bool invert = false)
         {

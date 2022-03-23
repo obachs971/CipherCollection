@@ -1,20 +1,26 @@
-﻿using CipherMachine;
+using CipherMachine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Words;
 
-public class MonoalphabeticCipher
+public class MonoalphabeticCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log, bool invert)
+	public override string Name { get { return invert ? "Inverted Monoalphabetic Cipher" : "Monoalphabetic Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "MA"; } }
+    
+    private readonly bool invert;
+    public MonoalphabeticCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Monoalphabetic Cipher", log);
+        var logMessages = new List<string>();
         string[] kws = generateKeywords();
         string key = CMTools.getKey(kws.Join(""), "", false);
         for (int i = 0; i < kws.Length; i++)
-            Debug.LogFormat("{0} [Monoalphabetic Cipher] KW{1}: {2}", log, (i + 1), kws[i]);
-        Debug.LogFormat("{0} [Monoalphabetic Cipher] Key: {1}", log, key);
-        Debug.LogFormat("{0} [Monoalphabetic Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+            logMessages.Add(string.Format("KW{0}: {1}", (i + 1), kws[i]));
+        logMessages.Add(string.Format("Key: {0}", key));
         string encrypt = "";
         if (invert)
         {
@@ -26,18 +32,16 @@ public class MonoalphabeticCipher
             foreach (char c in word)
                 encrypt = encrypt + "" + key["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(c)];
         }
-        Debug.LogFormat("{0} [Monoalphabetic Cipher] {1} - > {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
         ScreenInfo[][] screens = { new ScreenInfo[9], new ScreenInfo[9] };
         for (int i = 0; i < 8; i += 2)
             screens[0][i] = new ScreenInfo(kws[i / 2], new int[] { 35, 35, 35, 32, 28 }[kws[i / 2].Length - 4]);
-        screens[0][8] = new ScreenInfo(id, 35);
         screens[1][0] = new ScreenInfo(kws[4], new int[] { 35, 35, 35, 32, 28 }[kws[4].Length - 4]);
         screens[1][2] = new ScreenInfo(kws[5], new int[] { 35, 35, 35, 32, 28 }[kws[5].Length - 4]);
-        screens[1][8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens[0], invert), new PageInfo(screens[1]) }
         };
     }

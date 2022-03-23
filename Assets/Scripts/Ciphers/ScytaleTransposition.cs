@@ -1,17 +1,21 @@
-﻿using CipherMachine;
 using System.Collections.Generic;
-using UnityEngine;
-using Words;
+using CipherMachine;
 
-public class ScytaleTransposition
+public class ScytaleTransposition : CipherBase
 {
-	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
-	{
-		Debug.LogFormat("{0} Begin Scytale Transposition", log);
-		int[] key = CMTools.generateValue(Bomb);
+	public override string Name { get { return invert ? "Inverted Scytale Transposition" : "Scytale Transposition"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "SC"; } }
+    
+    private readonly bool invert;
+    public ScytaleTransposition(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
+    {
+		var logMessages = new List<string>();
+		int[] key = CMTools.generateValue(bomb);
 		int rows = (key[1] % (word.Length - 2)) + 2;
-		Debug.LogFormat("{0} [Scytale Transposition] Number Rows: {1} -> {2} -> {3}", log, (char)key[0], key[1], rows);
-		Debug.LogFormat("{0} [Scytale Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+		logMessages.Add(string.Format("Number Rows: {0} -> {1} -> {2}", (char)key[0], key[1], rows));
 		string encrypt = "";
 		string[] grid = new string[rows];
 		for (int i = 0; i < grid.Length; i++)
@@ -25,7 +29,7 @@ public class ScytaleTransposition
 			{
 				for (int j = 0; j < grid[i].Length; j++)
 					grid[i] = grid[i].Substring(0, j) + "" + word[cur++] + "" + grid[i].Substring(j + 1);
-				Debug.LogFormat("{0} [Scytale Transposition] {1}", log, grid[i]);
+				logMessages.Add(grid[i]);
 			}
 			for (int i = 0; i < word.Length; i++)
 				encrypt = encrypt + "" + grid[i % rows][i / rows];
@@ -36,19 +40,18 @@ public class ScytaleTransposition
 				grid[i % rows] = grid[i % rows] + "" + word[i];
 			for (int i = 0; i < grid.Length; i++)
 			{
-				Debug.LogFormat("{0} [Scytale Transposition] {1}", log, grid[i]);
+				logMessages.Add(grid[i]);
 				encrypt += grid[i];
 			}
 		}
 
-		Debug.LogFormat("{0} [Scytale Transposition] {1} - > {2}", log, word, encrypt);
+		logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(((char)key[0]) + "", 35);
-		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
+			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Score = 5,
 			Pages = new PageInfo[] { new PageInfo(screens, invert) }
 		};
 	}

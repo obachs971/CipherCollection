@@ -1,15 +1,21 @@
-﻿using CipherMachine;
-using UnityEngine;
+using System.Collections.Generic;
+using CipherMachine;
 
-public class GrilleTransposition
+public class GrilleTransposition : CipherBase
 {
-	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
-	{
-		Debug.LogFormat("{0} Begin Grille Transposition", log);
-		int[] value = CMTools.generateValue(Bomb);
+	public override string Name { get { return invert ? "Inverted Grille Transposition" : "Grille Transposition"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "GT"; } }
+    
+    private readonly bool invert;
+    public GrilleTransposition(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
+    {
+		var logMessages = new List<string>();
+		int[] value = CMTools.generateValue(bomb);
 		string encrypt = "";
-		Debug.LogFormat("{0} [Grille Transposition] Key Number: {1} -> {2}", log, (char)value[0], value[1]);
-		Debug.LogFormat("{0} [Grille Transposition] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
+		logMessages.Add(string.Format("Key Number: {0} -> {1}", (char)value[0], value[1]));
 		char[] temp = new char[word.Length];
 		int n1 = value[1] % word.Length, n2 = (value[1] + (word.Length / 2)) % word.Length;
 		if (invert)
@@ -46,14 +52,13 @@ public class GrilleTransposition
 			if (word.Length % 2 == 1)
 				encrypt = encrypt + "" + temp[(value[1] + (temp.Length - 1)) % temp.Length];
 		}
-		Debug.LogFormat("{0} [Grille Transposition] {1} -> {2}", log, word, encrypt);
+		logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(((char)value[0]) + "", 35);
-		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
+			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Score = 5,
 			Pages = new PageInfo[] { new PageInfo(screens, invert) }
 		};
 	}

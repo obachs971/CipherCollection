@@ -11,6 +11,7 @@ namespace CipherMachine
         {
             return (n % m + m) % m;
         }
+
         public static string getKey(string kw, string alphabet, bool kwFirst)
         {
             return (kwFirst ? (kw + alphabet) : alphabet.Except(kw).Concat(kw)).Distinct().Join("");
@@ -158,6 +159,11 @@ namespace CipherMachine
                 c = a % b;
             }
             return (b == 1);
+        }
+
+        public static T[] NewArray<T>(params T[] array)
+        {
+            return array;
         }
     }
 }

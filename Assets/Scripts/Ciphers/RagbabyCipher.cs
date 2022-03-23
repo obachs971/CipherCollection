@@ -1,16 +1,20 @@
-﻿using CipherMachine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+using CipherMachine;
 using Words;
 
-public class RagbabyCipher
+public class RagbabyCipher : CipherBase
 {
-	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
-	{
-		Debug.LogFormat("{0} Begin Ragbaby Cipher", log);
-		string[] keyFront = CMTools.generateBoolExp(Bomb);
+	public override string Name { get { return invert ? "Inverted Ragbaby Cipher" : "Ragbaby Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "RA"; } }
+    
+    private readonly bool invert;
+    public RagbabyCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
+    {
+		var logMessages = new List<string>();
+		string[] keyFront = CMTools.generateBoolExp(bomb);
 		string kw = new Data().PickWord(4, 8);
 		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
 		string encrypt = "";
@@ -24,19 +28,17 @@ public class RagbabyCipher
 			for (int i = 0; i < word.Length; i++)
 				encrypt = encrypt + "" + key[CMTools.mod(key.IndexOf(word[i]) + (i + 1), 26)];
 		}
-		Debug.LogFormat("{0} [Ragbaby Cipher] Keyword: {1}", log, kw);
-		Debug.LogFormat("{0} [Ragbaby Cipher] Key: {1} -> {2} -> {3}", log, keyFront[0], keyFront[1], key);
-		Debug.LogFormat("{0} [Ragbaby Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
-		Debug.LogFormat("{0} [Ragbaby Cipher] {1} -> {2}", log, word, encrypt);
+		logMessages.Add(string.Format("Keyword: {0}", kw));
+		logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront[0], keyFront[1], key));
+		logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
 		screens[1] = new ScreenInfo(keyFront[0], 25);
-		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
+			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Score = 5,
 			Pages = new PageInfo[] { new PageInfo(screens, invert) }
 		};
 	}

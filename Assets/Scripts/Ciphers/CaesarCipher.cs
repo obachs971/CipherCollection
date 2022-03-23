@@ -1,14 +1,21 @@
-﻿using CipherMachine;
+using CipherMachine;
 using System.Collections.Generic;
 using UnityEngine;
 using Words;
 
-public class CaesarCipher
+public class CaesarCipher : CipherBase
 {
-	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
-	{
-		Debug.LogFormat("{0} Begin Caesar Cipher", log);
-		int[] val = CMTools.generateValue(Bomb);
+	public override string Name { get { return invert ? "Inverted Caesar Cipher" : "Caesar Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "CC"; } }
+    
+    private readonly bool invert;
+    public CaesarCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
+    {
+		var logMessages = new List<string>();
+		int[] val = CMTools.generateValue(bomb);
 		int offset = (val[1] % 25) + 1;
 		string encrypt = "", alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		if(invert)
@@ -21,17 +28,15 @@ public class CaesarCipher
 			foreach (char c in word)
 				encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(c) - offset, 26)];
 		}
-		Debug.LogFormat("{0} [Caesar Cipher] Generated Value: {1} -> {2}", log, (char)val[0], val[1]);
-		Debug.LogFormat("{0} [Caesar Cipher] Offset: {1}", log, offset);
-		Debug.LogFormat("{0} [Caesar Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
-		Debug.LogFormat("{0} [Caesar Cipher] {1} -> {2}", log, word, encrypt);
+		logMessages.Add(string.Format("Generated Value: {0} -> {1}", (char)val[0], val[1]));
+		logMessages.Add(string.Format("Offset: {0}", offset));
+		logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(((char)(val[0])) + "", 35);
-		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
+			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Score = 5,
 			Pages = new PageInfo[] { new PageInfo(screens, invert) }
 		};
 	}

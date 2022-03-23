@@ -1,21 +1,26 @@
-﻿using CipherMachine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using CipherMachine;
 using Words;
 
-public class ConjugatedMatrixBifidCipher 
+public class ConjugatedMatrixBifidCipher : CipherBase
 {
-	public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
-	{
-		Debug.LogFormat("{0} Conjugated Matrix Bifid Cipher", log);
+	public override string Name { get { return invert ? "Inverted Conjugated Matrix Bifid Cipher" : "Conjugated Matrix Bifid Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "CM"; } }
+    
+    private readonly bool invert;
+    public ConjugatedMatrixBifidCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo Bomb)
+    {
+		var logMessages = new List<string>();
 		Data words = new Data();
 		string encrypt = "";
 		string replaceJ = "";
 		string alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Before Replacing Js: {1}", log, word);
+		logMessages.Add(string.Format("Before Replacing Js: {0}", word));
 		for (int i = 0; i < word.Length; i++)
 		{
 			if (word[i] == 'J')
@@ -26,8 +31,8 @@ public class ConjugatedMatrixBifidCipher
 			else
 				replaceJ = replaceJ + "" + alpha.Replace(word[i].ToString(), "")[UnityEngine.Random.Range(0, 24)];
 		}
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] After Replacing Js: {1}", log, word);
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Screen 3: {1}", log, replaceJ);
+		logMessages.Add(string.Format("After Replacing Js: {0}", word));
+		logMessages.Add(string.Format("Screen 3: {0}", replaceJ));
 		string[] kws = new string[2];
 		string[] keys = new string[2];
 		string[][] kwFronts = new string[2][];
@@ -36,11 +41,10 @@ public class ConjugatedMatrixBifidCipher
 			kws[i] = words.PickWord(4, 8);
 			kwFronts[i] = CMTools.generateBoolExp(Bomb);
 			keys[i] = CMTools.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
-			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Keyword #{1}: {2}", log, (i + 1), kws[i]);
-			Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Key #{1}: {2} -> {3} -> {4}", log, (i + 1), kwFronts[i][0], kwFronts[i][1], keys[i]);
+			logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[i]));
+			logMessages.Add(string.Format("Key #{0}: {1} -> {2} -> {3}", (i + 1), kwFronts[i][0], kwFronts[i][1], keys[i]));
 		}
 		int[][] pos = new int[2][] { new int[word.Length], new int[word.Length] };
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
 		if (invert)
 		{
 			for (int aa = 0; aa < word.Length; aa++)
@@ -61,20 +65,19 @@ public class ConjugatedMatrixBifidCipher
 			for (int aa = 0; aa < word.Length; aa++)
 				encrypt = encrypt + "" + keys[1][((pos[(aa * 2) / word.Length][(aa * 2) % word.Length]) * 5) + pos[((aa * 2) + 1) / word.Length][((aa * 2) + 1) % word.Length]];
 		}
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1}", log, String.Join("", pos[0].Select(p => (p + 1).ToString()).ToArray()));
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1}", log, String.Join("", pos[1].Select(p => (p + 1).ToString()).ToArray()));
-		Debug.LogFormat("{0} [Conjugated Matrix Bifid Cipher] {1} -> {2}", log, word, encrypt);
+		logMessages.Add(String.Join("", pos[0].Select(p => (p + 1).ToString()).ToArray()));
+		logMessages.Add(String.Join("", pos[1].Select(p => (p + 1).ToString()).ToArray()));
+		logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
 		screens[1] = new ScreenInfo(kwFronts[0][0], 25);
 		screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
 		screens[3] = new ScreenInfo(kwFronts[1][0], 25);
 		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
-		screens[8] = new ScreenInfo(id, 35);
 		return new ResultInfo
 		{
+			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Score = 5,
 			Pages = new PageInfo[] { new PageInfo(screens, invert) }
 		};
 	}

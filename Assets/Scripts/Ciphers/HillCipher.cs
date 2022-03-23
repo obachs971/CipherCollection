@@ -1,14 +1,20 @@
-﻿using CipherMachine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CipherMachine;
 using UnityEngine;
 
-public class HillCipher {
-
-	public ResultInfo encrypt(string word, string id, string log, bool invert)
-	{
-		Debug.LogFormat("{0} Begin Hill Cipher", log);
+public class HillCipher : CipherBase
+{
+	public override string Name { get { return invert ? "Inverted Hill Cipher" : "Hill Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "HI"; } }
+    
+    private readonly bool invert;
+    public HillCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
+    {
+        var logMessages = new List<string>();
         string encrypt = "";
         //Generate Initial Matrix
         int[] matrix = new int[4];
@@ -21,10 +27,10 @@ public class HillCipher {
             do matrix[0] = Random.Range(0, 12) * 2 + 1;
             while ((matrix[0] - matrix[1] * matrix[2]) % 13 == 0);
         }
-        Debug.LogFormat("{0} [Hill Cipher] A: {1}", log, matrix[0]);
-        Debug.LogFormat("{0} [Hill Cipher] B: {1}", log, matrix[1]);
-        Debug.LogFormat("{0} [Hill Cipher] C: {1}", log, matrix[2]);
-        
+        logMessages.Add(string.Format("A: {0}", matrix[0]));
+        logMessages.Add(string.Format("B: {0}", matrix[1]));
+        logMessages.Add(string.Format("C: {0}", matrix[2]));
+
         int[] nums = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 };
         for (int aa = 0; aa < 26; aa++)
         {
@@ -33,7 +39,7 @@ public class HillCipher {
                 nums = nums.Where(val => val != aa).ToArray();
         }
         matrix[3] = nums[Random.Range(0, nums.Length)];
-        Debug.LogFormat("{0} [Hill Cipher] D: {1}", log, matrix[3]);
+        logMessages.Add(string.Format("D: {0}", matrix[3]));
         //Find the inverse of the matrix
         int a = 26;
         int b = CMTools.mod((matrix[0] * matrix[3]) - (matrix[1] * matrix[2]), 26);
@@ -50,16 +56,15 @@ public class HillCipher {
         } while (r != 0);
         I = CMTools.mod(I, 26);
         int[] matrixI = { CMTools.mod(matrix[3] * I, 26), CMTools.mod(-matrix[1] * I, 26), CMTools.mod(-matrix[2] * I, 26), CMTools.mod(matrix[0] * I, 26) };
-        Debug.LogFormat("{0} [Hill Cipher] I: {1}", log, I);
-        Debug.LogFormat("{0} [Hill Cipher] Ai: {1}", log, matrixI[0]);
-        Debug.LogFormat("{0} [Hill Cipher] Bi: {1}", log, matrixI[1]);
-        Debug.LogFormat("{0} [Hill Cipher] Ci: {1}", log, matrixI[2]);
-        Debug.LogFormat("{0} [Hill Cipher] Di: {1}", log, matrixI[3]);
+        logMessages.Add(string.Format("I: {0}", I));
+        logMessages.Add(string.Format("Ai: {0}", matrixI[0]));
+        logMessages.Add(string.Format("Bi: {0}", matrixI[1]));
+        logMessages.Add(string.Format("Ci: {0}", matrixI[2]));
+        logMessages.Add(string.Format("Di: {0}", matrixI[3]));
         string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
-        Debug.LogFormat("{0} [Hill Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt");
-        if(invert)
+        if (invert)
         {
-            for(int i = 0; i < word.Length / 2; i++)
+            for (int i = 0; i < word.Length / 2; i++)
             {
                 encrypt = encrypt + "" + alpha[CMTools.mod((matrixI[0] * alpha.IndexOf(word[i * 2])) + (matrixI[1] * alpha.IndexOf(word[(i * 2) + 1])), 26)];
                 encrypt = encrypt + "" + alpha[CMTools.mod((matrixI[2] * alpha.IndexOf(word[i * 2])) + (matrixI[3] * alpha.IndexOf(word[(i * 2) + 1])), 26)];
@@ -75,15 +80,14 @@ public class HillCipher {
         }
         if (word.Length % 2 == 1)
             encrypt = encrypt + "" + word[word.Length - 1];
-        Debug.LogFormat("{0} [Hill Cipher] {1} -> {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(matrix[0] + "," + matrix[1], 30);
         screens[2] = new ScreenInfo(matrix[2] + "," + matrix[3], 30);
-        screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens, invert) }
         };
     }

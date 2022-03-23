@@ -1,18 +1,23 @@
-﻿using CipherMachine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using CipherMachine;
 using Words;
 
-public class TransposedHalvedPolybiusCipher
+public class TransposedHalvedPolybiusCipher : CipherBase
 {
-    public ResultInfo encrypt(string word, string id, string log, KMBombInfo Bomb, bool invert)
+	public override string Name { get { return invert ? "Inverted Transposed Halved Polybius Cipher" : "Transposed Halved Polybius Cipher"; } }
+	public override int Score { get { return 5; } }
+	public override string Code { get { return "TH"; } }
+    
+    private readonly bool invert;
+    public TransposedHalvedPolybiusCipher(bool invert) { this.invert = invert; }
+    
+    public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        Debug.LogFormat("{0} Begin Transposed Halved Polybius Cipher", log);
+        var logMessages = new List<string>();
         var wordList = new Data();
         var kwa = wordList.PickWord(4, 8);
         var kwb = wordList.PickWord(12 - word.Length);
-        string[] coords = { "", "", "" }, kwfront = CMTools.generateBoolExp(Bomb);
+        string[] coords = { "", "", "" }, kwfront = CMTools.generateBoolExp(bomb);
         string key = CMTools.getKey(kwa, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
         key = key.Substring(0, 5) + key.Substring(13, 5) + key.Substring(5, 5) + key.Substring(18, 5) + key.Substring(10, 3) + "##" + key.Substring(23) + "##";
         for (int i = 0; i < word.Length; i++)
@@ -22,14 +27,13 @@ public class TransposedHalvedPolybiusCipher
             coords[1] = coords[1] + "" + (index / 10 + 1);
             coords[2] = coords[2] + "" + ((index % 5) + 1);
         }
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] Screen 1: {1}", log, kwa);
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] Screen 2: {1}", log, kwb);
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] Key: {1} -> {2} -> {3}", log, kwfront[0], kwfront[1], key);
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] Using {1} Instructions", log, (invert) ? "Encrypt" : "Decrypt"); ;
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[0]);
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[1]);
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[2]);
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] --------", log);
+        logMessages.Add(string.Format("Screen 1: {0}", kwa));
+        logMessages.Add(string.Format("Screen 2: {0}", kwb));
+        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", kwfront[0], kwfront[1], key));
+        logMessages.Add(coords[0]);
+        logMessages.Add(coords[1]);
+        logMessages.Add(coords[2]);
+        logMessages.Add(string.Format("--------"));
         string encrypt = "";
         if (invert)
         {
@@ -42,10 +46,10 @@ public class TransposedHalvedPolybiusCipher
                     coords[row] = shiftLets(coords[row], col + 1, true, new string[] { "", "3", "45" }[row]);
                 else
                     coords = swapCol(coords, col % word.Length, (col + row + 1) % word.Length);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[0]);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[1]);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[2]);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] --------", log);
+                logMessages.Add(coords[0]);
+                logMessages.Add(coords[1]);
+                logMessages.Add(coords[2]);
+                logMessages.Add(string.Format("--------"));
             }
         }
         else
@@ -59,10 +63,10 @@ public class TransposedHalvedPolybiusCipher
                     coords[row] = shiftLets(coords[row], col + 1, false, new string[] { "", "3", "45" }[row]);
                 else
                     coords = swapCol(coords, col % word.Length, (col + row + 1) % word.Length);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[0]);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[1]);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1}", log, coords[2]);
-                Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] --------", log);
+                logMessages.Add(coords[0]);
+                logMessages.Add(coords[1]);
+                logMessages.Add(coords[2]);
+                logMessages.Add(string.Format("--------"));
             }
         }
         for (int i = 0; i < word.Length; i++)
@@ -70,16 +74,15 @@ public class TransposedHalvedPolybiusCipher
             int index = ("123".IndexOf(coords[1][i]) * 10) + ("LR".IndexOf(coords[0][i]) * 5) + ("12345".IndexOf(coords[2][i]));
             encrypt = encrypt + "" + key[index];
         }
-        Debug.LogFormat("{0} [Transposed Halved Polybius Cipher] {1} -> {2}", log, word, encrypt);
+        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kwa, new int[] { 35, 35, 35, 32, 28 }[kwa.Length - 4]);
         screens[1] = new ScreenInfo(kwfront[0], 25);
         screens[2] = new ScreenInfo(kwb, new int[] { 35, 35, 35, 32, 28 }[kwb.Length - 4]);
-        screens[8] = new ScreenInfo(id, 35);
         return new ResultInfo
         {
+            LogMessages = logMessages,
             Encrypted = encrypt,
-            Score = 5,
             Pages = new PageInfo[] { new PageInfo(screens, invert) }
         };
     }
