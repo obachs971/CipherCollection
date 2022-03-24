@@ -39,9 +39,9 @@ public class RubiksCubeCipher : CipherBase
         logMessages.Add(string.Format("Rotations keyword = {0}:", rotationsKw));
         for (var ix = 0; ix < rotationsKw.Length; ix++)
         {
-            var ch = rotationsKw[ix];
-            var face = ix / 4;
-            var numRot = 2 * (ix % 4) + 1;
+            var chi = (rotationsKw[ix] - 'A') % 24;
+            var face = (chi / 4) % 6;
+            var numRot = 2 * (chi % 4) + 1;
 
             var r = _rotations[face];
             for (var n = 0; n < numRot; n++)
@@ -51,7 +51,7 @@ public class RubiksCubeCipher : CipherBase
                     cube[r[i]] = cube[r[i - 1]];
                 cube[r[0]] = f;
             }
-            logMessages.Add(string.Format("Cube after rotation {0} ({1}×{2}) (front | middle | back):", ch, numRot, "UFRBLD"[face]));
+            logMessages.Add(string.Format("Cube after rotation {0} ({1}×{2}) (front | middle | back):", rotationsKw[ix], numRot, "UFRBLD"[face]));
             for (var row = 0; row < 3; row++)
                 logMessages.Add(Enumerable.Range(0, 3).Select(layer => Enumerable.Range(0, 3).Select(col => 9 * layer + 3 * row + col == 13 ? ' ' : cube[9 * layer + 3 * row + col - (9 * layer + 3 * row + col >= 13 ? 1 : 0)]).Join(" ")).Join(" | "));
             encrypted += _invert ? (char) (Array.IndexOf(cube, word[ix]) + 'A') : cube[word[ix] - 'A'];
