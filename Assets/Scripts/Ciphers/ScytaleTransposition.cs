@@ -46,13 +46,11 @@ public class ScytaleTransposition : CipherBase
         }
 
         logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(key.Expression, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key.Expression }, invert) }
         };
     }
 }

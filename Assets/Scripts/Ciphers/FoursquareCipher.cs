@@ -68,21 +68,14 @@ public class FoursquareCipher : CipherBase
         if (word.Length % 2 == 1)
             encrypt = encrypt + "" + word[word.Length - 1];
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[][] screens = new ScreenInfo[2][] { new ScreenInfo[9], new ScreenInfo[9] };
-        screens[0][0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
-        screens[0][1] = new ScreenInfo(kwFronts[0].Expression, 25);
-        screens[0][2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
-        screens[0][3] = new ScreenInfo(kwFronts[1].Expression, 25);
-        screens[0][4] = new ScreenInfo(kws[2], new int[] { 35, 35, 35, 32, 28 }[kws[2].Length - 4]);
-        screens[0][5] = new ScreenInfo(kwFronts[2].Expression, 25);
-        screens[0][6] = new ScreenInfo(kws[3], new int[] { 35, 35, 35, 32, 28 }[kws[3].Length - 4]);
-        screens[0][7] = new ScreenInfo(kwFronts[3].Expression, 25);
-        screens[1][0] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens[0], invert), new PageInfo(screens[1], invert) }
+            Pages = new PageInfo[] {
+                new PageInfo(new ScreenInfo[] { kws[0], kwFronts[0].Expression, kws[1], kwFronts[1].Expression, kws[2], kwFronts[2].Expression, kws[3], kwFronts[3].Expression }, invert),
+                new PageInfo(new ScreenInfo[] { replaceJ }, invert)
+            }
         };
     }
 }

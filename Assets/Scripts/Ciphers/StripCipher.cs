@@ -33,15 +33,11 @@ public class StripCipher : CipherBase
             logMessages.Add(strips[i]);
         logMessages.Add(string.Format("Column: {0} -> {1} -> {2}", val.Expression, val.Value, col + 1));
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(nums[0], new int[] { 35, 35, 35, 32, 28 }[nums[0].Length - 4]);
-        screens[1] = new ScreenInfo(val.Expression, 25);
-        screens[2] = new ScreenInfo(nums[1], new int[] { 35, 35, 35, 32, 28 }[nums[1].Length - 4]);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { nums[0], val.Expression, nums[1] }, invert) }
         };
     }
     private string[] getStrips(int length)

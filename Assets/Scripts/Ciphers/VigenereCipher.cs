@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
 public class VigenereCipher : CipherBase
 {
-    public override string Name { get { return invert ? "Inverted Vigenère Cipher" : "Vigenère Cipher"; } }
+    public override string Name { get { return invert ? "Inverted VigenÃ¨re Cipher" : "VigenÃ¨re Cipher"; } }
     public override int Score { get { return 5; } }
     public override string Code { get { return "VI"; } }
 
@@ -29,13 +29,11 @@ public class VigenereCipher : CipherBase
                 encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(word[i]) + alpha.IndexOf(keyword[i % keyword.Length]), 26)];
         }
         logMessages.Add(string.Format("{0} + {1} -> {2}", word, keyword, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(keyword, new int[] { 35, 35, 35, 35, 32, 28 }[keyword.Length - 3]);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword }, invert) }
         };
     }
 }

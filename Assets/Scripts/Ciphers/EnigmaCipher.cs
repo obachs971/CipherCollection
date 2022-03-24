@@ -35,19 +35,11 @@ public class EnigmaCipher : CipherBase
         }
         //Setting up Screens
 
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(rotorLets, 35);
-        screens[1] = new ScreenInfo(rotorNums[0], rotorNums[0].Length == 4 ? 20 : 25);
-        screens[2] = new ScreenInfo(plugboardDisplay[0], new int[] { 35, 35, 35, 32, 28 }[plugboardDisplay[0].Length - 4]);
-        screens[3] = new ScreenInfo(rotorNums[1], rotorNums[1].Length == 4 ? 20 : 25);
-        screens[4] = new ScreenInfo(plugboardDisplay[1], new int[] { 35, 35, 35, 32, 28 }[plugboardDisplay[1].Length - 4]);
-        screens[5] = new ScreenInfo(rotorNums[2], rotorNums[2].Length == 4 ? 20 : 25);
-        screens[7] = new ScreenInfo(reflector + "", 25);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { rotorLets, rotorNums[0], plugboardDisplay[0], rotorNums[1], plugboardDisplay[1], rotorNums[2], null, reflector + "" }) }
         };
     }
     //Generates the Plugboard

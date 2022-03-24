@@ -69,13 +69,11 @@ public class RedefenceTransposition : CipherBase
             }
         }
         logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(key, key.Length < 7 ? 35 : 32);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key }, invert) }
         };
     }
 }

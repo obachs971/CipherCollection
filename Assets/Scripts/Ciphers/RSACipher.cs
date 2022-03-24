@@ -30,7 +30,7 @@ public class RSACipher : CipherBase
                 encryptNum = "0" + encryptNum;
             logMessages.Add(string.Format("{0} -> {1} ", word[i], encryptNum));
             for (int j = 0; j < 4; j++)
-                page1[j] = page1[j] + "" + encryptNum[j];
+                page1[j] += encryptNum[j];
             encryptSums[i] = 0;
         }
         int[] inverseList = {
@@ -64,16 +64,16 @@ public class RSACipher : CipherBase
         logMessages.Add(string.Format("E: {0}^{1} -> {2}", E, encrypt, encryptE));
         E = encryptE + 0;
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
+        var screens = new ScreenInfo[7];
         for (int i = 0; i < 8; i += 2)
-            screens[i] = new ScreenInfo(page1[i / 2], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
-        screens[1] = new ScreenInfo(N + "", (N < 1000) ? 25 : 20);
-        screens[3] = new ScreenInfo(E + "", (E < 1000) ? 25 : 20);
+            screens[i] = page1[i / 2];
+        screens[1] = N.ToString();
+        screens[3] = E.ToString();
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(screens) }
         };
     }
     private int[] generateValues(int len)

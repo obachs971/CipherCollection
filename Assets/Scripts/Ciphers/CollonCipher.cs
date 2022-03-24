@@ -44,16 +44,11 @@ public class CollonCipher : CipherBase
 			logMessages.Add(string.Format("{0} -> {1}{2}", word[i], rc[0][i], rc[1][i]));
 		}
 		logMessages.Add(string.Format("{0} -> {1}", word, rc[0]));
-		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[1] = new ScreenInfo(keyFront.Expression, 25);
-		screens[2] = new ScreenInfo(rc[1], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
-		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
 		return new ResultInfo
 		{
 			LogMessages = logMessages,
 			Encrypted = rc[0],
-			Pages = new PageInfo[] { new PageInfo(screens) }
+			Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, rc[1], null, replaceJ }) }
 		};
 	}
 }

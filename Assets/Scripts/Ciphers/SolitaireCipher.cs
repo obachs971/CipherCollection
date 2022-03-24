@@ -65,15 +65,15 @@ public class SolitaireCipher : CipherBase
 			logMessages.Add(string.Format("{0} -> {1}", word[i], encrypt[i]));
 		}
 		logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-		ScreenInfo[] screens = new ScreenInfo[9];
+		var screens = new ScreenInfo[7];
 		for(int i = 0; i < 8; i += 2)
-			screens[i] = new ScreenInfo(display[i / 2], 32);
-		screens[1] = new ScreenInfo(letters, 25);
+			screens[i] = display[i / 2];
+		screens[1] = letters;
 		return new ResultInfo
 		{
 			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Pages = new PageInfo[] { new PageInfo(screens, invert) }
+			Pages = new[] { new PageInfo(screens, invert) }
 		};
 	}
 	private int getNumber(char c, string lets)

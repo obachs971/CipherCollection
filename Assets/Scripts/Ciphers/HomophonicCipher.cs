@@ -43,14 +43,11 @@ public class HomophonicCipher : CipherBase
             choices.RemoveAt(index);
         }
         logMessages.Add(string.Format("{0} -> {1}, {2}", word, tens, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(tens, new int[] { 35, 35, 35, 32, 28 }[tens.Length - 4]);
-        screens[1] = new ScreenInfo(key, 25);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { tens, key }) }
         };
     }
 }

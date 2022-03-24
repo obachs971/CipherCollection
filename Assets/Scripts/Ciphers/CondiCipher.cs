@@ -40,15 +40,11 @@ public class CondiCipher : CipherBase
             }
         }
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        screens[1] = new ScreenInfo(keyFront.Expression, 25);
-        screens[2] = new ScreenInfo(offsetExpr.Expression, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, offsetExpr.Expression }, invert) }
         };
     }
 }

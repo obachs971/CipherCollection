@@ -31,13 +31,11 @@ public class CaesarCipher : CipherBase
         logMessages.Add(string.Format("Generated Value: {0} -> {1}", val.Expression, val.Value));
         logMessages.Add(string.Format("Offset: {0}", offset));
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(val.Expression, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { val.Expression }, invert) }
         };
     }
 }

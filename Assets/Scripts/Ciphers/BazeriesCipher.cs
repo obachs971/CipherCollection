@@ -68,15 +68,11 @@ public class BazeriesCipher : CipherBase
         logMessages.Add(string.Format("Digit Key: {0}{1}{2}{3}", digits[0], digits[1], digits[2], digits[3]));
         logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront.Expression, keyFront.Value, key));
         logMessages.Add(string.Format("{0} -> {1} -> {2}", word, temp, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(digits[0] + "" + digits[1] + "" + digits[2] + "" + digits[3], 35);
-        screens[1] = new ScreenInfo(keyFront.Expression, 25);
-        screens[2] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { digits[0] + "" + digits[1] + "" + digits[2] + "" + digits[3], keyFront.Expression, replaceJ }, invert) }
         };
     }
 }

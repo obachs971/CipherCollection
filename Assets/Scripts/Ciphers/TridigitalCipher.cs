@@ -27,15 +27,11 @@ public class TridigitalCipher : CipherBase
 			encrypt = encrypt + "" + alpha[index % 9][Random.Range(0, alpha[index % 9].Length)];
 			logMessages.Add(string.Format("{0} -> {1}{2} -> {3}{4}", c, nums[nums.Length - 1], ((index % 9) + 1), nums[nums.Length - 1], encrypt[encrypt.Length - 1]));
 		}
-		ScreenInfo[] screens = new ScreenInfo[9];
-		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[1] = new ScreenInfo(keyFront.Expression, 25);
-		screens[2] = new ScreenInfo(nums, new int[] { 35, 35, 35, 32, 28 }[nums.Length - 4]);
 		return new ResultInfo
 		{
 			LogMessages = logMessages,
 			Encrypted = encrypt,
-			Pages = new PageInfo[] { new PageInfo(screens) }
+			Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, nums }) }
 		};
 	}
 }

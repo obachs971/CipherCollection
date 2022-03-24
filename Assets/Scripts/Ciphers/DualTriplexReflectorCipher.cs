@@ -84,17 +84,11 @@ public class DualTriplexReflectorCipher : CipherBase
             }
         }
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(kw1, new int[] { 35, 35, 35, 32, 28 }[kw1.Length - 4]);
-        screens[1] = new ScreenInfo(kw1front.Expression, 25);
-        screens[2] = new ScreenInfo(kw2, new int[] { 35, 35, 35, 32, 28 }[kw2.Length - 4]);
-        screens[3] = new ScreenInfo(kw2front.Expression, 25);
-        screens[4] = new ScreenInfo(kw3, new int[] { 35, 35, 35, 35, 32, 28 }[kw3.Length - 3]);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, kw1front.Expression, kw2, kw2front.Expression, kw3 }, invert) }
         };
     }
     private string shiftLets(string lets, int shift)

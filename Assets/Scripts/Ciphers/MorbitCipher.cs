@@ -46,15 +46,11 @@ public class MorbitCipher : CipherBase
         logMessages.Add(string.Format("{0} -> {1}", nums.Substring(0, word.Length), encrypt));
         nums = nums.Substring(word.Length);
         logMessages.Add(string.Format("Leftover digits: {0}", nums));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(keyword, new int[] { 35, 35, 35, 32, 28 }[keyword.Length - 4]);
-        screens[2] = new ScreenInfo(nums.Substring(0, (nums.Length / 2) + (nums.Length % 2)), 35);
-        screens[4] = new ScreenInfo(nums.Substring((nums.Length / 2) + (nums.Length % 2)), 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword, null, nums.Substring(0, (nums.Length / 2) + (nums.Length % 2)), null, nums.Substring((nums.Length / 2) + (nums.Length % 2)) }) }
         };
     }
     private string letterToMorse(char c)

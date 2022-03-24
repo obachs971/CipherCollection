@@ -48,15 +48,11 @@ public class FractionatedMorseCipher : CipherBase
         encrypt = encrypt.Substring(0, word.Length);
         logMessages.Add(string.Format("Encrypted Word: {0}", encrypt));
         logMessages.Add(string.Format("Screen 2: {0}", extra));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        screens[1] = new ScreenInfo(keyFront.Expression, 25);
-        screens[2] = new ScreenInfo(extra, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, extra }) }
         };
     }
     private string letterToMorse(char c)

@@ -39,13 +39,11 @@ public class PortaxCipher : CipherBase
             c[c.Length - 1] = word[word.Length - 1];
         string encrypt = new string(c);
         logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(key, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key }) }
         };
     }
 }

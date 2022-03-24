@@ -72,17 +72,11 @@ public class DigrafidCipher : CipherBase
         if (word.Length % 2 == 1)
             encrypt = encrypt + "" + word[word.Length - 1];
         logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
-        screens[1] = new ScreenInfo(kwFront[0].Expression, 25);
-        screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
-        screens[3] = new ScreenInfo(kwFront[1].Expression, 25);
-        screens[4] = new ScreenInfo(letters, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwFront[0].Expression, kws[1], kwFront[1].Expression, letters }) }
         };
     }
 

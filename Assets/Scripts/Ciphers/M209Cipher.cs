@@ -39,26 +39,27 @@ public class M209Cipher : CipherBase
         for (int i = 0; i < lugs[6].Length; i++)
             tapcode[i % 8] = tapcode[i % 8] + "" + lugs[6][i];
         logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
-        ScreenInfo[][] screens = new ScreenInfo[2][];
-        screens[0] = new ScreenInfo[9];
-        screens[1] = new ScreenInfo[9];
+
+        var screens1 = new ScreenInfo[8];
         for (int i = 0; i < 8; i += 2)
         {
-            screens[0][i] = new ScreenInfo(key[0][i / 2], new int[] { 35, 35, 35, 35, 35, 35, 32, 28 }[key[0][i / 2].Length - 1]);
-            screens[0][i + 1] = new ScreenInfo(tapcode[i / 2], 25);
+            screens1[i] = key[0][i / 2];
+            screens1[i + 1] = tapcode[i / 2];
         }
+
+        var screens2 = new ScreenInfo[8];
         for (int i = 0; i < 8; i += 2)
         {
             if (i < 4)
-                screens[1][i] = new ScreenInfo(key[0][(i / 2) + 4], new int[] { 35, 35, 35, 35, 35, 35, 32, 28 }[key[0][(i / 2) + 4].Length - 1]);
-            screens[1][i + 1] = new ScreenInfo(tapcode[(i / 2) + 4], 25);
+                screens2[i] = key[0][(i / 2) + 4];
+            screens2[i + 1] = tapcode[(i / 2) + 4];
         }
-        screens[1][4] = new ScreenInfo(rotorLets, 35);
+        screens2[4] = rotorLets;
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens[0]), new PageInfo(screens[1]) }
+            Pages = new PageInfo[] { new PageInfo(screens1), new PageInfo(screens2) }
         };
     }
     private string[][] generatePins(List<string> logMessages, int length)

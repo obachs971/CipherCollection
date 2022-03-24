@@ -53,15 +53,15 @@ public class BookCipher : CipherBase
         for (int i = 0; i < screenText.Length; i++)
             logMessages.Add(string.Format("Screen {0}: {1}", (i + 1), screenText[i]));
         logMessages.Add(string.Format("Screen A: {0}", key));
-        ScreenInfo[] screens = new ScreenInfo[9];
+        var screens = new ScreenInfo[7];
         for (int i = 0; i < 7; i += 2)
-            screens[i] = new ScreenInfo(screenText[i / 2], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
-        screens[1] = new ScreenInfo(key, 25);
+            screens[i] = screenText[i / 2];
+        screens[1] = key;
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(screens) }
         };
     }
     private string[][][] getBook(string key)

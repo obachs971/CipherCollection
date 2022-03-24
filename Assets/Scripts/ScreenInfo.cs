@@ -5,13 +5,11 @@ namespace CipherMachine
     public struct ScreenInfo
     {
         public string Text { get; private set; }
-        public int FontSize { get; private set; }
         public Font TextFont { get; set; }
         public Material FontMaterial { get; set; }
-        public ScreenInfo(string text, int fontSize)
+        public ScreenInfo(string text)
         {
             Text = text;
-            FontSize = fontSize;
             TextFont = null;
             FontMaterial = null;
         }
@@ -19,6 +17,6 @@ namespace CipherMachine
         {
             return Text;
         }
-        public static implicit operator ScreenInfo(string s) { return new ScreenInfo(s, 0); }
+        public static implicit operator ScreenInfo(string s) { return new ScreenInfo(s); }
     }
 }

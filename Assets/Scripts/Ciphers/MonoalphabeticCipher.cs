@@ -6,13 +6,13 @@ using Words;
 
 public class MonoalphabeticCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Monoalphabetic Cipher" : "Monoalphabetic Cipher"; } }
-	public override int Score { get { return 5; } }
-	public override string Code { get { return "MA"; } }
-    
+    public override string Name { get { return invert ? "Inverted Monoalphabetic Cipher" : "Monoalphabetic Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "MA"; } }
+
     private readonly bool invert;
     public MonoalphabeticCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -33,16 +33,14 @@ public class MonoalphabeticCipher : CipherBase
                 encrypt = encrypt + "" + key["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(c)];
         }
         logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
-        ScreenInfo[][] screens = { new ScreenInfo[9], new ScreenInfo[9] };
+        ScreenInfo[] screens = new ScreenInfo[7];
         for (int i = 0; i < 8; i += 2)
-            screens[0][i] = new ScreenInfo(kws[i / 2], new int[] { 35, 35, 35, 32, 28 }[kws[i / 2].Length - 4]);
-        screens[1][0] = new ScreenInfo(kws[4], new int[] { 35, 35, 35, 32, 28 }[kws[4].Length - 4]);
-        screens[1][2] = new ScreenInfo(kws[5], new int[] { 35, 35, 35, 32, 28 }[kws[5].Length - 4]);
+            screens[i] = kws[i / 2];
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens[0], invert), new PageInfo(screens[1]) }
+            Pages = new PageInfo[] { new PageInfo(screens, invert), new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }) }
         };
     }
 

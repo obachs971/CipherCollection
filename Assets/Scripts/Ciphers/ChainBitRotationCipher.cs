@@ -55,7 +55,7 @@ public class ChainBitRotationCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(kw, 25), new ScreenInfo(number.ToString(), 35) }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, number.ToString() }) }
         };
     }
 
@@ -103,7 +103,7 @@ public class ChainBitRotationCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { new ScreenInfo(kw, 25), new ScreenInfo(number.ToString(), 35) }, invert: true) }
+            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, number.ToString() }, invert: true) }
         };
     }
 }

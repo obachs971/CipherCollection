@@ -111,7 +111,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
                 {
                     LogMessages = logMessages,
                     Encrypted = encrypted,
-                    Pages = new PageInfo[] { new PageInfo(new[] { new ScreenInfo(kw, 0) }, _invert) }
+                    Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw }, _invert) }
                 };
 
                 busted:;
@@ -146,7 +146,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
 
                 // The encrypted word should be the same length as the original; the rest is shown on the module to be appended by the user
                 Encrypted = encrypted.Substring(0, word.Length),
-                Pages = new PageInfo[] { new PageInfo(new[] { new ScreenInfo(kw, 0), new ScreenInfo(), new ScreenInfo(encrypted.Substring(word.Length), 0) }, _invert) }
+                Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, null, encrypted.Substring(word.Length) }, _invert) }
             };
         }
     }

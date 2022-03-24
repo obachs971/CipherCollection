@@ -90,7 +90,7 @@ public class AMSCOTransposition : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(new[] { new ScreenInfo(key, 0) }, invert) }
+            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { key }, invert) }
         };
     }
     private int sum(string s)

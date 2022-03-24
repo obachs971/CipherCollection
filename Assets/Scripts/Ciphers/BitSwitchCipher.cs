@@ -49,15 +49,11 @@ public class BitSwitchCipher : CipherBase
             encrypt = encrypt + "" + alpha[binToNumber(finalBin)];
             logMessages.Add(string.Format("{0} -> {1} + {2} -> {3} + {4} -> {5} -> {6}", c, alphaBin, scrambler, encryptBin, bin[bin.Length - 1], finalBin, encrypt[encrypt.Length - 1]));
         }
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(puzzle.Substring(0, 8), 28);
-        screens[2] = new ScreenInfo(puzzle.Substring(8), 28);
-        screens[4] = new ScreenInfo(bin, new int[] { 35, 35, 35, 32, 28 }[bin.Length - 4]);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { puzzle.Substring(0, 8), null, puzzle.Substring(8), null, bin }, invert) }
         };
     }
     private int[] generateNumbers(List<string> logMessages, string scrambler)

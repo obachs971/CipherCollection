@@ -5,9 +5,9 @@ using Words;
 
 public class GrandpreCipher : CipherBase
 {
-	public override string Name { get { return "Grandpré Cipher"; } }
-	public override int Score { get { return 5; } }
-	public override string Code { get { return "GP"; } }
+    public override string Name { get { return "Grandpré Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "GP"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -37,20 +37,19 @@ public class GrandpreCipher : CipherBase
             screenRows = screenRows + "" + col;
         }
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[][] screens = new ScreenInfo[2][];
-        for (int i = 0; i < screens.Length; i++)
-            screens[i] = new ScreenInfo[9];
+        var screens1 = new ScreenInfo[7];
         for (int i = 0; i < 4; i++)
-            screens[0][i * 2] = new ScreenInfo(words[i], new int[] { 35, 32, 28 }[words[i].Length - 6]);
-        screens[0][1] = new ScreenInfo(screenRows.Substring(0, screenRows.Length / 2), (screenRows.Length) > 7 ? 20 : 25);
-        screens[0][3] = new ScreenInfo(screenRows.Substring(screenRows.Length / 2), (screenRows.Length) > 6 ? 20 : 25);
+            screens1[i * 2] = words[i];
+        screens1[1] = screenRows.Substring(0, screenRows.Length / 2);
+        screens1[3] = screenRows.Substring(screenRows.Length / 2);
+        var screens2 = new ScreenInfo[(words.Length - 4) * 2 - 1];
         for (int i = 0; i < words.Length - 4; i++)
-            screens[1][i * 2] = new ScreenInfo(words[i + 4], new int[] { 35, 32, 28 }[words[i].Length - 6]);
+            screens2[i * 2] = words[i + 4];
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens[0]), new PageInfo(screens[1]) }
+            Pages = new PageInfo[] { new PageInfo(screens1), new PageInfo(screens2) }
         };
     }
     private string[] generateWords(int len)

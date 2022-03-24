@@ -59,17 +59,11 @@ public class VICPhoneCipher : CipherBase
         logMessages.Add(string.Format("Screen 3: {0}", extra));
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        screens[1] = new ScreenInfo(kwfront.Expression, 25);
-        screens[2] = new ScreenInfo(numKey, (numKey.Length == 8) ? 28 : (numKey.Length == 7) ? 32 : 35);
-        screens[3] = new ScreenInfo(rows, 20);
-        screens[4] = new ScreenInfo(extra, extra.Length == 8 ? 28 : extra.Length == 7 ? 32 : 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, numKey, rows, extra }) }
         };
     }
     private string enlarge(string encrypt)

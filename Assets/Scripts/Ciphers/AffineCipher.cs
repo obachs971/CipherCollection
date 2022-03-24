@@ -39,14 +39,11 @@ public class AffineCipher : CipherBase
         logMessages.Add(string.Format("Value Generated: {0} -> {1}", xVal.Expression, xVal.Value));
         logMessages.Add(string.Format("X: {0}", x));
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(choices[0][e] + "", 30);
-        screens[1] = new ScreenInfo(xVal.Expression, 25);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { choices[0][e] + "", xVal.Expression }, invert) }
         };
     }
 }

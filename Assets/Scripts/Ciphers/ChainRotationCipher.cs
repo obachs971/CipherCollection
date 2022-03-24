@@ -53,7 +53,7 @@ public class ChainRotationCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new PageInfo[] { new PageInfo(new[] { new ScreenInfo(n.ToString(), 0) }, _invert) }
+            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { n.ToString() }, _invert) }
         };
     }
 }

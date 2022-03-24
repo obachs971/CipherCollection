@@ -120,6 +120,9 @@ public class cipherMachine : MonoBehaviour
 
     void Start()
     {
+        // For debugging
+        //var _allCiphers = new[] { new[] { new MonoalphabeticCipher(false) } };
+
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
@@ -138,7 +141,7 @@ public class cipherMachine : MonoBehaviour
                 p.Code = cipher.Code;
             pagesList.InsertRange(0, result.Pages);
         }
-        pagesList.Insert(0, new PageInfo(new ScreenInfo[] { new ScreenInfo(word, new int[] { 35, 35, 35, 32, 28 }[answer.Length - 4]) }));
+        pagesList.Insert(0, new PageInfo(new ScreenInfo[] { word }));
         pages = pagesList.ToArray();
         getScreens();
     }

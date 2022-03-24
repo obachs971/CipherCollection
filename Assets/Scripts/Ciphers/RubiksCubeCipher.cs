@@ -61,7 +61,7 @@ public class RubiksCubeCipher : CipherBase
         {
             Encrypted = encrypted,
             LogMessages = logMessages,
-            Pages = new[] { new PageInfo(new[] { new ScreenInfo(alphaKw, 35), new ScreenInfo(), new ScreenInfo(rotationsKw, 40) }, invert: _invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { alphaKw, null, rotationsKw }, invert: _invert) }
         };
     }
 }

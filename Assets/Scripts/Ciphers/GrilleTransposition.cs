@@ -53,13 +53,11 @@ public class GrilleTransposition : CipherBase
                 encrypt = encrypt + "" + temp[(keyNumber.Value + (temp.Length - 1)) % temp.Length];
         }
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(keyNumber.Expression, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyNumber.Expression }, invert) }
         };
     }
 }
