@@ -14,10 +14,10 @@ public class TridigitalCipher : CipherBase
         string kw = new Data().PickWord(4, 8);
 		string encrypt = "";
 		string nums = "";
-		string[] keyFront = CMTools.generateBoolExp(bomb);
-		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
+		var keyFront = CMTools.generateBoolExp(bomb);
+		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront.Value);
         logMessages.Add(string.Format("Keyword: {0}", kw));
-		logMessages.Add(string.Format("Key Front Rule: {0} -> {1}", keyFront[0], keyFront[1]));
+		logMessages.Add(string.Format("Key Front Rule: {0} -> {1}", keyFront.Expression, keyFront.Value));
 		logMessages.Add(string.Format("Key: {0}", key));
 		string[] alpha = { "AJS", "BKT", "CLU", "DMV", "ENW", "FOX", "GPY", "HQZ", "IR" };
 		foreach(char c in word)
@@ -29,7 +29,7 @@ public class TridigitalCipher : CipherBase
 		}
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[1] = new ScreenInfo(keyFront[0], 25);
+		screens[1] = new ScreenInfo(keyFront.Expression, 25);
 		screens[2] = new ScreenInfo(nums, new int[] { 35, 35, 35, 32, 28 }[nums.Length - 4]);
 		return new ResultInfo
 		{

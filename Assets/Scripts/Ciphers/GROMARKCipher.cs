@@ -18,7 +18,7 @@ public class GROMARKCipher : CipherBase
         var logMessages = new List<string>();
         string kw = new Data().PickWord(4, 8);
         string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypt = "";
-        string[] kwfront = CMTools.generateBoolExp(bomb);
+        var kwfront = CMTools.generateBoolExp(bomb);
         int[] key = new int[kw.Length];
         char[] order = kw.ToArray();
         Array.Sort(order);
@@ -33,7 +33,7 @@ public class GROMARKCipher : CipherBase
                 }
             }
         }
-        string temp = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+        string temp = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
         while (temp.Length % kw.Length > 0)
             temp += "-";
         string alphakey = "";
@@ -54,7 +54,7 @@ public class GROMARKCipher : CipherBase
         var len = numkey.Length;
         logMessages.Add(string.Format("Keyword: {0}", kw));
         logMessages.Add(string.Format("Columns: {0}", string.Join("", key.Select(x => x + "").ToArray())));
-        logMessages.Add(string.Format("Alphabet Key: {0} -> {1} -> {2}", kwfront[0], kwfront[1], alphakey));
+        logMessages.Add(string.Format("Alphabet Key: {0} -> {1} -> {2}", kwfront.Expression, kwfront.Value, alphakey));
         logMessages.Add(string.Format("Number Key: {0}", numkey));
         if (invert)
         {
@@ -77,7 +77,7 @@ public class GROMARKCipher : CipherBase
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[key.Length - 4]);
-        screens[1] = new ScreenInfo(kwfront[0], 25);
+        screens[1] = new ScreenInfo(kwfront.Expression, 25);
         screens[2] = new ScreenInfo(numkey.Substring(0, len), new int[] { 35, 35, 35, 35, 35, 32 }[len - 2]);
         return new ResultInfo
         {

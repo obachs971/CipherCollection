@@ -13,8 +13,8 @@ public class VICPhoneCipher : CipherBase
     {
         var logMessages = new List<string>();
         string kw = new Data().PickWord(4, 8);
-        string[] kwfront = CMTools.generateBoolExp(bomb);
-        string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+        var kwfront = CMTools.generateBoolExp(bomb);
+        string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
         string rows = new string("0123456789".ToCharArray().Shuffle()).Substring(0, 4);
         logMessages.Add(string.Format("Keyword: {0}", kw));
         logMessages.Add(string.Format("Screen B: {0}", rows));
@@ -23,7 +23,7 @@ public class VICPhoneCipher : CipherBase
             if (rows.Contains(i + ""))
                 key = key.Substring(0, i) + "-" + key.Substring(i);
         }
-        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", kwfront[0], kwfront[1], key));
+        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", kwfront.Expression, kwfront.Value, key));
         List<int> encryptNums = new List<int>();
         foreach (char let in word)
         {
@@ -61,7 +61,7 @@ public class VICPhoneCipher : CipherBase
 
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        screens[1] = new ScreenInfo(kwfront[0], 25);
+        screens[1] = new ScreenInfo(kwfront.Expression, 25);
         screens[2] = new ScreenInfo(numKey, (numKey.Length == 8) ? 28 : (numKey.Length == 7) ? 32 : 35);
         screens[3] = new ScreenInfo(rows, 20);
         screens[4] = new ScreenInfo(extra, extra.Length == 8 ? 28 : extra.Length == 7 ? 32 : 35);

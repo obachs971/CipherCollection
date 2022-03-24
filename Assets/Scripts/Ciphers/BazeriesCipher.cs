@@ -52,8 +52,8 @@ public class BazeriesCipher : CipherBase
             Array.Reverse(c);
             temp = temp + "" + new string(c);
         }
-        string[] keyFront = CMTools.generateBoolExp(bomb);
-        string key = CMTools.getKey(kw, alpha, keyFront[1][0] == 'T');
+        var keyFront = CMTools.generateBoolExp(bomb);
+        string key = CMTools.getKey(kw, alpha, keyFront.Value);
         alpha = "AFLQVBGMRWCHNSXDIOTYEKPUZ";
         if (invert)
         {
@@ -66,11 +66,11 @@ public class BazeriesCipher : CipherBase
                 encrypt = encrypt + "" + key[alpha.IndexOf(c)];
         }
         logMessages.Add(string.Format("Digit Key: {0}{1}{2}{3}", digits[0], digits[1], digits[2], digits[3]));
-        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront[0], keyFront[1], key));
+        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront.Expression, keyFront.Value, key));
         logMessages.Add(string.Format("{0} -> {1} -> {2}", word, temp, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(digits[0] + "" + digits[1] + "" + digits[2] + "" + digits[3], 35);
-        screens[1] = new ScreenInfo(keyFront[0], 25);
+        screens[1] = new ScreenInfo(keyFront.Expression, 25);
         screens[2] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
         return new ResultInfo
         {

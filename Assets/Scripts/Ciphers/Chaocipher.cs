@@ -14,16 +14,16 @@ public class Chaocipher : CipherBase
     {
         var logMessages = new List<string>();
         string[] kws = new string[2], keys = new string[2];
-        string[][] kwfronts = new string[2][];
+        var kwfronts = new ValueExpression<bool>[2];
         string encrypt = "";
         var wordList = new Data();
         for (int i = 0; i < 2; i++)
         {
             kws[i] = wordList.PickWord(4, 8);
             kwfronts[i] = CMTools.generateBoolExp(bomb);
-            keys[i] = CMTools.getKey(kws[i], "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfronts[i][1][0] == 'T');
+            keys[i] = CMTools.getKey(kws[i], "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfronts[i].Value);
             logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[i]));
-            logMessages.Add(string.Format("Key #{0}: {1} -> {2} -> {3}", (i + 1), kwfronts[i][0], kwfronts[i][1], keys[i]));
+            logMessages.Add(string.Format("Key #{0}: {1} -> {2} -> {3}", (i + 1), kwfronts[i].Expression, kwfronts[i].Value, keys[i]));
         }
         if (invert)
         {
@@ -58,9 +58,9 @@ public class Chaocipher : CipherBase
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
-        screens[1] = new ScreenInfo(kwfronts[0][0], 25);
+        screens[1] = new ScreenInfo(kwfronts[0].Expression, 25);
         screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
-        screens[3] = new ScreenInfo(kwfronts[1][0], 25);
+        screens[3] = new ScreenInfo(kwfronts[1].Expression, 25);
         return new ResultInfo
         {
             LogMessages = logMessages,

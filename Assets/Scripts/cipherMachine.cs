@@ -19,6 +19,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new CaesarCipher(invert: false), new CaesarCipher(invert: true) },
         new CipherBase[] { new CaesarShuffleCipher(invert: false), new CaesarShuffleCipher(invert: true) },
         new CipherBase[] { new ChainBitRotationCipher(invert: false), new ChainBitRotationCipher(invert: true) },
+        new CipherBase[] { new ChainRotationCipher(invert: false), new ChainRotationCipher(invert: true) },
         new CipherBase[] { new Chaocipher(invert: false), new Chaocipher(invert: true) },
         new CipherBase[] { new CollonCipher() },
         new CipherBase[] { new ColumnarTransposition(invert: false), new ColumnarTransposition(invert: true) },
@@ -38,9 +39,11 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new M209Cipher() },
         new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
         new CipherBase[] { new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true) },
+        new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
         new CipherBase[] { new MorbitCipher() },
         new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
         new CipherBase[] { new PlayfairCipher(invert: false), new PlayfairCipher(invert: true) },
+        new CipherBase[] { new PingPongStraddlingCheckerboardCipher() },
         new CipherBase[] { new PortaCipher() },
         new CipherBase[] { new PortaxCipher() },
         new CipherBase[] { new PrissyCipher(invert: false), new PrissyCipher(invert: true) },
@@ -54,6 +57,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new SemaphoreRotationCipher(invert: false), new SemaphoreRotationCipher(invert: true) },
         new CipherBase[] { new SolitaireCipher(invert: false), new SolitaireCipher(invert: true) },
         new CipherBase[] { new StripCipher(invert: false), new StripCipher(invert: true) },
+        new CipherBase[] { new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true) },
         new CipherBase[] { new TransposedHalvedPolybiusCipher(invert: false), new TransposedHalvedPolybiusCipher(invert: true) },
         new CipherBase[] { new TridigitalCipher() },
         new CipherBase[] { new TrifidCipher(invert: false), new TrifidCipher(invert: true) },
@@ -121,7 +125,7 @@ public class cipherMachine : MonoBehaviour
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();
         var cipherIxs = Enumerable.Range(0, _allCiphers.Length).ToArray().Shuffle();
-        for (var i = 0; i < 3; i++)
+        for (var i = 0; i < 3 && i < cipherIxs.Length; i++)
         {
             var cipher = _allCiphers[cipherIxs[i]].PickRandom();
             Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, cipher.Name, cipher.Code);
@@ -138,34 +142,6 @@ public class cipherMachine : MonoBehaviour
         pages = pagesList.ToArray();
         getScreens();
     }
-
-    string getKey(string k, string alpha, bool start)
-    {
-        for (int aa = 0; aa < k.Length; aa++)
-        {
-            for (int bb = aa + 1; bb < k.Length; bb++)
-            {
-                if (k[aa] == k[bb])
-                {
-                    k = k.Substring(0, bb) + "" + k.Substring(bb + 1);
-                    bb--;
-                }
-            }
-            alpha = alpha.Replace(k[aa].ToString(), "");
-        }
-        if (start)
-            return (k + "" + alpha);
-        else
-            return (alpha + "" + k);
-    }
-    int correction(int p, int max)
-    {
-        while (p < 0)
-            p += max;
-        while (p >= max)
-            p -= max;
-        return p;
-    }
     void left(KMSelectable arrow)
     {
         if (!moduleSolved)
@@ -173,8 +149,7 @@ public class cipherMachine : MonoBehaviour
             Audio.PlaySoundAtTransform(sounds[0].name, transform);
             submitScreen = false;
             arrow.AddInteractionPunch();
-            page--;
-            page = correction(page, pages.Length);
+            page = (page + pages.Length - 1) % pages.Length;
             getScreens();
         }
     }
@@ -185,8 +160,7 @@ public class cipherMachine : MonoBehaviour
             Audio.PlaySoundAtTransform(sounds[0].name, transform);
             submitScreen = false;
             arrow.AddInteractionPunch();
-            page++;
-            page = correction(page, pages.Length);
+            page = (page + 1) % pages.Length;
             getScreens();
         }
     }
@@ -203,7 +177,8 @@ public class cipherMachine : MonoBehaviour
             else
             {
                 screenTexts[aa].text = pages[page].Screens[aa].Text;
-                screenTexts[aa].fontSize = pages[page].Screens[aa].FontSize;
+                if (pages[page].Screens[aa].Text != null)
+                    screenTexts[aa].fontSize = getFontSize(pages[page].Screens[aa].Text.Length, aa % 2 == 0);
                 if (pages[page].Screens[aa].TextFont == null)
                 {
                     screenTexts[aa].font = DEFAULT_FONT;
@@ -220,6 +195,14 @@ public class cipherMachine : MonoBehaviour
         submitText.color = textColors[pages[page].Invert ? 1 : 0];
         submitText.text = (page + 1) + pages[page].Code;
     }
+
+    private int getFontSize(int length, bool largeScreen)
+    {
+        return largeScreen
+            ? length <= 6 ? 35 : length == 7 ? 32 : 28
+            : length <= 3 ? 25 : 20;
+    }
+
     void submitWord(KMSelectable submitButton)
     {
         if (!moduleSolved)

@@ -16,9 +16,9 @@ namespace CipherMachine
         {
             return (kwFirst ? (kw + alphabet) : alphabet.Except(kw).Concat(kw)).Distinct().Join("");
         }
-        public static string[] generateBoolExp(KMBombInfo Bomb)
+        public static ValueExpression<bool> generateBoolExp(KMBombInfo Bomb)
         {
-            string boolExp = "ABCDEFGHIJ";
+            string boolExp = "ABCDEFGHIJKL";
             string alphaVar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             string exp = boolExp[UnityEngine.Random.Range(0, boolExp.Length)] + "" + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
             alphaVar = alphaVar.Replace(exp[1].ToString(), "");
@@ -41,33 +41,38 @@ namespace CipherMachine
                     result = isFibo(getValue(exp[1], Bomb));
                     break;
                 case 'F':
-                    result = !(isFibo(getValue(exp[1], Bomb)));
+                    result = !isFibo(getValue(exp[1], Bomb));
                     break;
                 case 'G':
-                    exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = (getValue(exp[1], Bomb) % 2 == getValue(exp[2], Bomb) % 2);
+                    result = (getValue(exp[1], Bomb) % 4 < 2);
                     break;
                 case 'H':
-                    exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = (getValue(exp[1], Bomb) % 2 != getValue(exp[2], Bomb) % 2);
+                    result = (getValue(exp[1], Bomb) % 4 >= 2);
                     break;
                 case 'I':
-                    exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = coprime(getValue(exp[1], Bomb), getValue(exp[2], Bomb));
+                    exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
+                    result = (getValue(exp[1], Bomb) % 2 == getValue(exp[2], Bomb) % 2);
                     break;
                 case 'J':
-                    exp = exp + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = !(coprime(getValue(exp[1], Bomb), getValue(exp[2], Bomb)));
+                    exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
+                    result = (getValue(exp[1], Bomb) % 2 != getValue(exp[2], Bomb) % 2);
+                    break;
+                case 'K':
+                    exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
+                    result = coprime(getValue(exp[1], Bomb), getValue(exp[2], Bomb));
+                    break;
+                case 'L':
+                    exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
+                    result = !coprime(getValue(exp[1], Bomb), getValue(exp[2], Bomb));
                     break;
             }
-            return new string[] { exp, result + "" };
+            return new ValueExpression<bool> { Expression = exp, Value = result };
         }
-        public static int[] generateValue(KMBombInfo Bomb)
+        public static ValueExpression<int> generateValue(KMBombInfo Bomb)
         {
-            int[] vals = new int[2];
-            vals[0] = UnityEngine.Random.Range(0, 26) + 65;
-            vals[1] = getValue((char) vals[0], Bomb);
-            return vals;
+            var character = (char) ('A' + UnityEngine.Random.Range(0, 26));
+            var value = getValue(character, Bomb);
+            return new ValueExpression<int> { Expression = character.ToString(), Value = value };
         }
         private static int getValue(char l, KMBombInfo Bomb)
         {
@@ -93,22 +98,12 @@ namespace CipherMachine
                 case 'R': return Bomb.GetSerialNumberNumbers().ElementAt(0);
                 case 'S': return Bomb.GetSerialNumberNumbers().ElementAt(1);
                 case 'T': return Bomb.GetSerialNumberNumbers().Sum();
-                case 'U':
-                    int sum1 = 0;
-                    foreach (char c in Bomb.GetSerialNumberLetters())
-                        sum1 += (c - 64);
-                    return sum1;
-                case 'V':
-                    int sum2 = 0;
-                    foreach (char c in Bomb.GetSerialNumber())
-                        sum2 += "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(c);
-                    return sum2;
+                case 'U': return Bomb.GetSerialNumberLetters().Sum(c => c - 'A' + 1);
+                case 'V': return Bomb.GetSerialNumber().Sum(c => "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(c));
                 case 'W': return (int) DateTime.Now.Date.DayOfWeek;
                 case 'X': return DateTime.Now.Date.Day;
                 case 'Y': return DateTime.Now.Date.Month;
-                case 'Z':
-                    int year = DateTime.Now.Date.Year % 1000;
-                    return ((year - 1) % 9) + 1;
+                case 'Z': return ((DateTime.Now.Date.Year % 1000 - 1) % 9) + 1;
             }
             return 0;
         }
@@ -129,7 +124,7 @@ namespace CipherMachine
         {
             if (n < 4)
                 return false;
-            return !(isPrime(n));
+            return !isPrime(n);
         }
         private static bool isFibo(int n)
         {

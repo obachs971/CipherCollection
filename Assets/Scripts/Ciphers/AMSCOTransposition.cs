@@ -27,11 +27,7 @@ public class AMSCOTransposition : CipherBase
         int numGroups = ((word.Length / 3) * 2) + ((word.Length % 3) / 2) + ((word.Length % 3) % 2);
         logMessages.Add(string.Format("Key: {0}", key));
         logMessages.Add(string.Format("Start Number: {0}", (start + 1)));
-        string[][] grid;
-        if (key.Length % numGroups == 0)
-            grid = new string[numGroups / key.Length][];
-        else
-            grid = new string[numGroups / key.Length + 1][];
+        string[][] grid = new string[(numGroups + key.Length - 1) / key.Length][];
         for (int i = 0; i < grid.Length; i++)
         {
             grid[i] = new string[key.Length];
@@ -44,7 +40,7 @@ public class AMSCOTransposition : CipherBase
         string encrypt = "";
         if (invert)
         {
-            int len = 0, cur = 0, index = 0;
+            int cur = 0, len;
             for (int i = 0; i < word.Length; i += len)
             {
                 len = grid[cur / grid[0].Length][cur % grid[0].Length].Length;
@@ -54,7 +50,7 @@ public class AMSCOTransposition : CipherBase
             cur = 0;
             for (int i = 0; i < key.Length; i++)
             {
-                index = key.IndexOf("1234"[i]);
+                var index = key.IndexOf("1234"[i]);
                 for (int j = 0; j < grid.Length; j++)
                 {
                     if (grid[j][index].Contains("*"))
@@ -72,7 +68,7 @@ public class AMSCOTransposition : CipherBase
         }
         else
         {
-            int len = 0, cur = 0;
+            int cur = 0, len;
             for (int i = 0; i < word.Length; i += len)
             {
                 len = grid[cur / grid[0].Length][cur % grid[0].Length].Length;
@@ -90,13 +86,11 @@ public class AMSCOTransposition : CipherBase
         }
         encrypt = encrypt.Replace("-", "");
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        ScreenInfo[] screens = new ScreenInfo[9];
-        screens[0] = new ScreenInfo(key, new int[] { 35, 35, 35, 35, 35, 32 }[key.Length - 2]);
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert) }
+            Pages = new PageInfo[] { new PageInfo(new[] { new ScreenInfo(key, 0) }, invert) }
         };
     }
     private int sum(string s)

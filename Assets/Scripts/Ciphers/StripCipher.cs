@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class StripCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Strip Cipher" : "Strip Cipher"; } }
-	public override int Score { get { return 5; } }
-	public override string Code { get { return "ST"; } }
-    
+    public override string Name { get { return invert ? "Inverted Strip Cipher" : "Strip Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "ST"; } }
+
     private readonly bool invert;
     public StripCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
-        int[] val = CMTools.generateValue(bomb);
-        int col = (invert) ? ((val[1] % 25) + 1) : (25 - (val[1] % 25));
+        var val = CMTools.generateValue(bomb);
+        int col = (invert) ? ((val.Value % 25) + 1) : (25 - (val.Value % 25));
         string[] temp = getStrips(word.Length), strips = new string[word.Length], nums = { "", "" };
         string encrypt = "";
-        for(int i = 0; i < temp.Length; i++)
+        for (int i = 0; i < temp.Length; i++)
         {
             nums[0] = nums[0] + temp[i].Substring(0, 1);
             nums[1] = nums[1] + temp[i].Substring(1, 1);
@@ -31,11 +31,11 @@ public class StripCipher : CipherBase
         logMessages.Add(nums[1]);
         for (int i = 0; i < strips.Length; i++)
             logMessages.Add(strips[i]);
-        logMessages.Add(string.Format("Column: {0} -> {1} -> {2}", ((char)val[0]), val[1], (col + 1)));
+        logMessages.Add(string.Format("Column: {0} -> {1} -> {2}", val.Expression, val.Value, col + 1));
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(nums[0], new int[] { 35, 35, 35, 32, 28 }[nums[0].Length - 4]);
-        screens[1] = new ScreenInfo(((char)val[0]) + "", 25);
+        screens[1] = new ScreenInfo(val.Expression, 25);
         screens[2] = new ScreenInfo(nums[1], new int[] { 35, 35, 35, 32, 28 }[nums[1].Length - 4]);
         return new ResultInfo
         {
@@ -150,7 +150,7 @@ public class StripCipher : CipherBase
             "98OKSGRZYCDEWVJPAHXFLIMUNBTQ",
             "99ULDOMNSRCYGVBPXQWAZJFKEITH"
         };
-        for(int i = 0; i < key.Length; i++)
+        for (int i = 0; i < key.Length; i++)
         {
             key[i] = strips[Random.Range(0, strips.Count)].ToUpperInvariant();
             strips.Remove(key[i]);

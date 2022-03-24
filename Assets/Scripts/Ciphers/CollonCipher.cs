@@ -29,10 +29,10 @@ public class CollonCipher : CipherBase
 		}
 		logMessages.Add(string.Format("After Replacing Js: {0}", word));
 		logMessages.Add(string.Format("Screen 3: {0}", replaceJ));
-		string[] keyFront = CMTools.generateBoolExp(bomb);
-		string key = CMTools.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront[1][0] == 'T');
+		var keyFront = CMTools.generateBoolExp(bomb);
+		string key = CMTools.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront.Value);
 		logMessages.Add(string.Format("Keyword: {0}", kw));
-		logMessages.Add(string.Format("Keyword Front Rule: {0} -> {1}", keyFront[0], keyFront[1]));
+		logMessages.Add(string.Format("Keyword Front Rule: {0} -> {1}", keyFront.Expression, keyFront.Value));
 		logMessages.Add(string.Format("Key: {0}", key));
 		string[] rc = { "", "" };
 		for(int i = 0; i < word.Length; i++)
@@ -46,7 +46,7 @@ public class CollonCipher : CipherBase
 		logMessages.Add(string.Format("{0} -> {1}", word, rc[0]));
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[1] = new ScreenInfo(keyFront[0], 25);
+		screens[1] = new ScreenInfo(keyFront.Expression, 25);
 		screens[2] = new ScreenInfo(rc[1], new int[] { 35, 35, 35, 32, 28 }[word.Length - 4]);
 		screens[4] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
 		return new ResultInfo

@@ -11,15 +11,15 @@ public class SeanCipher : CipherBase
 	public override ResultInfo Encrypt(string word, KMBombInfo bomb)
 	{
 		var logMessages = new List<string>();
-		string[] cw = CMTools.generateBoolExp(bomb);
-		string[] kwfront = CMTools.generateBoolExp(bomb);
+		var cw = CMTools.generateBoolExp(bomb);
+		var kwfront = CMTools.generateBoolExp(bomb);
 		string kw = new Data().PickWord(4, 8);
-		string encrypt = "", key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+		string encrypt = "", key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
 		logMessages.Add(string.Format("Keyword: {0}", kw));
-		logMessages.Add(string.Format("Key Front Rule: {0} -> {1}", kwfront[0], kwfront[1]));
-		logMessages.Add(string.Format("Clockwise Rule: {0} -> {1}", cw[0], cw[1]));
+		logMessages.Add(string.Format("Key Front Rule: {0} -> {1}", kwfront.Expression, kwfront.Value));
+		logMessages.Add(string.Format("Clockwise Rule: {0} -> {1}", cw.Expression, cw.Value));
 		
-		if (cw[1][0] == 'T')
+		if (cw.Value)
 		{
 			foreach (char c in word)
 			{
@@ -42,8 +42,8 @@ public class SeanCipher : CipherBase
 		logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[1] = new ScreenInfo(kwfront[0], 25);
-		screens[2] = new ScreenInfo(cw[0], 35);
+		screens[1] = new ScreenInfo(kwfront.Expression, 25);
+		screens[2] = new ScreenInfo(cw.Expression, 35);
 		return new ResultInfo
 		{
 			LogMessages = logMessages,

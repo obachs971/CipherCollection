@@ -4,21 +4,22 @@ using Words;
 
 public class TransposedHalvedPolybiusCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Transposed Halved Polybius Cipher" : "Transposed Halved Polybius Cipher"; } }
-	public override int Score { get { return 5; } }
-	public override string Code { get { return "TH"; } }
-    
+    public override string Name { get { return invert ? "Inverted Transposed Halved Polybius Cipher" : "Transposed Halved Polybius Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "TH"; } }
+
     private readonly bool invert;
     public TransposedHalvedPolybiusCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
         var wordList = new Data();
         var kwa = wordList.PickWord(4, 8);
         var kwb = wordList.PickWord(12 - word.Length);
-        string[] coords = { "", "", "" }, kwfront = CMTools.generateBoolExp(bomb);
-        string key = CMTools.getKey(kwa, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront[1][0] == 'T');
+        string[] coords = { "", "", "" };
+        var kwfront = CMTools.generateBoolExp(bomb);
+        string key = CMTools.getKey(kwa, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
         key = key.Substring(0, 5) + key.Substring(13, 5) + key.Substring(5, 5) + key.Substring(18, 5) + key.Substring(10, 3) + "##" + key.Substring(23) + "##";
         for (int i = 0; i < word.Length; i++)
         {
@@ -29,7 +30,7 @@ public class TransposedHalvedPolybiusCipher : CipherBase
         }
         logMessages.Add(string.Format("Screen 1: {0}", kwa));
         logMessages.Add(string.Format("Screen 2: {0}", kwb));
-        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", kwfront[0], kwfront[1], key));
+        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", kwfront.Expression, kwfront.Value, key));
         logMessages.Add(coords[0]);
         logMessages.Add(coords[1]);
         logMessages.Add(coords[2]);
@@ -77,7 +78,7 @@ public class TransposedHalvedPolybiusCipher : CipherBase
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kwa, new int[] { 35, 35, 35, 32, 28 }[kwa.Length - 4]);
-        screens[1] = new ScreenInfo(kwfront[0], 25);
+        screens[1] = new ScreenInfo(kwfront.Expression, 25);
         screens[2] = new ScreenInfo(kwb, new int[] { 35, 35, 35, 32, 28 }[kwb.Length - 4]);
         return new ResultInfo
         {

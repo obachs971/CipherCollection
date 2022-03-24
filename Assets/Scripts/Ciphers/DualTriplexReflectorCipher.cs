@@ -19,16 +19,16 @@ public class DualTriplexReflectorCipher : CipherBase
         string kw1 = wordList.PickWord(4, 8);
         string kw2 = wordList.PickWord(4, 8);
         string kw3 = wordList.PickWord(word.Length);
-        string[] kw1front = CMTools.generateBoolExp(bomb), kw2front = CMTools.generateBoolExp(bomb);
-        string ref1 = CMTools.getKey(kw1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw1front[1][0] == 'T');
+        ValueExpression<bool> kw1front = CMTools.generateBoolExp(bomb), kw2front = CMTools.generateBoolExp(bomb);
+        string ref1 = CMTools.getKey(kw1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw1front.Value);
         ref1 = ref1.Substring(0, 13) + " " + ref1.Substring(13);
-        string ref2 = CMTools.getKey(kw2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw2front[1][0] == 'T');
+        string ref2 = CMTools.getKey(kw2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw2front.Value);
         ref2 = ref2.Substring(0, 13) + " " + ref2.Substring(13);
         logMessages.Add(string.Format("Keyword 1: {0}", kw1));
         logMessages.Add(string.Format("Keyword 2: {0}", kw2));
         logMessages.Add(string.Format("Keyword 3: {0}", kw3));
-        logMessages.Add(string.Format("Screen A: {0} -> {1} -> {2}", kw1front[0], kw1front[1], ref1));
-        logMessages.Add(string.Format("Screen B: {0} -> {1} -> {2}", kw2front[0], kw2front[1], ref2));
+        logMessages.Add(string.Format("Screen A: {0} -> {1} -> {2}", kw1front.Expression, kw1front.Value, ref1));
+        logMessages.Add(string.Format("Screen B: {0} -> {1} -> {2}", kw2front.Expression, kw2front.Value, ref2));
         logMessages.Add(ref1.Substring(0, 9));
         logMessages.Add(ref1.Substring(9, 9));
         logMessages.Add(ref1.Substring(18));
@@ -86,9 +86,9 @@ public class DualTriplexReflectorCipher : CipherBase
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw1, new int[] { 35, 35, 35, 32, 28 }[kw1.Length - 4]);
-        screens[1] = new ScreenInfo(kw1front[0], 25);
+        screens[1] = new ScreenInfo(kw1front.Expression, 25);
         screens[2] = new ScreenInfo(kw2, new int[] { 35, 35, 35, 32, 28 }[kw2.Length - 4]);
-        screens[3] = new ScreenInfo(kw2front[0], 25);
+        screens[3] = new ScreenInfo(kw2front.Expression, 25);
         screens[4] = new ScreenInfo(kw3, new int[] { 35, 35, 35, 35, 32, 28 }[kw3.Length - 3]);
         return new ResultInfo
         {

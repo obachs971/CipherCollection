@@ -16,14 +16,13 @@ public class CondiCipher : CipherBase
         var logMessages = new List<string>();
         string kw = new Data().PickWord(4, 8);
         string encrypt = "";
-        string[] keyFront = CMTools.generateBoolExp(bomb);
-        string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
-        int[] vals = CMTools.generateValue(bomb);
-        char letter = (char) vals[0];
-        int offset = vals[1];
+        var keyFront = CMTools.generateBoolExp(bomb);
+        string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront.Value);
+        var offsetExpr = CMTools.generateValue(bomb);
+        var offset = offsetExpr.Value;
         logMessages.Add(string.Format("Keyword: {0}", kw));
-        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront[0], keyFront[1], key));
-        logMessages.Add(string.Format("Starting Offset: {0} -> {1}", letter, offset));
+        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront.Expression, keyFront.Value, key));
+        logMessages.Add(string.Format("Starting Offset: {0} -> {1}", offsetExpr.Expression, offset));
         if (invert)
         {
             foreach (char c in word)
@@ -43,8 +42,8 @@ public class CondiCipher : CipherBase
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        screens[1] = new ScreenInfo(keyFront[0], 25);
-        screens[2] = new ScreenInfo(letter + "", 35);
+        screens[1] = new ScreenInfo(keyFront.Expression, 25);
+        screens[2] = new ScreenInfo(offsetExpr.Expression, 35);
         return new ResultInfo
         {
             LogMessages = logMessages,

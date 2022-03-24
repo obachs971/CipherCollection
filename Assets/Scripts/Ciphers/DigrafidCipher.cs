@@ -5,20 +5,20 @@ using Words;
 
 public class DigrafidCipher : CipherBase
 {
-	public override string Name { get { return "Digrafid Cipher"; } }
-	public override int Score { get { return 5; } }
-	public override string Code { get { return "DI"; } }
+    public override string Name { get { return "Digrafid Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "DI"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
         string[] kws = new string[2], keys = new string[2], choices = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ#", "ABCDEFGHIJKLMNOPQRSTUVWXYZ#" }, nums;
-        string[][] kwFront = new string[2][];
+        var kwFront = new ValueExpression<bool>[2];
         var wordList = new Data();
         for (int i = 0; i < kws.Length; i++)
         {
             kws[i] = wordList.PickWord(4, 8);
             kwFront[i] = CMTools.generateBoolExp(bomb);
-            keys[i] = CMTools.getKey(kws[i], "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwFront[i][1][0] == 'T');
+            keys[i] = CMTools.getKey(kws[i], "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwFront[i].Value);
         }
         string encrypt, letters = choices[0][Random.Range(0, choices[0].Length)] + "", key = "123456789";
         choices[0] = choices[0].Replace(letters, "");
@@ -54,8 +54,8 @@ public class DigrafidCipher : CipherBase
             if (!(encrypt.Contains("#")))
             {
                 logMessages.Add(string.Format("Letters: {0}", letters));
-                logMessages.Add(string.Format("Key A: {0} -> {1} -> {2}", kwFront[0][0], kwFront[0][1], tempKey[0]));
-                logMessages.Add(string.Format("Key B: {0} -> {1} -> {2}", kwFront[1][0], kwFront[1][1], tempKey[1]));
+                logMessages.Add(string.Format("Key A: {0} -> {1} -> {2}", kwFront[0].Expression, kwFront[0].Value, tempKey[0]));
+                logMessages.Add(string.Format("Key B: {0} -> {1} -> {2}", kwFront[1].Expression, kwFront[1].Value, tempKey[1]));
                 for (int i = 0; i < word.Length - (word.Length % 2); i += 2)
                     logMessages.Add(string.Format("{0}{1} -> {2}{3}{4}", word[i], word[i + 1], nums[0][i / 2], nums[1][i / 2], nums[2][i / 2]));
                 for (int i = 0; i < encrypt.Length; i += 2)
@@ -74,9 +74,9 @@ public class DigrafidCipher : CipherBase
         logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
-        screens[1] = new ScreenInfo(kwFront[0][0], 25);
+        screens[1] = new ScreenInfo(kwFront[0].Expression, 25);
         screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
-        screens[3] = new ScreenInfo(kwFront[1][0], 25);
+        screens[3] = new ScreenInfo(kwFront[1].Expression, 25);
         screens[4] = new ScreenInfo(letters, 35);
         return new ResultInfo
         {

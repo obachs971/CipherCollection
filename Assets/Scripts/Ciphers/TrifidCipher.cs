@@ -5,18 +5,18 @@ using Words;
 
 public class TrifidCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Trifid Cipher" : "Trifid Cipher"; } }
-	public override int Score { get { return 5; } }
-	public override string Code { get { return "TF"; } }
-    
+    public override string Name { get { return invert ? "Inverted Trifid Cipher" : "Trifid Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "TF"; } }
+
     private readonly bool invert;
     public TrifidCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
         var words = new Data();
-        string[] keyFront = CMTools.generateBoolExp(bomb);
+        var keyFront = CMTools.generateBoolExp(bomb);
         int[][] numbers = new int[3][] { new int[word.Length], new int[word.Length], new int[word.Length] };
         string key;
         string encrypt;
@@ -25,7 +25,7 @@ public class TrifidCipher : CipherBase
         {
             encrypt = "";
             kw = words.PickWord(4, 8);
-            key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T') + "-";
+            key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront.Value) + "-";
             if (invert)
             {
                 for (int i = 0; i < word.Length; i++)
@@ -60,7 +60,7 @@ public class TrifidCipher : CipherBase
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-        screens[1] = new ScreenInfo(keyFront[0], 25);
+        screens[1] = new ScreenInfo(keyFront.Expression, 25);
         return new ResultInfo
         {
             LogMessages = logMessages,

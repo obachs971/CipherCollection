@@ -5,9 +5,9 @@ using Words;
 
 public class TrisquareCipher : CipherBase
 {
-	public override string Name { get { return "Trisquare Cipher"; } }
-	public override int Score { get { return 5; } }
-	public override string Code { get { return "TS"; } }
+    public override string Name { get { return "Trisquare Cipher"; } }
+    public override int Score { get { return 5; } }
+    public override string Code { get { return "TS"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -30,14 +30,14 @@ public class TrisquareCipher : CipherBase
         logMessages.Add(string.Format("Screen 4: {0}", replaceJ));
         string[] kws = new string[3];
         string[] keys = new string[3];
-        string[][] kwFronts = new string[3][];
+        var kwFronts = new ValueExpression<bool>[3];
         for (int i = 0; i < 3; i++)
         {
             kws[i] = data.PickWord(4, 8);
             kwFronts[i] = CMTools.generateBoolExp(bomb);
-            keys[i] = CMTools.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i][1][0] == 'T');
+            keys[i] = CMTools.getKey(kws[i].Replace("J", "I"), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwFronts[i].Value);
             logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[i]));
-            logMessages.Add(string.Format("Key #{0}: {1} -> {2} -> {3}", (i + 1), kwFronts[i][0], kwFronts[i][1], keys[i]));
+            logMessages.Add(string.Format("Key #{0}: {1} -> {2} -> {3}", (i + 1), kwFronts[i].Expression, kwFronts[i].Value, keys[i]));
         }
         string intersection = "";
         for (int i = 0; i < (word.Length / 2); i++)
@@ -58,11 +58,11 @@ public class TrisquareCipher : CipherBase
         logMessages.Add(string.Format("Screen D: {0}", intersection));
         ScreenInfo[] screens = new ScreenInfo[9];
         screens[0] = new ScreenInfo(kws[0], new int[] { 35, 35, 35, 32, 28 }[kws[0].Length - 4]);
-        screens[1] = new ScreenInfo(kwFronts[0][0], 25);
+        screens[1] = new ScreenInfo(kwFronts[0].Expression, 25);
         screens[2] = new ScreenInfo(kws[1], new int[] { 35, 35, 35, 32, 28 }[kws[1].Length - 4]);
-        screens[3] = new ScreenInfo(kwFronts[1][0], 25);
+        screens[3] = new ScreenInfo(kwFronts[1].Expression, 25);
         screens[4] = new ScreenInfo(kws[2], new int[] { 35, 35, 35, 32, 28 }[kws[2].Length - 4]);
-        screens[5] = new ScreenInfo(kwFronts[2][0], 25);
+        screens[5] = new ScreenInfo(kwFronts[2].Expression, 25);
         screens[6] = new ScreenInfo(replaceJ, new int[] { 35, 35, 35, 32, 28 }[replaceJ.Length - 4]);
         screens[7] = new ScreenInfo(intersection, new int[] { 25, 25, 20 }[intersection.Length - 2]);
         return new ResultInfo

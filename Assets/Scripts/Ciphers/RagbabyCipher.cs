@@ -14,9 +14,9 @@ public class RagbabyCipher : CipherBase
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
 		var logMessages = new List<string>();
-		string[] keyFront = CMTools.generateBoolExp(bomb);
+		var keyFront = CMTools.generateBoolExp(bomb);
 		string kw = new Data().PickWord(4, 8);
-		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront[1][0] == 'T');
+		string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", keyFront.Value);
 		string encrypt = "";
 		if(invert)
 		{
@@ -29,12 +29,12 @@ public class RagbabyCipher : CipherBase
 				encrypt = encrypt + "" + key[CMTools.mod(key.IndexOf(word[i]) + (i + 1), 26)];
 		}
 		logMessages.Add(string.Format("Keyword: {0}", kw));
-		logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront[0], keyFront[1], key));
+		logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", keyFront.Expression, keyFront.Value, key));
 		logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
 
 		ScreenInfo[] screens = new ScreenInfo[9];
 		screens[0] = new ScreenInfo(kw, new int[] { 35, 35, 35, 32, 28 }[kw.Length - 4]);
-		screens[1] = new ScreenInfo(keyFront[0], 25);
+		screens[1] = new ScreenInfo(keyFront.Expression, 25);
 		return new ResultInfo
 		{
 			LogMessages = logMessages,

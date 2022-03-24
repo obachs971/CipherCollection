@@ -19,5 +19,6 @@ namespace CipherMachine
         {
             return Text;
         }
+        public static implicit operator ScreenInfo(string s) { return new ScreenInfo(s, 0); }
     }
 }
