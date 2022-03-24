@@ -18,7 +18,7 @@ public class DualTriplexReflectorCipher : CipherBase
         var wordList = new Data();
         string kw1 = wordList.PickWord(4, 8);
         string kw2 = wordList.PickWord(4, 8);
-        string kw3 = wordList.PickWord(word.Length);
+        string kw3 = wordList.PickWord(word.Length - 1);
         ValueExpression<bool> kw1front = CMTools.generateBoolExp(bomb), kw2front = CMTools.generateBoolExp(bomb);
         string ref1 = CMTools.getKey(kw1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw1front.Value);
         ref1 = ref1.Substring(0, 13) + " " + ref1.Substring(13);

@@ -15,7 +15,7 @@ public class AutokeyCipher : CipherBase
     {
         var logMessages = new List<string>();
         string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY", encrypt = "";
-        string kw = new Data().PickWord(word.Length);
+        string kw = new Data().PickWord(3, word.Length - 1);
         logMessages.Add(string.Format("Keyword: {0}", kw));
         if (invert)
         {
