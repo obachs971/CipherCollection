@@ -73,11 +73,11 @@ public class PingPongStraddlingCheckerboardCipher : CipherBase
             goto tryAgain;
 
         var logMessages = new List<string>();
-        logMessages.Add(string.Format("Backward Straddling Checkerboard Cipher: KW2: {0}, D3: {1}, D4: {2}", kw2, d3, d4));
+        logMessages.Add(string.Format("Backward Straddling Checkerboard Cipher: KW2: {0}, D3: {1} -> {2}, D4: {3} -> {4}, {5}/{6} -> {7}/{8}", kw2, d3E.Expression, d3, d4E.Expression, d4, bkKwFront.Expression, bkColumnOrder.Expression, bkKwFront.Value, bkColumnOrder.Value));
         for (var i = 0; i < 5; i++)
             logMessages.Add(string.Format("Backward Straddling Checkerboard Cipher: Row [{0}] = [{1}]", i == 0 ? " " : rowDigits2[i - 1].ToString(), straddlingCheckerboard2.Substring(6 * i, 6).Join(" ")));
         logMessages.Add(string.Format("Backward Straddling Checkerboard result: {0}", encryptedDigits.Join("")));
-        logMessages.Add(string.Format("Forward Straddling Checkerboard Cipher: KW1: {0}, D1: {1}, D2: {2}", kw1, d1, d2));
+        logMessages.Add(string.Format("Forward Straddling Checkerboard Cipher: KW1: {0}, D1: {1} -> {2}, D2: {3} -> {4}, {5}/{6} -> {7}/{8}", kw1, d1E.Expression, d1, d2E.Expression, d2, fwKwFront.Expression, fwColumnOrder.Expression, fwKwFront.Value, fwColumnOrder.Value));
         for (var i = 0; i < 5; i++)
             logMessages.Add(string.Format("Forward Straddling Checkerboard Cipher: Row [{0}] = [{1}]", i == 0 ? " " : rowDigits1[i - 1].ToString(), straddlingCheckerboard1.Substring(6 * i, 6).Join(" ")));
         logMessages.Add(string.Format("Forward Straddling Checkerboard result: {0}", encrypted));

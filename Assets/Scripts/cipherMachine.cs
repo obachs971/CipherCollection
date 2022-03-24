@@ -121,7 +121,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new[] { new MonoalphabeticCipher(false) } };
+        var _allCiphers = new[] { new[] { new PingPongStraddlingCheckerboardCipher() } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
