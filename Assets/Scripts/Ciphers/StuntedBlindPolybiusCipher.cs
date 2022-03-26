@@ -5,6 +5,7 @@ using CipherMachine;
 using KModkit;
 using Words;
 
+
 public class StuntedBlindPolybiusCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Stunted Blind Polybius Cipher" : "Stunted Blind Polybius Cipher"; } }
@@ -18,8 +19,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        var bitsInt = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(bomb.GetSerialNumber().First());
-        var bit0 = (bitsInt & 1) != 0;
+        ValueExpression<bool> kwfront = CMTools.generateBoolExp(bomb);
         var logMessages = new List<string>();
         var wordList = new Data();
 
@@ -30,7 +30,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
             var kw = wordList.PickWord(8);
             var colSeq = sequencing(kw.Substring(0, 4));
             var rowSeq = sequencing(kw.Substring(4));
-            var polybius = (bit0 ? (kw + "ABCDEFGHIJKLMNOP") : "ABCDEFGHIJKLMNOP".Except(kw).Concat(kw)).Distinct().Where(ch => ch <= 'P').Join("");
+            var polybius = (kwfront.Value ? (kw + "ABCDEFGHIJKLMNOP") : "ABCDEFGHIJKLMNOP".Except(kw).Concat(kw)).Distinct().Where(ch => ch <= 'P').Join("");
 
             // To get all letters into the range A–P, we must ROT13 letters that are out of range.
             // The letters ABCNOP can optionally be ROT13ed. This loop goes through all possible combinations.
@@ -111,7 +111,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
                 {
                     LogMessages = logMessages,
                     Encrypted = encrypted,
-                    Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw }, _invert) }
+                    Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }, _invert) }
                 };
 
                 busted:;
@@ -134,7 +134,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
             var rowSeq = sequencing(kw.Substring(4));
             logMessages.Add(string.Format("Blind Polybius columns: {0}; rows: {1}", colSeq.Select(i => i + 1).Join(""), rowSeq.Select(i => i + 1).Join("")));
 
-            var polybius = (bit0 ? (kw + "ABCDEFGHIJKLMNOP") : "ABCDEFGHIJKLMNOP".Except(kw).Concat(kw)).Distinct().Where(ch => ch <= 'P').Join("");
+            var polybius = (kwfront.Value ? (kw + "ABCDEFGHIJKLMNOP") : "ABCDEFGHIJKLMNOP".Except(kw).Concat(kw)).Distinct().Where(ch => ch <= 'P').Join("");
             logMessages.Add(string.Format("Stunted Polybius square: {0}", polybius));
 
             var encrypted = brailleNibbles.Select(nibble => polybius[colSeq[nibble % 4] + 4 * rowSeq[nibble / 4]]).Join("");
@@ -146,7 +146,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
 
                 // The encrypted word should be the same length as the original; the rest is shown on the module to be appended by the user
                 Encrypted = encrypted.Substring(0, word.Length),
-                Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, null, encrypted.Substring(word.Length) }, _invert) }
+                Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, encrypted.Substring(word.Length) }, _invert) }
             };
         }
     }
