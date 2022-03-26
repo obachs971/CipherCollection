@@ -62,9 +62,9 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new TridigitalCipher() },
         new CipherBase[] { new TrifidCipher(invert: false), new TrifidCipher(invert: true) },
         new CipherBase[] { new TrisquareCipher() },
+        new CipherBase[] { new VarietyCipher() },
         new CipherBase[] { new VICPhoneCipher() },
-        new CipherBase[] { new VigenereCipher(invert: false), new VigenereCipher(invert: true) },
-        new CipherBase[] { new XorCipher() });
+        new CipherBase[] { new VigenereCipher(invert: false), new VigenereCipher(invert: true) });
 
     public TextMesh[] screenTexts;
     public MeshRenderer[] screenTextMeshes;
