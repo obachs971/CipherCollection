@@ -21,7 +21,7 @@ public class SemaphoreRotationCipher : CipherBase
         logMessages.Add(_invert ? "Using encrypt instructions (counter-clockwise)" : "Using decrypt instructions (clockwise)");
         var wordList = new Data();
         tryAgain:
-        var kw = wordList.PickWord(word.Length);
+        var kw = wordList.PickWord(4, 8);
         var encrypted = semaphoreRotationCipherAttempt(word, kw, _invert);
         if (encrypted == null)
             goto tryAgain;
