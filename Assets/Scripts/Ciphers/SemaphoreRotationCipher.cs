@@ -27,7 +27,12 @@ public class SemaphoreRotationCipher : CipherBase
             goto tryAgain;
         logMessages.Add(string.Format("Keyword = {0}", kw));
         logMessages.Add(string.Format("Encrypted = {0}", encrypted));
-        return new ResultInfo { Encrypted = encrypted, Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, _invert) } };
+        return new ResultInfo
+        {
+            Encrypted = encrypted,
+            LogMessages = logMessages,
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, _invert) }
+        };
     }
 
     private string semaphoreRotationCipherAttempt(string word, string kw, bool invert)
