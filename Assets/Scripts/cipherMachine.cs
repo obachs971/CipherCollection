@@ -35,6 +35,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new GROMARKCipher(invert: false), new GROMARKCipher(invert: true) },
         new CipherBase[] { new HillCipher(invert: false), new HillCipher(invert: true) },
         new CipherBase[] { new HomophonicCipher() },
+        new CipherBase[] { new IncrementalPolyalphabeticCipher(invert: false), new IncrementalPolyalphabeticCipher(invert: true) },
         new CipherBase[] { new LogicCipher() },
         new CipherBase[] { new M209Cipher() },
         new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
