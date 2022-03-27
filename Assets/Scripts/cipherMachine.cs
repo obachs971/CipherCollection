@@ -122,7 +122,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new[] { new SemaphoreRotationCipher(invert: false) } };
+        //var _allCiphers = new[] { new[] { new ChainRotationCipher(invert: false) } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
