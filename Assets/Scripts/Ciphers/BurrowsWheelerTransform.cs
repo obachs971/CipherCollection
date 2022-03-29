@@ -28,7 +28,7 @@ public class BurrowsWheelerTransform : CipherBase
         {
             Encrypted = rotations.Select(r => r.Last()).Join(""),
             LogMessages = logMessages,
-            Pages = new[] { new PageInfo(new[] { new ScreenInfo((Array.IndexOf(rotations, word) + 1).ToString()) }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { (Array.IndexOf(rotations, word) + 1).ToString() }) }
         };
     }
 }

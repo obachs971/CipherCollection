@@ -13,10 +13,6 @@ namespace CipherMachine
             TextFont = null;
             FontMaterial = null;
         }
-        public override string ToString()
-        {
-            return Text;
-        }
         public static implicit operator ScreenInfo(string s) { return new ScreenInfo(s); }
     }
 }

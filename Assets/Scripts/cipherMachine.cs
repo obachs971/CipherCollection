@@ -80,6 +80,7 @@ public class cipherMachine : MonoBehaviour
     public KMSelectable rightArrow;
     public KMSelectable submit;
     public KMSelectable[] keyboard;
+    public TextMesh[] keyboardLtrs;
     public Font DEFAULT_FONT;
     public Material DEFAULT_FONT_MAT;
 
@@ -123,7 +124,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new[] { new ChainRotationCipher(invert: false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new MonoalphabeticCipher(invert: false) }, new[] { new PingPongStraddlingCheckerboardCipher() } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
@@ -138,15 +139,21 @@ public class cipherMachine : MonoBehaviour
             foreach (var msg in result.LogMessages)
                 Debug.LogFormat("[Cipher Machine #{0}] [{1}] {2}", moduleId, cipher.Name, msg);
             Debug.LogFormat("[Cipher Machine #{0}] Result: {1}", moduleId, result.Encrypted);
+            var checksum = Enumerable.Range(0, word.Length).Sum(ix => (word[ix] - 'A' + 1) * (ix + 1)) % 23;
             word = result.Encrypted;
             foreach (var p in result.Pages)
+            {
                 p.Code = cipher.Code;
+                if (i > 0)
+                    p.Checksum = checksum;
+            }
             pagesList.InsertRange(0, result.Pages);
         }
         pagesList.Insert(0, new PageInfo(new ScreenInfo[] { word }));
         pages = pagesList.ToArray();
         getScreens();
     }
+
     void left(KMSelectable arrow)
     {
         if (!moduleSolved)
@@ -199,6 +206,8 @@ public class cipherMachine : MonoBehaviour
         submitMesh.material = materials[pages[page].Invert ? 1 : 0];
         submitText.color = textColors[pages[page].Invert ? 1 : 0];
         submitText.text = (page + 1) + pages[page].Code;
+        for (var ltr = 0; ltr < 26; ltr++)
+            keyboardLtrs[ltr].color = pages[page].Checksum == ltr ? Color.yellow : Color.white;
     }
 
     private int getFontSize(int length, bool largeScreen)
@@ -256,6 +265,8 @@ public class cipherMachine : MonoBehaviour
                 submitScreen = true;
                 submitMesh.material = materials[0];
                 submitText.color = textColors[0];
+                for (var ltr = 0; ltr < 26; ltr++)
+                    keyboardLtrs[ltr].color = Color.white;
             }
         }
     }
