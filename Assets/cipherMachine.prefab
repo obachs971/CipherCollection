@@ -7060,14 +7060,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013973405618624}
-  m_Text: A
+  m_Text: "\u0100\u0101\u017E\u017F"
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 1
-  m_FontSize: 35
+  m_FontSize: 25
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: ed502d22d54f1a7408e1fb2aba7a098f, type: 2}
@@ -7081,7 +7081,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652831948463608}
-  m_Text: 
+  m_Text: ABCDEF
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
