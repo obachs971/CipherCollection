@@ -50,7 +50,7 @@ public class AMSCOTransposition : CipherBase
             cur = 0;
             for (int i = 0; i < key.Length; i++)
             {
-                var index = key.IndexOf("1234"[i]);
+                var index = key.IndexOf("12345"[i]);
                 for (int j = 0; j < grid.Length; j++)
                 {
                     if (grid[j][index].Contains("*"))
@@ -77,7 +77,7 @@ public class AMSCOTransposition : CipherBase
             }
             for (int i = 0; i < key.Length; i++)
             {
-                cur = key.IndexOf("1234"[i]);
+                cur = key.IndexOf("12345"[i]);
                 for (int j = 0; j < grid.Length; j++)
                     encrypt += grid[j][cur];
             }

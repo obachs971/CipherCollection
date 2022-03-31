@@ -3677,7 +3677,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f9390b8acca97e64296db153bc0799e0, type: 2}
+  - {fileID: 2100000, guid: 0c5baa6f66e757a42a577cc18bfcff73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4357,7 +4357,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ba7010d57c10ead479d3d248c0477d79, type: 3}
+  - {fileID: 2100000, guid: 0c5baa6f66e757a42a577cc18bfcff73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7060,17 +7060,17 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1013973405618624}
-  m_Text: "\u0100\u0101\u017E\u017F"
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 1
-  m_FontSize: 25
+  m_FontSize: 35
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: ed502d22d54f1a7408e1fb2aba7a098f, type: 2}
+  m_Font: {fileID: 12800000, guid: ba7010d57c10ead479d3d248c0477d79, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -7081,7 +7081,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652831948463608}
-  m_Text: ABCDEF
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.05
   m_LineSpacing: 1
@@ -7772,6 +7772,8 @@ MonoBehaviour:
   - {fileID: 102617154407651264}
   DEFAULT_FONT: {fileID: 12800000, guid: ba7010d57c10ead479d3d248c0477d79, type: 3}
   DEFAULT_FONT_MAT: {fileID: 2100000, guid: 0c5baa6f66e757a42a577cc18bfcff73, type: 2}
+  DreamcipherFont: {fileID: 12800000, guid: ed502d22d54f1a7408e1fb2aba7a098f, type: 2}
+  DreamcipherMat: {fileID: 2100000, guid: f9390b8acca97e64296db153bc0799e0, type: 2}
 --- !u!114 &114187509416308764
 MonoBehaviour:
   m_ObjectHideFlags: 1

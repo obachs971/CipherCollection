@@ -26,6 +26,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new CondiCipher(invert: false), new CondiCipher(invert: true) },
         new CipherBase[] { new ConjugatedMatrixBifidCipher(invert: false), new ConjugatedMatrixBifidCipher(invert: true) },
         new CipherBase[] { new DigrafidCipher() },
+        new CipherBase[] { new Dreamcipher(invert: false, cm: this), new Dreamcipher(invert: true, cm: this) },
         new CipherBase[] { new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true) },
         new CipherBase[] { new EnigmaCipher() },
         new CipherBase[] { new FoursquareCipher(invert: false), new FoursquareCipher(invert: true) },
@@ -83,6 +84,9 @@ public class cipherMachine : MonoBehaviour
     public TextMesh[] keyboardLtrs;
     public Font DEFAULT_FONT;
     public Material DEFAULT_FONT_MAT;
+    public Font DreamcipherFont;
+    public Material DreamcipherMat;
+
 
     private PageInfo[] pages;
     private string answer;
@@ -106,6 +110,7 @@ public class cipherMachine : MonoBehaviour
                     for (var k = j + 1; k < _allCiphers[i].Length; k++)
                         if (_allCiphers[i][j].Name == _allCiphers[i][k].Name)
                             Debug.LogErrorFormat(@"{0} and {1} use the same name.", _allCiphers[i][j].Name, _allCiphers[i][k].Name);
+                
             }
 
         moduleId = moduleIdCounter++;
@@ -124,14 +129,14 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        var _allCiphers = new[] { new CipherBase[] { new IncrementalPolyalphabeticCipher(invert:false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert:true, font:DreamcipherFont, fontMat:DreamcipherMat) } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();
         var cipherIxs = Enumerable.Range(0, _allCiphers.Length).ToArray().Shuffle();
-        for (var i = 0; i < 3 && i < cipherIxs.Length; i++)
+        for (var i = 0; i < 100 && i < cipherIxs.Length; i++)
         {
             var cipher = _allCiphers[cipherIxs[i]].PickRandom();
             Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, cipher.Name, cipher.Code);
