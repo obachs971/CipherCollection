@@ -11,13 +11,7 @@ public class Dreamcipher : CipherBase
     public override string Code { get { return "DR"; } }
 
     private readonly bool invert;
-
-    public Font font;
-
-    public Material fontMat;
-    public Dreamcipher(bool invert, cipherMachine cm) { this.invert = invert; this.font = cm.DreamcipherFont; this.fontMat = cm.DreamcipherMat; }
-
-
+    public Dreamcipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -35,10 +29,10 @@ public class Dreamcipher : CipherBase
             base16 = "0" + base16;
         var vals = new ValueExpression<int>[] { CMTools.generateValue(bomb), CMTools.generateValue(bomb) };
         int[] shifts = { (vals[0].Value % 10) + 1, (vals[1].Value % 10) + 1 };
-        int cur = Int32.Parse(convertBase(bins.Substring(0, 8), 2, 10)) % 64;
-        cur = (Int32.Parse(convertBase(bins.Substring(8, 4), 2, 10)) + cur + 1) % 64;
+        int cur = int.Parse(convertBase(bins.Substring(0, 8), 2, 10)) % 64;
+        cur = (int.Parse(convertBase(bins.Substring(8, 4), 2, 10)) + cur + 1) % 64;
         grid = grid.Substring(0, cur) + "" + key[0] + "" + grid.Substring(cur + 1);
-        cur = (Int32.Parse(convertBase(bins.Substring(12), 2, 10)) + cur + 1) % 64;
+        cur = (int.Parse(convertBase(bins.Substring(12), 2, 10)) + cur + 1) % 64;
         grid = grid.Substring(0, cur) + "" + key[1] + "" + grid.Substring(cur + 1);
         logMessages.Add(string.Format("Keyword: {0}", keyword));
         logMessages.Add(string.Format("Screen A: {0} -> {1}", kwfront.Expression, kwfront.Value));
@@ -48,14 +42,14 @@ public class Dreamcipher : CipherBase
         logMessages.Add(string.Format("{0}", bins));
         for (int i = 0; i < 8; i++)
             logMessages.Add(string.Format("{0}", grid.Substring(i * 8, 8)));
-        for (int i = 2; i < 26; i+=4)
+        for (int i = 2; i < 26; i += 4)
         {
             bins = XOR(bins, bins.Substring(shifts[0]) + "0000000000".Substring(0, shifts[0]));
             bins = XOR(bins, "0000000000".Substring(0, shifts[1]) + bins.Substring(0, bins.Length - shifts[1]));
             logMessages.Add(string.Format("{0}", bins));
             for (int j = 0; j < 4; j++)
             {
-                cur = (Int32.Parse(convertBase(bins.Substring(j * 4, 4), 2, 10)) + cur + 1) % 64;
+                cur = (int.Parse(convertBase(bins.Substring(j * 4, 4), 2, 10)) + cur + 1) % 64;
                 while (grid[cur] != '-')
                     cur = (cur + 1) % 64;
                 grid = grid.Substring(0, cur) + "" + key[i + j] + "" + grid.Substring(cur + 1);
@@ -75,7 +69,7 @@ public class Dreamcipher : CipherBase
                 for (int j = 1; j < 27; j++)
                     poss.Add(new int[] { CMTools.mod(cur - j, 64) + 0x140, j });
                 int[] choice = poss[UnityEngine.Random.Range(0, poss.Count)];
-                symbols = symbols + "" + ((char)(choice[0]));
+                symbols = symbols + "" + ((char) (choice[0]));
                 encrypt = encrypt + "" + alpha[choice[1]];
                 logMessages.Add(string.Format("{0} + {1}{2} + {3} -> {4}", word[i], "ABCDEFGH"[(choice[0] - 0x100) % 8], "1234567812345678"[(choice[0] - 0x100) / 8], choice[0] >= 0x140 ? "OUTLINED" : "FILLED", encrypt[i]));
             }
@@ -86,22 +80,20 @@ public class Dreamcipher : CipherBase
             {
                 cur = grid.IndexOf(word[i]);
                 List<int[]> poss = new List<int[]>();
-                for(int j = 1; j < 27; j++)
+                for (int j = 1; j < 27; j++)
                     poss.Add(new int[] { CMTools.mod(cur - j, 64) + 0x100, j });
                 for (int j = 1; j < 27; j++)
-                     poss.Add(new int[] { CMTools.mod(cur + j, 64) + 0x140, j });
+                    poss.Add(new int[] { CMTools.mod(cur + j, 64) + 0x140, j });
                 int[] choice = poss[UnityEngine.Random.Range(0, poss.Count)];
-                symbols = symbols + "" + ((char)(choice[0]));
+                symbols = symbols + "" + ((char) (choice[0]));
                 encrypt = encrypt + "" + alpha[choice[1]];
                 logMessages.Add(string.Format("{0} + {1}{2} + {3} -> {4}", word[i], "ABCDEFGH"[(choice[0] - 0x100) % 8], "1234567812345678"[(choice[0] - 0x100) / 8], choice[0] >= 0x140 ? "OUTLINED" : "FILLED", encrypt[i]));
             }
         }
-        ScreenInfo[] screenSymbols = new ScreenInfo[] { new ScreenInfo(symbols.Substring(0, symbols.Length / 2)), new ScreenInfo(symbols.Substring(symbols.Length / 2)) };
-        for(int i = 0; i < 2; i++)
-        {
-            screenSymbols[i].TextFont = font;
-            screenSymbols[i].FontMaterial = fontMat;
-        }
+        ScreenInfo[] screenSymbols = new ScreenInfo[] {
+            new ScreenInfo(symbols.Substring(0, symbols.Length / 2), CMFont.DreamCipher),
+            new ScreenInfo(symbols.Substring(symbols.Length / 2), CMFont.DreamCipher)
+        };
         return new ResultInfo
         {
             LogMessages = logMessages,
@@ -116,13 +108,13 @@ public class Dreamcipher : CipherBase
         string alpha = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int mult = 1;
         var sum = 0;
-        for(int i = num.Length - 1; i >= 0; i--)
+        for (int i = num.Length - 1; i >= 0; i--)
         {
             sum += (mult * alpha.IndexOf(num[i]));
             mult *= b1;
         }
         string result = "";
-        while(sum > 0)
+        while (sum > 0)
         {
             result = alpha[(sum % b2)] + "" + result;
             sum /= b2;
@@ -134,13 +126,8 @@ public class Dreamcipher : CipherBase
     private string XOR(string b1, string b2)
     {
         string result = "";
-        for(int i = 0; i < b1.Length && i < b2.Length; i++)
+        for (int i = 0; i < b1.Length && i < b2.Length; i++)
             result = result + (b1[i] == b2[i] ? "0" : "1");
         return result;
-    }
-    public void setFont(Font font, Material fontMat)
-    {
-        this.font = font;
-        this.fontMat = fontMat;
     }
 }

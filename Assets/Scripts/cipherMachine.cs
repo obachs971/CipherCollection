@@ -26,7 +26,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new CondiCipher(invert: false), new CondiCipher(invert: true) },
         new CipherBase[] { new ConjugatedMatrixBifidCipher(invert: false), new ConjugatedMatrixBifidCipher(invert: true) },
         new CipherBase[] { new DigrafidCipher() },
-        new CipherBase[] { new Dreamcipher(invert: false, cm: this), new Dreamcipher(invert: true, cm: this) },
+        new CipherBase[] { new Dreamcipher(invert: false), new Dreamcipher(invert: true) },
         new CipherBase[] { new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true) },
         new CipherBase[] { new EnigmaCipher() },
         new CipherBase[] { new FoursquareCipher(invert: false), new FoursquareCipher(invert: true) },
@@ -82,11 +82,9 @@ public class cipherMachine : MonoBehaviour
     public KMSelectable submit;
     public KMSelectable[] keyboard;
     public TextMesh[] keyboardLtrs;
-    public Font DEFAULT_FONT;
-    public Material DEFAULT_FONT_MAT;
-    public Font DreamcipherFont;
-    public Material DreamcipherMat;
 
+    public Font[] Fonts;
+    public Material[] FontMaterials;
 
     private PageInfo[] pages;
     private string answer;
@@ -110,7 +108,7 @@ public class cipherMachine : MonoBehaviour
                     for (var k = j + 1; k < _allCiphers[i].Length; k++)
                         if (_allCiphers[i][j].Name == _allCiphers[i][k].Name)
                             Debug.LogErrorFormat(@"{0} and {1} use the same name.", _allCiphers[i][j].Name, _allCiphers[i][k].Name);
-                
+
             }
 
         moduleId = moduleIdCounter++;
@@ -129,7 +127,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert:true, font:DreamcipherFont, fontMat:DreamcipherMat) } };
+        var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert: false) } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
@@ -188,24 +186,16 @@ public class cipherMachine : MonoBehaviour
             if (aa >= pages[page].Screens.Length)
             {
                 screenTexts[aa].text = "";
-                screenTexts[aa].font = DEFAULT_FONT;
-                screenTextMeshes[aa].material = DEFAULT_FONT_MAT;
+                screenTexts[aa].font = Fonts[0];
+                screenTextMeshes[aa].material = FontMaterials[0];
             }
             else
             {
                 screenTexts[aa].text = pages[page].Screens[aa].Text;
                 if (pages[page].Screens[aa].Text != null)
                     screenTexts[aa].fontSize = getFontSize(pages[page].Screens[aa].Text.Length, aa % 2 == 0);
-                if (pages[page].Screens[aa].TextFont == null)
-                {
-                    screenTexts[aa].font = DEFAULT_FONT;
-                    screenTextMeshes[aa].material = DEFAULT_FONT_MAT;
-                }
-                else
-                {
-                    screenTexts[aa].font = pages[page].Screens[aa].TextFont;
-                    screenTextMeshes[aa].material = pages[page].Screens[aa].FontMaterial;
-                }
+                screenTexts[aa].font = Fonts[(int) pages[page].Screens[aa].Font];
+                screenTextMeshes[aa].material = FontMaterials[(int) pages[page].Screens[aa].Font];
             }
         }
         submitMesh.material = materials[pages[page].Invert ? 1 : 0];
