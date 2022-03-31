@@ -127,14 +127,14 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert: false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert: false) } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();
         var cipherIxs = Enumerable.Range(0, _allCiphers.Length).ToArray().Shuffle();
-        for (var i = 0; i < 100 && i < cipherIxs.Length; i++)
+        for (var i = 0; i < 3 && i < cipherIxs.Length; i++)
         {
             var cipher = _allCiphers[cipherIxs[i]].PickRandom();
             Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, cipher.Name, cipher.Code);

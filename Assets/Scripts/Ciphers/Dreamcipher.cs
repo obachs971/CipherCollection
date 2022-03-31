@@ -91,8 +91,8 @@ public class Dreamcipher : CipherBase
             }
         }
         ScreenInfo[] screenSymbols = new ScreenInfo[] {
-            new ScreenInfo(symbols.Substring(0, symbols.Length / 2), CMFont.DreamCipher),
-            new ScreenInfo(symbols.Substring(symbols.Length / 2), CMFont.DreamCipher)
+            new ScreenInfo(symbols.Substring(0, symbols.Length / 2), CMFont.Dreamcipher),
+            new ScreenInfo(symbols.Substring(symbols.Length / 2), CMFont.Dreamcipher)
         };
         return new ResultInfo
         {
