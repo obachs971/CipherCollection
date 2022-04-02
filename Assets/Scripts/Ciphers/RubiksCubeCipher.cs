@@ -40,7 +40,7 @@ public class RubiksCubeCipher : CipherBase
         for (var ix = 0; ix < rotationsKw.Length; ix++)
         {
             var chi = (rotationsKw[ix] - 'A') % 24;
-            var face = (chi / 4) % 6;
+            var face = rotationsKw[ix] == 'Y' ? 0 : rotationsKw[ix] == 'Z' ? 1 : (chi / 4) % 6;
             var numRot = 2 * (chi % 4) + 1;
 
             var r = _rotations[face];

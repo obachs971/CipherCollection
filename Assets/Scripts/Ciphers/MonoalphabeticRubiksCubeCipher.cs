@@ -47,7 +47,7 @@ public class MonoalphabeticRubiksCubeCipher : CipherBase
             logMessages.Add(Enumerable.Range(0, 3).Select(layer => Enumerable.Range(0, 3).Select(col => 9 * layer + 3 * row + col == 13 ? ' ' : cube[9 * layer + 3 * row + col - (9 * layer + 3 * row + col >= 13 ? 1 : 0)]).Join(" ")).Join(" | "));
 
         logMessages.Add(string.Format("Rotations keyword = {0}:", rotationsKw));
-        var rots = rotationsKw.Select(ch => (ch - 'A') % 24).Select((rotIx, ix) => new { Char = rotationsKw[ix], Face = rotIx / 4, NumRot = 2 * (rotIx % 4) + 1 }).ToArray();
+        var rots = rotationsKw.Select((ch, ix) => new { Char = rotationsKw[ix], Face = ch == 'Y' ? 0 : ch == 'Z' ? 1 : (ch - 'A') / 4, NumRot = 2 * ((ch - 'A') % 4) + 1 }).ToArray();
         foreach (var rot in rots)
         {
             var r = _rotations[rot.Face];
