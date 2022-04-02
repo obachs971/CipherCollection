@@ -9,6 +9,7 @@ using Words;
 public class cipherMachine : MonoBehaviour
 {
     private static readonly CipherBase[][] _allCiphers = CMTools.NewArray(
+        new CipherBase[] { new AESCipher() },
         new CipherBase[] { new AffineCipher(invert: false), new AffineCipher(invert: true) },
         new CipherBase[] { new AMSCOTransposition(invert: false), new AMSCOTransposition(invert: true) },
         new CipherBase[] { new AtbashCipher() },
@@ -16,6 +17,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new BazeriesCipher(invert: false), new BazeriesCipher(invert: true) },
         new CipherBase[] { new BitSwitchCipher(invert: false), new BitSwitchCipher(invert: true) },
         new CipherBase[] { new BookCipher() },
+        new CipherBase[] { new BurrowsWheelerTransform() },
         new CipherBase[] { new CaesarCipher(invert: false), new CaesarCipher(invert: true) },
         new CipherBase[] { new CaesarShuffleCipher(invert: false), new CaesarShuffleCipher(invert: true) },
         new CipherBase[] { new ChainBitRotationCipher(invert: false), new ChainBitRotationCipher(invert: true) },
@@ -44,8 +46,8 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
         new CipherBase[] { new MorbitCipher() },
         new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
-        new CipherBase[] { new PlayfairCipher(invert: false), new PlayfairCipher(invert: true) },
         new CipherBase[] { new PingPongStraddlingCheckerboardCipher() },
+        new CipherBase[] { new PlayfairCipher(invert: false), new PlayfairCipher(invert: true) },
         new CipherBase[] { new PortaCipher() },
         new CipherBase[] { new PortaxCipher() },
         new CipherBase[] { new PrissyCipher(invert: false), new PrissyCipher(invert: true) },
@@ -127,7 +129,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert: false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new AESCipher() } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
