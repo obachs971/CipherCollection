@@ -6,7 +6,7 @@ public class StrangelyElusiveLetterCipher : CipherBase
 {
     public override string Name { get { return "Strangely Elusive Letter Cipher"; } }
     public override int Score { get { return 5; } }
-    public override string Code { get { return "SE"; } }
+    public override string Code { get { return "EL"; } }
 
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

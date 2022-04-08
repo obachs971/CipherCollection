@@ -24,7 +24,8 @@ public class SeanCipher : CipherBase
 			foreach (char c in word)
 			{
 				encrypt = encrypt + "" + key[(key.IndexOf(c) + 13) % 26];
-				logMessages.Add(string.Format("\n{0}\n{1}", key.Substring(0, 13), key.Substring(13)));
+				logMessages.Add(string.Format("{0}", key.Substring(0, 13)));
+				logMessages.Add(string.Format("{0}", key.Substring(13)));
 				logMessages.Add(string.Format("{0} -> {1}", c, encrypt[encrypt.Length - 1]));
 				key = key[13] + key.Substring(0, 12) + key.Substring(14, 12) + key[12];
 			}

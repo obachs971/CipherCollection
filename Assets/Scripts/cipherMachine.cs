@@ -15,6 +15,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new AtbashCipher() },
         new CipherBase[] { new AutokeyCipher(invert: false), new AutokeyCipher(invert: true) },
         new CipherBase[] { new BazeriesCipher(invert: false), new BazeriesCipher(invert: true) },
+        new CipherBase[] { new BinaryGearCipher(invert: false), new BinaryGearCipher(invert: true) },
         new CipherBase[] { new BitSwitchCipher(invert: false), new BitSwitchCipher(invert: true) },
         new CipherBase[] { new BookCipher() },
         new CipherBase[] { new BurrowsWheelerTransform() },
@@ -33,12 +34,14 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new EnigmaCipher() },
         new CipherBase[] { new FoursquareCipher(invert: false), new FoursquareCipher(invert: true) },
         new CipherBase[] { new FractionatedMorseCipher() },
+        new CipherBase[] { new GlobalOffsetCipher(invert: false), new GlobalOffsetCipher(invert: true)},
         new CipherBase[] { new GrandpreCipher() },
         new CipherBase[] { new GrilleTransposition(invert: false), new GrilleTransposition(invert: true) },
         new CipherBase[] { new GROMARKCipher(invert: false), new GROMARKCipher(invert: true) },
         new CipherBase[] { new HillCipher(invert: false), new HillCipher(invert: true) },
         new CipherBase[] { new HomophonicCipher() },
         new CipherBase[] { new IncrementalPolyalphabeticCipher(invert: false), new IncrementalPolyalphabeticCipher(invert: true) },
+        new CipherBase[] { new JumpOverCipher(invert: false), new JumpOverCipher(invert: true)},
         new CipherBase[] { new LogicCipher() },
         new CipherBase[] { new M209Cipher() },
         new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
@@ -46,6 +49,8 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
         new CipherBase[] { new MorbitCipher() },
         new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
+        new CipherBase[] { new PancakeTransposition(invert: false), new PancakeTransposition(invert: true) },
+        new CipherBase[] { new ParallelogramCipher()},
         new CipherBase[] { new PingPongStraddlingCheckerboardCipher() },
         new CipherBase[] { new PlayfairCipher(invert: false), new PlayfairCipher(invert: true) },
         new CipherBase[] { new PortaCipher() },
@@ -60,6 +65,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new SeanCipher() },
         new CipherBase[] { new SemaphoreRotationCipher(invert: false), new SemaphoreRotationCipher(invert: true) },
         new CipherBase[] { new SolitaireCipher(invert: false), new SolitaireCipher(invert: true) },
+        new CipherBase[] { new StrangelyElusiveLetterCipher() },
         new CipherBase[] { new StripCipher(invert: false), new StripCipher(invert: true) },
         new CipherBase[] { new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true) },
         new CipherBase[] { new TransposedHalvedPolybiusCipher(invert: false), new TransposedHalvedPolybiusCipher(invert: true) },
@@ -129,10 +135,11 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new BinaryGearCipher(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new JumpOverCipher(false) } };
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
+        word = "BOXES";
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();
         var cipherIxs = Enumerable.Range(0, _allCiphers.Length).ToArray().Shuffle();
@@ -140,7 +147,7 @@ public class cipherMachine : MonoBehaviour
         {
             var cipher = _allCiphers[cipherIxs[i]].PickRandom();
             Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, cipher.Name, cipher.Code);
-            var result = cipher.Encrypt(answer, Bomb);
+            var result = cipher.Encrypt(word, Bomb);
             foreach (var msg in result.LogMessages)
                 Debug.LogFormat("[Cipher Machine #{0}] [{1}] {2}", moduleId, cipher.Name, msg);
             Debug.LogFormat("[Cipher Machine #{0}] Result: {1}", moduleId, result.Encrypted);
