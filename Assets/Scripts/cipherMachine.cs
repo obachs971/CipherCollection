@@ -49,6 +49,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
         new CipherBase[] { new MorbitCipher() },
         new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
+        new CipherBase[] { new NotreDameCipher(invert: false), new NotreDameCipher(invert: true) },
         new CipherBase[] { new PancakeTransposition(invert: false), new PancakeTransposition(invert: true) },
         new CipherBase[] { new ParallelogramCipher()},
         new CipherBase[] { new PingPongStraddlingCheckerboardCipher() },
@@ -135,11 +136,12 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new JumpOverCipher(false) } };
-
+        //var _allCiphers = new[] { new CipherBase[] { new NotreDameCipher(true) } };
+        //var word = answer = "QUARTZ";
+        
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
-        word = "BOXES";
+        
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();
         var cipherIxs = Enumerable.Range(0, _allCiphers.Length).ToArray().Shuffle();
