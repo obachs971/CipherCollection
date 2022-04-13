@@ -136,7 +136,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new NotreDameCipher(true) } };
+        //var _allCiphers = new[] { new CipherBase[] { new CubeCipher(invert:false) } };
         //var word = answer = "QUARTZ";
         
         // Generate random word

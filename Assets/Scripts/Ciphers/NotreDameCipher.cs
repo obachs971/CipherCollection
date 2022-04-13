@@ -5,7 +5,7 @@ using Words;
 
 public class NotreDameCipher : CipherBase
 {
-    public override string Name { get { return invert ? "Notre-Dame Cipher" : "Notre-Dame Cipher"; } }
+    public override string Name { get { return invert ? "Inverted Notre-Dame Cipher" : "Notre-Dame Cipher"; } }
     public override int Score { get { return 5; } }
     public override string Code { get { return "ND"; } }
 
