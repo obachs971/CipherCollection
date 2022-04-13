@@ -24,6 +24,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new ChainBitRotationCipher(invert: false), new ChainBitRotationCipher(invert: true) },
         new CipherBase[] { new ChainRotationCipher(invert: false), new ChainRotationCipher(invert: true) },
         new CipherBase[] { new Chaocipher(invert: false), new Chaocipher(invert: true) },
+        new CipherBase[] { new ChineseRemainderCipher(false), new ChineseRemainderCipher(true) },
         new CipherBase[] { new CollonCipher() },
         new CipherBase[] { new ColumnarTransposition(invert: false), new ColumnarTransposition(invert: true) },
         new CipherBase[] { new CondiCipher(invert: false), new CondiCipher(invert: true) },
@@ -136,12 +137,12 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new CubeCipher(invert:false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new ChineseRemainderCipher(false) } };
         //var word = answer = "QUARTZ";
-        
+
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
-        
+
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();
         var cipherIxs = Enumerable.Range(0, _allCiphers.Length).ToArray().Shuffle();
