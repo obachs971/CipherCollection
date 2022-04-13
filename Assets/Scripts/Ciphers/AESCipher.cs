@@ -8,8 +8,6 @@ public class AESCipher : CipherBase
     public override int Score { get { return 5; } }
     public override string Code { get { return "AE"; } }
 
-    private readonly bool invert;
-
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -61,7 +59,7 @@ public class AESCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { screens12.Substring(0, 5), null, screens12.Substring(5), null, screen3}, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { screens12.Substring(0, 5), null, screens12.Substring(5), null, screen3}) }
         };
     }
     private string HexToBin(string hex)

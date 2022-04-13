@@ -39,7 +39,6 @@ public class JumpOverCipher : CipherBase
         logMessages.Add(string.Format("Key: {0}", key));
         logMessages.Add(string.Format("Screen 2: {0}", replaceX));
         logMessages.Add(string.Format("Key Letter: {0}", letter));
-        int[] offset = { (key.IndexOf(letter) / 5) - 2, (key.IndexOf(letter) % 5) - 2 };
         word = letter + "" + word;
         if (invert)
         {
