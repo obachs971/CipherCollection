@@ -22,14 +22,10 @@ public class ChineseRemainderCipher : CipherBase
             yield break;
         }
 
-        var offset = Rnd.Range(0, goodModuli.Length);
-        for (var i = 0; i < goodModuli.Length; i++)
-        {
-            var ri = goodModuli[(i + offset) % goodModuli.Length];
-            if (sofar.All(s => ExtendedEuclideanAlgorithm(s, ri).Gcd == 1))
-                foreach (var solution in recurseOnly(appendItem(sofar, ri), len, goodModuli))
+        for (var i = sofar.Length == 0 ? 0 : Array.IndexOf(goodModuli, sofar.Last()) + 1; i < goodModuli.Length; i++)
+            if (sofar.All(s => ExtendedEuclideanAlgorithm(s, goodModuli[i]).Gcd == 1))
+                foreach (var solution in recurseOnly(appendItem(sofar, goodModuli[i]), len, goodModuli))
                     yield return solution;
-        }
     }
 
     private static IEnumerable<int[]> recurseAll(int[] sofar, int len, int[] goodModuli = null)
@@ -88,14 +84,14 @@ public class ChineseRemainderCipher : CipherBase
 
         logMessages.Add(string.Format("Value: {0}", v));
 
-        var goodModuli = Enumerable.Range(27, 26).Where(i => v % i >= 1 && v % i <= 26).ToArray();
-        var moduli = recurseOnly(new int[0], word.Length, goodModuli).FirstOrDefault();
+        var goodModuli = Enumerable.Range(27, 26).Where(i => v % i >= 1 && v % i <= 26).ToArray().Shuffle();
+        var moduli = goodModuli.Length < word.Length ? null : recurseOnly(new int[0], word.Length, goodModuli).FirstOrDefault();
         if (moduli == null)
         {
             var bestSoFar = 0;
-            for (var iter = 0; iter < 100 && bestSoFar < word.Length; iter++)
+            for (var iter = 0; moduli == null || (iter < 10 && bestSoFar < word.Length); iter++)
             {
-                var moduliTmp = recurseAll(new int[0], word.Length, goodModuli).First();
+                var moduliTmp = recurseAll(new int[0], word.Length, goodModuli).First().Shuffle();
                 var remaindersTmp = Enumerable.Range(0, word.Length).Select(ix => (int) (v % moduliTmp[ix])).ToArray();
                 if (remaindersTmp.Any(r => r == 0 || r > 51))
                     continue;
