@@ -6,7 +6,7 @@ public class CircleCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Circle Cipher" : "Circle Cipher"; } }
     public override int Score { get { return 5; } }
-    public override string Code { get { return "AK"; } }
+    public override string Code { get { return "CI"; } }
 
     private readonly bool invert;
     public CircleCipher(bool invert) { this.invert = invert; }

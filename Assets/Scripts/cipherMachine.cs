@@ -25,6 +25,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new ChainRotationCipher(invert: false), new ChainRotationCipher(invert: true) },
         new CipherBase[] { new Chaocipher(invert: false), new Chaocipher(invert: true) },
         new CipherBase[] { new ChineseRemainderCipher(invert: false), new ChineseRemainderCipher(invert: true) },
+        new CipherBase[] { new CircleCipher(invert: false), new CircleCipher(invert: true) },
         new CipherBase[] { new CollonCipher() },
         new CipherBase[] { new ColumnarTransposition(invert: false), new ColumnarTransposition(invert: true) },
         new CipherBase[] { new CondiCipher(invert: false), new CondiCipher(invert: true) },
