@@ -138,7 +138,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new ChineseRemainderCipher(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new CircleCipher(false) } };
         //var word = answer = "QUARTZ";
 
         // Generate random word
