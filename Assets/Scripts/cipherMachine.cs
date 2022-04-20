@@ -73,6 +73,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new StripCipher(invert: false), new StripCipher(invert: true) },
         new CipherBase[] { new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true) },
         new CipherBase[] { new TransposedHalvedPolybiusCipher(invert: false), new TransposedHalvedPolybiusCipher(invert: true) },
+        new CipherBase[] { new TriangleCipher(invert: false), new TriangleCipher(invert: true) },
         new CipherBase[] { new TridigitalCipher() },
         new CipherBase[] { new TrifidCipher(invert: false), new TrifidCipher(invert: true) },
         new CipherBase[] { new TrisquareCipher() },
@@ -139,7 +140,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new CircleCipher(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new TriangleCipher(true) } };
         //var word = answer = "QUARTZ";
 
         // Generate random word
