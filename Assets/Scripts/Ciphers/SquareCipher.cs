@@ -5,10 +5,12 @@ using Words;
 
 public class SquareCipher : CipherBase
 {
-    public override string Name { get { return "Square Cipher"; } }
+    public override string Name { get { return invert ? "Inverted Square Cipher" : "Square Cipher"; } }
     public override int Score { get { return 5; } }
     public override string Code { get { return "SQ"; } }
 
+    private readonly bool invert;
+    public SquareCipher(bool invert) { this.invert = invert; }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -34,23 +36,26 @@ public class SquareCipher : CipherBase
         logMessages.Add(string.Format("Key: {0}", key));
         for (int i = 0; i < word.Length / 2; i++)
         {
-            int n1 = key.IndexOf(word[i * 2]), n2 = key.IndexOf(word[i * 2 + 1]);
-            int r1 = n1 / 5, c1 = n1 % 5, r2 = n2 / 5, c2 = n2 % 5;
-            if (r1 == r2 || c1 == c2)
+            int n1 = key.IndexOf(word[i * 2]), n2 = key.IndexOf(word[i * 2 + 1]), r3, c3, r4, c4;
+            if (n1 == n2)
             {
-                r1 = 4 - r1;
-                c1 = 4 - c1;
-                r2 = 4 - r2;
-                c2 = 4 - c2;
+                r3 = 4 - (n1 / 5);
+                c3 = 4 - (n1 % 5);
+                r4 = 4 - (n2 / 5);
+                c4 = 4 - (n2 % 5);
             }
             else
             {
-                int temp = r1;
-                r1 = r2;
-                r2 = temp;
+                int r1 = n1 / 5, c1 = n1 % 5, r2 = n2 / 5, c2 = n2 % 5;
+                r3 = r1 - (r2 - r1);
+                c3 = c1 - (c2 - c1);
+                r4 = r2 - (r1 - r2);
+                c4 = c2 - (c1 - c2);
             }
-            encrypt = encrypt + "" + key[r1 * 5 + c1] + "" + key[r2 * 5 + c2];
-            logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i * 2], word[i * 2 + 1], encrypt[i * 2], encrypt[i * 2 + 1]));
+            if(invert)
+                encrypt = encrypt + "" + key[CMTools.mod(r4, 5) * 5 + CMTools.mod(c4, 5)] + "" + key[CMTools.mod(r3, 5) * 5 + CMTools.mod(c3, 5)];
+            else
+                encrypt = encrypt + "" + key[CMTools.mod(r3, 5) * 5 + CMTools.mod(c3, 5)] + "" + key[CMTools.mod(r4, 5) * 5 + CMTools.mod(c4, 5)];
         }
         if (word.Length % 2 == 1)
             encrypt = encrypt + "" + word[word.Length - 1];
@@ -58,7 +63,7 @@ public class SquareCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, replaceJ }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, replaceJ }, invert)}
         };
     }
 }

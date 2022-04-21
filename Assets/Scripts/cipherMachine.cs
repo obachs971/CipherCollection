@@ -69,7 +69,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new SeanCipher() },
         new CipherBase[] { new SemaphoreRotationCipher(invert: false), new SemaphoreRotationCipher(invert: true) },
         new CipherBase[] { new SolitaireCipher(invert: false), new SolitaireCipher(invert: true) },
-        new CipherBase[] { new SquareCipher() },
+        new CipherBase[] { new SquareCipher(invert:false), new SquareCipher(invert: true) },
         new CipherBase[] { new StrangelyElusiveLetterCipher() },
         new CipherBase[] { new StripCipher(invert: false), new StripCipher(invert: true) },
         new CipherBase[] { new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true) },
@@ -141,7 +141,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new SquareCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new SquareCipher(false) } };
         //var word = answer = "JESTER";
 
         // Generate random word
