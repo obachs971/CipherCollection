@@ -46,7 +46,6 @@ public class ColumnarTransposition : CipherBase
                 logMessages.Add(new string(grid[i]));
                 encrypt += new string(grid[i]);
             }
-
         }
         else
         {

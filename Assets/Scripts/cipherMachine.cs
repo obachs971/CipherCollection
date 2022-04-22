@@ -9,6 +9,7 @@ using Words;
 public class cipherMachine : MonoBehaviour
 {
     private static readonly CipherBase[][] _allCiphers = CMTools.NewArray(
+        new CipherBase[] { new ADFGXCipher(invert: false), new ADFGXCipher(invert: true)},
         new CipherBase[] { new AESCipher() },
         new CipherBase[] { new AffineCipher(invert: false), new AffineCipher(invert: true) },
         new CipherBase[] { new AMSCOTransposition(invert: false), new AMSCOTransposition(invert: true) },
@@ -141,8 +142,8 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new SquareCipher(false) } };
-        //var word = answer = "JESTER";
+        //var _allCiphers = new[] { new CipherBase[] { new ADFGXCipher(false) } };
+        //var word = answer = "REJECT";
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
