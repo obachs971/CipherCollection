@@ -142,8 +142,8 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new ADFGXCipher(false) } };
-        //var word = answer = "REJECT";
+        //var _allCiphers = new[] { new CipherBase[] { new CompositeSpinningJumpingLeapfrogOrphanageCipher(false) } };
+        //var word = answer = "EXHAUST";
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
