@@ -7,7 +7,7 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Composite Spinning/Jumping Leapfrog Orphanage Cipher" : "Composite Spinning/Jumping Leapfrog Orphanage Cipher"; } }
     public override int Score { get { return 5; } }
-    public override string Code { get { return "AK"; } }
+    public override string Code { get { return "JL"; } }
 
     private readonly bool invert;
     public CompositeSpinningJumpingLeapfrogOrphanageCipher(bool invert) { this.invert = invert; }

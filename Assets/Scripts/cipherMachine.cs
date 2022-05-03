@@ -29,6 +29,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new CircleCipher(invert: false), new CircleCipher(invert: true) },
         new CipherBase[] { new CollonCipher() },
         new CipherBase[] { new ColumnarTransposition(invert: false), new ColumnarTransposition(invert: true) },
+        new CipherBase[] { new CompositeSpinningJumpingLeapfrogOrphanageCipher(invert: false), new CompositeSpinningJumpingLeapfrogOrphanageCipher(invert: true) },
         new CipherBase[] { new CondiCipher(invert: false), new CondiCipher(invert: true) },
         new CipherBase[] { new ConjugatedMatrixBifidCipher(invert: false), new ConjugatedMatrixBifidCipher(invert: true) },
         new CipherBase[] { new CubeCipher(invert: false), new CubeCipher(invert: true) },
@@ -48,6 +49,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new JumpOverCipher(invert: false), new JumpOverCipher(invert: true) },
         new CipherBase[] { new LogicCipher() },
         new CipherBase[] { new M209Cipher() },
+        new CipherBase[] { new McDondaldsChickenNuggetBigMacCipher() },
         new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
         new CipherBase[] { new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true) },
         new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
@@ -142,8 +144,8 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new CompositeSpinningJumpingLeapfrogOrphanageCipher(false) } };
-        //var word = answer = "EXHAUST";
+        //var _allCiphers = new[] { new CipherBase[] { new McDondaldsChickenNuggetBigMacCipher() } };
+        //var word = answer = "YYYY";
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
