@@ -48,6 +48,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new IncrementalPolyalphabeticCipher(invert: false), new IncrementalPolyalphabeticCipher(invert: true) },
         new CipherBase[] { new JumpOverCipher(invert: false), new JumpOverCipher(invert: true) },
         new CipherBase[] { new LogicCipher() },
+        new CipherBase[] { new LorenzCipher() },
         new CipherBase[] { new M209Cipher() },
         new CipherBase[] { new McDondaldsChickenNuggetBigMacCipher() },
         new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
@@ -144,7 +145,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new McDondaldsChickenNuggetBigMacCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new LorenzCipher() } };
         //var word = answer = "YYYY";
 
         // Generate random word
