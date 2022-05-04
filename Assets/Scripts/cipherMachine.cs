@@ -56,6 +56,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
         new CipherBase[] { new MorbitCipher() },
         new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
+        new CipherBase[] { new NicodemusCipher(invert: false), new NicodemusCipher(invert: true) },
         new CipherBase[] { new NotreDameCipher(invert: false), new NotreDameCipher(invert: true) },
         new CipherBase[] { new PancakeTransposition(invert: false), new PancakeTransposition(invert: true) },
         new CipherBase[] { new ParallelogramCipher() },
@@ -145,7 +146,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new LorenzCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new NicodemusCipher(false) } };
         //var word = answer = "YYYY";
 
         // Generate random word
