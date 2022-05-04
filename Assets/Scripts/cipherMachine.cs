@@ -73,6 +73,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new ScytaleTransposition(invert: false), new ScytaleTransposition(invert: true) },
         new CipherBase[] { new SeanCipher() },
         new CipherBase[] { new SemaphoreRotationCipher(invert: false), new SemaphoreRotationCipher(invert: true) },
+        new CipherBase[] { new SlidefairCipher() },
         new CipherBase[] { new SolitaireCipher(invert: false), new SolitaireCipher(invert: true) },
         new CipherBase[] { new SquareCipher(invert:false), new SquareCipher(invert: true) },
         new CipherBase[] { new StrangelyElusiveLetterCipher() },
@@ -146,7 +147,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new NicodemusCipher(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new SlidefairCipher() } };
         //var word = answer = "YYYY";
 
         // Generate random word
