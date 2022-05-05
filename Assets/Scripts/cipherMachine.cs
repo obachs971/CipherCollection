@@ -13,6 +13,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new AESCipher() },
         new CipherBase[] { new AffineCipher(invert: false), new AffineCipher(invert: true) },
         new CipherBase[] { new AlbertiCipher(invert: false), new AlbertiCipher(invert: true) },
+        new CipherBase[] { new AlphabeticalDisorderCipher() },
         new CipherBase[] { new AMSCOTransposition(invert: false), new AMSCOTransposition(invert: true) },
         new CipherBase[] { new AtbashCipher() },
         new CipherBase[] { new AutokeyCipher(invert: false), new AutokeyCipher(invert: true) },
@@ -149,7 +150,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new AlbertiCipher(true) } };
+        //var _allCiphers = new[] { new CipherBase[] { new AlphabeticalDisorderCipher() } };
         //var word = answer = "YYYY";
 
         // Generate random word

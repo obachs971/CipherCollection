@@ -7,7 +7,7 @@ public class ADFGXCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted ADFGX Cipher" : "ADFGX Cipher"; } }
     public override int Score { get { return 5; } }
-    public override string Code { get { return "AD"; } }
+    public override string Code { get { return "AX"; } }
 
     private readonly bool invert;
     public ADFGXCipher(bool invert) { this.invert = invert; }
