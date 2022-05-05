@@ -12,6 +12,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new ADFGXCipher(invert: false), new ADFGXCipher(invert: true)},
         new CipherBase[] { new AESCipher() },
         new CipherBase[] { new AffineCipher(invert: false), new AffineCipher(invert: true) },
+        new CipherBase[] { new AlbertiCipher(invert: false), new AlbertiCipher(invert: true) },
         new CipherBase[] { new AMSCOTransposition(invert: false), new AMSCOTransposition(invert: true) },
         new CipherBase[] { new AtbashCipher() },
         new CipherBase[] { new AutokeyCipher(invert: false), new AutokeyCipher(invert: true) },
@@ -54,6 +55,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
         new CipherBase[] { new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true) },
         new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
+        new CipherBase[] { new MalespinCipher() },
         new CipherBase[] { new MorbitCipher() },
         new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
         new CipherBase[] { new NicodemusCipher(invert: false), new NicodemusCipher(invert: true) },
@@ -147,7 +149,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new SlidefairCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new AlbertiCipher(true) } };
         //var word = answer = "YYYY";
 
         // Generate random word
