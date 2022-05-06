@@ -18,6 +18,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new AtbashCipher() },
         new CipherBase[] { new AutokeyCipher(invert: false), new AutokeyCipher(invert: true) },
         new CipherBase[] { new BazeriesCipher(invert: false), new BazeriesCipher(invert: true) },
+        new CipherBase[] { new BellasoCipher() },
         new CipherBase[] { new BinaryGearCipher(invert: false), new BinaryGearCipher(invert: true) },
         new CipherBase[] { new BitSwitchCipher(invert: false), new BitSwitchCipher(invert: true) },
         new CipherBase[] { new BookCipher() },
@@ -151,7 +152,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new RozierCipher(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new BellasoCipher() } };
         //var word = answer = "YYYY";
 
         // Generate random word

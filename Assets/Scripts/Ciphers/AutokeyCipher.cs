@@ -35,7 +35,6 @@ public class AutokeyCipher : CipherBase
                 encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(word[i]) + alpha.IndexOf(key[i]), 26)];
                 logMessages.Add(string.Format("{0} + {1} -> {2}", word[i], key[i], encrypt[i]));
             }
-
         }
         return new ResultInfo
         {
