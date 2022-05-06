@@ -37,7 +37,6 @@ public class AutokeyCipher : CipherBase
             }
 
         }
-        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         return new ResultInfo
         {
             LogMessages = logMessages,

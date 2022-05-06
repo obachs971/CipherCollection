@@ -72,6 +72,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new RagbabyCipher(invert: false), new RagbabyCipher(invert: true) },
         new CipherBase[] { new RedefenceTransposition(invert: false), new RedefenceTransposition(invert: true) },
         new CipherBase[] { new RouteTransposition(invert: false), new RouteTransposition(invert: true) },
+        new CipherBase[] { new RozierCipher(invert: false), new RozierCipher(invert: true) },
         new CipherBase[] { new RSACipher() },
         new CipherBase[] { new ScytaleTransposition(invert: false), new ScytaleTransposition(invert: true) },
         new CipherBase[] { new SeanCipher() },
@@ -150,7 +151,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new AlphabeticalDisorderCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new RozierCipher(false) } };
         //var word = answer = "YYYY";
 
         // Generate random word
