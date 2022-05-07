@@ -89,6 +89,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new TridigitalCipher() },
         new CipherBase[] { new TrifidCipher(invert: false), new TrifidCipher(invert: true) },
         new CipherBase[] { new TrisquareCipher() },
+        new CipherBase[] { new UbchiTransposition(invert: false), new UbchiTransposition(invert: true) },
         new CipherBase[] { new VarietyCipher() },
         new CipherBase[] { new VICPhoneCipher() },
         new CipherBase[] { new VigenereCipher(invert: false), new VigenereCipher(invert: true) });
@@ -152,7 +153,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new BellasoCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new UbchiTransposition(false) } };
         //var word = answer = "YYYY";
 
         // Generate random word
