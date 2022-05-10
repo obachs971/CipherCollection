@@ -51,6 +51,7 @@ public class GracieCipher : CipherBase
                     c2 = temp;
                 }
                 encrypt = encrypt + "" + key[r1 * 13 + c1] + "" + key[r2 * 13 + c2];
+                logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i * 2], word[i * 2 + 1], encrypt[i * 2], encrypt[i * 2 + 1]));
             }
         }
         else
@@ -83,6 +84,7 @@ public class GracieCipher : CipherBase
                     c2 = temp;
                 }
                 encrypt = encrypt + "" + key[r1 * 13 + c1] + "" + key[r2 * 13 + c2];
+                logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i * 2], word[i * 2 + 1], encrypt[i * 2], encrypt[i * 2 + 1]));
             }
         }
         if (word.Length % 2 == 1)
