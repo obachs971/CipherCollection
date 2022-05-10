@@ -82,7 +82,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new SlidefairCipher() },
         new CipherBase[] { new SmokeyCipher() },
         new CipherBase[] { new SolitaireCipher(invert: false), new SolitaireCipher(invert: true) },
-        new CipherBase[] { new SquareCipher(invert:false), new SquareCipher(invert: true) },
+        new CipherBase[] { new SquareCipher() },
         new CipherBase[] { new StrangelyElusiveLetterCipher() },
         new CipherBase[] { new StripCipher(invert: false), new StripCipher(invert: true) },
         new CipherBase[] { new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true) },
@@ -155,7 +155,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new SmokeyCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new SquareCipher() } };
         //var word = answer = "YYYY";
 
         // Generate random word
