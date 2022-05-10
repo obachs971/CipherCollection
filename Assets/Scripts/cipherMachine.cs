@@ -43,6 +43,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new FoursquareCipher(invert: false), new FoursquareCipher(invert: true) },
         new CipherBase[] { new FractionatedMorseCipher() },
         new CipherBase[] { new GlobalOffsetCipher(invert: false), new GlobalOffsetCipher(invert: true) },
+        new CipherBase[] { new GracieCipher(invert: false), new GracieCipher(invert: true) },
         new CipherBase[] { new GrandpreCipher() },
         new CipherBase[] { new GrilleTransposition(invert: false), new GrilleTransposition(invert: true) },
         new CipherBase[] { new GROMARKCipher(invert: false), new GROMARKCipher(invert: true) },
@@ -153,7 +154,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new UbchiTransposition(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new GracieCipher(true) } };
         //var word = answer = "YYYY";
 
         // Generate random word
