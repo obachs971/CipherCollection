@@ -25,10 +25,13 @@ public class MorbitCipher : CipherBase
             key[index] = i + 1;
             temp = temp.Substring(0, index) + "-" + temp.Substring(index + 1);
         }
+
         temp = "";
         foreach (char c in word)
             temp = temp + letterToMorse(c) + "x";
-        temp = temp.Substring(0, temp.Length - (temp.Length % 2));
+        temp = temp.Substring(0, temp.Length - 1);
+        if(temp.Length % 2 == 1)
+            temp = UnityEngine.Random.Range(0, 2) == 0 ? "x" + temp : temp + "x";
 
         string nums = "";
         for (int i = 0; i < temp.Length / 2; i++)

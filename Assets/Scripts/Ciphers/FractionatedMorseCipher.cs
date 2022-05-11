@@ -22,19 +22,11 @@ public class FractionatedMorseCipher : CipherBase
         //Convert the letters of the word into morse
         foreach (char c in word)
             morse += letterToMorse(c) + "x";
-        morse += "x";
+        morse = morse.Substring(0, morse.Length - 1);
 
         //Adjusting it so it has at least the same amount of letters as the initial word length as well as being divisible by 3
-        while (morse.Length / 3 < word.Length)
-        {
-            List<int> l = AllIndexesOf(morse, ".x.");
-            l.AddRange(AllIndexesOf(morse, ".x-"));
-            l.AddRange(AllIndexesOf(morse, "-x."));
-            l.AddRange(AllIndexesOf(morse, "-x-"));
-            int index = l[UnityEngine.Random.Range(0, l.Count())] + 1;
-            morse = morse.Substring(0, index) + "x" + morse.Substring(index);
-        }
-        morse = morse.Substring(0, morse.Length - (morse.Length % 3));
+        while (morse.Length % 3 > 0 || morse.Length / 3 < word.Length)
+            morse = addXs(morse);
 
         //Now it gets encrypted into the letters using the key
         for (int i = 0; i < morse.Length; i += 3)
@@ -87,6 +79,19 @@ public class FractionatedMorseCipher : CipherBase
             case 'Z': return "--..";
         }
         return "";
+    }
+    private string addXs(string morse)
+    {
+        List<int> l = AllIndexesOf(morse, ".x.");
+        l.AddRange(AllIndexesOf(morse, ".x-"));
+        l.AddRange(AllIndexesOf(morse, "-x."));
+        l.AddRange(AllIndexesOf(morse, "-x-"));
+        if (!(morse.StartsWith("xx")))
+            l.Add(-1);
+        if (!(morse.EndsWith("xx")))
+            l.Add(morse.Length - 1);
+        int index = l[UnityEngine.Random.Range(0, l.Count())] + 1;
+        return morse.Substring(0, index) + "x" + morse.Substring(index);
     }
     private static List<int> AllIndexesOf(string str, string value)
     {

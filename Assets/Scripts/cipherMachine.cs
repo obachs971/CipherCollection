@@ -155,8 +155,8 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new SquareCipher() } };
-        //var word = answer = "YYYY";
+        //var _allCiphers = new[] { new CipherBase[] { new MorbitCipher() } };
+        //var word = answer = "ETETETET";
 
         // Generate random word
         var word = answer = new Data().PickWord(4, 8);
