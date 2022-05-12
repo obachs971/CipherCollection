@@ -155,11 +155,11 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new DigrafidCipher(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new AESCipher() } };
         //var word = answer = "ETETETET";
 
         // Generate random word
-        var word = answer = new Data().PickWord(7);
+        var word = answer = new Data().PickWord(4, 8);
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();

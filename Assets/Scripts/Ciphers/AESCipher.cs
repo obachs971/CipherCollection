@@ -114,6 +114,7 @@ public class AESCipher : CipherBase
             "E1","F8","98","11","69","D9","8E","94","9B","1E","87","E9","CE","55","28","DF",
             "8C","A1","89","0D","BF","E6","42","68","41","99","2D","0F","B0","54","BB","16"
         };
+        RK = new string[] { RK[1], RK[2], RK[3], RK[4], RK[0] };
         RK[0] = SBOX[alpha.IndexOf(RK[0][0]) * 16 + alpha.IndexOf(RK[0][1])];
         for(int i = 1; i < RK.Length; i++)
         {
@@ -124,6 +125,6 @@ public class AESCipher : CipherBase
                 b3 = b3 + (b1[j] == b2[j] ? "0" : "1");
             RK[i] = BinToHex(b3);
         }
-        return new string[] { RK[1], RK[2], RK[3], RK[4], RK[0] };
+        return RK;
     }
 }

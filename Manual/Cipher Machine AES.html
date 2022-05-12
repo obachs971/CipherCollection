@@ -34,9 +34,10 @@
                 <li>For each row of the binary sequence: If the amount of 1s is odd, the resulting bit is a 1. Otherwise, the resulting bit is a 0.</li>
                 <li>If the Nth bit on screen 3 is a 1, invert the resulting bits.</li>
                 <li>Turn the resulting binary sequence back into a letter (A0Z25) to get your Nth decrypted letter. You can get rid of the binary sequence.</li>
-                <li>Create a new Round Key by taking the top pair of the Round Key and use it in the S-BOX Table to get a new top hexadecimal pair.</li>
-                <li>For each hexadecimal pair after the top pair, XOR it with the bottom most hexadecimal pair of the new Round Key.</li>
-                <li>Finally take the top hexadecimal pair and put it at the bottom. The resulting hexadecimal sequence becomes your new Round Key.</li>
+                <li>Create a new Round Key by taking the top hexadecimal pair and putting it at the bottom.</li>
+                <li>Take the new top pair of the Round Key and use it in the S-BOX Table to get a new top hexadecimal pair.</li>
+                <li>For each hexadecimal pair after the top pair, XOR it with the hexadecimal pair above it.</li>
+                <li>The resulting hexadecimal pairs becomes your new Round Key.</li>
                 </ul>
                 <h3 style="text-align:center">Hexadecimal to Binary</h3>
                 <table>
@@ -96,46 +97,46 @@
             </div>
             <div class="page-content">
                 <h4 style="text-align:center">Example</h4>
-                <p style="text-align:center">Encrypted Word: BFGF<br>Screen 1: C8BF6<br>Screen 2: F1CF9<br>Screen 3: 0100</p>
+                <p style="text-align:center">Encrypted Word: BXEU<br>Screen 1: 7DDE6<br>Screen 2: ECC6C<br>Screen 3: 0010</p>
                 <p style="text-align:center">
                 B → 00001
                 </p>
                 <p style="text-align:center">
-                CF → 11001111 + 0 → 0<br>
-                81 → 10000001 + 0 → 0<br>
-                BC → 10111100 + 0 → 1<br>
-                FF → 11111111 + 0 → 0<br>
-                69 → 01101001 + 1 → 1
+                7E → 01111110 + 0 → 0<br>
+                DC → 11011100 + 0 → 1<br>
+                DC → 11011100 + 0 → 1<br>
+                E6 → 11100110 + 0 → 1<br>
+                6C → 01101100 + 1 → 1
                 </p>
                 <p style="text-align:center">
-                00101 + 0 → F
+                01111 + 0 → P
                 </p>
                 <p style="text-align:center">
-                CF → 8A<br>
-                81 XOR 8A → 0B<br>
-                BC XOR 0B → B7<br>
-                FF XOR B7 → 48<br>
-                69 XOR 48 → 21<br>
+                DC → 86<br>
+                DC XOR 86 → 5A<br>
+                E6 XOR 5A → BC<br>
+                6C XOR BC → D0<br>
+                7E XOR D0 → AE<br>
                 </p>
                 <p style="text-align:center">
-                F → 00101
+                X → 10111
                 </p>
                 <p style="text-align:center">
-                0B → 00001000 + 0 → 1<br>
-                B7 → 10110111 + 0 → 0<br>
-                48 → 01001000 + 1 → 1<br>
-                21 → 00100001 + 0 → 0<br>
-                8A → 10001010 + 1 → 0<br>
+                86 → 10000110 + 1 → 0<br>
+                5A → 01011010 + 0 → 0<br>
+                BC → 10111100 + 1 → 0<br>
+                D0 → 11010000 + 1 → 0<br>
+                AE → 10101110 + 1 → 0<br>
                 </p>
                 <p style="text-align:center">
-                10100 + 1 → L
+                00000 + 0 → A
                 </p>
                 <p style="text-align:center">
-                0B → 2B<br>
-                B7 XOR 2B → 9C<br>
-                48 XOR 9C → D4<br>
-                21 XOR D4 → F5<br>
-                8A XOR F5 → 7F<br>
+                5A → BE<br>
+                BC XOR BE → 02<br>
+                D0 XOR 02 → D2<br>
+                AE XOR D2 → 7C<br>
+                86 XOR 7C → FA<br>
                 </p>
             </div>
             <div class="page-footer relative-footer">Page 3 of 4</div>
@@ -147,39 +148,39 @@
             </div>
             <div class="page-content">
                 <p style="text-align:center">
-                G → 00110
+                E → 00100
                 </p>
                 <p style="text-align:center">
-                9C → 10011100 + 0 → 0<br>
-                D4 → 11010100 + 0 → 0<br>
-                F5 → 11110101 + 1 → 1<br>
-                7F → 01111111 + 1 → 0<br>
-                2B → 00101011 + 0 → 0
+                BE → 10111110 + 0 → 0<br>
+                02 → 00000010 + 0 → 1<br>
+                D2 → 11010010 + 1 → 1<br>
+                7C → 01111100 + 0 → 1<br>
+                FA → 11111010 + 0 → 0
                 </p>
                 <p style="text-align:center">
-                00100 + 0 → E
+                01110 + 1 → R
                 </p>
                 <p style="text-align:center">
-                9C → DE<br>
-                D4 XOR DE → 0A<br>
-                F5 XOR 0A → FF<br>
-                7F XOR FF → 80<br>
-                2B XOR 80 → AB<br>
+                02 → 77<br>
+                D2 XOR 77 → A5<br>
+                7C XOR A5 → D9<br>
+                FA XOR D9 → 23<br>
+                BE XOR 23 → 9D<br>
                 </p>
                 <p style="text-align:center">
-                F → 00101
+                U → 10100
                 </p>
                 <p style="text-align:center">
-                0A → 00001010 + 0 → 0<br>
-                FF → 11111111 + 0 → 0<br>
-                80 → 10000000 + 1 → 0<br>
-                AB → 10101011 + 0 → 1<br>
-                DE → 11011110 + 1 → 1<br>
+                77 → 01110111 + 1 → 1<br>
+                A5 → 10100101 + 0 → 0<br>
+                D9 → 11011001 + 1 → 0<br>
+                23 → 00100011 + 0 → 1<br>
+                9D → 10011101 + 0 → 1<br>
                 </p>
                 <p style="text-align:center">
-                00011 + 0 → D
+                10011 + 0 → T
                 </p>
-                <p style="text-align:center">Decrypted Word: FLED</p>
+                <p style="text-align:center">Decrypted Word: PART</p>
             </div>
             <div class="page-footer relative-footer">Page 4 of 4</div>
         </div>
