@@ -155,7 +155,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new AESCipher() } };
+        var _allCiphers = new[] { new CipherBase[] { new ChainBitRotationCipher(true) } };
         //var word = answer = "ETETETET";
 
         // Generate random word

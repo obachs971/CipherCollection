@@ -18,7 +18,7 @@ public class DualTriplexReflectorCipher : CipherBase
         var wordList = new Data();
         string kw1 = wordList.PickWord(4, 8);
         string kw2 = wordList.PickWord(4, 8);
-        string kw3 = wordList.PickWord(word.Length - 1);
+        string kw3 = wordList.PickWord(3, word.Length - 1);
         ValueExpression<bool> kw1front = CMTools.generateBoolExp(bomb), kw2front = CMTools.generateBoolExp(bomb);
         string ref1 = CMTools.getKey(kw1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kw1front.Value);
         ref1 = ref1.Substring(0, 13) + " " + ref1.Substring(13);
@@ -51,28 +51,34 @@ public class DualTriplexReflectorCipher : CipherBase
             }
             encrypt += temp[3];
             logMessages.Add(string.Format("{0}->{1}->{2}->{3}", temp[0], temp[1], temp[2], temp[3]));
-            int indexA, indexB;
-            if (invert)
-            {
-                indexA = ref2.IndexOf(temp[1]);
-                indexB = ref1.IndexOf(temp[2]);
-            }
-            else
-            {
-                indexA = ref2.IndexOf(temp[2]);
-                indexB = ref1.IndexOf(temp[1]);
-            }
             if (i < (word.Length - 1))
             {
+                int indexA, indexB;
+                if (invert)
+                {
+                    indexA = ref2.IndexOf(temp[1]);
+                    indexB = ref1.IndexOf(temp[2]);
+                }
+                else
+                {
+                    indexA = ref2.IndexOf(temp[2]);
+                    indexB = ref1.IndexOf(temp[1]);
+                }
                 int[] tri = { alpha.IndexOf(kw3[i % kw3.Length]) / 9, (alpha.IndexOf(kw3[i % kw3.Length]) % 9) / 3, alpha.IndexOf(kw3[i % kw3.Length]) % 3 };
-                ref2 = putRowBack(ref2, shiftLets(ref2.Substring((indexA / 9) * 9, 9), (tri[0] * 3) + tri[1]), indexA / 9);
-                temp = shiftLets(ref2[(indexA % 9) + 18] + "" + ref2[(indexA % 9) + 9] + "" + ref2[indexA % 9], tri[2]);
-                for (int j = 0; j < 3; j++)
-                    ref2 = ref2.Substring(0, (indexA % 9) + (j * 9)) + temp[2 - j] + ref2.Substring((indexA % 9) + (j * 9) + 1);
-                temp = shiftLets(ref1[(indexB % 9) + 18] + "" + ref1[(indexB % 9) + 9] + "" + ref1[indexB % 9], tri[0]);
-                for (int j = 0; j < 3; j++)
-                    ref1 = ref1.Substring(0, (indexB % 9) + (j * 9)) + temp[2 - j] + ref1.Substring((indexB % 9) + (j * 9) + 1);
-                ref1 = putRowBack(ref1, shiftLets(ref1.Substring((indexB / 9) * 9, 9), (tri[1] * 3) + tri[2]), indexB / 9);
+                if (i % 2 == 0)
+                {
+                    ref2 = putRowBack(ref2, shiftLets(ref2.Substring((indexA / 9) * 9, 9), (tri[0] * 3) + tri[1]), indexA / 9);
+                    temp = shiftLets(ref1[(indexB % 9) + 18] + "" + ref1[(indexB % 9) + 9] + "" + ref1[indexB % 9], tri[2]);
+                    for (int j = 0; j < 3; j++)
+                        ref1 = ref1.Substring(0, (indexB % 9) + (j * 9)) + temp[2 - j] + ref1.Substring((indexB % 9) + (j * 9) + 1);
+                }
+                else
+                {
+                    temp = shiftLets(ref2[(indexA % 9) + 18] + "" + ref2[(indexA % 9) + 9] + "" + ref2[indexA % 9], tri[0]);
+                    for (int j = 0; j < 3; j++)
+                        ref2 = ref2.Substring(0, (indexA % 9) + (j * 9)) + temp[2 - j] + ref2.Substring((indexA % 9) + (j * 9) + 1);
+                    ref1 = putRowBack(ref1, shiftLets(ref1.Substring((indexB / 9) * 9, 9), (tri[1] * 3) + tri[2]), indexB / 9);
+                }
                 logMessages.Add(string.Format("{0} -> {1}{2}{3}", kw3[i % kw3.Length], tri[0], tri[1], tri[2]));
                 logMessages.Add(ref1.Substring(0, 9));
                 logMessages.Add(ref1.Substring(9, 9));
@@ -83,7 +89,6 @@ public class DualTriplexReflectorCipher : CipherBase
                 logMessages.Add(ref2.Substring(18));
             }
         }
-        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         return new ResultInfo
         {
             LogMessages = logMessages,

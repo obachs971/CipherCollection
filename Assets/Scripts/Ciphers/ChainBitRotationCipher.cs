@@ -23,7 +23,7 @@ public class ChainBitRotationCipher : CipherBase
         var wordList = new Data();
         var logMessages = new List<string>();
 
-        var kw = wordList.PickWord(4, 8);
+        var kw = wordList.PickWord(3, word.Length);
         long number = 0L;
         string encrypted = "";
         logMessages.Add(string.Format("Chain Bit-Rotation Cipher: encrypting {0} with keyword {1}; start with 0", word, kw));
