@@ -36,7 +36,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new CondiCipher(invert: false), new CondiCipher(invert: true) },
         new CipherBase[] { new ConjugatedMatrixBifidCipher(invert: false), new ConjugatedMatrixBifidCipher(invert: true) },
         new CipherBase[] { new CubeCipher(invert: false), new CubeCipher(invert: true) },
-        new CipherBase[] { new DigrafidCipher() },
+        new CipherBase[] { new DigrafidCipher(invert: false), new DigrafidCipher(invert: true) },
         new CipherBase[] { new Dreamcipher(invert: false), new Dreamcipher(invert: true) },
         new CipherBase[] { new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true) },
         new CipherBase[] { new EnigmaCipher() },
@@ -155,11 +155,11 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new MorbitCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new DigrafidCipher(false) } };
         //var word = answer = "ETETETET";
 
         // Generate random word
-        var word = answer = new Data().PickWord(4, 8);
+        var word = answer = new Data().PickWord(7);
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
         var pagesList = new List<PageInfo>();
