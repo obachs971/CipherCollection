@@ -90,6 +90,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new TriangleCipher(invert: false), new TriangleCipher(invert: true) },
         new CipherBase[] { new TridigitalCipher() },
         new CipherBase[] { new TrifidCipher(invert: false), new TrifidCipher(invert: true) },
+        new CipherBase[] { new TripleTriplexReflectorCipher() },
         new CipherBase[] { new TrisquareCipher() },
         new CipherBase[] { new UbchiTransposition(invert: false), new UbchiTransposition(invert: true) },
         new CipherBase[] { new VarietyCipher() },
@@ -155,7 +156,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        var _allCiphers = new[] { new CipherBase[] { new ChainBitRotationCipher(true) } };
+        //var _allCiphers = new[] { new CipherBase[] { new TripleTriplexReflectorCipher() } };
         //var word = answer = "ETETETET";
 
         // Generate random word
