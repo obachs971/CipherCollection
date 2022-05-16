@@ -9,7 +9,7 @@ using Words;
 public class cipherMachine : MonoBehaviour
 {
     private static readonly CipherBase[][] _allCiphers = CMTools.NewArray(
-        new CipherBase[] { new ADFGXCipher(invert: false), new ADFGXCipher(invert: true)},
+        new CipherBase[] { new ADFGXCipher(invert: false), new ADFGXCipher(invert: true) },
         new CipherBase[] { new AESCipher() },
         new CipherBase[] { new AffineCipher(invert: false), new AffineCipher(invert: true) },
         new CipherBase[] { new AlbertiCipher(invert: false), new AlbertiCipher(invert: true) },
