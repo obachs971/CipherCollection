@@ -6,7 +6,7 @@ public class AutokeyCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Autokey Cipher" : "Autokey Cipher"; } }
     public override int Score { get { return 5; } }
-    public override string Code { get { return "AK"; } }
+    public override string Code { get { return "AU"; } }
 
     private readonly bool invert;
     public AutokeyCipher(bool invert) { this.invert = invert; }
