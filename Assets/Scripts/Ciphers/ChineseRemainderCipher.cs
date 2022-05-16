@@ -22,13 +22,13 @@ public class ChineseRemainderCipher : CipherBase
             yield break;
         }
 
-        for (var i = sofar.Length == 0 ? 0 : Array.IndexOf(goodModuli, sofar.Last()) + 1; i < goodModuli.Length; i++)
+        for (var i = sofar.Length == 0 ? 0 : Array.IndexOf(goodModuli, sofar.Last()) + 1; i <= goodModuli.Length - len + sofar.Length; i++)
             if (sofar.All(s => ExtendedEuclideanAlgorithm(s, goodModuli[i]).Gcd == 1))
                 foreach (var solution in recurseOnly(appendItem(sofar, goodModuli[i]), len, goodModuli))
                     yield return solution;
     }
 
-    private static IEnumerable<int[]> recurseAll(int[] sofar, int len, int[] goodModuli = null)
+    private static IEnumerable<int[]> recurseAll(int[] sofar, int len, int[] goodModuli = null, int[] impossibleModuli = null)
     {
         if (sofar.Length == len)
         {
@@ -53,7 +53,7 @@ public class ChineseRemainderCipher : CipherBase
         for (var i = 0; i < 26; i++)
         {
             var ri = (i + offset) % 26 + 27;
-            if (goodModuli != null && goodModuli.Contains(ri))
+            if ((goodModuli != null && goodModuli.Contains(ri)) || (impossibleModuli != null && impossibleModuli.Contains(ri)))
                 continue;
             if (sofar.All(s => ExtendedEuclideanAlgorithm(s, ri).Gcd == 1))
                 foreach (var solution in recurseAll(appendItem(sofar, ri), len, goodModuli))
@@ -88,10 +88,11 @@ public class ChineseRemainderCipher : CipherBase
         var moduli = goodModuli.Length < word.Length ? null : recurseOnly(new int[0], word.Length, goodModuli).FirstOrDefault();
         if (moduli == null)
         {
+            var impossibleModuli = Enumerable.Range(27, 26).Where(i => v % i == 0 || v % i > 51).ToArray();
             var bestSoFar = 0;
             for (var iter = 0; moduli == null || (iter < 10 && bestSoFar < word.Length); iter++)
             {
-                var moduliTmp = recurseAll(new int[0], word.Length, goodModuli).First().Shuffle();
+                var moduliTmp = recurseAll(new int[0], word.Length, goodModuli, impossibleModuli).First().Shuffle();
                 var remaindersTmp = Enumerable.Range(0, word.Length).Select(ix => (int) (v % moduliTmp[ix])).ToArray();
                 if (remaindersTmp.Any(r => r == 0 || r > 51))
                     continue;
