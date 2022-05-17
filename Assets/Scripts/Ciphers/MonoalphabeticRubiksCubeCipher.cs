@@ -11,6 +11,7 @@ public class MonoalphabeticRubiksCubeCipher : CipherBase
     public override string Code { get { return "MR"; } }
 
     private readonly bool _invert;
+    public override bool IsInvert { get { return _invert; } }
     public MonoalphabeticRubiksCubeCipher(bool invert) { _invert = invert; }
 
     // order: U F R B L D

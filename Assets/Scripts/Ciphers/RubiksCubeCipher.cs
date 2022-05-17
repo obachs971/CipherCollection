@@ -11,6 +11,7 @@ public class RubiksCubeCipher : CipherBase
     public override string Code { get { return "RU"; } }
 
     private readonly bool _invert;
+    public override bool IsInvert { get { return _invert; } }
     public RubiksCubeCipher(bool invert) { _invert = invert; }
 
     // order: U F R B L D

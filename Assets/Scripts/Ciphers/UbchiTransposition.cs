@@ -11,6 +11,7 @@ public class UbchiTransposition : CipherBase
 	public override string Code { get { return "UT"; } }
 
 	private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
 	public UbchiTransposition(bool invert) { this.invert = invert; }
 
 	public override ResultInfo Encrypt(string word, KMBombInfo bomb)

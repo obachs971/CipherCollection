@@ -9,6 +9,7 @@ public class VigenereCipher : CipherBase
     public override string Code { get { return "VI"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public VigenereCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

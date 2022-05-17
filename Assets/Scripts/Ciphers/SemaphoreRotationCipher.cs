@@ -13,7 +13,8 @@ public class SemaphoreRotationCipher : CipherBase
     private static readonly int[][] _semaphores = "45;46;47;04;14;24;34;56;57;02;05;15;25;35;67;06;16;26;36;07;17;03;12;13;27;23".Split(';').Select(str => str.Select(ch => ch - '0').ToArray()).ToArray();
 
     private readonly bool _invert;
-    public SemaphoreRotationCipher(bool invert) { this._invert = invert; }
+    public override bool IsInvert { get { return _invert; } }
+    public SemaphoreRotationCipher(bool invert) { _invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

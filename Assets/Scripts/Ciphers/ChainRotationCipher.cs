@@ -9,6 +9,7 @@ public class ChainRotationCipher : CipherBase
     public override string Code { get { return "CR"; } }
 
     private readonly bool _invert;
+    public override bool IsInvert { get { return _invert; } }
     public ChainRotationCipher(bool invert) { _invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

@@ -11,6 +11,7 @@ public class MonoalphabeticCipher : CipherBase
     public override string Code { get { return "MA"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public MonoalphabeticCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

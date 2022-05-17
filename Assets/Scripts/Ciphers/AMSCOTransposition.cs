@@ -8,6 +8,7 @@ public class AMSCOTransposition : CipherBase
     public override string Code { get { return "AM"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public AMSCOTransposition(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

@@ -9,6 +9,7 @@ public class CondiCipher : CipherBase
     public override string Code { get { return "CD"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public CondiCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

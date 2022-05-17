@@ -9,6 +9,7 @@ public class RagbabyCipher : CipherBase
 	public override string Code { get { return "RA"; } }
     
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public RagbabyCipher(bool invert) { this.invert = invert; }
     
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

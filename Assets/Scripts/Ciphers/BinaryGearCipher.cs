@@ -10,6 +10,7 @@ public class BinaryGearCipher : CipherBase
     public override string Code { get { return "BG"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public BinaryGearCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

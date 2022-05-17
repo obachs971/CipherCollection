@@ -10,6 +10,7 @@ public class AlbertiCipher : CipherBase
     public override string Code { get { return "AL"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public AlbertiCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

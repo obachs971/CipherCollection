@@ -10,6 +10,7 @@ public class NicodemusCipher : CipherBase
     public override string Code { get { return "NC"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public NicodemusCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

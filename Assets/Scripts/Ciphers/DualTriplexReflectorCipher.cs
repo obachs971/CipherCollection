@@ -9,6 +9,7 @@ public class DualTriplexReflectorCipher : CipherBase
 	public override string Code { get { return "DT"; } }
     
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public DualTriplexReflectorCipher(bool invert) { this.invert = invert; }
     
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

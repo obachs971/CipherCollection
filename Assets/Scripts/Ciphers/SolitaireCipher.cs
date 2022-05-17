@@ -9,6 +9,7 @@ public class SolitaireCipher : CipherBase
 	public override string Code { get { return "SO"; } }
     
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public SolitaireCipher(bool invert) { this.invert = invert; }
     
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

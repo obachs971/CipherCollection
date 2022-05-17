@@ -10,6 +10,7 @@ public class HillCipher : CipherBase
 	public override string Code { get { return "HI"; } }
     
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public HillCipher(bool invert) { this.invert = invert; }
     
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

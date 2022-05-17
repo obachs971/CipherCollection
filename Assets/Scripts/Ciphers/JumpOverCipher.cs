@@ -10,6 +10,7 @@ public class JumpOverCipher : CipherBase
     public override string Code { get { return "JO"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public JumpOverCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

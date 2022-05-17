@@ -10,6 +10,7 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
     public override string Code { get { return "JL"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public CompositeSpinningJumpingLeapfrogOrphanageCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -31,7 +32,6 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
         logMessages.Add(string.Format("After Replacing Xs: {0}", word));
         string orphans = new string("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle()).Substring(0, 4);
         logMessages.Add(string.Format("Orphans: {0}", orphans));
-        Debug.LogFormat("{0}", orphanage);
         foreach (char orphan in orphans)
         {
             int[][] swaps = getSwaps(orphan);

@@ -8,6 +8,7 @@ public class Chaocipher : CipherBase
 	public override int Score { get { return 5; } }
 	public override string Code { get { return "CH"; } }
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public Chaocipher(bool invert) { this.invert = invert; }
     
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

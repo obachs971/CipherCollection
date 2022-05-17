@@ -10,6 +10,7 @@ public class CubeCipher : CipherBase
     public override string Code { get { return "CU"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public CubeCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

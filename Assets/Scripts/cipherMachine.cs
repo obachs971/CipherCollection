@@ -127,6 +127,11 @@ public class cipherMachine : MonoBehaviour
     private bool moduleSelected;
     private readonly Color[] textColors = { Color.white, Color.black };
 
+    private static List<MissionSettings> missionSettings;
+
+    [TextArea(3, 10)]
+    public string EditorMissionSettings;    // Only used in the Unity Editor
+
     void Awake()
     {
         if (Application.isEditor)
@@ -153,6 +158,9 @@ public class cipherMachine : MonoBehaviour
             KMSelectable pressedButton = keybutton;
             pressedButton.OnInteract += delegate () { letterPress(pressedButton); return false; };
         }
+
+        Bomb.OnBombExploded += delegate { missionSettings = null; };
+        Bomb.OnBombSolved += delegate { missionSettings = null; };
     }
 
     void Start()
@@ -161,15 +169,47 @@ public class cipherMachine : MonoBehaviour
         //var _allCiphers = new[] { new CipherBase[] { new TripleTriplexReflectorCipher() } };
         //var word = answer = "ETETETET";
 
-        // Generate random word
-        var word = answer = new Data().PickWord(4, 8);
+        var settings = GetMissionSettings();
 
+        // Generate random word
+        var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
-        var pagesList = new List<PageInfo>();
-        var cipherIxs = Enumerable.Range(0, _allCiphers.Length).ToArray().Shuffle();
-        for (var i = 0; i < 3 && i < cipherIxs.Length; i++)
+
+        // Decide which ciphers will be used
+        CipherBase[][] ciphers;
+        if (settings == null || settings.Ciphers == null)
+            ciphers = _allCiphers.ToArray().Shuffle();
+        else
         {
-            var cipher = _allCiphers[cipherIxs[i]].PickRandom();
+            ciphers = Enumerable.Range(0, settings.Ciphers.Length)
+                .Select(ix => _allCiphers.IndexOf(arr => arr[0].Code == settings.Ciphers[ix]))
+                .Select((cipherIx, ix) =>
+                    settings.CipherSettings[ix] == CipherSetting.DecryptOnly ? _allCiphers[cipherIx].Where(cb => !cb.IsInvert).ToArray() :
+                    settings.CipherSettings[ix] == CipherSetting.EncryptOnly ? _allCiphers[cipherIx].Where(cb => cb.IsInvert).ToArray() : _allCiphers[cipherIx])
+                .ToArray();
+            Array.Reverse(ciphers);
+            if (settings.Order == CipherOrder.Random)
+                ciphers.Shuffle();
+        }
+
+        if (settings == null || settings.Pick != null)
+        {
+            var ixs = Enumerable.Range(0, ciphers.Length).ToList();
+            var pickedIxs = new List<int>();
+            while (ixs.Count > 0 && pickedIxs.Count < (settings == null ? 3 : settings.Pick.Value))
+            {
+                var ix = UnityEngine.Random.Range(0, ixs.Count);
+                pickedIxs.Add(ixs[ix]);
+                ixs.RemoveAt(ix);
+            }
+            pickedIxs.Sort();
+            ciphers = pickedIxs.Select(ix => ciphers[ix]).ToArray();
+        }
+
+        var pagesList = new List<PageInfo>();
+        for (var i = 0; i < ciphers.Length; i++)
+        {
+            var cipher = ciphers[i].PickRandom();
             Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, cipher.Name, cipher.Code);
             var result = cipher.Encrypt(word, Bomb);
             foreach (var msg in result.LogMessages)
@@ -298,26 +338,115 @@ public class cipherMachine : MonoBehaviour
             }
         }
     }
-    static string[] MissionSettings()
+
+    private MissionSettings GetMissionSettings()
     {
-        if (Application.isEditor)
+        if (missionSettings == null)
+        {
+            missionSettings = new List<MissionSettings>();
+            string description = Application.isEditor ? EditorMissionSettings : Game.Mission.Description;
+            var matches = Regex.Matches(description, @"^\[Cipher ?Machine\] (.*)$", RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            var warnings = new List<string>();
+            for (var i = 0; i < matches.Count; i++)
+            {
+                var usedOptions = new HashSet<string>();
+                var set = new MissionSettings();
+                var opts = matches[i].Groups[1].Value.Split(',');
+                foreach (var opt in opts)
+                {
+                    var kv = opt.Split('=');
+                    if (!usedOptions.Add(kv[0].Trim().ToLowerInvariant()))
+                    {
+                        warnings.Add(string.Format("Ignoring duplicate option: {0}.", opt));
+                        continue;
+                    }
+                    switch (kv[0].Trim().ToLowerInvariant())
+                    {
+                        case "ciphers":
+                            var ciphersRaw = kv[1].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            var ciphers = new List<string>();
+                            var cipherSettings = new List<CipherSetting>();
+                            foreach (var c in ciphersRaw)
+                            {
+                                if (c.Length < 2 || c.Length > 3)
+                                {
+                                    warnings.Add(string.Format("Invalid cipher: {0}. Each cipher must be 2 or 3 letters, consisting of the two-letter code for the cipher and an optional letter “d”/“e” for “decrypt-only”/“encrypt-only”.", c));
+                                    continue;
+                                }
+                                var code = c.Substring(0, 2);
+                                if (!_allCiphers.Any(arr => arr.Any(cb => cb.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase))))
+                                {
+                                    warnings.Add(string.Format("Invalid cipher code: {0}. Valid cipher codes are: {1}.", code, _allCiphers.SelectMany(arr => arr).Select(cb => cb.Code).Distinct().OrderBy(x => x).Join(", ")));
+                                    continue;
+                                }
+                                var cs = CipherSetting.Random;
+                                if (c.Length == 3)
+                                {
+                                    var ed = c.Substring(2);
+                                    if (ed.Equals("e", StringComparison.InvariantCultureIgnoreCase))
+                                        cs = CipherSetting.EncryptOnly;
+                                    else if (ed.Equals("d", StringComparison.InvariantCultureIgnoreCase))
+                                        cs = CipherSetting.DecryptOnly;
+                                    else
+                                    {
+                                        warnings.Add(string.Format("Invalid cipher code: {0}. The third character must be “d” (decrypt only), “e” (encrypt only) or absent (random).", c));
+                                        continue;
+                                    }
+                                }
+                                ciphers.Add(code);
+                                cipherSettings.Add(cs);
+                            }
+                            if (ciphers.Count > 0)
+                            {
+                                set.Ciphers = ciphers.ToArray();
+                                set.CipherSettings = cipherSettings.ToArray();
+                            }
+                            break;
+
+                        case "order":
+                            if (kv[1].Trim().Equals("fixed", StringComparison.InvariantCultureIgnoreCase))
+                                set.Order = CipherOrder.Fixed;
+                            else
+                                warnings.Add("The ‘order’ option only accepts the value ‘fixed’. To force a random order of ciphers, simply omit the ‘order’ option.");
+                            break;
+
+                        case "len":
+                            if (kv[1].Any(ch => !(ch >= '4' && ch <= '8') && ch != ' '))
+                                warnings.Add("The ‘len’ option only accepts digits 4–8.");
+                            set.WordLengths = kv[1].Where(ch => ch >= '4' && ch <= '8').Select(ch => ch - '0').ToArray();
+                            if (set.WordLengths.Length == 0)
+                                set.WordLengths = null;
+                            break;
+
+                        case "pick":
+                            int pickNum;
+                            if (int.TryParse(kv[1].Trim(), out pickNum))
+                                set.Pick = pickNum;
+                            else
+                                warnings.Add(string.Format("The ‘pick’ option requires a number. {0} is not a number.", kv[1].Trim()));
+                            break;
+
+                        default:
+                            warnings.Add(string.Format("Unrecognized option: {0}. Valid options are: ‘ciphers’, ‘order’, ‘len’.", kv[0].Trim()));
+                            break;
+                    }
+                }
+                missionSettings.Add(set);
+            }
+
+            foreach (var warning in warnings)
+                Debug.LogWarningFormat("[Cipher Machine #{0}] Warning: {1}", moduleId, warning);
+        }
+
+        if (missionSettings.Count == 0)
             return null;
-        string description = Game.Mission.Description;
 
-        Regex regex = new Regex(@"\[Cipher Machine\] ");
-
-        var match = regex.Match(description);
-
-        if (!match.Success)
-            return null;
-
-        description = match.Value.Replace("[Cipher Machine] ", "");
-        description = description.Substring(description.IndexOf("(") + 1);
-        description = description.Substring(0, description.IndexOf(")"));
-        string[] spl = description.Split(',');
-        
-        return spl;
+        var rndIx = UnityEngine.Random.Range(0, missionSettings.Count);
+        var settings = missionSettings[rndIx];
+        missionSettings.RemoveAt(rndIx);
+        return settings;
     }
+
 #pragma warning disable 414
     private string TwitchHelpMessage = "Move to other screens using !{0} right|left|r|l|. Submit the decrypted word with !{0} submit qwertyuiopasdfghjklzxcvbnm";
 #pragma warning restore 414

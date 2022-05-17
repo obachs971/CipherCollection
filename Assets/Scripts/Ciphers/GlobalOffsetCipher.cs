@@ -10,6 +10,7 @@ public class GlobalOffsetCipher : CipherBase
     public override string Code { get { return "GO"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public GlobalOffsetCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

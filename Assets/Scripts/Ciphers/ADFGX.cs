@@ -10,6 +10,7 @@ public class ADFGXCipher : CipherBase
     public override string Code { get { return "AX"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public ADFGXCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

@@ -9,6 +9,7 @@ public class CaesarShuffleCipher : CipherBase
     public override string Code { get { return "CS"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public CaesarShuffleCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

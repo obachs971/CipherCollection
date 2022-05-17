@@ -10,6 +10,7 @@ public class BitSwitchCipher : CipherBase
     public override string Code { get { return "BI"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public BitSwitchCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

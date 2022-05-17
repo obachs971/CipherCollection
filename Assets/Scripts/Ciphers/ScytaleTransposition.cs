@@ -8,6 +8,7 @@ public class ScytaleTransposition : CipherBase
     public override string Code { get { return "SC"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public ScytaleTransposition(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

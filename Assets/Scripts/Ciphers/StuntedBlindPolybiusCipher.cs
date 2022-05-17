@@ -13,6 +13,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
     public override string Code { get { return "SB"; } }
 
     private readonly bool _invert;
+    public override bool IsInvert { get { return _invert; } }
     public StuntedBlindPolybiusCipher(bool invert) { _invert = invert; }
 
     private static readonly string[] _brailleDots = { "1", "12", "14", "145", "15", "124", "1245", "125", "24", "245", "13", "123", "134", "1345", "135", "1234", "12345", "1235", "234", "2345", "136", "1236", "2456", "1346", "13456", "1356" };

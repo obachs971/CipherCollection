@@ -7,9 +7,10 @@ public class CaesarCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Caesar Cipher" : "Caesar Cipher"; } }
     public override int Score { get { return 5; } }
-    public override string Code { get { return "CC"; } }
+    public override string Code { get { return "CA"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public CaesarCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

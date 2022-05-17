@@ -11,6 +11,7 @@ public class GROMARKCipher : CipherBase
     public override string Code { get { return "GR"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public GROMARKCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

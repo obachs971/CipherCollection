@@ -9,6 +9,7 @@ public class TriangleCipher : CipherBase
     public override string Code { get { return "TC"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public TriangleCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

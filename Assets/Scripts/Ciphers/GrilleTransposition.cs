@@ -8,6 +8,7 @@ public class GrilleTransposition : CipherBase
     public override string Code { get { return "GT"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public GrilleTransposition(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

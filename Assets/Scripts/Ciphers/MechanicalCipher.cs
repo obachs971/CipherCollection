@@ -38,6 +38,7 @@ public class MechanicalCipher : CipherBase
     };
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public MechanicalCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

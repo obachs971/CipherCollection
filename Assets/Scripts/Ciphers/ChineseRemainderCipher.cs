@@ -12,6 +12,7 @@ public class ChineseRemainderCipher : CipherBase
     public override string Code { get { return "RM"; } }
 
     private readonly bool _invert;
+    public override bool IsInvert { get { return _invert; } }
     public ChineseRemainderCipher(bool invert) { _invert = invert; }
 
     private static IEnumerable<int[]> recurseOnly(int[] sofar, int len, int[] goodModuli)

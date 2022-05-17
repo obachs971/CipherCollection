@@ -8,6 +8,7 @@ public class RedefenceTransposition : CipherBase
     public override string Code { get { return "RE"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public RedefenceTransposition(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

@@ -10,6 +10,7 @@ public class BazeriesCipher : CipherBase
 	public override string Code { get { return "BA"; } }
     
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public BazeriesCipher(bool invert) { this.invert = invert; }
     
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

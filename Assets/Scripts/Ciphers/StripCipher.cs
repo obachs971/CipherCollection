@@ -9,6 +9,7 @@ public class StripCipher : CipherBase
     public override string Code { get { return "ST"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public StripCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

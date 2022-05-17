@@ -11,6 +11,7 @@ public class ChainBitRotationCipher : CipherBase
     public override string Code { get { return "CB"; } }
 
     private readonly bool _invert;
+    public override bool IsInvert { get { return _invert; } }
     public ChainBitRotationCipher(bool invert) { _invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

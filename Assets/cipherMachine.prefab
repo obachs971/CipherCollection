@@ -7776,6 +7776,7 @@ MonoBehaviour:
   FontMaterials:
   - {fileID: 2100000, guid: 0c5baa6f66e757a42a577cc18bfcff73, type: 2}
   - {fileID: 2100000, guid: f9390b8acca97e64296db153bc0799e0, type: 2}
+  EditorMissionSettings: 
 --- !u!114 &114187509416308764
 MonoBehaviour:
   m_ObjectHideFlags: 1

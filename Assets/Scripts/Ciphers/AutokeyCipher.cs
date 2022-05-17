@@ -9,6 +9,7 @@ public class AutokeyCipher : CipherBase
     public override string Code { get { return "AU"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public AutokeyCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

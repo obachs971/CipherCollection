@@ -10,6 +10,7 @@ public class NotreDameCipher : CipherBase
     public override string Code { get { return "ND"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public NotreDameCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

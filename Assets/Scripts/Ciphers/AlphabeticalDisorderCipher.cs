@@ -18,11 +18,7 @@ public class AlphabeticalDisorderCipher : CipherBase
             var p = Enumerable.Range(0, word.Length - 1).IndexOf(ix => word[ix] > word[ix + 1]);
             char[] chunk = p == -1 ? word.ToCharArray() : word.Substring(0, p + 1).ToCharArray();
             log += new string(chunk) + "|";
-            if (chunk.Length > 1)
-            {
-                while (word.StartsWith(new string(chunk)))
-                    chunk.Shuffle();
-            }
+            chunk.Shuffle();
             encrypt += new string(chunk);
             if (p != -1) substrings = substrings + "" + chunk.Length;
             if (p == -1)

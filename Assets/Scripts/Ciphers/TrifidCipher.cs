@@ -10,6 +10,7 @@ public class TrifidCipher : CipherBase
     public override string Code { get { return "TF"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public TrifidCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

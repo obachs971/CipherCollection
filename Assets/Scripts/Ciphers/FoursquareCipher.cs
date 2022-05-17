@@ -10,6 +10,7 @@ public class FoursquareCipher : CipherBase
     public override string Code { get { return "FO"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public FoursquareCipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

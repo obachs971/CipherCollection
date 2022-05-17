@@ -11,6 +11,7 @@ public class Dreamcipher : CipherBase
     public override string Code { get { return "DR"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public Dreamcipher(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

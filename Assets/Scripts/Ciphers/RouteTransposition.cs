@@ -9,6 +9,7 @@ public class RouteTransposition : CipherBase
     public override string Code { get { return "RT"; } }
 
     private readonly bool invert;
+    public override bool IsInvert { get { return invert; } }
     public RouteTransposition(bool invert) { this.invert = invert; }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
