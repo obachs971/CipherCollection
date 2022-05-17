@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using CipherMachine;
+using KeepCoding;
 using UnityEngine;
 using Words;
 
@@ -295,6 +297,26 @@ public class cipherMachine : MonoBehaviour
                     keyboardLtrs[ltr].color = Color.white;
             }
         }
+    }
+    static string[] MissionSettings()
+    {
+        if (Application.isEditor)
+            return null;
+        string description = Game.Mission.Description;
+
+        Regex regex = new Regex(@"\[Cipher Machine \] ");
+
+        var match = regex.Match(description);
+
+        if (!match.Success)
+            return null;
+
+        description = match.Value.Replace("[Cipher Machine] ", "");
+        description = description.Substring(description.IndexOf("(") + 1);
+        description = description.Substring(0, description.IndexOf(")"));
+        string[] spl = description.Split(',');
+        
+        return spl;
     }
 #pragma warning disable 414
     private string TwitchHelpMessage = "Move to other screens using !{0} right|left|r|l|. Submit the decrypted word with !{0} submit qwertyuiopasdfghjklzxcvbnm";
