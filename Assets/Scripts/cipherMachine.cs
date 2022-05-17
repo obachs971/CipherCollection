@@ -304,7 +304,7 @@ public class cipherMachine : MonoBehaviour
             return null;
         string description = Game.Mission.Description;
 
-        Regex regex = new Regex(@"\[Cipher Machine \] ");
+        Regex regex = new Regex(@"\[Cipher Machine\] ");
 
         var match = regex.Match(description);
 
