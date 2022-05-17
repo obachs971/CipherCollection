@@ -47,7 +47,7 @@ public class TriangleCipher : CipherBase
             key[12] + "" + key[16] + "" + key[7]
         };
         key = matrix[0] + matrix[1] + matrix[2] + matrix[3] + matrix[4] + matrix[5] + matrix[6] + matrix[7] + matrix[8];
-        string order = invert ? "↻↺" : "↺↻", screen2 = "";
+        string order = invert ? "↻↺" : "↺↻", directions = "";
         foreach (char letter in word)
         {
             num = UnityEngine.Random.Range(1, 3);
@@ -56,15 +56,15 @@ public class TriangleCipher : CipherBase
             if(key[index] == '#')
                 index = ((index / 3) * 3) + ((index + num) % 3);
             encrypt = encrypt + "" + key[index];
-            screen2 = screen2 + "" + order[num - 1];
+            directions = directions + "" + order[num - 1];
         }
-        logMessages.Add(string.Format("Screen 2: {0}", screen2));
+        logMessages.Add(string.Format("Directions: {0}", directions));
 
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, screen2, screenB }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, directions.Substring(0, directions.Length / 2), screenB, directions.Substring(directions.Length / 2)}, invert) }
         };
     }
 }

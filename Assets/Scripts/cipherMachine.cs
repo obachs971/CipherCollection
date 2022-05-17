@@ -272,7 +272,7 @@ public class cipherMachine : MonoBehaviour
             {
                 screenTexts[aa].text = pages[page].Screens[aa].Text;
                 if (pages[page].Screens[aa].Text != null)
-                    screenTexts[aa].fontSize = getFontSize(pages[page].Screens[aa].Text.Length, aa % 2 == 0);
+                    screenTexts[aa].fontSize = getFontSize(pages[page].Screens[aa].Text.Length, aa % 2);
                 screenTexts[aa].font = Fonts[(int) pages[page].Screens[aa].Font];
                 screenTextMeshes[aa].material = FontMaterials[(int) pages[page].Screens[aa].Font];
             }
@@ -280,15 +280,19 @@ public class cipherMachine : MonoBehaviour
         submitMesh.material = materials[pages[page].Invert ? 1 : 0];
         submitText.color = textColors[pages[page].Invert ? 1 : 0];
         submitText.text = (page + 1) + pages[page].Code;
+        submitText.fontSize = getFontSize(submitText.text.Length, 2);
         for (var ltr = 0; ltr < 26; ltr++)
             keyboardLtrs[ltr].color = pages[page].Checksum == ltr ? Color.yellow : Color.white;
     }
 
-    private int getFontSize(int length, bool largeScreen)
+    private int getFontSize(int length, int screenType)
     {
-        return largeScreen
-            ? length <= 6 ? 35 : length == 7 ? 32 : 28
-            : length <= 3 ? 25 : 20;
+        switch(screenType)
+        {
+            case 0: return (length <= 6) ? 35 : (length == 7) ? 32 : 28;
+            case 1: return (length <= 3) ? 25 : 20;
+            default: return (length <= 3) ? 65 : (length == 4) ? 50 : 40;
+        }
     }
 
     void submitWord(KMSelectable submitButton)

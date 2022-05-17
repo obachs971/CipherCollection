@@ -79,7 +79,7 @@
                 <li>3. If the Boolean expression is true, place the alphabet at the end of your key. Otherwise place the alphabet at the beginning of your key.</li>
                 </ul>
             </div>
-            <div class="page-footer relative-footer">Page 1 of 5</div>
+            <div class="page-footer relative-footer">Page 1 of 6</div>
         </div>
         <div class="page page-bg-02">
             <div class="page-header">
@@ -87,6 +87,9 @@
                 <span class="page-header-section-title">Cipher Machine</span>
             </div>
             <div class="page-content">
+            <p>On every page with a cipher (except for the last cipher), one of the letters on the keyboard will be colored yellow. The alphabetic position (A1Z26) of this letter is the result of a checksum being done on the encrypted word BEFORE applying the cipher that it is currently on. You can use this to check if you apply the cipher correctly to the encrypted word. To calculate the checksum, use the equation below:</p>
+            <p style="text-align:center">(X<sub>1</sub> * 1 + X<sub>2</sub> * 2 + ... + X<sub>N</sub> * N) mod 23 + 1</p>
+            <p>X is equal to the alphabetic position (A1Z26) of that letter.</p>
             <h4 style="text-align:center">Value Table</h4>
             <table>
             <tr><th>A</th><td>Batteries</td><th>J</th><td>1st SN Character (Base 36)</td><th>S</th><td>2nd SN Digit</td></tr>
@@ -101,7 +104,7 @@
             </table>
             <p class="page-footer relative-footer">*This is recorded at the time when the bomb started counting down (or up if it's in ZEN mode).</p>
             </div>
-            <div class="page-footer relative-footer">Page 2 of 5</div>
+            <div class="page-footer relative-footer">Page 2 of 6</div>
         </div>
         <div class="page page-bg-03">
             <div class="page-header">
@@ -130,7 +133,7 @@
             <p>The Fibonacci sequence starts with (1, 1) and each number after is determined by the sum of the previous 2 numbers.</p>
             <p>2 numbers are coprime if the Greatest Common Divider/Denominator between them is 1.</p>
             </div>
-            <div class="page-footer relative-footer">Page 3 of 5</div>
+            <div class="page-footer relative-footer">Page 3 of 6</div>
         </div>
         <div class="page page-bg-04">
             <div class="page-header">
@@ -156,7 +159,7 @@
             <tr><th>LO</th><td><a href="Cipher%20Machine%20Logic.html">Logic Cipher</a></td><th>LZ</th><td><a href="Cipher%20Machine%20Lorenz.html">Lorenz Cipher</a></td><th>MA</th><td><a href="Cipher%20Machine%20Monoalphabetic.html">Monoalphabetic Cipher</a></td></tr>
             </table>
             </div>
-            <div class="page-footer relative-footer">Page 4 of 5</div>
+            <div class="page-footer relative-footer">Page 4 of 6</div>
         </div>
         <div class="page page-bg-05">
             <div class="page-header">
@@ -182,7 +185,23 @@
             <tr><th>VP</th><td><a href="Cipher%20Machine%20VIC%20Phone.html">VIC Phone Cipher</a></td><td class="no-border" colspan="4"></td></tr>
             </table>
             </div>
-            <div class="page-footer relative-footer">Page 5 of 5</div>
+            <div class="page-footer relative-footer">Page 5 of 6</div>
+        </div>
+        <div class="page page-bg-06">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Cipher Machine</span>
+            </div>
+            <div class="page-content">
+            <h4 style="text-align:center">Configurable Mission Settings</h4>
+            <p>This module can be customized to suit any mission maker's needs/wants. To configure each individual Cipher Machine, use this template for each one and write it in the description of your mission:</p>
+            <p style="text-align:center">[Cipher Machine] Len = , Order = , Pick = , Ciphers = </p>
+            <p>Len: A list of word lengths you would like to use. Ex: len = 47 will pick a word that has a length of either 4 or 7. The numbers have to be within the range of 4 - 8. By not writing this property, the default list it will use is 4 - 8.</p>
+            <p>Order: The type of order you want the ciphers to be in. There are only 2 types of orders: Fixed and Random. Fixed will be in the order that you write the ciphers in the ciphers property. Random will shuffle the ciphers you write in the ciphers property. By not writing this property, the default type will be Random.</p>
+            <p>Pick: A number that determines how many ciphers you want to choose from the list of ciphers in the ciphers property. By not writing this property, the default value will be the number of ciphers in the ciphers property.</p>
+            <p>Ciphers: A list of ciphers you would like to use in the Cipher Machine. Find the cipher you want and write the 2 letter code that is associated with it. Optionally, you can add the letter E/D to the end of it to make the cipher use the Encrypt/Decrypt rules of that cipher. By not writing down the E/D, it will pick randomly between the 2. Make sure to leave a space between each cipher. Ex: Ciphers = AT FO IPD RZE, will do Atbash, Foursquare that will randomly pick between E/D, Incremental Polyalphabetic using Decrypt Rules, and Rozier using Encrypt Rules. By not writing this property, it will choose any random cipher from the module.</p>
+            </div>
+            <div class="page-footer relative-footer">Page 6 of 6</div>
         </div>
     </div>
 </body>
