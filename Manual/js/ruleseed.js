@@ -4,6 +4,7 @@ class MonoRandom
     constructor(seed)
     {
         this.seed = seed;
+        this.count = 0;
         this._seedArray = new Array(56);
         for (var i = 0; i < 56; i++)
             this._seedArray[i] = 0;
@@ -37,6 +38,7 @@ class MonoRandom
     // Returns a random number between 0.0 and 1.0.
     nextDouble(logging)
     {
+        this.count++;
         if (((++this._inext) | 0) >= (56 | 0))
             this._inext = 1 | 0;
         if (((++this._inextp) | 0) >= (56 | 0))
@@ -89,7 +91,7 @@ class MonoRandom
     }
 
     // Brings an array into random order using the Fisher-Yates shuffle.
-    // This is an inplace array, i.e. the input array is modified.
+    // This is an inplace algorithm, i.e. the input array is modified.
     shuffleFisherYates(list)
     {
         var i = list.length;
@@ -105,25 +107,43 @@ class MonoRandom
     }
 }
 
-var presumedModuleName = null;
+const names = {};
 
 function ruleseedInvokeSetRules()
 {
-    if (presumedModuleName === null)
-        presumedModuleName = document.getElementsByClassName('page-header-section-title')[0].innerText;
-
+	let sectionElements = Array.from(document.getElementsByClassName('page-header-section-title'));
+	// Checking if the names object has a length of 0 so that we don't initialize it twice.
+	if(Object.entries(names).length === 0) {
+		let i = 0;
+		// Stores the headers by the id indency.
+		sectionElements.forEach(x => {
+			names[i] = x.innerText;
+			x.setAttribute('name-id', i);
+			i++;
+		});
+	}
+	
+	// Whether the URL contains a seed.
     if (/^#(\d+)$/.exec(window.location.hash) && (RegExp.$1 | 0) !== 1)
     {
         var seed = RegExp.$1 | 0;
         document.body.classList.add('ruleseed-active');
         Array.from(document.getElementsByClassName('ruleseed-header')).forEach(x => { x.innerText = 'RULE SEED: ' + seed });
-        Array.from(document.getElementsByClassName('page-header-section-title')).forEach(x => { x.classList.add('ruleseed-seeded'); x.innerText = presumedModuleName + ' — rule seed: ' + seed; });
+		
+		// Iterate over each page header section title element, add the 'ruleseed-seeded' class, get the actual section title by using the custom 'name-id' attribute and appending the rule seed value.
+        sectionElements.forEach(x => { 
+			x.classList.add('ruleseed-seeded'); 
+			x.innerText = names[x.getAttribute('name-id')] + ' — rule seed: ' + seed; 
+		});
         setRules(new MonoRandom(seed));
     }
     else
     {
         document.body.classList.remove('ruleseed-active');
-        Array.from(document.getElementsByClassName('page-header-section-title')).forEach(x => { x.classList.remove('ruleseed-seeded'); x.innerText = presumedModuleName; });
+        sectionElements.forEach(x => { 
+			x.classList.remove('ruleseed-seeded'); 
+			x.innerText = names[x.getAttribute('name-id')];
+		});
         setDefaultRules(new MonoRandom(1));
     }
 }
