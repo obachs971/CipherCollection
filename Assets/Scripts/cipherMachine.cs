@@ -105,6 +105,7 @@ public class cipherMachine : MonoBehaviour
     public Material[] materials;
     public KMBombInfo Bomb;
     public KMBombModule module;
+    public KMGameInfo GameInfo;
     public AudioClip[] sounds;
     public KMAudio Audio;
     public TextMesh submitText;
@@ -161,6 +162,11 @@ public class cipherMachine : MonoBehaviour
 
         Bomb.OnBombExploded += delegate { missionSettings = null; };
         Bomb.OnBombSolved += delegate { missionSettings = null; };
+        GameInfo.OnStateChange += state =>
+        {
+            if (state == KMGameInfo.State.Transitioning)
+                missionSettings = null;
+        };
     }
 
     void Start()

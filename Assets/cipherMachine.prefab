@@ -495,6 +495,7 @@ GameObject:
   - component: {fileID: 4379271494998326}
   - component: {fileID: 114896916431669088}
   - component: {fileID: 114391075436509608}
+  - component: {fileID: 114666346797872110}
   - component: {fileID: 114166227491927130}
   - component: {fileID: 114490032574840706}
   - component: {fileID: 114183368208140132}
@@ -7706,6 +7707,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 06321107eb3787f4994b36e85f6d6536, type: 2}
   Bomb: {fileID: 114391075436509608}
   module: {fileID: 114166227491927130}
+  GameInfo: {fileID: 114666346797872110}
   sounds:
   - {fileID: 8300000, guid: ee2fc3ae9aa4acf4db8ef5f33310ea27, type: 3}
   - {fileID: 8300000, guid: 64f945748ae0ed14984918741a75e0f8, type: 3}
@@ -8332,6 +8334,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HighlightScale: {x: 0, y: 0, z: 0}
   OutlineAmount: 0
+--- !u!114 &114666346797872110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1298886275199568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -271661043, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114669691767290272
 MonoBehaviour:
   m_ObjectHideFlags: 1
