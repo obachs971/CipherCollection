@@ -95,7 +95,7 @@ public class GracieCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }, invert) }
         };
     }
 }
