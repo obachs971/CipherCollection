@@ -26,20 +26,20 @@
                 <img src="img/Component/Cipher Machine.svg" class="diagram">
                 <h2>On the Subject of the Prissy CM</h2>
                 <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
-                <p>Create a key using the keyword on screen 1 and the Boolean Expression on screen A. Split the key into 2 halves and write the 2nd half underneath the 1st half. This will be refered to as the Prissy Key.</p>
+                <p>Create a key using the keyword on screen 1 and the Boolean Expression on screen A. Split the key into 2 halves and write the 2nd half underneath the 1st half. This will be referred to as the Prissy Key.</p>
                 <p>Convert the letter on screen 2 to a Value via the Value Table. Modulo this value by 13, this is your starting offset.</p>
                 <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
-                <h4 style="text-align:center">Encrypt Instructions</h3>
+                <h4 style="text-align:center">Encrypt Instructions</h4>
                 <ul>
                 <li>Find the Nth letter of the encrypted word in the Prissy Key.</li>
-                <li>Go right a number of times equal to the offset, wrapping around when nessecary, staying in the same row.</li>
+                <li>Go right a number of times equal to the offset, wrapping around when necessary, staying in the same row.</li>
                 <li>The letter above/below this letter becomes your Nth decrypted letter.</li>
                 <li>Add to the offset the Nth letter of the encrypted word, modulo 13.</li>
                 </ul>
-                <h4 style="text-align:center">Decrypt Instructions</h3>
+                <h4 style="text-align:center">Decrypt Instructions</h4>
                 <ul>
                 <li>Find the Nth letter of the encrypted word in the Prissy Key.</li>
-                <li>Go left a number of times equal to the offset, wrapping around when nessecary, staying in the same row.</li>
+                <li>Go left a number of times equal to the offset, wrapping around when necessary, staying in the same row.</li>
                 <li>The letter above/below this letter becomes your Nth decrypted letter.</li>
                 <li>Add to the offset the Nth letter of the decrypted word, modulo 13.</li>
                 </ul>

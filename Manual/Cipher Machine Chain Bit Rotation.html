@@ -29,7 +29,7 @@
                 <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
 
                 <h4 style="text-align:center">Decrypt Instructions</h4>
-				<p>For this step, you will need the keyword from screen 1. If the keyword is shorter than the encrypted word, append repetitions of it to it until it is the same length or longer.</p>
+                <p>For this step, you will need the keyword from screen 1. If the keyword is shorter than the encrypted word, append repetitions of it to it until it is the same length or longer.</p>
 
                 <p>Start with the number on screen A, then carry out the following steps for every letter of the encrypted word: (1) multiply the number by 26; (2) add the alphabetic position of the letter. If the letter is Z, add 0 instead.</p>
                 <p>Convert this number to binary. Let <var>n</var> = 5 times the number of letters in the encrypted word. Then:</p>
@@ -38,19 +38,19 @@
                     <li>Remove the least significant 5 bits from the number and convert them to a letter (A = 00001 ... Z = 11010).</li>
                     <li>Reduce <var>n</var> by 5.</li>
                 </ul>
-				<p>Repeat this as many times as there were letters in the encrypted word.</p>
+                <p>Repeat this as many times as there were letters in the encrypted word.</p>
 
                 <h4 style="text-align:center">Decrypt Example</h4>
                 <p style='text-align: center'>Encrypted word: OCRQOV; initial value: 1; keyword: BUSBOY<br>
                 Calculation: (((((1 × 26 + 15) × 26 + 3) × 26 + 18) × 26 + 17) × 26 + 15) × 26 + 22<br>
                 Binary: 011101001000110000101000100000</p>
-				<p style='text-align: center'>
-				Cycle last 30 bits right by B=2:  0001110100100011000010100<em>01000</em> →  8 → H<br>
-				Cycle last 25 bits right by U=21: 11010010001100001010<em>00001</em>      →  1 → A<br>
-				Cycle last 20 bits right by S=19: 101001000110000<em>10101</em>           → 21 → U<br>
-				Cycle last 15 bits right by B=2:  0010100100<em>01100</em>                → 12 → L<br>
-				Cycle last 10 bits right by O=15: 00100<em>00101</em>                     →  5 → E<br>
-				Cycle last  5 bits right by Y=25: <em>00100</em>                          →  4 → D</p>
+                <p style='text-align: center'>
+                Cycle last 30 bits right by B=2:  0001110100100011000010100<em>01000</em> →  8 → H<br>
+                Cycle last 25 bits right by U=21: 11010010001100001010<em>00001</em>      →  1 → A<br>
+                Cycle last 20 bits right by S=19: 101001000110000<em>10101</em>           → 21 → U<br>
+                Cycle last 15 bits right by B=2:  0010100100<em>01100</em>                → 12 → L<br>
+                Cycle last 10 bits right by O=15: 00100<em>00101</em>                     →  5 → E<br>
+                Cycle last  5 bits right by Y=25: <em>00100</em>                          →  4 → D</p>
                 <p style='text-align: center'>Decrypted Word: HAULED</p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 2</div>
@@ -69,7 +69,7 @@
                 <ul>
                     <li>Convert the letter to a 5-digit binary number (A = 00001 ... Z = 11010). Append these 5 bits to the end of the number.</li>
                     <li>Cycle the least significant <var>n</var> bits to the left by <var>m</var> bits. Here, <var>m</var> is the alphabetic position of the letter in the keyword in the same position. (Make sure to cycle all <var>n</var> bits; if your number has fewer digits, add leading zeros.)</li>
-					<li>Increase <var>n</var> by 5.</li>
+                    <li>Increase <var>n</var> by 5.</li>
                 </ul>
                 <p>Now convert the number back into letters by repeating the following process as many times as there were letters in the encrypted word:</p>
                 <ul>
