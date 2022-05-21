@@ -479,7 +479,7 @@ public class cipherMachine : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         string[] split = command.ToUpperInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-        if (split.Length != 2 || !split[0].Equals("SUBMIT") || split[1].Length != 6) yield break;
+        if (split.Length != 2 || !split[0].Equals("SUBMIT")) yield break;
         int[] buttons = split[1].Select(getPositionFromChar).ToArray();
         if (buttons.Any(x => x < 0)) yield break;
 
