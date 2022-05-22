@@ -172,7 +172,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new TripleTriplexReflectorCipher() } };
+        //var _allCiphers = new[] { new CipherBase[] { new IncrementalPolyalphabeticCipher(true) } };
         //var word = answer = "ETETETET";
 
         var settings = GetMissionSettings();

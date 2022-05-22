@@ -41,7 +41,7 @@ public class IncrementalPolyalphabeticCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new PageInfo[] { new PageInfo(screens, invert), new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }) }
+            Pages = new PageInfo[] { new PageInfo(screens, invert), new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }, invert) }
         };
     }
 
