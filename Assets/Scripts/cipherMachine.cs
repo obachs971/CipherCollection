@@ -26,6 +26,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new BookCipher() },
         new CipherBase[] { new BurrowsWheelerTransform() },
         new CipherBase[] { new CaesarCipher(invert: false), new CaesarCipher(invert: true) },
+        new CipherBase[] { new CaesareanRoleSwitchingCipher(invert: false), new CaesareanRoleSwitchingCipher(invert: true) },
         new CipherBase[] { new CaesarShuffleCipher(invert: false), new CaesarShuffleCipher(invert: true) },
         new CipherBase[] { new ChainBitRotationCipher(invert: false), new ChainBitRotationCipher(invert: true) },
         new CipherBase[] { new ChainRotationCipher(invert: false), new ChainRotationCipher(invert: true) },
@@ -172,7 +173,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new IncrementalPolyalphabeticCipher(true) } };
+        //var _allCiphers = new[] { new CipherBase[] { new CaesareanRoleSwitchingCipher(false) } };
         //var word = answer = "ETETETET";
 
         var settings = GetMissionSettings();
