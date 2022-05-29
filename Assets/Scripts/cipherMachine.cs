@@ -173,7 +173,7 @@ public class cipherMachine : MonoBehaviour
     void Start()
     {
         // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new CaesareanRoleSwitchingCipher(false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new RouteTransposition(false) } };
         //var word = answer = "ETETETET";
 
         var settings = GetMissionSettings();

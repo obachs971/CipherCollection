@@ -21,14 +21,14 @@ public class RouteTransposition : CipherBase
         char[] temp = new char[word.Length];
         if (invert)
         {
-            encrypt = word.Substring(word.Length - (number - 1)) + word.Substring(0, word.Length - (number - 1));
-            temp[0] = encrypt[0];
-            for (int i = 0; i < (encrypt.Length - 1) / 2; i++)
+            encrypt = word.Substring(number - 1) + word.Substring(0, number - 1);
+            Debug.LogFormat("{0}", encrypt);
+            for (int i = 0; i < encrypt.Length / 2; i++)
             {
+                temp[(i * 2)] = encrypt[i];
                 temp[(i * 2) + 1] = encrypt[encrypt.Length - (i + 1)];
-                temp[(i * 2) + 2] = encrypt[i + 1];
             }
-            if (encrypt.Length % 2 == 0)
+            if (encrypt.Length % 2 == 1)
                 temp[encrypt.Length - 1] = encrypt[encrypt.Length / 2];
             encrypt = new string(temp);
         }
