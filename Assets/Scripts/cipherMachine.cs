@@ -172,14 +172,15 @@ public class cipherMachine : MonoBehaviour
 
     void Start()
     {
-        // For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new RouteTransposition(false) } };
-        //var word = answer = "ETETETET";
-
         var settings = GetMissionSettings();
 
         // Generate random word
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
+
+        //// For debugging
+        //var _allCiphers = new[] { new CipherBase[] { new ChineseRemainderCipher(invert: false) } };
+        //word = answer = "KICKS";
+
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 
         // Decide which ciphers will be used

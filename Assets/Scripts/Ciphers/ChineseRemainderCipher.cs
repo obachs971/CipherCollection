@@ -144,7 +144,7 @@ public class ChineseRemainderCipher : CipherBase
         var v = desires[0].Value;
         var sb = new StringBuilder();
         var vc = v;
-        while (vc > 0)
+        while (vc > 0 || sb.Length < word.Length)
         {
             sb.Insert(0, vc % 26 == 0 ? 'Z' : (char) ('A' + (vc % 26 - 1)));
             vc /= 26;
