@@ -22,7 +22,6 @@ public class RouteTransposition : CipherBase
         if (invert)
         {
             encrypt = word.Substring(number - 1) + word.Substring(0, number - 1);
-            Debug.LogFormat("{0}", encrypt);
             for (int i = 0; i < encrypt.Length / 2; i++)
             {
                 temp[(i * 2)] = encrypt[i];

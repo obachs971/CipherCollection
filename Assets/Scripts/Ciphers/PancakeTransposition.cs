@@ -36,7 +36,7 @@ public class PancakeTransposition : CipherBase
                 nums[1] = nums[1] + "" + numbers[1];
                 logMessages.Add(string.Format("{0} + {1}{2} -> {3}", encrypt, nums[0][0], nums[1][0], temp));
                 encrypt = temp.ToUpperInvariant();
-                list.Add(temp.ToUpperInvariant());
+                list.Add(encrypt);
             }
         }
         else
@@ -54,7 +54,7 @@ public class PancakeTransposition : CipherBase
                 nums[1] = numbers[1] + "" + nums[1];
                 logMessages.Add(string.Format("{0} + {1}{2} -> {3}", encrypt, nums[0][0], nums[1][0], temp));
                 encrypt = temp.ToUpperInvariant();
-                list.Add(temp.ToUpperInvariant());
+                list.Add(encrypt);
             }
         }
         if (word.Equals(encrypt)) goto tryagain;
