@@ -132,7 +132,7 @@ public class DigrafidCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwFront[0].Expression, kws[1], kwFront[1].Expression, letters, screenC }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwFront[0].Expression, kws[1], kwFront[1].Expression, letters, screenC }, invert) }
         };
     }
 

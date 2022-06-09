@@ -178,7 +178,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         //// For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new ChineseRemainderCipher(invert: false) } };
+        //var _allCiphers = new[] { new CipherBase[] { new DigrafidCipher(invert: true) } };
         //word = answer = "KICKS";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
