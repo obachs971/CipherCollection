@@ -190,10 +190,11 @@ public class cipherMachine : MonoBehaviour
         else
         {
             ciphers = Enumerable.Range(0, settings.Ciphers.Length)
-                .Select(ix => _allCiphers.IndexOf(arr => arr[0].Code == settings.Ciphers[ix]))
-                .Select((cipherIx, ix) =>
-                    settings.CipherSettings[ix] == CipherSetting.DecryptOnly ? _allCiphers[cipherIx].Where(cb => !cb.IsInvert).ToArray() :
-                    settings.CipherSettings[ix] == CipherSetting.EncryptOnly ? _allCiphers[cipherIx].Where(cb => cb.IsInvert).ToArray() : _allCiphers[cipherIx])
+                .Select(ix => _allCiphers.IndexOf(arr => arr.Any(cb => cb.Code == settings.Ciphers[ix])))
+                .Select((cipherIx, ix) => _allCiphers[cipherIx].Where(cb =>
+                    cb.Code == settings.Ciphers[ix] &&
+                    (settings.CipherSettings[ix] == CipherSetting.Random || (settings.CipherSettings[ix] == CipherSetting.EncryptOnly) == cb.IsInvert)
+                ).ToArray())
                 .ToArray();
             Array.Reverse(ciphers);
             if (settings.Order == CipherOrder.Random)
