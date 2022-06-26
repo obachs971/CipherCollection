@@ -178,7 +178,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         //// For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new DigrafidCipher(invert: true) } };
+        //var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert: true) } };
         //word = answer = "KICKS";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
@@ -343,6 +343,8 @@ public class cipherMachine : MonoBehaviour
                     screenTexts[aa].text = "";
                 screenTexts[6].text = pressed.GetComponentInChildren<TextMesh>().text;
                 screenTexts[6].fontSize = new int[] { 35, 35, 35, 32, 28 }[answer.Length - 4];
+                screenTexts[6].font = Fonts[0];
+                screenTextMeshes[6].material = FontMaterials[0];
                 submitScreen = true;
                 submitMesh.material = materials[0];
                 submitText.color = textColors[0];
