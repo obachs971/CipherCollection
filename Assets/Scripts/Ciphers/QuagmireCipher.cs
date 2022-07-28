@@ -17,7 +17,7 @@ public class QuagmireCipher : CipherBase
         var logMessages = new List<string>();
         var wordList = new Data();
         string kw1 = wordList.PickWord(4, 8);
-        string kw2 = wordList.PickWord(4, word.Length);
+        string kw2 = wordList.PickWord(3, word.Length);
         string[] key = new string[kw2.Length];
         for (int i = 0; i < key.Length; i++)
         {

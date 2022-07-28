@@ -21,6 +21,7 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new AutokeyCipher(invert: false), new AutokeyCipher(invert: true) },
         new CipherBase[] { new BazeriesCipher(invert: false), new BazeriesCipher(invert: true) },
         new CipherBase[] { new BellasoCipher() },
+        new CipherBase[] { new BinaryCipher() },
         new CipherBase[] { new BinaryGearCipher(invert: false), new BinaryGearCipher(invert: true) },
         new CipherBase[] { new BitSwitchCipher(invert: false), new BitSwitchCipher(invert: true) },
         new CipherBase[] { new BookCipher() },
@@ -60,15 +61,18 @@ public class cipherMachine : MonoBehaviour
         new CipherBase[] { new McDondaldsChickenNuggetBigMacCipher() },
         new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
         new CipherBase[] { new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true) },
+        new CipherBase[] { new MonosodiumGlutamateCipher(invert: false), new MonosodiumGlutamateCipher(invert: true) },
         new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
         new CipherBase[] { new MalespinCipher() },
         new CipherBase[] { new MorbitCipher() },
         new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
         new CipherBase[] { new NicodemusCipher(invert: false), new NicodemusCipher(invert: true) },
         new CipherBase[] { new NotreDameCipher(invert: false), new NotreDameCipher(invert: true) },
+        new CipherBase[] { new OwOCipher(invert: false), new OwOCipher(invert: true) },
         new CipherBase[] { new PancakeTransposition(invert: false), new PancakeTransposition(invert: true) },
         new CipherBase[] { new ParallelogramCipher() },
         new CipherBase[] { new PingPongStraddlingCheckerboardCipher() },
+        new CipherBase[] { new PizzaSliceCipher(invert: false), new PizzaSliceCipher(invert: true) },
         new CipherBase[] { new PlayfairCipher(invert: false), new PlayfairCipher(invert: true) },
         new CipherBase[] { new PortaCipher() },
         new CipherBase[] { new PortaxCipher() },
@@ -178,7 +182,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         //// For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new Dreamcipher(invert: true) } };
+        //var _allCiphers = new[] { new CipherBase[] { new MonosodiumGlutamateCipher(false) } };
         //word = answer = "KICKS";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
