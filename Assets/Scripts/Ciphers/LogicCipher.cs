@@ -106,7 +106,7 @@ public class LogicCipher : CipherBase
                     if (!(bins[0][aa] == 1 && bins[1][aa] == 1))
                         bins[2][aa] = 1;
                     break;
-                case "NOT"://NOR
+                case "NOR"://NOR
                     if (!(bins[0][aa] == 1 || bins[1][aa] == 1))
                         bins[2][aa] = 1;
                     break;
