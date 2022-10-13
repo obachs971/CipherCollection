@@ -7,6 +7,7 @@ public class RouteTransposition : CipherBase
     public override string Name { get { return invert ? "Inverted Route Transposition" : "Route Transposition"; } }
     public override int Score { get { return 5; } }
     public override string Code { get { return "RT"; } }
+    public override bool IsTransposition { get { return true; } }
 
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }

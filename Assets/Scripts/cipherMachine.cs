@@ -10,99 +10,99 @@ using Words;
 
 public class cipherMachine : MonoBehaviour
 {
-    private static readonly CipherBase[][] _allCiphers = CMTools.NewArray(
-        new CipherBase[] { new ADFGXCipher(invert: false), new ADFGXCipher(invert: true) },
-        new CipherBase[] { new AESCipher() },
-        new CipherBase[] { new AffineCipher(invert: false), new AffineCipher(invert: true) },
-        new CipherBase[] { new AlbertiCipher(invert: false), new AlbertiCipher(invert: true) },
-        new CipherBase[] { new AlphabeticalDisorderCipher() },
-        new CipherBase[] { new AMSCOTransposition(invert: false), new AMSCOTransposition(invert: true) },
-        new CipherBase[] { new AtbashCipher() },
-        new CipherBase[] { new AutokeyCipher(invert: false), new AutokeyCipher(invert: true) },
-        new CipherBase[] { new BazeriesCipher(invert: false), new BazeriesCipher(invert: true) },
-        new CipherBase[] { new BellasoCipher() },
-        new CipherBase[] { new BinaryCipher() },
-        new CipherBase[] { new BinaryGearCipher(invert: false), new BinaryGearCipher(invert: true) },
-        new CipherBase[] { new BitSwitchCipher(invert: false), new BitSwitchCipher(invert: true) },
-        new CipherBase[] { new BookCipher() },
-        new CipherBase[] { new BurrowsWheelerTransform() },
-        new CipherBase[] { new CaesarCipher(invert: false), new CaesarCipher(invert: true) },
-        new CipherBase[] { new CaesareanRoleSwitchingCipher(invert: false), new CaesareanRoleSwitchingCipher(invert: true) },
-        new CipherBase[] { new CaesarShuffleCipher(invert: false), new CaesarShuffleCipher(invert: true) },
-        new CipherBase[] { new ChainBitRotationCipher(invert: false), new ChainBitRotationCipher(invert: true) },
-        new CipherBase[] { new ChainRotationCipher(invert: false), new ChainRotationCipher(invert: true) },
-        new CipherBase[] { new Chaocipher(invert: false), new Chaocipher(invert: true) },
-        new CipherBase[] { new ChineseRemainderCipher(invert: false), new ChineseRemainderCipher(invert: true) },
-        new CipherBase[] { new CircleCipher(invert: false), new CircleCipher(invert: true) },
-        new CipherBase[] { new CollonCipher() },
-        new CipherBase[] { new ColumnarTransposition(invert: false), new ColumnarTransposition(invert: true) },
-        new CipherBase[] { new CompositeSpinningJumpingLeapfrogOrphanageCipher(invert: false), new CompositeSpinningJumpingLeapfrogOrphanageCipher(invert: true) },
-        new CipherBase[] { new CondiCipher(invert: false), new CondiCipher(invert: true) },
-        new CipherBase[] { new ConjugatedMatrixBifidCipher(invert: false), new ConjugatedMatrixBifidCipher(invert: true) },
-        new CipherBase[] { new CubeCipher(invert: false), new CubeCipher(invert: true) },
-        new CipherBase[] { new DigrafidCipher(invert: false), new DigrafidCipher(invert: true) },
-        new CipherBase[] { new Dreamcipher(invert: false), new Dreamcipher(invert: true) },
-        new CipherBase[] { new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true) },
-        new CipherBase[] { new EnigmaCipher() },
-        new CipherBase[] { new FoursquareCipher(invert: false), new FoursquareCipher(invert: true) },
-        new CipherBase[] { new FractionatedMorseCipher() },
-        new CipherBase[] { new GlobalOffsetCipher(invert: false), new GlobalOffsetCipher(invert: true) },
-        new CipherBase[] { new GracieCipher(invert: false), new GracieCipher(invert: true) },
-        new CipherBase[] { new GrandpreCipher() },
-        new CipherBase[] { new GrilleTransposition(invert: false), new GrilleTransposition(invert: true) },
-        new CipherBase[] { new GROMARKCipher(invert: false), new GROMARKCipher(invert: true) },
-        new CipherBase[] { new HillCipher(invert: false), new HillCipher(invert: true) },
-        new CipherBase[] { new HomophonicCipher() },
-        new CipherBase[] { new IncrementalPolyalphabeticCipher(invert: false), new IncrementalPolyalphabeticCipher(invert: true) },
-        new CipherBase[] { new JumpOverCipher(invert: false), new JumpOverCipher(invert: true) },
-        new CipherBase[] { new LogicCipher() },
-        new CipherBase[] { new LorenzCipher() },
-        new CipherBase[] { new M209Cipher() },
-        new CipherBase[] { new McDondaldsChickenNuggetBigMacCipher() },
-        new CipherBase[] { new MechanicalCipher(invert: false), new MechanicalCipher(invert: true) },
-        new CipherBase[] { new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true) },
-        new CipherBase[] { new MonosodiumGlutamateCipher(invert: false), new MonosodiumGlutamateCipher(invert: true) },
-        new CipherBase[] { new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true) },
-        new CipherBase[] { new MalespinCipher() },
-        new CipherBase[] { new MorbitCipher() },
-        new CipherBase[] { new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true) },
-        new CipherBase[] { new NicodemusCipher(invert: false), new NicodemusCipher(invert: true) },
-        new CipherBase[] { new NotreDameCipher(invert: false), new NotreDameCipher(invert: true) },
-        new CipherBase[] { new OwOCipher(invert: false), new OwOCipher(invert: true) },
-        new CipherBase[] { new PancakeTransposition(invert: false), new PancakeTransposition(invert: true) },
-        new CipherBase[] { new ParallelogramCipher() },
-        new CipherBase[] { new PingPongStraddlingCheckerboardCipher() },
-        new CipherBase[] { new PizzaSliceCipher(invert: false), new PizzaSliceCipher(invert: true) },
-        new CipherBase[] { new PlayfairCipher(invert: false), new PlayfairCipher(invert: true) },
-        new CipherBase[] { new PortaCipher() },
-        new CipherBase[] { new PortaxCipher() },
-        new CipherBase[] { new PrissyCipher(invert: false), new PrissyCipher(invert: true) },
-        new CipherBase[] { new QuagmireCipher(invert: false), new QuagmireCipher(invert: true) },
-        new CipherBase[] { new RagbabyCipher(invert: false), new RagbabyCipher(invert: true) },
-        new CipherBase[] { new RedefenceTransposition(invert: false), new RedefenceTransposition(invert: true) },
-        new CipherBase[] { new RouteTransposition(invert: false), new RouteTransposition(invert: true) },
-        new CipherBase[] { new RozierCipher(invert: false), new RozierCipher(invert: true) },
-        new CipherBase[] { new RSACipher() },
-        new CipherBase[] { new ScytaleTransposition(invert: false), new ScytaleTransposition(invert: true) },
-        new CipherBase[] { new SeanCipher() },
-        new CipherBase[] { new SemaphoreRotationCipher(invert: false), new SemaphoreRotationCipher(invert: true) },
-        new CipherBase[] { new SlidefairCipher() },
-        new CipherBase[] { new SmokeyCipher() },
-        new CipherBase[] { new SolitaireCipher(invert: false), new SolitaireCipher(invert: true) },
-        new CipherBase[] { new SquareCipher() },
-        new CipherBase[] { new StrangelyElusiveLetterCipher() },
-        new CipherBase[] { new StripCipher(invert: false), new StripCipher(invert: true) },
-        new CipherBase[] { new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true) },
-        new CipherBase[] { new TransposedHalvedPolybiusCipher(invert: false), new TransposedHalvedPolybiusCipher(invert: true) },
-        new CipherBase[] { new TriangleCipher(invert: false), new TriangleCipher(invert: true) },
-        new CipherBase[] { new TridigitalCipher() },
-        new CipherBase[] { new TrifidCipher(invert: false), new TrifidCipher(invert: true) },
-        new CipherBase[] { new TripleTriplexReflectorCipher() },
-        new CipherBase[] { new TrisquareCipher() },
-        new CipherBase[] { new UbchiTransposition(invert: false), new UbchiTransposition(invert: true) },
-        new CipherBase[] { new VarietyCipher() },
-        new CipherBase[] { new VICPhoneCipher() },
-        new CipherBase[] { new VigenereCipher(invert: false), new VigenereCipher(invert: true) });
+    private static readonly CipherBase[] _allCiphers = CMTools.NewArray<CipherBase>(
+        new ADFGXCipher(invert: false), new ADFGXCipher(invert: true),
+        new AESCipher(),
+        new AffineCipher(invert: false), new AffineCipher(invert: true),
+        new AlbertiCipher(invert: false), new AlbertiCipher(invert: true),
+        new AlphabeticalDisorderCipher(),
+        new AMSCOTransposition(invert: false), new AMSCOTransposition(invert: true),
+        new AtbashCipher(),
+        new AutokeyCipher(invert: false), new AutokeyCipher(invert: true),
+        new BazeriesCipher(invert: false), new BazeriesCipher(invert: true),
+        new BellasoCipher(),
+        new BinaryCipher(),
+        new BinaryGearCipher(invert: false), new BinaryGearCipher(invert: true),
+        new BitSwitchCipher(invert: false), new BitSwitchCipher(invert: true),
+        new BookCipher(),
+        new BurrowsWheelerTransform(),
+        new CaesarCipher(invert: false), new CaesarCipher(invert: true),
+        new CaesareanRoleSwitchingCipher(invert: false), new CaesareanRoleSwitchingCipher(invert: true),
+        new CaesarShuffleCipher(invert: false), new CaesarShuffleCipher(invert: true),
+        new ChainBitRotationCipher(invert: false), new ChainBitRotationCipher(invert: true),
+        new ChainRotationCipher(invert: false), new ChainRotationCipher(invert: true),
+        new Chaocipher(invert: false), new Chaocipher(invert: true),
+        new ChineseRemainderCipher(invert: false), new ChineseRemainderCipher(invert: true),
+        new CircleCipher(invert: false), new CircleCipher(invert: true),
+        new CollonCipher(),
+        new ColumnarTransposition(invert: false), new ColumnarTransposition(invert: true),
+        new CompositeSpinningJumpingLeapfrogOrphanageCipher(invert: false), new CompositeSpinningJumpingLeapfrogOrphanageCipher(invert: true),
+        new CondiCipher(invert: false), new CondiCipher(invert: true),
+        new ConjugatedMatrixBifidCipher(invert: false), new ConjugatedMatrixBifidCipher(invert: true),
+        new CubeCipher(invert: false), new CubeCipher(invert: true),
+        new DigrafidCipher(invert: false), new DigrafidCipher(invert: true),
+        new Dreamcipher(invert: false), new Dreamcipher(invert: true),
+        new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true),
+        new EnigmaCipher(),
+        new FoursquareCipher(invert: false), new FoursquareCipher(invert: true),
+        new FractionatedMorseCipher(),
+        new GlobalOffsetCipher(invert: false), new GlobalOffsetCipher(invert: true),
+        new GracieCipher(invert: false), new GracieCipher(invert: true),
+        new GrandpreCipher(),
+        new GrilleTransposition(invert: false), new GrilleTransposition(invert: true),
+        new GROMARKCipher(invert: false), new GROMARKCipher(invert: true),
+        new HillCipher(invert: false), new HillCipher(invert: true),
+        new HomophonicCipher(),
+        new IncrementalPolyalphabeticCipher(invert: false), new IncrementalPolyalphabeticCipher(invert: true),
+        new JumpOverCipher(invert: false), new JumpOverCipher(invert: true),
+        new LogicCipher(),
+        new LorenzCipher(),
+        new M209Cipher(),
+        new McDondaldsChickenNuggetBigMacCipher(),
+        new MechanicalCipher(invert: false), new MechanicalCipher(invert: true),
+        new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true),
+        new MonosodiumGlutamateCipher(invert: false), new MonosodiumGlutamateCipher(invert: true),
+        new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true),
+        new MalespinCipher(),
+        new MorbitCipher(),
+        new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true),
+        new NicodemusCipher(invert: false), new NicodemusCipher(invert: true),
+        new NotreDameCipher(invert: false), new NotreDameCipher(invert: true),
+        new OwOCipher(invert: false), new OwOCipher(invert: true),
+        new PancakeTransposition(invert: false), new PancakeTransposition(invert: true),
+        new ParallelogramCipher(),
+        new PingPongStraddlingCheckerboardCipher(),
+        new PizzaSliceCipher(invert: false), new PizzaSliceCipher(invert: true),
+        new PlayfairCipher(invert: false), new PlayfairCipher(invert: true),
+        new PortaCipher(),
+        new PortaxCipher(),
+        new PrissyCipher(invert: false), new PrissyCipher(invert: true),
+        new QuagmireCipher(invert: false), new QuagmireCipher(invert: true),
+        new RagbabyCipher(invert: false), new RagbabyCipher(invert: true),
+        new RedefenceTransposition(invert: false), new RedefenceTransposition(invert: true),
+        new RouteTransposition(invert: false), new RouteTransposition(invert: true),
+        new RozierCipher(invert: false), new RozierCipher(invert: true),
+        new RSACipher(),
+        new ScytaleTransposition(invert: false), new ScytaleTransposition(invert: true),
+        new SeanCipher(),
+        new SemaphoreRotationCipher(invert: false), new SemaphoreRotationCipher(invert: true),
+        new SlidefairCipher(),
+        new SmokeyCipher(),
+        new SolitaireCipher(invert: false), new SolitaireCipher(invert: true),
+        new SquareCipher(),
+        new StrangelyElusiveLetterCipher(),
+        new StripCipher(invert: false), new StripCipher(invert: true),
+        new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true),
+        new TransposedHalvedPolybiusCipher(invert: false), new TransposedHalvedPolybiusCipher(invert: true),
+        new TriangleCipher(invert: false), new TriangleCipher(invert: true),
+        new TridigitalCipher(),
+        new TrifidCipher(invert: false), new TrifidCipher(invert: true),
+        new TripleTriplexReflectorCipher(),
+        new TrisquareCipher(),
+        new UbchiTransposition(invert: false), new UbchiTransposition(invert: true),
+        new VarietyCipher(),
+        new VICPhoneCipher(),
+        new VigenereCipher(invert: false), new VigenereCipher(invert: true));
 
     public TextMesh[] screenTexts;
     public MeshRenderer[] screenTextMeshes;
@@ -144,13 +144,12 @@ public class cipherMachine : MonoBehaviour
             for (var i = 0; i < _allCiphers.Length; i++)
             {
                 for (var j = i + 1; j < _allCiphers.Length; j++)
-                    if (_allCiphers[i][0].Code == _allCiphers[j][0].Code)
-                        Debug.LogErrorFormat(@"{0} and {1} use the same code ({2}).", _allCiphers[i][0].Name, _allCiphers[j][0].Name, _allCiphers[i][0].Code);
-                for (var j = 0; j < _allCiphers[i].Length; j++)
-                    for (var k = j + 1; k < _allCiphers[i].Length; k++)
-                        if (_allCiphers[i][j].Name == _allCiphers[i][k].Name)
-                            Debug.LogErrorFormat(@"{0} and {1} use the same name.", _allCiphers[i][j].Name, _allCiphers[i][k].Name);
-
+                {
+                    if (_allCiphers[i].Code == _allCiphers[j].Code && !_allCiphers[i].GetType().Equals(_allCiphers[j].GetType()))
+                        Debug.LogErrorFormat(@"{0} ({1}) and {2} ({3}) use the same code ({4}).", _allCiphers[i].Name, _allCiphers[i].GetType().Name, _allCiphers[j].Name, _allCiphers[j].GetType().Name, _allCiphers[i].Code);
+                    if (_allCiphers[i].Name == _allCiphers[j].Name)
+                        Debug.LogErrorFormat(@"{0} ({1}) and {2} ({3}) have the same name.", _allCiphers[i].Name, _allCiphers[i].GetType().Name, _allCiphers[j].Name, _allCiphers[j].GetType().Name);
+                }
             }
 
         moduleId = moduleIdCounter++;
@@ -187,52 +186,56 @@ public class cipherMachine : MonoBehaviour
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 
-        // Decide which ciphers will be used
-        CipherBase[][] ciphers;
-        if (settings == null || settings.Ciphers == null)
-            ciphers = _allCiphers.ToArray().Shuffle();
+        // If there are no settings specified in the mission, or the settings don’t specify cipher codes, use default values
+        if (settings == null)
+            settings = new MissionSettings();
+        if (settings.Ciphers == null)
+        {
+            settings.Ciphers = settings.Pick == null ? new string[] { "N", "T", "N" } : Enumerable.Repeat("A", settings.Pick.Value).ToArray();
+            settings.CipherSettings = Enumerable.Repeat(CipherSetting.Random, settings.Pick ?? 3).ToArray();
+        }
+
+        // Determine which ciphers are possible candidate for each code
+        var candidates = settings.Ciphers
+            .Select((code, ix) =>
+                code == "A" ? _allCiphers :
+                code == "N" ? _allCiphers.Where(cipher => !cipher.IsTransposition).ToArray() :
+                code == "T" ? _allCiphers.Where(cipher => cipher.IsTransposition).ToArray() :
+                _allCiphers.Where(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase) && (settings.CipherSettings[ix] == CipherSetting.Random || (settings.CipherSettings[ix] == CipherSetting.EncryptOnly) == cipher.IsInvert)).ToArray())
+            .ToArray();
+
+        if (settings.Order == CipherOrder.Random)
+            candidates.Shuffle();
         else
+            Array.Reverse(candidates);
+
+        // If ‘pick’ is specified, reduce the set of candidates to the desired number, but keep the order fixed
+        if (settings.Pick != null)
+            candidates = Enumerable.Range(0, candidates.Length).ToList().Shuffle().Take(settings.Pick.Value).OrderBy(ix => ix).Select(ix => candidates[ix]).ToArray();
+
+        // Decide on the actual list of ciphers
+        var ciphers = new List<CipherBase>();
+        foreach (var candidateList in candidates)
         {
-            ciphers = Enumerable.Range(0, settings.Ciphers.Length)
-                .Select(ix => _allCiphers.IndexOf(arr => arr.Any(cb => cb.Code == settings.Ciphers[ix])))
-                .Select((cipherIx, ix) => _allCiphers[cipherIx].Where(cb =>
-                    cb.Code == settings.Ciphers[ix] &&
-                    (settings.CipherSettings[ix] == CipherSetting.Random || (settings.CipherSettings[ix] == CipherSetting.EncryptOnly) == cb.IsInvert)
-                ).ToArray())
-                .ToArray();
-            Array.Reverse(ciphers);
-            if (settings.Order == CipherOrder.Random)
-                ciphers.Shuffle();
+            // Avoid duplicate ciphers if possible, but fall back to duplicates if forced
+            var list = candidateList.Where(newCipher => !ciphers.Any(existingCipher => existingCipher.Code == newCipher.Code)).ToArray();
+            ciphers.Add(list.Length == 0 ? candidateList.PickRandom() : list.PickRandom());
         }
 
-        if (settings == null || settings.Pick != null)
-        {
-            var ixs = Enumerable.Range(0, ciphers.Length).ToList();
-            var pickedIxs = new List<int>();
-            while (ixs.Count > 0 && pickedIxs.Count < (settings == null ? 3 : settings.Pick.Value))
-            {
-                var ix = UnityEngine.Random.Range(0, ixs.Count);
-                pickedIxs.Add(ixs[ix]);
-                ixs.RemoveAt(ix);
-            }
-            pickedIxs.Sort();
-            ciphers = pickedIxs.Select(ix => ciphers[ix]).ToArray();
-        }
-
+        // Generate the pages for all of the ciphers
         var pagesList = new List<PageInfo>();
-        for (var i = 0; i < ciphers.Length; i++)
+        for (var i = 0; i < ciphers.Count; i++)
         {
-            var cipher = ciphers[i].PickRandom();
-            Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, cipher.Name, cipher.Code);
-            var result = cipher.Encrypt(word, Bomb);
+            Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, ciphers[i].Name, ciphers[i].Code);
+            var result = ciphers[i].Encrypt(word, Bomb);
             foreach (var msg in result.LogMessages)
-                Debug.LogFormat("[Cipher Machine #{0}] [{1}] {2}", moduleId, cipher.Name, msg);
+                Debug.LogFormat("[Cipher Machine #{0}] [{1}] {2}", moduleId, ciphers[i].Name, msg);
             Debug.LogFormat("[Cipher Machine #{0}] Result: {1}", moduleId, result.Encrypted);
             var checksum = Enumerable.Range(0, word.Length).Sum(ix => (word[ix] - 'A' + 1) * (ix + 1)) % 23;
             word = result.Encrypted;
             foreach (var p in result.Pages)
             {
-                p.Code = cipher.Code;
+                p.Code = ciphers[i].Code;
                 if (i > 0)
                     p.Checksum = checksum;
             }
@@ -294,7 +297,7 @@ public class cipherMachine : MonoBehaviour
 
     private int getFontSize(int length, int screenType)
     {
-        switch(screenType)
+        switch (screenType)
         {
             case 0: return (length <= 6) ? 35 : (length == 7) ? 32 : 28;
             case 1: return (length <= 3) ? 25 : 20;
@@ -389,29 +392,38 @@ public class cipherMachine : MonoBehaviour
                             var cipherSettings = new List<CipherSetting>();
                             foreach (var c in ciphersRaw)
                             {
-                                if (c.Length < 2 || c.Length > 3)
+                                if (c.Length < 1 || c.Length > 3 || (c.Length == 1 && !"ANT".Contains(c[0])))
                                 {
-                                    warnings.Add(string.Format("Invalid cipher: {0}. Each cipher must be 2 or 3 letters, consisting of the two-letter code for the cipher and an optional letter “d”/“e” for “decrypt-only”/“encrypt-only”.", c));
+                                    warnings.Add(string.Format("Invalid cipher: {0}. Valid values are: “A” (any cipher), “T” (random transposition), “N” (random non-transposition), a two-letter code (specific cipher), or a two-letter code followed by “d”/“e” for “decrypt-only”/“encrypt-only”.", c));
                                     continue;
                                 }
-                                var code = c.Substring(0, 2);
-                                if (!_allCiphers.Any(arr => arr.Any(cb => cb.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase))))
-                                {
-                                    warnings.Add(string.Format("Invalid cipher code: {0}. Valid cipher codes are: {1}.", code, _allCiphers.SelectMany(arr => arr).Select(cb => cb.Code).Distinct().OrderBy(x => x).Join(", ")));
-                                    continue;
-                                }
+                                var code = c;
                                 var cs = CipherSetting.Random;
-                                if (c.Length == 3)
+                                if (c.Length > 1)
                                 {
-                                    var ed = c.Substring(2);
-                                    if (ed.Equals("e", StringComparison.InvariantCultureIgnoreCase))
-                                        cs = CipherSetting.EncryptOnly;
-                                    else if (ed.Equals("d", StringComparison.InvariantCultureIgnoreCase))
-                                        cs = CipherSetting.DecryptOnly;
-                                    else
+                                    code = c.Substring(0, 2);
+                                    if (!_allCiphers.Any(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase)))
                                     {
-                                        warnings.Add(string.Format("Invalid cipher code: {0}. The third character must be “d” (decrypt only), “e” (encrypt only) or absent (random).", c));
+                                        warnings.Add(string.Format("Invalid cipher code: {0}. Valid cipher codes are: {1}.", code, _allCiphers.Select(cipher => cipher.Code).Distinct().OrderBy(x => x).Join(", ")));
                                         continue;
+                                    }
+                                    if (c.Length == 3)
+                                    {
+                                        var ed = c.Substring(2);
+                                        if (ed.Equals("e", StringComparison.InvariantCultureIgnoreCase))
+                                            cs = CipherSetting.EncryptOnly;
+                                        else if (ed.Equals("d", StringComparison.InvariantCultureIgnoreCase))
+                                            cs = CipherSetting.DecryptOnly;
+                                        else
+                                        {
+                                            warnings.Add(string.Format("Invalid cipher code: {0}. The third character must be “d” (decrypt only), “e” (encrypt only) or absent (random).", c));
+                                            continue;
+                                        }
+                                        if (!_allCiphers.Any(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase) && (cs == CipherSetting.EncryptOnly) == cipher.IsInvert))
+                                        {
+                                            warnings.Add(string.Format("Cipher {0} does not have {1} version.", code, cs == CipherSetting.EncryptOnly ? "an encrypt-only" : "a decrypt-only"));
+                                            cs = CipherSetting.Random;
+                                        }
                                     }
                                 }
                                 ciphers.Add(code);

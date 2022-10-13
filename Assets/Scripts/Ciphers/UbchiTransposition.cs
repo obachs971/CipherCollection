@@ -10,7 +10,7 @@ public class UbchiTransposition : CipherBase
 	public override int Score { get { return 5; } }
 	public override string Code { get { return "UT"; } }
 
-	private readonly bool invert;
+    private readonly bool invert;
     public override bool IsInvert { get { return invert; } }
 	public UbchiTransposition(bool invert) { this.invert = invert; }
 

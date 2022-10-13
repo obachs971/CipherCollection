@@ -6,6 +6,7 @@ public class GrilleTransposition : CipherBase
     public override string Name { get { return invert ? "Inverted Grille Transposition" : "Grille Transposition"; } }
     public override int Score { get { return 5; } }
     public override string Code { get { return "GT"; } }
+    public override bool IsTransposition { get { return true; } }
 
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }

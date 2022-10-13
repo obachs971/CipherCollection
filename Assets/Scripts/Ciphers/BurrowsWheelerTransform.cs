@@ -10,6 +10,7 @@ public class BurrowsWheelerTransform : CipherBase
     public override string Name { get { return "Burrows-Wheeler Transform"; } }
     public override int Score { get { return 5; } }
     public override string Code { get { return "BW"; } }
+    public override bool IsTransposition { get { return true; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
