@@ -17,6 +17,7 @@ public class cipherMachine : MonoBehaviour
         new AlbertiCipher(invert: false), new AlbertiCipher(invert: true),
         new AlphabeticalDisorderCipher(),
         new AMSCOTransposition(invert: false), new AMSCOTransposition(invert: true),
+        new ArithmeticSequenceCipher(),
         new AtbashCipher(),
         new AutokeyCipher(invert: false), new AutokeyCipher(invert: true),
         new BazeriesCipher(invert: false), new BazeriesCipher(invert: true),
@@ -44,6 +45,7 @@ public class cipherMachine : MonoBehaviour
         new Dreamcipher(invert: false), new Dreamcipher(invert: true),
         new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true),
         new EnigmaCipher(),
+        new ExtinctionTransposition(),
         new FoursquareCipher(invert: false), new FoursquareCipher(invert: true),
         new FractionatedMorseCipher(),
         new GlobalOffsetCipher(invert: false), new GlobalOffsetCipher(invert: true),
@@ -93,6 +95,7 @@ public class cipherMachine : MonoBehaviour
         new StrangelyElusiveLetterCipher(),
         new StripCipher(invert: false), new StripCipher(invert: true),
         new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true),
+        new TemptationStairwayCipher(),
         new TransposedHalvedPolybiusCipher(invert: false), new TransposedHalvedPolybiusCipher(invert: true),
         new TriangleCipher(invert: false), new TriangleCipher(invert: true),
         new TridigitalCipher(),
@@ -180,9 +183,8 @@ public class cipherMachine : MonoBehaviour
         // Generate random word
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
-        //// For debugging
-        //var _allCiphers = new[] { new CipherBase[] { new MonosodiumGlutamateCipher(false) } };
-        //word = answer = "KICKS";
+        // For debugging
+        //word = answer = "JOKE";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 
