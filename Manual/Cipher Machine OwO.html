@@ -11,7 +11,6 @@
     <style>
         .dark table, table {
             margin: 1em auto;
-            border: none;
         }
     </style>
 </head>
@@ -30,18 +29,18 @@
                 <p>For each letter on screen 1, consider the Base36 character in the same position on screen 2. Take the character, modulo 3, and place this many instances of the letter. Follow this up with a W and add more instances of the letter until you have a total of 3 characters. Write each created string of 3 characters below the previous.</p>
                 <p>Next read the Letters column by column from left to right and split them up into X groups of 3. X is equal to the length of the encrypted word.</p>
                 <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
-                <h4 style="text-align:center">Encrypt Instructions</h4>
+                <h4 class="centered">Encrypt Instructions</h4>
                 <ul>
-                <li>Sum the alphabetic positions of the Nth group of letters (A1Z26).</li>
-                <li>Subtract the Nth letter (A1Z26) of the encrypted word by the resulting number.</li>
-                <li>Add 26 to the result until it is in the range of 1-26.</li>
-                <li>Convert the number back into a letter (A1Z26) to get your Nth decrypted letter.</li>
+                    <li>Sum the alphabetic positions of the Nth group of letters (A1Z26).</li>
+                    <li>Subtract the Nth letter (A1Z26) of the encrypted word by the resulting number.</li>
+                    <li>Add 26 to the result until it is in the range of 1-26.</li>
+                    <li>Convert the number back into a letter (A1Z26) to get your Nth decrypted letter.</li>
                 </ul>
-                <h4 style="text-align:center">Decrypt Instructions</h4>
+                <h4 class="centered">Decrypt Instructions</h4>
                 <ul>
-                <li>Sum the Nth letter of the encrypted word and the Nth group of letters (A1Z26).</li>
-                <li>Subtract 26 from the result until it is in the range of 1-26.</li>
-                <li>Convert the number back into a letter (A1Z26) to get your Nth decrypted letter.</li>
+                    <li>Sum the Nth letter of the encrypted word and the Nth group of letters (A1Z26).</li>
+                    <li>Subtract 26 from the result until it is in the range of 1-26.</li>
+                    <li>Convert the number back into a letter (A1Z26) to get your Nth decrypted letter.</li>
                 </ul>
             </div>
             <div class="page-footer relative-footer">Page 1 of 2</div>
@@ -52,38 +51,38 @@
                 <span class="page-header-section-title">OwO CM</span>
             </div>
             <div class="page-content">
-                <h4 style="text-align:center">Example 1</h4>
-                <p style="text-align:center">Encrypted Word: ILIM<br>Screen 1: ONQN<br>Screen 2: HIM9<br>Using Encrypt Rules</p>
-                <p style="text-align:center">
-                OOW<br>
-                WNN<br>
-                QWQ<br>
-                WNN
+                <h4 class="centered">Example 1</h4>
+                <p class="centered">Encrypted Word: ILIM<br>Screen 1: ONQN<br>Screen 2: HIM9<br>Using Encrypt Rules</p>
+                <p class="centered">
+                    OOW<br>
+                    WNN<br>
+                    QWQ<br>
+                    WNN
                 </p>
-                <p style="text-align:center">
-                I - (O + W + Q) → -46 → 6 → F<br>
-                L - (W + O + N) → -40 → 12 → L<br>
-                I - (W + N + W) → -51 → 1 → A<br>
-                M - (N + Q + N) → -32 → 20 → T
+                <p class="centered">
+                    I - (O + W + Q) → -46 → 6 → F<br>
+                    L - (W + O + N) → -40 → 12 → L<br>
+                    I - (W + N + W) → -51 → 1 → A<br>
+                    M - (N + Q + N) → -32 → 20 → T
                 </p>
-                <p style="text-align:center">Decrypted Word: FLAT</p>
-                <h4 style="text-align:center">Example 2</h4>
-                <p style="text-align:center">Encrypted Word: DBITJ<br>Screen 1: CQUQE<br>Screen 2: LUZKH<br>Using Decrypt Rules</p>
-                <p style="text-align:center">
-                WCC<br>
-                WQQ<br>
-                UUW<br>
-                QQW<br>
-                EEW
+                <p class="centered">Decrypted Word: FLAT</p>
+                <h4 class="centered">Example 2</h4>
+                <p class="centered">Encrypted Word: DBITJ<br>Screen 1: CQUQE<br>Screen 2: LUZKH<br>Using Decrypt Rules</p>
+                <p class="centered">
+                    WCC<br>
+                    WQQ<br>
+                    UUW<br>
+                    QQW<br>
+                    EEW
                 </p>
-                <p style="text-align:center">
-                D + W + W + U → 71 → 19 → S<br>
-                B + Q + E + C → 27 → 1 → A<br>
-                I + Q + U + Q → 64 → 12 → L<br>
-                T + E + C + Q → 45 → 19 → S<br>
-                J + W + W + W → 79 → 1 → A
+                <p class="centered">
+                    D + W + W + U → 71 → 19 → S<br>
+                    B + Q + E + C → 27 → 1 → A<br>
+                    I + Q + U + Q → 64 → 12 → L<br>
+                    T + E + C + Q → 45 → 19 → S<br>
+                    J + W + W + W → 79 → 1 → A
                 </p>
-                <p style="text-align:center">Decrypted Word: SALSA</p>
+                <p class="centered">Decrypted Word: SALSA</p>
             </div>
             <div class="page-footer relative-footer">Page 2 of 2</div>
         </div>

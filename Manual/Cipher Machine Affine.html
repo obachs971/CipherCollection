@@ -27,25 +27,25 @@
                 <h2>On the Subject of the Affine CM</h2>
                 <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
                 <p>Turn each letter of the encrypted word into its alphabetic position (A1Y25Z0). These numbers will be your Cs to decrypt.</p>
-                <p>Take the 2 variables from screen 1. The number on the left is E and the letter on the right is X.</p>
+                <p>The number on screen 1 is E and the letter on screen A is X.</p>
                 <p>Convert the variable X to a Value via the Value Table. Take the resulting value, modulo 25, plus 1. This is your actual X value.</p>
                 <p>If the Submit Button is white, use Equation A. Otherwise, use Equation B.</p>
                 <p>Take each number C through the equation then turn it back to a letter.</p>
-                <h4 style="text-align:center">Equation A</h4>
-                <p style="text-align:center">((C * E) + X) mod 26</p>
-                <h4 style="text-align:center">Equation B</h4>
-                <p style="text-align:center">((C - X) * D) mod 26</p>
+                <h4 class="centered">Equation A</h4>
+                <p class="centered">((C * E) + X) mod 26</p>
+                <h4 class="centered">Equation B</h4>
+                <p class="centered">((C - X) * D) mod 26</p>
                 <p>The instructions to determine D are written on the next page.</p>
-                <h4 style="text-align:center">Example</h4>
-                <p style="text-align:center">Encrypted Word: PUKNE<br>E: 7<br>X: S → (9 % 25) + 1 = 10<br>Boolean Expression: True</p>
-                <p style="text-align:center">
+                <h4 class="centered">Example</h4>
+                <p class="centered">Encrypted Word: PUKNE<br>E: 7<br>X: S → (9 % 25) + 1 = 10<br>Submit Button: White</p>
+                <p class="centered">
                 P → ((16 * 7) + 10) % 26 → 18 → R<br>
                 U → ((21 * 7) + 10) % 26 → 1 → A<br>
                 K → ((11 * 7) + 10) % 26 → 9 → I<br>
                 N → ((14 * 7) + 10) % 26 → 4 → D<br>
                 E → ((5 * 7) + 10) % 26 → 19 → S 
                 </p>
-                <p style="text-align:center">Decrypted Word: RAIDS</p>
+                <p class="centered">Decrypted Word: RAIDS</p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 2</div>
         </div>
@@ -78,11 +78,15 @@
              <h3>Determining D - Brute Force Way</h3>
                 <ul>
                 <li>1. Find I in this equation: ((I * 26) + 1) mod E = 0</li>
-                <li>2: D is equal to: ((I * 26) + 1) / E</li>
-                <li>A: This can be used as well: (D * E) mod 26 = 1</li>
+                <li>2. D is equal to: ((I * 26) + 1) / E</li>
+                <li>
+                    <ul>
+                        <li>A. This can be used as well: (D * E) mod 26 = 1</li>
+                    </ul>
+                </li>
                 </ul>
             <h3>Determining D - Degenerate Way</h3>
-            <p>There's going to be a cheat sheet somewhere down the line. I might as well do it for them:</p>
+            <p>There’s going to be a cheat sheet somewhere down the line. I might as well do it for them:</p>
             <table>
             <tr><th>E</th><td>3</td><td>5</td><td>7</td><td>9</td><td>11</td><td>15</td><td>17</td><td>19</td><td>21</td><td>23</td><td>25</td></tr>
             <tr><th>D</th><td>9</td><td>21</td><td>15</td><td>3</td><td>19</td><td>7</td><td>23</td><td>11</td><td>5</td><td>17</td><td>25</td></tr>

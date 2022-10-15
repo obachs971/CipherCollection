@@ -11,7 +11,6 @@
     <style>
         .dark table, table {
             margin: 1em auto;
-            border: none;
         }
     </style>
 </head>
@@ -31,16 +30,16 @@
                 <p>Create another key using the keyword on screen 2 and the Boolean Expression on screen B. This will be referred to as Key B.</p>
                 <p>Put 13 dashes above and below Key B, alternating between a space and a dash. If the Boolean Expression on Screen C is true, the 13 dashes above starts with a dash and the 13 dashes below starts with a space. Otherwise, do it the other way around. Replace each dash with the letters in Key A in reading order.</p>
                 <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
-                <h4 style="text-align:center">Encrypt Instructions</h4>
+                <h4 class="centered">Encrypt Instructions</h4>
                 <ul>
-                <li>Find the Nth letter of the encrypted word in Key B.</li>
-                <li>Move left an X amount of letters, wrapping around to the right side. X is equal to the alphabetic position (A1Z26) of the Nth letter displayed on screen 4 (wrapping around when necessary).</li>
-                <li>Move to the letter in Key A that is above/below the column you're at.</li>
-                <li>Find this letter in Key B and replace it with the letter that is above/below in Key A.</li>
-                <li>Find that letter in Key A and move right an X amount of letters, skipping any spaces, wrapping around to the left side of that row. X is equal to the Nth digit displayed on screen 3.</li>
-                <li>The letter you end up on becomes your Nth decrypted letter.</li>
+                    <li>Find the Nth letter of the encrypted word in Key B.</li>
+                    <li>Move left X letters, wrapping around to the right side. X is equal to the alphabetic position (A1Z26) of the Nth letter displayed on screen 4 (wrapping around when necessary).</li>
+                    <li>Move to the letter in Key A that is above/below the column you’re at.</li>
+                    <li>Find this letter in Key B and replace it with the letter that is above/below in Key A.</li>
+                    <li>Find that letter in Key A and move right X letters, skipping any spaces, wrapping around to the left side of that row. X is equal to the Nth digit displayed on screen 3.</li>
+                    <li>The letter you end up on becomes your Nth decrypted letter.</li>
                 </ul>
-                
+
             </div>
             <div class="page-footer relative-footer">Page 1 of 3</div>
         </div>
@@ -50,32 +49,32 @@
                 <span class="page-header-section-title">Monosodium Glutamate CM</span>
             </div>
             <div class="page-content">
-                <h4 style="text-align:center">Decrypt Instructions</h4>
+                <h4 class="centered">Decrypt Instructions</h4>
                 <ul>
-                <li>Find the Nth letter of the encrypted word in Key A.</li>
-                <li>Move left an X amount of letters in this row, skipping any spaces ,wrapping around to the right side of that row. X is equal to the Nth digit on screen 3.</li>
-                <li>Move to the Key B, staying in the same column to get a new letter. Find this letter in Key A.</li>
-                <li>Move back to Key B again and go right an X amount of letters, wrapping around to the left side. X is equal to the alphabetic position (A1Z26) of the Nth letter displayed on screen 4 (wrapping around when necessary).</li>
-                <li>The letter you end up on becomes your Nth decrypted letter.</li>
+                    <li>Find the Nth letter of the encrypted word in Key A.</li>
+                    <li>Move left X letters in this row, skipping any spaces, wrapping around to the right side of that row. X is equal to the Nth digit on screen 3.</li>
+                    <li>Move to the Key B, staying in the same column to get a new letter. Find this letter in Key A.</li>
+                    <li>Move back to Key B again and go right X letters, wrapping around to the left side. X is equal to the alphabetic position (A1Z26) of the Nth letter displayed on screen 4 (wrapping around when necessary).</li>
+                    <li>The letter you end up on becomes your Nth decrypted letter.</li>
                 </ul>
-                <h4 style="text-align:center">Example 1</h4>
-                <p style="text-align:center">Encrypted Word: BJXXOJNA<br>Key A: HATEBCDFGIJKLMNOPQRSUVWXYZ<br>Key B: CARNIVLBDEFGHJKMOPQSTUWXYZ<br>Screen 3: 62192634<br>Screen C: True<br>Screen 4: INWARDS<br>Using Encrypt Rules</p>
+                <h4 class="centered">Example 1</h4>
+                <p class="centered">Encrypted Word: BJXXOJNA<br>Key A: HATEBCDFGIJKLMNOPQRSUVWXYZ<br>Key B: CARNIVLBDEFGHJKMOPQSTUWXYZ<br>Screen 3: 62192634<br>Screen C: True<br>Screen 4: INWARDS<br>Using Encrypt Rules</p>
                 <table style="font-size:13px">
-                <tr><td>H</td><td> </td><td>A</td><td> </td><td>T</td><td> </td><td>E</td><td> </td><td>B</td><td> </td><td>C</td><td> </td><td>D</td><td> </td><td>F</td><td> </td><td>G</td><td> </td><td>I</td><td> </td><td>J</td><td> </td><td>K</td><td> </td><td>L</td><td> </td></tr>
-                <tr><td>C</td><td>A</td><td>R</td><td>N</td><td>I</td><td>V</td><td>L</td><td>B</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>J</td><td>K</td><td>M</td><td>O</td><td>P</td><td>Q</td><td>S</td><td>T</td><td>U</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
-                <tr><td> </td><td>M</td><td> </td><td>N</td><td> </td><td>O</td><td> </td><td>P</td><td> </td><td>Q</td><td> </td><td>R</td><td> </td><td>S</td><td> </td><td>U</td><td> </td><td>V</td><td> </td><td>W</td><td> </td><td>X</td><td> </td><td>Y</td><td> </td><td>Z</td></tr>
+                    <tr><td>H</td><td> </td><td>A</td><td> </td><td>T</td><td> </td><td>E</td><td> </td><td>B</td><td> </td><td>C</td><td> </td><td>D</td><td> </td><td>F</td><td> </td><td>G</td><td> </td><td>I</td><td> </td><td>J</td><td> </td><td>K</td><td> </td><td>L</td><td> </td></tr>
+                    <tr><td>C</td><td>A</td><td>R</td><td>N</td><td>I</td><td>V</td><td>L</td><td>B</td><td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>J</td><td>K</td><td>M</td><td>O</td><td>P</td><td>Q</td><td>S</td><td>T</td><td>U</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
+                    <tr><td> </td><td>M</td><td> </td><td>N</td><td> </td><td>O</td><td> </td><td>P</td><td> </td><td>Q</td><td> </td><td>R</td><td> </td><td>S</td><td> </td><td>U</td><td> </td><td>V</td><td> </td><td>W</td><td> </td><td>X</td><td> </td><td>Y</td><td> </td><td>Z</td></tr>
                 </table>
-                <p style="text-align:center">
-                B, I → Y → L → E, 6 → I<br>
-                J, N → Z → Z → Z, 2 → N<br>
-                X, W → C → H → D, 1 → F<br>
-                X, A → W → K → F, 9 → E<br>
-                O, R → Y → L → E, 2 → C<br>
-                J, D → E → Q → I, 6 → T<br>
-                N, S → F → C → H, 3 → E<br>
-                A, I → Q → I → T, 4 → D
+                <p class="centered">
+                    B, I → Y → L → E, 6 → I<br>
+                    J, N → Z → Z → Z, 2 → N<br>
+                    X, W → C → H → D, 1 → F<br>
+                    X, A → W → K → F, 9 → E<br>
+                    O, R → Y → L → E, 2 → C<br>
+                    J, D → E → Q → I, 6 → T<br>
+                    N, S → F → C → H, 3 → E<br>
+                    A, I → Q → I → T, 4 → D
                 </p>
-                <p style="text-align:center">Decrypted Word: INFECTED</p>
+                <p class="centered">Decrypted Word: INFECTED</p>
             </div>
             <div class="page-footer relative-footer">Page 2 of 3</div>
         </div>
@@ -85,24 +84,24 @@
                 <span class="page-header-section-title">Monosodium Glutamate CM</span>
             </div>
             <div class="page-content">
-                <p style="text-align:center">Decrypted Word: INFECTED</p>
-                <h4 style="text-align:center">Example 2</h4>
-                <p style="text-align:center">Encrypted Word: CGBXLOZ<br>Key A: ABCDFGHIJKMNOPQRTUVXYZSWEL<br>Key B: OUTWARDSBCEFGHIJKLMNPQVXYZ<br>Screen 3: 6219263<br>Screen C: False<br>Screen 4: CITIZEN<br>Using Decrypt Rules</p>
+                <p class="centered">Decrypted Word: INFECTED</p>
+                <h4 class="centered">Example 2</h4>
+                <p class="centered">Encrypted Word: CGBXLOZ<br>Key A: ABCDFGHIJKMNOPQRTUVXYZSWEL<br>Key B: OUTWARDSBCEFGHIJKLMNPQVXYZ<br>Screen 3: 6219263<br>Screen C: False<br>Screen 4: CITIZEN<br>Using Decrypt Rules</p>
                 <table style="font-size:13px">
-                <tr><td> </td><td>A</td><td> </td><td>B</td><td> </td><td>C</td><td> </td><td>D</td><td> </td><td>F</td><td> </td><td>G</td><td> </td><td>H</td><td> </td><td>I</td><td> </td><td>J</td><td> </td><td>K</td><td> </td><td>M</td><td> </td><td>N</td><td> </td><td>O</td></tr>
-                <tr><td>O</td><td>U</td><td>T</td><td>W</td><td>A</td><td>R</td><td>D</td><td>S</td><td>B</td><td>C</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>P</td><td>Q</td><td>V</td><td>X</td><td>Y</td><td>Z</td></tr>
-                <tr><td>P</td><td> </td><td>Q</td><td> </td><td>R</td><td> </td><td>T</td><td> </td><td>U</td><td> </td><td>V</td><td> </td><td>X</td><td> </td><td>Y</td><td> </td><td>Z</td><td> </td><td>S</td><td> </td><td>W</td><td> </td><td>E</td><td> </td><td>L</td><td> </td></tr>
+                    <tr><td> </td><td>A</td><td> </td><td>B</td><td> </td><td>C</td><td> </td><td>D</td><td> </td><td>F</td><td> </td><td>G</td><td> </td><td>H</td><td> </td><td>I</td><td> </td><td>J</td><td> </td><td>K</td><td> </td><td>M</td><td> </td><td>N</td><td> </td><td>O</td></tr>
+                    <tr><td>O</td><td>U</td><td>T</td><td>W</td><td>A</td><td>R</td><td>D</td><td>S</td><td>B</td><td>C</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>P</td><td>Q</td><td>V</td><td>X</td><td>Y</td><td>Z</td></tr>
+                    <tr><td>P</td><td> </td><td>Q</td><td> </td><td>R</td><td> </td><td>T</td><td> </td><td>U</td><td> </td><td>V</td><td> </td><td>X</td><td> </td><td>Y</td><td> </td><td>Z</td><td> </td><td>S</td><td> </td><td>W</td><td> </td><td>E</td><td> </td><td>L</td><td> </td></tr>
                 </table>
-                <p style="text-align:center">
-                C, 6 → K → N → X, C → O<br>
-                G, 2 → D → S → M, I → U<br>
-                B, 1 → A → U → B, T → T<br>
-                X, 9 → W → P → O, I → C<br>
-                L, 2 → W → P → O, Z → O<br>
-                O, 6 → H → H → H, E → M<br>
-                Z, 3 → V → E → V, N → E
-                </P>
-                <p style="text-align:center">Decrypted Word: OUTCOME</p>
+                <p class="centered">
+                    C, 6 → K → N → X, C → O<br>
+                    G, 2 → D → S → M, I → U<br>
+                    B, 1 → A → U → B, T → T<br>
+                    X, 9 → W → P → O, I → C<br>
+                    L, 2 → W → P → O, Z → O<br>
+                    O, 6 → H → H → H, E → M<br>
+                    Z, 3 → V → E → V, N → E
+                </p>
+                <p class="centered">Decrypted Word: OUTCOME</p>
             </div>
             <div class="page-footer relative-footer">Page 3 of 3</div>
         </div>
