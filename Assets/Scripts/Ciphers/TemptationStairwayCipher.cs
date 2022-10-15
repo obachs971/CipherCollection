@@ -15,9 +15,9 @@ public class TemptationStairwayCipher : CipherBase
     {
         var log = new List<string>();
 
-        var wordNoJ = word.Select(ch => ch == 'J' ? randomNonJLetter() : ch).Join("");
+        var wordNoJ = word.Select(ch => ch == 'J' ? randomLetter(except: 'J') : ch).Join("");
         while (wordNoJ.Length % 3 != 0)
-            wordNoJ += randomNonJLetter();
+            wordNoJ += randomLetter();
         log.Add(string.Format("Encrypting: {0}", wordNoJ));
 
         var kw = new Data().PickWord(3, 8);
@@ -48,20 +48,19 @@ public class TemptationStairwayCipher : CipherBase
             axisIsHoriz = !axisIsHoriz;
         }
 
-        var newEncrypted = encrypted.Select((ch, ix) => ix < word.Length && word[ix] == 'J' ? 'J' : ch).Join("");
-        var replacers = word.Select((ch, ix) => word[ix] == 'J' ? encrypted[ix] : randomNonJLetter()).Join("");
-        log.Add(string.Format("After J replacement: {0} / {1}", newEncrypted, replacers));
+        var replaceJ = word.Select((ch, ix) => word[ix] == 'J' ? wordNoJ[ix] : randomLetter(except: wordNoJ[ix])).Join("");
+        log.Add(string.Format("String for replacing Js: {0}", replaceJ));
 
         return new ResultInfo
         {
-            Encrypted = newEncrypted.Substring(0, word.Length),
+            Encrypted = encrypted.Substring(0, word.Length),
             LogMessages = log,
-            Pages = CMTools.NewArray(new PageInfo(new ScreenInfo[] { kw, kwExpr.Expression, replacers, initialAxisExpr.Expression, newEncrypted.Substring(word.Length) }))
+            Pages = CMTools.NewArray(new PageInfo(new ScreenInfo[] { kw, kwExpr.Expression, replaceJ, initialAxisExpr.Expression, encrypted.Substring(word.Length) }))
         };
     }
 
-    private static char randomNonJLetter()
+    private static char randomLetter(char? except = null)
     {
-        return "ABCDEFGHIKLMNOPQRSTUVWXYZ"[Rnd.Range(0, 25)];
+        return (except == null ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Except(new[] { except.Value })).PickRandom();
     }
 }

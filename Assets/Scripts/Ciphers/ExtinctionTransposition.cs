@@ -10,6 +10,9 @@ public class ExtinctionTransposition : CipherBase
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
+        var attempts = 0;
+
+        redo:
         var log = new List<string>();
 
         var expressions = new ScreenInfo[8];
@@ -34,10 +37,13 @@ public class ExtinctionTransposition : CipherBase
             expressions[6 - 2 * i] = e1.Expression;
             expressions[7 - 2 * i] = e2.Expression;
         }
+        var encryptedStr = new string(encrypted);
+        if (encryptedStr == word && attempts++ < 5)
+            goto redo;
 
         return new ResultInfo
         {
-            Encrypted = new string(encrypted),
+            Encrypted = encryptedStr,
             LogMessages = log,
             Pages = CMTools.NewArray(new PageInfo(expressions))
         };
