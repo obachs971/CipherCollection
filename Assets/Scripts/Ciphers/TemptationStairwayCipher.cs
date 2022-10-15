@@ -20,7 +20,7 @@ public class TemptationStairwayCipher : CipherBase
             wordNoJ += randomLetter();
         log.Add(string.Format("Encrypting: {0}", wordNoJ));
 
-        var kw = new Data().PickWord(3, 8);
+        var kw = new Data().PickWord(4, 8);
         var kwExpr = CMTools.generateBoolExp(bomb);
         var key = CMTools.getKey(kw.Replace('J', 'I'), "ABCDEFGHIKLMNOPQRSTUVWXYZ", kwExpr.Value);
         var pos = wordNoJ.Select(ch => key.IndexOf(ch)).ToArray();

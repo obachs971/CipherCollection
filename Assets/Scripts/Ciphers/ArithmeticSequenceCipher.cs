@@ -12,7 +12,7 @@ public class ArithmeticSequenceCipher : CipherBase
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        var kw = new Data().PickWord(3, 8);
+        var kw = new Data().PickWord(4, 8);
         var be = CMTools.generateBoolExp(bomb);
         var key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", be.Value);
         var log = new List<string> { string.Format("Generated key: {0}.", key) };
