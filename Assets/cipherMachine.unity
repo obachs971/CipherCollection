@@ -155,34 +155,7 @@ Prefab:
     - target: {fileID: 114183368208140132, guid: 6fa8938500c05c74385ebd3948536eaf,
         type: 2}
       propertyPath: EditorMissionSettings
-      value: "[Cipher Machine] Len = 4, Ciphers = ADD\r\n[Cipher Machine] Len = 5,
-        Ciphers = ADD\r\n[Cipher Machine] Len = 6, Ciphers = ADD\r\n[Cipher Machine]
-        Len = 7, Ciphers = ADD\r\n[Cipher Machine] Len = 8, Ciphers = ADD\r\n[Cipher
-        Machine] Len = 4, Ciphers = ALD\r\n[Cipher Machine] Len = 5, Ciphers = ALD\r\n[Cipher
-        Machine] Len = 6, Ciphers = ALD\r\n[Cipher Machine] Len = 7, Ciphers = ALD\r\n[Cipher
-        Machine] Len = 8, Ciphers = ALD\r\n[Cipher Machine] Len = 4, Ciphers = ATD\r\n[Cipher
-        Machine] Len = 5, Ciphers = ATD\r\n[Cipher Machine] Len = 6, Ciphers = ATD\r\n[Cipher
-        Machine] Len = 7, Ciphers = ATD\r\n[Cipher Machine] Len = 8, Ciphers = ATD\r\n[Cipher
-        Machine] Len = 4, Ciphers = BAD\r\n[Cipher Machine] Len = 5, Ciphers = BAD\r\n[Cipher
-        Machine] Len = 6, Ciphers = BAD\r\n[Cipher Machine] Len = 7, Ciphers = BAD\r\n[Cipher
-        Machine] Len = 8, Ciphers = BAD\r\n[Cipher Machine] Len = 4, Ciphers = BID\r\n[Cipher
-        Machine] Len = 5, Ciphers = BID\r\n[Cipher Machine] Len = 6, Ciphers = BID\r\n[Cipher
-        Machine] Len = 7, Ciphers = BID\r\n[Cipher Machine] Len = 8, Ciphers = BID\r\n[Cipher
-        Machine] Len = 4, Ciphers = BWD\r\n[Cipher Machine] Len = 5, Ciphers = BWD\r\n[Cipher
-        Machine] Len = 6, Ciphers = BWD\r\n[Cipher Machine] Len = 7, Ciphers = BWD\r\n[Cipher
-        Machine] Len = 8, Ciphers = BWD\r\n[Cipher Machine] Len = 4, Ciphers = CDD\r\n[Cipher
-        Machine] Len = 5, Ciphers = CDD\r\n[Cipher Machine] Len = 6, Ciphers = CDD\r\n[Cipher
-        Machine] Len = 7, Ciphers = CDD\r\n[Cipher Machine] Len = 8, Ciphers = CDD\r\n[Cipher
-        Machine] Len = 4, Ciphers = CMD\r\n[Cipher Machine] Len = 5, Ciphers = CMD\r\n[Cipher
-        Machine] Len = 6, Ciphers = CMD\r\n[Cipher Machine] Len = 7, Ciphers = CMD\r\n[Cipher
-        Machine] Len = 8, Ciphers = CMD\r\n[Cipher Machine] Len = 4, Ciphers = CSD\r\n[Cipher
-        Machine] Len = 5, Ciphers = CSD\r\n[Cipher Machine] Len = 6, Ciphers = CSD\r\n[Cipher
-        Machine] Len = 7, Ciphers = CSD\r\n[Cipher Machine] Len = 8, Ciphers = CSD\r\n[Cipher
-        Machine] Len = 4, Ciphers = CWD\r\n[Cipher Machine] Len = 5, Ciphers = CWD\r\n[Cipher
-        Machine] Len = 6, Ciphers = CWD\r\n[Cipher Machine] Len = 7, Ciphers = CWD\r\n[Cipher
-        Machine] Len = 8, Ciphers = CWD\r\n[Cipher Machine] Len = 4, Ciphers = DTD\r\n[Cipher
-        Machine] Len = 5, Ciphers = DTD\r\n[Cipher Machine] Len = 6, Ciphers = DTD\r\n[Cipher
-        Machine] Len = 7, Ciphers = DTD\r\n[Cipher Machine] Len = 8, Ciphers = DTD"
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6fa8938500c05c74385ebd3948536eaf, type: 2}
