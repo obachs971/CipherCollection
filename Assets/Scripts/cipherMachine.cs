@@ -373,11 +373,12 @@ public class cipherMachine : MonoBehaviour
                 return null;
             var matches = Regex.Matches(description, @"^\[Cipher ?Machine\] (.*)$", RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
             var warnings = new List<string>();
+            char cha = (char)13;
             for (var i = 0; i < matches.Count; i++)
             {
                 var usedOptions = new HashSet<string>();
                 var set = new MissionSettings();
-                var opts = matches[i].Groups[1].Value.Split(',');
+                var opts = matches[i].Groups[1].Value.Replace(cha + "", "").Split(',');
                 foreach (var opt in opts)
                 {
                     var kv = opt.Split('=');
@@ -397,6 +398,8 @@ public class cipherMachine : MonoBehaviour
                                 if (c.Length < 1 || c.Length > 3 || (c.Length == 1 && !"ANT".Contains(c[0])))
                                 {
                                     warnings.Add(string.Format("Invalid cipher: {0}. Valid values are: “A” (any cipher), “T” (random transposition), “N” (random non-transposition), a two-letter code (specific cipher), or a two-letter code followed by “d”/“e” for “decrypt-only”/“encrypt-only”.", c));
+                                    warnings.Add(string.Format("{0}: A{1}A", c, c[3]));
+
                                     continue;
                                 }
                                 var code = c;
