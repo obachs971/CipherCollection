@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
+using KeepCoding;
 using UnityEngine;
+using Rnd = UnityEngine.Random;
 
 public class HillCipher : CipherBase
 {
@@ -15,78 +18,66 @@ public class HillCipher : CipherBase
     
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        var logMessages = new List<string>();
-        string encrypt = "";
-        //Generate Initial Matrix
-        int[] matrix = new int[4];
-        matrix[1] = Random.Range(0, 26);
-        matrix[2] = Random.Range(0, 26);
-        if ((matrix[1] * matrix[2]) % 2 == 1)
-            matrix[0] = Random.Range(0, 12) * 2;
-        else
-        {
-            do matrix[0] = Random.Range(0, 12) * 2 + 1;
-            while ((matrix[0] - matrix[1] * matrix[2]) % 13 == 0);
-        }
-        logMessages.Add(string.Format("A: {0}", matrix[0]));
-        logMessages.Add(string.Format("B: {0}", matrix[1]));
-        logMessages.Add(string.Format("C: {0}", matrix[2]));
+        List<string> LogMessages = new List<string>();
 
-        int[] nums = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 };
-        for (int aa = 0; aa < 26; aa++)
-        {
-            int num = aa * matrix[0] - matrix[1] * matrix[2];
-            if (num % 2 == 0 || num % 13 == 0)
-                nums = nums.Where(val => val != aa).ToArray();
-        }
-        matrix[3] = nums[Random.Range(0, nums.Length)];
-        logMessages.Add(string.Format("D: {0}", matrix[3]));
-        //Find the inverse of the matrix
-        int a = 26;
-        int b = CMTools.mod((matrix[0] * matrix[3]) - (matrix[1] * matrix[2]), 26);
-        int r, I = 0, t2 = 1;
+        int size = Rnd.Range(2, 5);
+
+        LogMessages.Add("Size of matrix picked: " + size + "x" + size);
+
+        string normal = word;
+        string encryptedWord = "";
+        string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
+
+        while (normal.Length % size != 0)
+            normal += alpha[Rnd.Range(0, alpha.Length - 1)];
+
+        int[] numbers = normal.Select(x => alpha.IndexOf(x)).ToArray();
+        List<int> newNumbers = new List<int>();
+
+        LogMessages.Add("Unencrypted word, converted to numbers, and padded: " + numbers.Join(", "));
+
+        Matrix matrix = new Matrix(size, 26);
         do
         {
-            int q = a / b;
-            r = a % b;
-            int t3 = I - (t2 * q);
-            I = t2;
-            t2 = t3;
-            a = b;
-            b = r;
-        } while (r != 0);
-        I = CMTools.mod(I, 26);
-        int[] matrixI = { CMTools.mod(matrix[3] * I, 26), CMTools.mod(-matrix[1] * I, 26), CMTools.mod(-matrix[2] * I, 26), CMTools.mod(matrix[0] * I, 26) };
-        logMessages.Add(string.Format("I: {0}", I));
-        logMessages.Add(string.Format("Ai: {0}", matrixI[0]));
-        logMessages.Add(string.Format("Bi: {0}", matrixI[1]));
-        logMessages.Add(string.Format("Ci: {0}", matrixI[2]));
-        logMessages.Add(string.Format("Di: {0}", matrixI[3]));
-        string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
+            for (int i = 0; i < Math.Pow(matrix.Size, 2); i++)
+                matrix.SetEntry(i / matrix.Size, i % matrix.Size, Rnd.Range(0, alpha.Length - 1));
+        } while (Matrix.GreatestCommonDivisor(matrix.Determinant(), matrix.Modulus) != 1);
+
+        LogMessages.Add("Matrix generated: " + matrix.ToString());
+
+        Matrix inverseMatrix = matrix.InverseMatrix();
+
+        LogMessages.Add("Inverse matrix calculated: " + inverseMatrix.ToString());
+
         if (invert)
-        {
-            for (int i = 0; i < word.Length / 2; i++)
-            {
-                encrypt = encrypt + "" + alpha[CMTools.mod((matrixI[0] * alpha.IndexOf(word[i * 2])) + (matrixI[1] * alpha.IndexOf(word[(i * 2) + 1])), 26)];
-                encrypt = encrypt + "" + alpha[CMTools.mod((matrixI[2] * alpha.IndexOf(word[i * 2])) + (matrixI[3] * alpha.IndexOf(word[(i * 2) + 1])), 26)];
-            }
-        }
+            for (int i = 0; i < normal.Length / size; i++)
+                inverseMatrix.MatrixVectorMultiplication(numbers.Skip(i * size).Take(size).ToArray()).ForEach(x => newNumbers.Add(x));
         else
-        {
-            for (int i = 0; i < word.Length / 2; i++)
-            {
-                encrypt = encrypt + "" + alpha[CMTools.mod((matrix[0] * alpha.IndexOf(word[i * 2])) + (matrix[1] * alpha.IndexOf(word[(i * 2) + 1])), 26)];
-                encrypt = encrypt + "" + alpha[CMTools.mod((matrix[2] * alpha.IndexOf(word[i * 2])) + (matrix[3] * alpha.IndexOf(word[(i * 2) + 1])), 26)];
-            }
-        }
-        if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
-        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
+            for (int i = 0; i < normal.Length / size; i++)
+                matrix.MatrixVectorMultiplication(numbers.Skip(i * size).Take(size).ToArray()).ForEach(x => newNumbers.Add(x));
+
+        LogMessages.Add("Encrypted numbers: " + newNumbers.Join(", "));
+
+        string information = matrix.MatrixToArray().Select(x => alpha[x]).Join("");
+        encryptedWord = newNumbers.Take(word.Length).Select(x => alpha[x]).Join("");
+        string extras = newNumbers.TakeLast(normal.Length - word.Length).Select(x => alpha[x]).Join("");
+
+        LogMessages.Add("Encrypted word: " + encryptedWord);
+        LogMessages.Add("Extra letters: " + extras);
+
+        PageInfo pages;
+        if (size == 2)
+            pages = new PageInfo(new ScreenInfo[] { information.Take(size).Join(""), extras, information.Skip(size).Take(size).Join("") }, invert);
+        else if (size == 3)
+            pages = new PageInfo(new ScreenInfo[] { information.Take(size).Join(""), extras, information.Skip(size).Take(size).Join(""), null, information.Skip(size * 2).Take(size).Join("") }, invert);
+        else
+            pages = new PageInfo(new ScreenInfo[] { information.Take(size).Join(""), extras, information.Skip(size).Take(size).Join(""), null, information.Skip(size * 2).Take(size).Join(""), null, information.Skip(size * 3).Take(size).Join("") }, invert);
+
         return new ResultInfo
         {
-            LogMessages = logMessages,
-            Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { matrix[0] + "," + matrix[1], null, matrix[2] + "," + matrix[3] }, invert) }
+            LogMessages = LogMessages,
+            Encrypted = encryptedWord,
+            Pages = new[] { pages }
         };
     }
 }
