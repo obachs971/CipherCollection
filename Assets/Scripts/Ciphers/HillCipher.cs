@@ -29,7 +29,7 @@ public class HillCipher : CipherBase
         string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
 
         while (normal.Length % size != 0)
-            normal += alpha[Rnd.Range(0, alpha.Length - 1)];
+            normal += alpha[Rnd.Range(0, alpha.Length)];
 
         int[] numbers = normal.Select(x => alpha.IndexOf(x)).ToArray();
         List<int> newNumbers = new List<int>();
@@ -40,7 +40,7 @@ public class HillCipher : CipherBase
         do
         {
             for (int i = 0; i < Math.Pow(matrix.Size, 2); i++)
-                matrix.SetEntry(i / matrix.Size, i % matrix.Size, Rnd.Range(0, alpha.Length - 1));
+                matrix.SetEntry(i / matrix.Size, i % matrix.Size, Rnd.Range(0, alpha.Length));
         } while (Matrix.GreatestCommonDivisor(matrix.Determinant(), matrix.Modulus) != 1);
 
         LogMessages.Add("Matrix generated: " + matrix.ToString());
