@@ -80,6 +80,7 @@ public class cipherMachine : MonoBehaviour
         new PortaxCipher(),
         new PrissyCipher(invert: false), new PrissyCipher(invert: true),
         new QuagmireCipher(invert: false), new QuagmireCipher(invert: true),
+        new QuadrantReflectionCipher(invert: false), new QuadrantReflectionCipher(invert: true),
         new RagbabyCipher(invert: false), new RagbabyCipher(invert: true),
         new RedefenceTransposition(invert: false), new RedefenceTransposition(invert: true),
         new RouteTransposition(invert: false), new RouteTransposition(invert: true),
