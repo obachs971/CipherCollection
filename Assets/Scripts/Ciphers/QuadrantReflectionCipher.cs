@@ -21,8 +21,12 @@ internal class QuadrantReflectionCipher : CipherBase
         QuadrantReflectionCipherHelper CipherHelper = new QuadrantReflectionCipherHelper();
 
         string[] keywords = CipherHelper.GetKeywords();
-        string[] keyStrings = CipherHelper.GetKeyStrings();
+        string[] keyStrings = CipherHelper.GetKeystrings();
         string[] removedLetters = CipherHelper.GetRemovedLetters();
+        bool[] keystringOrders = CipherHelper.GetKeystringOrder();
+
+        string[] letteredScreenInfo = Enumerable.Range(0, keywords.Length).Select(x => (keystringOrders[x] ? "0" : "1") + removedLetters[x]).ToArray();
+        letteredScreenInfo[CipherHelper.StartingQuadrant] += "*";
 
         encrypt = invert ? CipherHelper.Decrypt(word) : CipherHelper.Encrypt(word);
 
@@ -31,11 +35,12 @@ internal class QuadrantReflectionCipher : CipherBase
         LogMessages.Add("Removed letters, in order: " + removedLetters.Join(""));
         LogMessages.Add("Encrypted word: " + encrypt);
 
+
         return new ResultInfo
         {
             LogMessages = LogMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keywords[0], removedLetters[0] + (CipherHelper.StartingQuadrant == 0 ? "*" : ""), keywords[1], removedLetters[1] + (CipherHelper.StartingQuadrant == 1 ? "*" : ""), keywords[2], removedLetters[2] + (CipherHelper.StartingQuadrant == 2 ? "*" : ""), keywords[3], removedLetters[3] + (CipherHelper.StartingQuadrant == 3 ? "*" : "") }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keywords[0], letteredScreenInfo[0], keywords[1], letteredScreenInfo[1], keywords[2], letteredScreenInfo[2], keywords[3], letteredScreenInfo[3] }, invert) }
         };
     }
 }

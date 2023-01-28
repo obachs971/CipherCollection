@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeepCoding;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Words;
@@ -16,6 +17,7 @@ internal class QuadrantReflectionCipherHelper
     private string[] _keystrings, _keywords;
     private string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private char[] _removedLetters;
+    private bool[] _keystringOrder;
 
     public QuadrantReflectionCipherHelper()
     {
@@ -27,6 +29,7 @@ internal class QuadrantReflectionCipherHelper
 
         _keystrings = new string[_quadrants.Length];
         _removedLetters = new char[_quadrants.Length];
+        _keystringOrder = new bool[_quadrants.Length];
 
         Initialise();
     }
@@ -36,6 +39,7 @@ internal class QuadrantReflectionCipherHelper
         // Picks keywords and ignored letters.
         _removedLetters = Enumerable.Range(0, _removedLetters.Length).Select(x => _alphabet.OrderBy(y => _random.Next()).First()).ToArray();
         _keywords = Enumerable.Range(0, _removedLetters.Length).Select(x => words.PickWord(3, 8)).ToArray();
+        _keystringOrder = Enumerable.Range(0, _keystringOrder.Length).Select(x => _random.Next(0, 2)).Select(x => x == 1).ToArray();
 
         // Removes duplicate characters, keeping their first occurrences.
         for (int i = 0; i < _keywords.Length; i++)
@@ -57,7 +61,11 @@ internal class QuadrantReflectionCipherHelper
         {
             string a = _alphabet;
             a = Regex.Replace(a, "[" + _keystrings[i] + _removedLetters[i] + "]", "");
-            _keystrings[i] += a;
+
+            if (_keystringOrder[i])
+                _keystrings[i] = a + _keystrings[i];
+            else
+                _keystrings[i] = _keystrings[i] + a;
         }
 
         // Fills quadrants with keystrings.
@@ -129,7 +137,7 @@ internal class QuadrantReflectionCipherHelper
         return _keywords;
     }
 
-    public string[] GetKeyStrings()
+    public string[] GetKeystrings()
     {
         return _keystrings;
     }
@@ -137,6 +145,11 @@ internal class QuadrantReflectionCipherHelper
     public string[] GetRemovedLetters()
     {
         return _removedLetters.Select(x => x.ToString()).ToArray();
+    }
+
+    public bool[] GetKeystringOrder()
+    {
+        return _keystringOrder;
     }
 
     private static int PositiveModulo(int s, int modulus)
