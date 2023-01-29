@@ -96,7 +96,7 @@ internal class QuadrantReflectionCipherHelper
                     result += _quadrants[PositiveModulo(currentQuadrant - 1, _quadrants.Length)][position[0], QuadrantSize - 1 - position[1]];
             }
 
-            currentQuadrant = PositiveModulo(currentQuadrant + 1, _quadrants.Length);
+            currentQuadrant = PositiveModulo(currentQuadrant - 1, _quadrants.Length);
         }
 
         return result;
@@ -121,7 +121,7 @@ internal class QuadrantReflectionCipherHelper
                     result += _quadrants[PositiveModulo(currentQuadrant + 1, _quadrants.Length)][position[0], QuadrantSize - 1 - position[1]];
             }
 
-            currentQuadrant = PositiveModulo(currentQuadrant - 1, _quadrants.Length);
+            currentQuadrant = PositiveModulo(currentQuadrant + 1, _quadrants.Length);
         }
 
         return result;
