@@ -7,7 +7,7 @@ using Words;
 public class SemaphoreRotationCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Semaphore Rotation Cipher" : "Semaphore Rotation Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "SR"; } }
 
     private static readonly int[][] _semaphores = "45;46;47;04;14;24;34;56;57;02;05;15;25;35;67;06;16;26;36;07;17;03;12;13;27;23".Split(';').Select(str => str.Select(ch => ch - '0').ToArray()).ToArray();

@@ -5,7 +5,7 @@ using Words;
 public class CaesarShuffleCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Caesar Shuffle Cipher" : "Caesar Shuffle Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 12 + wordLength*-1; }
     public override string Code { get { return "CS"; } }
 
     private readonly bool invert;

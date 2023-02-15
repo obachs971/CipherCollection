@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChainRotationCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Chain-Rotation Cipher" : "Chain-Rotation Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "CR"; } }
 
     private readonly bool _invert;

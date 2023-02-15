@@ -7,7 +7,7 @@ using Words;
 public class ChainBitRotationCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Chain Bit-Rotation Cipher" : "Chain Bit-Rotation Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "CB"; } }
 
     private readonly bool _invert;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class RouteTransposition : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Route Transposition" : "Route Transposition"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "RT"; } }
     public override bool IsTransposition { get { return true; } }
 

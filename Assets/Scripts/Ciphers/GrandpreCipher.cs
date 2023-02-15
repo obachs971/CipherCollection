@@ -6,7 +6,7 @@ using Words;
 public class GrandpreCipher : CipherBase
 {
     public override string Name { get { return "Grandpré Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "GP"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

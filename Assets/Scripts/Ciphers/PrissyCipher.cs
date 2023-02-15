@@ -8,7 +8,7 @@ using Words;
 public class PrissyCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Prissy Cipher" : "Prissy Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "PR"; } }
 
     private readonly bool invert;

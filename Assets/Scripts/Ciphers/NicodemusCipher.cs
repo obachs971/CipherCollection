@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
 using Words;
@@ -6,7 +6,7 @@ using Words;
 public class NicodemusCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Nicodemus Cipher" : "Nicodemus Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "NC"; } }
 
     private readonly bool invert;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ using Rnd = UnityEngine.Random;
 public class ChineseRemainderCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Chinese Remainder Cipher" : "Chinese Remainder Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return _invert ? 11 + wordLength : 8; }
     public override string Code { get { return "RM"; } }
 
     private readonly bool _invert;

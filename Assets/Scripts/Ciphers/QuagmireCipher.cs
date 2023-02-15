@@ -5,7 +5,7 @@ using Words;
 public class QuagmireCipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Quagmire Cipher" : "Quagmire Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 6; }
 	public override string Code { get { return "QU"; } }
     
     private readonly bool invert;

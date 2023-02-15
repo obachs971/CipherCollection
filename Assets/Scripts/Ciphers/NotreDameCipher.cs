@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CipherMachine;
 using Words;
@@ -6,7 +6,7 @@ using Words;
 public class NotreDameCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Notre-Dame Cipher" : "Notre-Dame Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 13; }
     public override string Code { get { return "ND"; } }
 
     private readonly bool invert;

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using CipherMachine;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 public class VarietyCipher : CipherBase
 {
     public override string Name { get { return "Variety Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 9; }
     public override string Code { get { return "VA"; } }
 
     private static readonly int[] _affineMultipliers = { 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 };

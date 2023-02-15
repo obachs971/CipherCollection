@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CipherMachine;
 using UnityEngine;
@@ -7,7 +7,7 @@ using Words;
 public class Dreamcipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Dreamcipher" : "Dreamcipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 22; }
     public override string Code { get { return "DR"; } }
 
     private readonly bool invert;

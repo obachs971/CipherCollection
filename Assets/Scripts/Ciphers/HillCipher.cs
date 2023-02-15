@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
 using KeepCoding;
-using UnityEngine;
 using Rnd = UnityEngine.Random;
 
 public class HillCipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Hill Cipher" : "Hill Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 7; }
 	public override string Code { get { return "HI"; } }
     
     private readonly bool invert;

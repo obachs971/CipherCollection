@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
 public class GracieCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Gracie Cipher" : "Gracie Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "GC"; } }
 
     private readonly bool invert;

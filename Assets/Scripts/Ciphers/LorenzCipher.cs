@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 using UnityEngine;
 public class LorenzCipher : CipherBase
 {
     public override string Name { get { return "Lorenz Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 10; }
     public override string Code { get { return "LZ"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

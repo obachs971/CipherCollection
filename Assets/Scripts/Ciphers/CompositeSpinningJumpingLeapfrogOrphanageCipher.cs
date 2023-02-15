@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using UnityEngine;
 using Words;
@@ -6,7 +6,7 @@ using Words;
 public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Composite Spinning/Jumping Leapfrog Orphanage Cipher" : "Composite Spinning/Jumping Leapfrog Orphanage Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "JL"; } }
 
     private readonly bool invert;

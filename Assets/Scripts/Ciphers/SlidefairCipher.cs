@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using UnityEngine;
 using Words;
@@ -6,7 +6,7 @@ using Words;
 public class SlidefairCipher : CipherBase
 {
     public override string Name { get { return "Slidefair Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "SF"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

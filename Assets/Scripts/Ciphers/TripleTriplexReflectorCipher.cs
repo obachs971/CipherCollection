@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
 public class TripleTriplexReflectorCipher : CipherBase
 {
     public override string Name { get { return "Triple Triplex Reflector Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 12; }
     public override string Code { get { return "TT"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

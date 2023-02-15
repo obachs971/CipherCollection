@@ -9,7 +9,7 @@ using Words;
 public class FractionatedMorseCipher : CipherBase
 {
     public override string Name { get { return "Fractionated Morse Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "FM"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

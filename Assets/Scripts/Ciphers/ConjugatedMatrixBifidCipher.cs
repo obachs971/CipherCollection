@@ -7,7 +7,7 @@ using Words;
 public class ConjugatedMatrixBifidCipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Conjugated Matrix Bifid Cipher" : "Conjugated Matrix Bifid Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 5; }
 	public override string Code { get { return "CM"; } }
     
     private readonly bool invert;

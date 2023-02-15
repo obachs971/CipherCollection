@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
 public class PizzaSliceCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Pizza Slice Cipher" : "Pizza Slice Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "PS"; } }
 
     private readonly bool invert;

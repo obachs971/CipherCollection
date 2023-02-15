@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CipherMachine;
 
 public class AESCipher : CipherBase
 {
     public override string Name { get { return "AES Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 8 + wordLength*2; }
     public override string Code { get { return "AE"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

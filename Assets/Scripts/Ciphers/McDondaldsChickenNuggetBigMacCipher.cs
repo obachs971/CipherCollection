@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
-using Words;
 using UnityEngine;
+
 public class McDondaldsChickenNuggetBigMacCipher : CipherBase
 {
     public override string Name { get { return "McDondalds™ Chicken Nugget Big Mac Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "MD"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

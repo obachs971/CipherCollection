@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
@@ -7,7 +7,7 @@ using Words;
 public class UbchiTransposition : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Ubchi Transposition" : "Ubchi Transposition"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 5; }
 	public override string Code { get { return "UT"; } }
 
     private readonly bool invert;

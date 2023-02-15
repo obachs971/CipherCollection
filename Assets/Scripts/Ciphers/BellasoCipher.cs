@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
 public class BellasoCipher : CipherBase
 {
     public override string Name { get { return "Bellaso Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "BE"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

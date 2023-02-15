@@ -6,7 +6,7 @@ using UnityEngine;
 public class BazeriesCipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Bazeries Cipher" : "Bazeries Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 4; }
 	public override string Code { get { return "BA"; } }
     
     private readonly bool invert;

@@ -5,7 +5,7 @@ using Words;
 public class DualTriplexReflectorCipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Dual Triplex Reflector Cipher" : "Dual Triplex Reflector Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 13; }
 	public override string Code { get { return "DT"; } }
     
     private readonly bool invert;

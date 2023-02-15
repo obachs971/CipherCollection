@@ -4,7 +4,7 @@ using CipherMachine;
 public class AtbashCipher : CipherBase
 {
     public override string Name { get { return "Atbash Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "AT"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

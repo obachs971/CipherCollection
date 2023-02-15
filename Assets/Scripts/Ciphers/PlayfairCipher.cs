@@ -7,7 +7,7 @@ using Words;
 public class PlayfairCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Playfair Cipher" : "Playfair Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "PF"; } }
 
     private readonly bool invert;

@@ -6,7 +6,7 @@ using UnityEngine;
 public class BookCipher : CipherBase
 {
 	public override string Name { get { return "Book Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 6; }
 	public override string Code { get { return "BO"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

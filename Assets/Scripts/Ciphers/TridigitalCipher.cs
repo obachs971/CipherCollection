@@ -6,7 +6,7 @@ using Words;
 public class TridigitalCipher : CipherBase
 {
 	public override string Name { get { return "Tridigital Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 6; }
 	public override string Code { get { return "TR"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
 	{

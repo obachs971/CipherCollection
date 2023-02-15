@@ -5,7 +5,7 @@ using Words;
 public class TransposedHalvedPolybiusCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Transposed Halved Polybius Cipher" : "Transposed Halved Polybius Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 8; }
     public override string Code { get { return "TH"; } }
 
     private readonly bool invert;

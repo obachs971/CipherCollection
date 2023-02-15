@@ -5,7 +5,7 @@ using UnityEngine;
 public class SolitaireCipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Solitaire Cipher" : "Solitaire Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 14; }
 	public override string Code { get { return "SO"; } }
     
     private readonly bool invert;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LogicCipher : CipherBase
 {
     public override string Name { get { return "Logic Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "LO"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

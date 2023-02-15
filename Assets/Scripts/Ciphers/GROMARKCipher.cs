@@ -7,7 +7,7 @@ using Words;
 public class GROMARKCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted GROMARK Cipher" : "GROMARK Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "GR"; } }
 
     private readonly bool invert;

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
 public class MonosodiumGlutamateCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Monosodium Glutamate Cipher" : "Monosodium Glutamate Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "MG"; } }
 
     private readonly bool invert;

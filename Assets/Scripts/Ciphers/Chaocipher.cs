@@ -5,7 +5,7 @@ using Words;
 public class Chaocipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Chaocipher" : "Chaocipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 7; }
 	public override string Code { get { return "CH"; } }
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }

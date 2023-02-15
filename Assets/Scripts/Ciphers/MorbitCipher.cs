@@ -6,7 +6,7 @@ using Words;
 public class MorbitCipher : CipherBase
 {
     public override string Name { get { return "Morbit Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "MO"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

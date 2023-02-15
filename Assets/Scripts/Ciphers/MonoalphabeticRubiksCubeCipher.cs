@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
@@ -7,7 +7,7 @@ using Words;
 public class MonoalphabeticRubiksCubeCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Monoalphabetic Rubik’s Cube Cipher" : "Monoalphabetic Rubik’s Cube Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 11; }
     public override string Code { get { return "MR"; } }
 
     private readonly bool _invert;

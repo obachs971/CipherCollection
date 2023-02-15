@@ -6,7 +6,7 @@ using Words;
 public class EnigmaCipher : CipherBase
 {
     public override string Name { get { return "Enigma Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "EN"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

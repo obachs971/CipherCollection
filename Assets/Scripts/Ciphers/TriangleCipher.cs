@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
 public class TriangleCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Triangle Cipher" : "Triangle Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "TC"; } }
 
     private readonly bool invert;

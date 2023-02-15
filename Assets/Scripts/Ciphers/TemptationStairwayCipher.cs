@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
 using Words;
-using Rnd = UnityEngine.Random;
 
 public class TemptationStairwayCipher : CipherBase
 {
     public override string Name { get { return "Temptation Stairway Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "TE"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

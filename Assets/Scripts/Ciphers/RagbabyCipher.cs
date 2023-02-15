@@ -5,7 +5,7 @@ using Words;
 public class RagbabyCipher : CipherBase
 {
 	public override string Name { get { return invert ? "Inverted Ragbaby Cipher" : "Ragbaby Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 5; }
 	public override string Code { get { return "RA"; } }
     
     private readonly bool invert;

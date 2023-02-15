@@ -129,6 +129,8 @@ public class cipherMachine : MonoBehaviour
 
     private PageInfo[] pages;
     private string answer;
+    private int overallTpScore = 0;
+    private string overallTpScoreString = "";
     private int page = 0;
     private bool submitScreen;
     private static int moduleIdCounter = 1;
@@ -227,6 +229,8 @@ public class cipherMachine : MonoBehaviour
 
         // Generate the pages for all of the ciphers
         var pagesList = new List<PageInfo>();
+        overallTpScore = 0;
+        var overallTpScores = new List<string>();
         for (var i = 0; i < ciphers.Count; i++)
         {
             Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, ciphers[i].Name, ciphers[i].Code);
@@ -243,7 +247,10 @@ public class cipherMachine : MonoBehaviour
                     p.Checksum = checksum;
             }
             pagesList.InsertRange(0, result.Pages);
+            overallTpScore += ciphers[i].Score(word.Length);
+            overallTpScores.Add(string.Format("{0}:{1}", ciphers[i].Code, ciphers[i].Score(word.Length)));
         }
+        overallTpScoreString = string.Format("{0} = {1}", overallTpScores.Join(" + "), overallTpScore);
         pagesList.Insert(0, new PageInfo(new ScreenInfo[] { word }));
         pages = pagesList.ToArray();
         getScreens();
@@ -484,24 +491,31 @@ public class cipherMachine : MonoBehaviour
     }
 
 #pragma warning disable 414
-    private string TwitchHelpMessage = "Move to other screens using !{0} right|left|r|l|. Submit the decrypted word with !{0} submit qwertyuiopasdfghjklzxcvbnm";
+    private string TwitchHelpMessage = "!{0} right/left/r/l [move to other screens] | !{0} submit qwerty [submit the decrypted word] | !{0} score [find out TP score]";
 #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
-
+        if (command.EqualsIgnoreCase("score"))
+        {
+            yield return null;
+            yield return string.Format("sendtochat Score for this Cipher Machine: {0}", overallTpScoreString);
+            yield break;
+        }
         if (command.EqualsIgnoreCase("right") || command.EqualsIgnoreCase("r"))
         {
             yield return null;
             rightArrow.OnInteract();
             yield return new WaitForSeconds(0.1f);
-
+            yield break;
         }
         if (command.EqualsIgnoreCase("left") || command.EqualsIgnoreCase("l"))
         {
             yield return null;
             leftArrow.OnInteract();
             yield return new WaitForSeconds(0.1f);
+            yield break;
         }
+
         string[] split = command.ToUpperInvariant().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
         if (split.Length != 2 || !split[0].Equals("SUBMIT")) yield break;
         int[] buttons = split[1].Select(getPositionFromChar).ToArray();
@@ -516,8 +530,9 @@ public class cipherMachine : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.1f);
+
+        yield return string.Format("awardpointsonsolve {0}", overallTpScore);
         submit.OnInteract();
-        yield return new WaitForSeconds(0.1f);
     }
     IEnumerator TwitchHandleForcedSolve()
     {

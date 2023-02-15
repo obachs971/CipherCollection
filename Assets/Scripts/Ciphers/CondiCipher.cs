@@ -5,7 +5,7 @@ using Words;
 public class CondiCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Condi Cipher" : "Condi Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "CD"; } }
 
     private readonly bool invert;

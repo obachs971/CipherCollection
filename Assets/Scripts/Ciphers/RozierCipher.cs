@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CipherMachine;
 using Words;
@@ -6,7 +6,7 @@ using Words;
 public class RozierCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Rozier Cipher" : "Rozier Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "RZ"; } }
 
     private readonly bool invert;

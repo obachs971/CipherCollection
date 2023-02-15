@@ -6,7 +6,7 @@ using Words;
 public class DigrafidCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Digrafid Cipher" : "Digrafid Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "DI"; } }
 
     private readonly bool invert;

@@ -7,7 +7,7 @@ using Words;
 public class M209Cipher : CipherBase
 {
     public override string Name { get { return "M-209 Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 10; }
     public override string Code { get { return "MC"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {

@@ -5,7 +5,7 @@ using Words;
 public class MechanicalCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Mechanical Cipher" : "Mechanical Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "ME"; } }
     private string[] table = new string[]
     {

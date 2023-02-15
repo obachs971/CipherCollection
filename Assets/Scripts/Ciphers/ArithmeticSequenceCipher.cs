@@ -7,7 +7,7 @@ using Rnd = UnityEngine.Random;
 public class ArithmeticSequenceCipher : CipherBase
 {
     public override string Name { get { return "Arithmetic Sequence Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "AS"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)

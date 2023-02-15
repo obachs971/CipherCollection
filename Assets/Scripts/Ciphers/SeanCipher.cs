@@ -6,7 +6,7 @@ using Words;
 public class SeanCipher : CipherBase
 {
 	public override string Name { get { return "Sean Cipher"; } }
-	public override int Score { get { return 5; } }
+	public override int Score(int wordLength) { return 7; }
 	public override string Code { get { return "SE"; } }
 	public override ResultInfo Encrypt(string word, KMBombInfo bomb)
 	{

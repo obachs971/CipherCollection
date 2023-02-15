@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using KModkit;
 using Words;
@@ -6,7 +6,7 @@ using Words;
 public class OwOCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted OwO Cipher" : "OwO Cipher"; } }
-    public override int Score { get { return 5; } }
+    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "OC"; } }
 
     private readonly bool invert;
