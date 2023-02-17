@@ -15,49 +15,31 @@ public class PancakeTransposition : CipherBase
     public PancakeTransposition(bool invert) { this.invert = invert; }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-    tryagain:
+        tryagain:
         var logMessages = new List<string>();
         string encrypt = word.ToUpperInvariant();
         string numbers = "12345678".Substring(0, word.Length);
+        string arrangement = numbers;
         string[] nums = { "", "" };
-        List<string> list = new List<string>();
-        if (invert)
+        List<string> arrangementsUsed = new List<string>();
+
+        for (int i = 0; i < 7; i++)
         {
-            for (int i = 0; i < 7; i++)
-            {
             reshuffle:
-                numbers = new string(numbers.ToCharArray().Shuffle());
-                int[] n = { "12345678".IndexOf(numbers[0]), "12345678".IndexOf(numbers[1]) };
-                Array.Sort(n);
-                string temp = encrypt.Substring(0, n[0]) + reverse(encrypt.Substring(n[0], (n[1] - n[0]) + 1)) + encrypt.Substring(n[1] + 1);
-                if (list.Contains(temp))
-                    goto reshuffle;
-                nums[0] = nums[0] + "" + numbers[0];
-                nums[1] = nums[1] + "" + numbers[1];
-                logMessages.Add(string.Format("{0} + {1}{2} -> {3}", encrypt, nums[0][0], nums[1][0], temp));
-                encrypt = temp.ToUpperInvariant();
-                list.Add(encrypt);
-            }
+            numbers = new string(numbers.ToCharArray().Shuffle());
+            int[] n = { "12345678".IndexOf(numbers[0]), "12345678".IndexOf(numbers[1]) };
+            Array.Sort(n);
+            string newArrangement = arrangement.Substring(0, n[0]) + reverse(arrangement.Substring(n[0], (n[1] - n[0]) + 1)) + arrangement.Substring(n[1] + 1);
+            if (arrangementsUsed.Contains(newArrangement))
+                goto reshuffle;
+            nums[0] = invert ? nums[0] + numbers[0] : numbers[0] + nums[0];
+            nums[1] = invert ? nums[1] + numbers[1] : numbers[1] + nums[1];
+            string newEncrypt = encrypt.Substring(0, n[0]) + reverse(encrypt.Substring(n[0], (n[1] - n[0]) + 1)) + encrypt.Substring(n[1] + 1);
+            logMessages.Add(string.Format("{0} + {1}{2} -> {3}", encrypt, nums[0][0], nums[1][0], newEncrypt));
+            encrypt = newEncrypt;
+            arrangement = newArrangement;
+            arrangementsUsed.Add(arrangement);
         }
-        else
-        {
-            for (int i = 0; i < 7; i++)
-            {
-            reshuffle:
-                numbers = new string(numbers.ToCharArray().Shuffle());
-                int[] n = { "12345678".IndexOf(numbers[0]), "12345678".IndexOf(numbers[1]) };
-                Array.Sort(n);
-                string temp = encrypt.Substring(0, n[0]) + reverse(encrypt.Substring(n[0], (n[1] - n[0]) + 1)) + encrypt.Substring(n[1] + 1);
-                if (list.Contains(temp))
-                    goto reshuffle;
-                nums[0] = numbers[0] + "" + nums[0];
-                nums[1] = numbers[1] + "" + nums[1];
-                logMessages.Add(string.Format("{0} + {1}{2} -> {3}", encrypt, nums[0][0], nums[1][0], temp));
-                encrypt = temp.ToUpperInvariant();
-                list.Add(encrypt);
-            }
-        }
-        if (word.Equals(encrypt)) goto tryagain;
 
         logMessages.Add(string.Format("Screen 1: {0}", nums[0]));
         logMessages.Add(string.Format("Screen 2: {0}", nums[1]));
