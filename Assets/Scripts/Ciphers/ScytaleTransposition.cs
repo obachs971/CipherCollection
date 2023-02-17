@@ -4,7 +4,6 @@ using CipherMachine;
 public class ScytaleTransposition : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Scytale Transposition" : "Scytale Transposition"; } }
-    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "SC"; } }
     public override bool IsTransposition { get { return true; } }
 
@@ -52,7 +51,8 @@ public class ScytaleTransposition : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { key.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key.Expression }, invert) },
+            Score = 3
         };
     }
 }

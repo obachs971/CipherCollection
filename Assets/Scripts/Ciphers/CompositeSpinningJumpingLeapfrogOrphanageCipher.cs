@@ -6,7 +6,6 @@ using Words;
 public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Composite Spinning/Jumping Leapfrog Orphanage Cipher" : "Composite Spinning/Jumping Leapfrog Orphanage Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "JL"; } }
 
     private readonly bool invert;
@@ -35,7 +34,7 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
         foreach (char orphan in orphans)
         {
             int[][] swaps = getSwaps(orphan);
-            foreach(int[] swap in swaps)
+            foreach (int[] swap in swaps)
             {
                 char c1 = orphanage[swap[0]], c2 = orphanage[swap[1]];
                 orphanage = orphanage.Replace(c1, '*').Replace(c2, c1).Replace('*', c2);
@@ -61,9 +60,9 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
         }
         else
         {
-            for(int i = 0; i < word.Length / 2; i++)
+            for (int i = 0; i < word.Length / 2; i++)
             {
-                if(word[i * 2] == word[i * 2 + 1])
+                if (word[i * 2] == word[i * 2 + 1])
                 {
                     encrypt = encrypt + "" + orphanage[24 - orphanage.IndexOf(word[i * 2])];
                     encrypt = encrypt + "" + encrypt[encrypt.Length - 1];
@@ -84,7 +83,8 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { orphans, null, replaceX }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { orphans, null, replaceX }, invert) },
+            Score = 6
         };
     }
     private char JumpOver(string orphanage, char a, char b)
@@ -92,7 +92,7 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
         int aX = orphanage.IndexOf(a) % 5, aY = orphanage.IndexOf(a) / 5;
         int bX = orphanage.IndexOf(b) % 5, bY = orphanage.IndexOf(b) / 5;
         int cX, cY;
-        if(a == b)
+        if (a == b)
         {
             cX = 4 - aX;
             cY = 4 - bY;
@@ -108,10 +108,10 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
     }
     private int[][] getSwaps(char c)
     {
-        switch(c)
+        switch (c)
         {
             case 'A':
-                return new int[][] { new int[]{ 8, 15 }, new int[] { 7, 16}, new int[] { 11, 12 } };
+                return new int[][] { new int[] { 8, 15 }, new int[] { 7, 16 }, new int[] { 11, 12 } };
             case 'B':
                 return new int[][] { new int[] { 12, 23 }, new int[] { 13, 22 }, new int[] { 17, 18 } };
             case 'C':

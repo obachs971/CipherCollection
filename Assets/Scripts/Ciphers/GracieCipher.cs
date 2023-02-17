@@ -5,7 +5,6 @@ using Words;
 public class GracieCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Gracie Cipher" : "Gracie Cipher"; } }
-    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "GC"; } }
 
     private readonly bool invert;
@@ -22,7 +21,7 @@ public class GracieCipher : CipherBase
         logMessages.Add(string.Format("Keyword: {0}", kw));
         logMessages.Add(string.Format("Screen A: {0} -> {1}", kwfront.Expression, kwfront.Value));
         logMessages.Add(string.Format("Key: {0}", key));
-        if(invert)
+        if (invert)
         {
             for (int i = 0; i < word.Length / 2; i++)
             {
@@ -61,7 +60,7 @@ public class GracieCipher : CipherBase
             {
                 int n1 = key.IndexOf(word[i * 2]), n2 = key.IndexOf(word[i * 2 + 1]);
                 int r1 = n1 / 13, c1 = n1 % 13, r2 = n2 / 13, c2 = n2 % 13;
-                if(r1 == r2 && c1 == c2)
+                if (r1 == r2 && c1 == c2)
                 {
                     r1 = (r1 + 1) % 2;
                     r2 = (r2 + 1) % 2;
@@ -73,7 +72,7 @@ public class GracieCipher : CipherBase
                     r1 = (r1 + 1) % 2;
                     r2 = (r2 + 1) % 2;
                 }
-                else if(c1 == c2)
+                else if (c1 == c2)
                 {
                     c1 = CMTools.mod(c1 + 1, 13);
                     c2 = CMTools.mod(c2 + 1, 13);
@@ -95,7 +94,8 @@ public class GracieCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }, invert) },
+            Score = 5
         };
     }
 }

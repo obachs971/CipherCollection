@@ -5,7 +5,6 @@ using Words;
 public class CondiCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Condi Cipher" : "Condi Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "CD"; } }
 
     private readonly bool invert;
@@ -45,7 +44,8 @@ public class CondiCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, offsetExpr.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, offsetExpr.Expression }, invert) },
+            Score = 4
         };
     }
 }

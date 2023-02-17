@@ -6,7 +6,6 @@ using Words;
 public class SlidefairCipher : CipherBase
 {
     public override string Name { get { return "Slidefair Cipher"; } }
-    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "SF"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -17,13 +16,13 @@ public class SlidefairCipher : CipherBase
         for (int i = 0; i < word.Length / 2; i++)
             key = key + "" + alphas[0][Random.Range(1, 26)];
         logMessages.Add(string.Format("Key: {0}", key));
-        for(int i = 0; i < word.Length / 2; i++)
+        for (int i = 0; i < word.Length / 2; i++)
         {
             int n1 = alphas[1].IndexOf(key[i]);
             alphas[1] = alphas[1].Substring(n1) + alphas[1].Substring(0, n1);
             n1 = alphas[0].IndexOf(word[i * 2]);
             int n2 = alphas[1].IndexOf(word[i * 2 + 1]);
-            if(n1 == n2)
+            if (n1 == n2)
             {
                 n1 = 25 - n1;
                 n2 = 25 - n2;
@@ -43,7 +42,8 @@ public class SlidefairCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { key }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key }) },
+            Score = 5
         };
     }
 }

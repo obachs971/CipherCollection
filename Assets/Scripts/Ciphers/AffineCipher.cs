@@ -5,7 +5,6 @@ using UnityEngine;
 public class AffineCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Affine Cipher" : "Affine Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "AF"; } }
 
     private readonly bool invert;
@@ -44,7 +43,8 @@ public class AffineCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { choices[0][e] + "", xVal.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { choices[0][e] + "", xVal.Expression }, invert) },
+            Score = 4
         };
     }
 }

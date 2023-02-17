@@ -5,7 +5,6 @@ using CipherMachine;
 public class AESCipher : CipherBase
 {
     public override string Name { get { return "AES Cipher"; } }
-    public override int Score(int wordLength) { return 8 + wordLength*2; }
     public override string Code { get { return "AE"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -18,7 +17,7 @@ public class AESCipher : CipherBase
             screens12 = screens12 + "" + "0123456789ABCDEF"[UnityEngine.Random.Range(0, 16)];
             RK[i % 5] = RK[i % 5] + "" + screens12[i];
         }
-        for(int i = 0; i < word.Length; i++)
+        for (int i = 0; i < word.Length; i++)
         {
             string letBin = LetToBin(word[i]), encBin = "";
             logMessages.Add(string.Format("{0} -> {1}", word[i], letBin));
@@ -29,7 +28,7 @@ public class AESCipher : CipherBase
                 logMessages.Add(string.Format("{0} + {1} -> {2} -> {3}", RK[j], letBin[j], bin, encBin[j]));
             }
             char let = BinToLet(encBin);
-            if(let == '-')
+            if (let == '-')
             {
                 screen3 += "1";
                 encrypt = encrypt + "" + BinToLet(encBin.Replace("1", "*").Replace("0", "1").Replace("*", "0"));
@@ -37,7 +36,7 @@ public class AESCipher : CipherBase
             else
             {
                 char temp = BinToLet(encBin.Replace("1", "*").Replace("0", "1").Replace("*", "0"));
-                if(temp != '-' && UnityEngine.Random.Range(0, 3) == 0)
+                if (temp != '-' && UnityEngine.Random.Range(0, 3) == 0)
                 {
                     encrypt = encrypt + "" + temp;
                     screen3 += "1";
@@ -49,7 +48,7 @@ public class AESCipher : CipherBase
                 }
             }
             logMessages.Add(string.Format("{0} + {1} -> {2}", encBin, screen3[i], encrypt[i]));
-            if(i < word.Length - 1)
+            if (i < word.Length - 1)
             {
                 RK = getNewRoundKey(RK);
                 logMessages.Add(string.Format("New Round Key: {0} {1} {2} {3} {4}", RK[0], RK[1], RK[2], RK[3], RK[4]));
@@ -59,7 +58,8 @@ public class AESCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { screens12.Substring(0, 5), null, screens12.Substring(5), null, screen3}) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { screens12.Substring(0, 5), null, screens12.Substring(5), null, screen3 }) },
+            Score = 8 + 2 * word.Length
         };
     }
     private string HexToBin(string hex)
@@ -74,7 +74,7 @@ public class AESCipher : CipherBase
     {
         string[] bins = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111" };
         string hex = "", alpha = "0123456789ABCDEF";
-        for (int i = 0; i < bin.Length; i+=4)
+        for (int i = 0; i < bin.Length; i += 4)
             hex = hex + "" + alpha[Array.IndexOf(bins, bin.Substring(i, 4))];
         return hex;
     }
@@ -86,7 +86,7 @@ public class AESCipher : CipherBase
     }
     private char BinToLet(string bin)
     {
-        string[] bins = { 
+        string[] bins = {
             "00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111",
             "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111", "11000", "11001", "11010", "11011", "11100", "11101", "11110", "11111"
         };
@@ -116,7 +116,7 @@ public class AESCipher : CipherBase
         };
         RK = new string[] { RK[1], RK[2], RK[3], RK[4], RK[0] };
         RK[0] = SBOX[alpha.IndexOf(RK[0][0]) * 16 + alpha.IndexOf(RK[0][1])];
-        for(int i = 1; i < RK.Length; i++)
+        for (int i = 1; i < RK.Length; i++)
         {
             string b1 = HexToBin(RK[i - 1]);
             string b2 = HexToBin(RK[i]);

@@ -7,7 +7,6 @@ using Words;
 public class ChainBitRotationCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Chain Bit-Rotation Cipher" : "Chain Bit-Rotation Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "CB"; } }
 
     private readonly bool _invert;
@@ -47,7 +46,7 @@ public class ChainBitRotationCipher : CipherBase
         for (var i = 0; i < word.Length; i++)
         {
             var num = number % 26;
-            encrypted = (char) (num == 0 ? 'Z' : num + 'A' - 1) + encrypted;
+            encrypted = (char)(num == 0 ? 'Z' : num + 'A' - 1) + encrypted;
             number /= 26;
         }
 
@@ -56,7 +55,8 @@ public class ChainBitRotationCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, number.ToString() }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, number.ToString() }) },
+            Score = 6
         };
     }
 
@@ -65,11 +65,11 @@ public class ChainBitRotationCipher : CipherBase
         var wordList = new Data();
         var logMessages = new List<string>();
 
-        tryAgain2:
+    tryAgain2:
         long residue = 0;
         var kw = wordList.PickWord(4, 8);
 
-        tryAgain1:
+    tryAgain1:
         var encrypted = "";
         logMessages.Clear();
         logMessages.Add(string.Format("Chain Bit-Rotation Cipher: encrypting {0} with keyword {1}; start with {2}", word, kw, residue));
@@ -85,7 +85,7 @@ public class ChainBitRotationCipher : CipherBase
             var numberStr = Convert.ToString(number, 2).PadLeft(nb, '0');
             logMessages.Add(string.Format("Rotate {0} bits right by {1} (= {2}) = {3}]", nb, kw[i % kw.Length], amtRaw, numberStr.Insert(numberStr.Length - nb, "[")));
             // Extract a letter
-            var extracted = (int) (number & 0x1f);
+            var extracted = (int)(number & 0x1f);
             if (extracted < 1 || extracted > 26)
             {
                 residue++;
@@ -93,7 +93,7 @@ public class ChainBitRotationCipher : CipherBase
                     goto tryAgain2;
                 goto tryAgain1;
             }
-            encrypted += (char) (extracted + 'A' - 1);
+            encrypted += (char)(extracted + 'A' - 1);
             number >>= 5;
             logMessages.Add(string.Format("Extracted letter: {0}; remaining bits = {1}", encrypted.Last(), Convert.ToString(number, 2)));
         }
@@ -104,7 +104,8 @@ public class ChainBitRotationCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, number.ToString() }, invert: true) }
+            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, number.ToString() }, invert: true) },
+            Score = 6
         };
     }
 }

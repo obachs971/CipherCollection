@@ -6,7 +6,6 @@ using Words;
 public class FoursquareCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Foursquare Cipher" : "Foursquare Cipher"; } }
-    public override int Score(int wordLength) { return 8; }
     public override string Code { get { return "FO"; } }
 
     private readonly bool invert;
@@ -76,7 +75,8 @@ public class FoursquareCipher : CipherBase
             Pages = new PageInfo[] {
                 new PageInfo(new ScreenInfo[] { kws[0], kwFronts[0].Expression, kws[1], kwFronts[1].Expression, kws[2], kwFronts[2].Expression, kws[3], kwFronts[3].Expression }, invert),
                 new PageInfo(new ScreenInfo[] { replaceJ }, invert)
-            }
+            },
+            Score = 8
         };
     }
 }

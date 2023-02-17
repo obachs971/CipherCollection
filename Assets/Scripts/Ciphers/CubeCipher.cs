@@ -6,7 +6,6 @@ using Words;
 public class CubeCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Cube Cipher" : "Cube Cipher"; } }
-    public override int Score(int wordLength) { return 8; }
     public override string Code { get { return "CU"; } }
 
     private readonly bool invert;
@@ -23,7 +22,7 @@ public class CubeCipher : CipherBase
             int num = UnityEngine.Random.Range(0, word.Length);
             word = word.Substring(0, num) + "#" + word.Substring(num);
         }
-        if(initLen % 3 != 0)
+        if (initLen % 3 != 0)
             logMessages.Add(string.Format("Added #s: {0}", word));
         string[] kws = { data.PickWord(4, 8), data.PickWord(4, 8) };
         var screenA = CMTools.generateBoolExp(bomb);
@@ -32,7 +31,7 @@ public class CubeCipher : CipherBase
         string[] poss = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ#", "ABCDEFGHIJKLMNOPQRSTUVWXYZ#" };
         char[] letters = { poss[0][UnityEngine.Random.Range(0, poss[0].Length)], '!' };
         poss[0] = poss[0].Replace(letters[0] + "", "");
-        
+
         logMessages.Add(string.Format("Screen 1: {0}", kws[0]));
         logMessages.Add(string.Format("Screen A: {0} -> {1}", screenA.Expression, screenA.Value));
         logMessages.Add(string.Format("Screen 2: {0}", kws[1]));
@@ -113,7 +112,8 @@ public class CubeCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt.Substring(0, initLen),
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], screenA.Expression, kws[1], screenB.Expression, new string(letters), encrypt.Substring(initLen) }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], screenA.Expression, kws[1], screenB.Expression, new string(letters), encrypt.Substring(initLen) }, invert) },
+            Score = 8
         };
     }
 }

@@ -4,14 +4,13 @@ using Words;
 
 public class DualTriplexReflectorCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Dual Triplex Reflector Cipher" : "Dual Triplex Reflector Cipher"; } }
-	public override int Score(int wordLength) { return 13; }
-	public override string Code { get { return "DT"; } }
-    
+    public override string Name { get { return invert ? "Inverted Dual Triplex Reflector Cipher" : "Dual Triplex Reflector Cipher"; } }
+    public override string Code { get { return "DT"; } }
+
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }
     public DualTriplexReflectorCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -94,7 +93,8 @@ public class DualTriplexReflectorCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, kw1front.Expression, kw2, kw2front.Expression, kw3 }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, kw1front.Expression, kw2, kw2front.Expression, kw3 }, invert) },
+            Score = 13
         };
     }
     private string shiftLets(string lets, int shift)

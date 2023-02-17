@@ -5,7 +5,6 @@ using Words;
 public class CircleCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Circle Cipher" : "Circle Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "CI"; } }
 
     private readonly bool invert;
@@ -49,7 +48,7 @@ public class CircleCipher : CipherBase
         }
         else
         {
-            foreach(char letter in word)
+            foreach (char letter in word)
             {
                 encrypt = encrypt + "" + key[CMTools.mod(key.IndexOf(letter) + PI[index], 26)];
                 logMessages.Add(string.Format("{0} + {1} -> {2}", letter, PI[index], encrypt[encrypt.Length - 1]));
@@ -57,12 +56,13 @@ public class CircleCipher : CipherBase
                 logMessages.Add(string.Format("New Index: {0}", index));
             }
         }
-        
+
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, SI + "", clockwise.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, SI + "", clockwise.Expression }, invert) },
+            Score = 6
         };
     }
 }

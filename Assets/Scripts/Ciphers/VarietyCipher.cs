@@ -6,7 +6,6 @@ using UnityEngine;
 public class VarietyCipher : CipherBase
 {
     public override string Name { get { return "Variety Cipher"; } }
-    public override int Score(int wordLength) { return 9; }
     public override string Code { get { return "VA"; } }
 
     private static readonly int[] _affineMultipliers = { 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 };
@@ -27,14 +26,14 @@ public class VarietyCipher : CipherBase
             switch (subcipher)
             {
                 case 0: // Atbash
-                    enc = (char) (25 - (word[i] - 'A') + 'A');
+                    enc = (char)(25 - (word[i] - 'A') + 'A');
                     logMessages.Add(string.Format("Atbash: {0} -> {1}", enc, word[i]));
                     break;
 
                 case 1: // Caesar
                     var caesarShift = Random.Range(0, 25);
-                    n = (n * 25) + (ulong) caesarShift;
-                    enc = (char) ((word[i] - 'A' - (caesarShift + 1) + 26) % 26 + 'A');
+                    n = (n * 25) + (ulong)caesarShift;
+                    enc = (char)((word[i] - 'A' - (caesarShift + 1) + 26) % 26 + 'A');
                     logMessages.Add(string.Format("Caesar by {2}: {0} -> {1}", enc, word[i], caesarShift + 1));
                     logMessages.Add(string.Format("{0} / 25 = {1}", n, n / 25));
                     logMessages.Add(string.Format("{0} % 25 = {1}", n, caesarShift));
@@ -42,19 +41,19 @@ public class VarietyCipher : CipherBase
 
                 default: // Affine
                     var multiplierIx = Random.Range(0, _affineMultipliers.Length);
-                    n = (n * (ulong) _affineMultipliers.Length) + (ulong) multiplierIx;
+                    n = (n * (ulong)_affineMultipliers.Length) + (ulong)multiplierIx;
                     var encInt = ((word[i] - 'A' + 1) * _affineInverses[multiplierIx]) % 26;
-                    enc = (char) (encInt == 0 ? 'Z' : encInt + 'A' - 1);
+                    enc = (char)(encInt == 0 ? 'Z' : encInt + 'A' - 1);
                     logMessages.Add(string.Format("Affine by {2}: {0} -> {1}", enc, word[i], _affineMultipliers[multiplierIx]));
-                    logMessages.Add(string.Format("{0} / {2} = {1}", n, n / (ulong) _affineMultipliers.Length, _affineMultipliers.Length));
+                    logMessages.Add(string.Format("{0} / {2} = {1}", n, n / (ulong)_affineMultipliers.Length, _affineMultipliers.Length));
                     logMessages.Add(string.Format("{0} % {2} = {1}", n, multiplierIx, _affineMultipliers.Length));
                     break;
             }
-            n = (n * 3) + (ulong) subcipher;
+            n = (n * 3) + (ulong)subcipher;
             logMessages.Add(string.Format("{0} / 3 = {1}", n, n / 3));
             logMessages.Add(string.Format("{0} % 3 = {1} ({2})", n, subcipher, _subCipherNames[subcipher]));
-            n = (n * (ulong) numPositions) + (ulong) letterPosition;
-            logMessages.Add(string.Format("{0} / {1} = {2}", n, numPositions, n / (ulong) numPositions));
+            n = (n * (ulong)numPositions) + (ulong)letterPosition;
+            logMessages.Add(string.Format("{0} / {1} = {2}", n, numPositions, n / (ulong)numPositions));
             logMessages.Add(string.Format("{0} % {1} = {2} ({3})", n, numPositions, letterPosition, enc));
 
             encrypted = encrypted.Insert(letterPosition, enc.ToString());
@@ -62,7 +61,7 @@ public class VarietyCipher : CipherBase
 
         var screens = new ScreenInfo[7];
         var nStr = n.ToString();
-        var chunkSize = (float) nStr.Length / 4;
+        var chunkSize = (float)nStr.Length / 4;
         for (var i = 0; i < 4; i++)
         {
             var c1 = Mathf.RoundToInt(chunkSize * i);
@@ -78,7 +77,8 @@ public class VarietyCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(screens) },
+            Score = 9
         };
     }
 }

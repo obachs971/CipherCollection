@@ -7,7 +7,6 @@ using Words;
 public class GROMARKCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted GROMARK Cipher" : "GROMARK Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "GR"; } }
 
     private readonly bool invert;
@@ -80,7 +79,8 @@ public class GROMARKCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, numkey.Substring(0, len) }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, numkey.Substring(0, len) }, invert) },
+            Score = 7
         };
     }
     private bool check(string s)

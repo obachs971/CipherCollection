@@ -1,13 +1,12 @@
-using CipherMachine;
-using System.Collections;
 using System.Collections.Generic;
+using CipherMachine;
 using UnityEngine;
 
 public class BookCipher : CipherBase
 {
-	public override string Name { get { return "Book Cipher"; } }
-	public override int Score(int wordLength) { return 6; }
-	public override string Code { get { return "BO"; } }
+    public override string Name { get { return "Book Cipher"; } }
+    public override string Code { get { return "BO"; } }
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -61,7 +60,8 @@ public class BookCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(screens) },
+            Score = 6
         };
     }
     private string[][][] getBook(string key)

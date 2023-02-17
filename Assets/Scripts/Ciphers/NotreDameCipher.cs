@@ -6,7 +6,6 @@ using Words;
 public class NotreDameCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Notre-Dame Cipher" : "Notre-Dame Cipher"; } }
-    public override int Score(int wordLength) { return 13; }
     public override string Code { get { return "ND"; } }
 
     private readonly bool invert;
@@ -32,8 +31,8 @@ public class NotreDameCipher : CipherBase
         string kw = new Data().PickWord(4, 8);
         var kwfront = CMTools.generateBoolExp(bomb);
         string key = CMTools.getKey(kw.Replace("Q", "Z"), alpha, kwfront.Value);
-        char[,] matrix = new char[5,5];
-        for(int i = 0; i < 5; i++)
+        char[,] matrix = new char[5, 5];
+        for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 5; j++)
                 matrix[i, j] = key[i * 5 + j];
@@ -100,7 +99,8 @@ public class NotreDameCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, rosaceCoords[0].Substring(0, 2), rosaceCoords[0].Substring(2), rosaceCoords[1].Substring(0, 2), rosaceCoords[1].Substring(2), rosaceCoords[2].Substring(0, 2), rosaceCoords[2].Substring(2) }, invert), new PageInfo(new ScreenInfo[] { vitrailNums[0], crossNums[0], vitrailNums[1], crossNums[1], vitrailNums[2], crossNums[2], replaceQ }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, rosaceCoords[0].Substring(0, 2), rosaceCoords[0].Substring(2), rosaceCoords[1].Substring(0, 2), rosaceCoords[1].Substring(2), rosaceCoords[2].Substring(0, 2), rosaceCoords[2].Substring(2) }, invert), new PageInfo(new ScreenInfo[] { vitrailNums[0], crossNums[0], vitrailNums[1], crossNums[1], vitrailNums[2], crossNums[2], replaceQ }, invert) },
+            Score = 13
         };
     }
     private char[,] RosaceCipher(char[,] matrix, int rowchange, int colchange, bool clock)
@@ -164,7 +164,7 @@ public class NotreDameCipher : CipherBase
     private string toString(char[,] matrix)
     {
         string s = "";
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 5; j++)
                 s = s + "" + matrix[i, j];

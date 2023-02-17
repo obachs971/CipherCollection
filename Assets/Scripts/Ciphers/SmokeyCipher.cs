@@ -5,7 +5,6 @@ using Words;
 public class SmokeyCipher : CipherBase
 {
     public override string Name { get { return "Smokey Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "SM"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -16,7 +15,7 @@ public class SmokeyCipher : CipherBase
         string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
         logMessages.Add(string.Format("Keyword: {0}", kw));
         logMessages.Add(string.Format("Screen A: {0} -> {1}", kwfront.Expression, kwfront.Value));
-        foreach(char letter in word)
+        foreach (char letter in word)
         {
             int index = key.IndexOf(letter);
             encrypt = encrypt + "" + key[(index + 13) % 26];
@@ -35,7 +34,8 @@ public class SmokeyCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }) },
+            Score = 7
         };
     }
 }

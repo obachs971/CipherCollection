@@ -5,7 +5,6 @@ using UnityEngine;
 public class ChainRotationCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Chain-Rotation Cipher" : "Chain-Rotation Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "CR"; } }
 
     private readonly bool _invert;
@@ -30,7 +29,7 @@ public class ChainRotationCipher : CipherBase
                 var obt = word[0];
                 word = word.Substring(1);
                 if (encrypted.Length > 0)
-                    obt = (char) ((obt - 'A' + encrypted[encrypted.Length - 1] - 'A' + 1) % 26 + 'A');
+                    obt = (char)((obt - 'A' + encrypted[encrypted.Length - 1] - 'A' + 1) % 26 + 'A');
                 encrypted += obt;
                 logMessages.Add(string.Format("{0} -> {1}", word, encrypted));
             }
@@ -42,7 +41,7 @@ public class ChainRotationCipher : CipherBase
                 var obt = word[word.Length - 1];
                 word = word.Remove(word.Length - 1);
                 if (word.Length > 0)
-                    obt = (char) ('A' + (obt - 'A' + 52 - (word[word.Length - 1] - 'A' + 1)) % 26);
+                    obt = (char)('A' + (obt - 'A' + 52 - (word[word.Length - 1] - 'A' + 1)) % 26);
                 encrypted = obt + encrypted;
                 var amt = n % encrypted.Length;
                 encrypted = encrypted.Substring(encrypted.Length - amt) + encrypted.Substring(0, encrypted.Length - amt);
@@ -54,7 +53,8 @@ public class ChainRotationCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { n.ToString() }, _invert) }
+            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { n.ToString() }, _invert) },
+            Score = 7
         };
     }
 }

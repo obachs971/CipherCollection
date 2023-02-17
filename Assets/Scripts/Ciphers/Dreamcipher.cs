@@ -7,7 +7,6 @@ using Words;
 public class Dreamcipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Dreamcipher" : "Dreamcipher"; } }
-    public override int Score(int wordLength) { return 22; }
     public override string Code { get { return "DR"; } }
 
     private readonly bool invert;
@@ -70,7 +69,7 @@ public class Dreamcipher : CipherBase
                 for (int j = 1; j < 27; j++)
                     poss.Add(new int[] { CMTools.mod(cur - j, 64) + 0x140, j });
                 int[] choice = poss[UnityEngine.Random.Range(0, poss.Count)];
-                symbols = symbols + "" + ((char) (choice[0]));
+                symbols = symbols + "" + ((char)(choice[0]));
                 encrypt = encrypt + "" + alpha[choice[1]];
                 logMessages.Add(string.Format("{0} + {1}{2} + {3} -> {4}", word[i], "ABCDEFGH"[(choice[0] - 0x100) % 8], "1234567812345678"[(choice[0] - 0x100) / 8], choice[0] >= 0x140 ? "OUTLINED" : "FILLED", encrypt[i]));
             }
@@ -86,7 +85,7 @@ public class Dreamcipher : CipherBase
                 for (int j = 1; j < 27; j++)
                     poss.Add(new int[] { CMTools.mod(cur + j, 64) + 0x140, j });
                 int[] choice = poss[UnityEngine.Random.Range(0, poss.Count)];
-                symbols = symbols + "" + ((char) (choice[0]));
+                symbols = symbols + "" + ((char)(choice[0]));
                 encrypt = encrypt + "" + alpha[choice[1]];
                 logMessages.Add(string.Format("{0} + {1}{2} + {3} -> {4}", word[i], "ABCDEFGH"[(choice[0] - 0x100) % 8], "1234567812345678"[(choice[0] - 0x100) / 8], choice[0] >= 0x140 ? "OUTLINED" : "FILLED", encrypt[i]));
             }
@@ -99,7 +98,8 @@ public class Dreamcipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword, kwfront.Expression, base16, vals[0].Expression + vals[1].Expression, screenSymbols[0], null, screenSymbols[1] }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword, kwfront.Expression, base16, vals[0].Expression + vals[1].Expression, screenSymbols[0], null, screenSymbols[1] }, invert) },
+            Score = 22
         };
     }
     private string convertBase(string num, int b1, int b2)

@@ -6,8 +6,8 @@ using Words;
 public class MorbitCipher : CipherBase
 {
     public override string Name { get { return "Morbit Cipher"; } }
-    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "MO"; } }
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -30,7 +30,7 @@ public class MorbitCipher : CipherBase
         foreach (char c in word)
             temp = temp + letterToMorse(c) + "x";
         temp = temp.Substring(0, temp.Length - 1);
-        if(temp.Length % 2 == 1)
+        if (temp.Length % 2 == 1)
             temp = UnityEngine.Random.Range(0, 2) == 0 ? "x" + temp : temp + "x";
 
         string nums = "";
@@ -53,7 +53,8 @@ public class MorbitCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword, null, nums.Substring(0, (nums.Length / 2) + (nums.Length % 2)), null, nums.Substring((nums.Length / 2) + (nums.Length % 2)) }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword, null, nums.Substring(0, (nums.Length / 2) + (nums.Length % 2)), null, nums.Substring((nums.Length / 2) + (nums.Length % 2)) }) },
+            Score = 3
         };
     }
     private string letterToMorse(char c)

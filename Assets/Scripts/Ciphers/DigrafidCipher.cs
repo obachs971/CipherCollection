@@ -6,7 +6,6 @@ using Words;
 public class DigrafidCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Digrafid Cipher" : "Digrafid Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "DI"; } }
 
     private readonly bool invert;
@@ -29,14 +28,14 @@ public class DigrafidCipher : CipherBase
         logMessages.Add(string.Format("KW1: {0}", kws[0]));
         logMessages.Add(string.Format("KW2: {0}", kws[1]));
         int len = word.Length;
-        if(len % 2 == 1)
+        if (len % 2 == 1)
         {
             int num = Random.Range(0, word.Length + 1);
             word = word.Substring(0, num) + "#" + word.Substring(num);
         }
-        if(invert)
+        if (invert)
         {
-            tryagain:
+        tryagain:
             encrypt = "";
             string nums = "";
             letters = letters[0] + "" + choices[1][Random.Range(0, choices[1].Length)];
@@ -79,7 +78,7 @@ public class DigrafidCipher : CipherBase
         }
         else
         {
-            tryagain:
+        tryagain:
             encrypt = "";
             string[] nums = new string[3] { "", "", "" };
             letters = letters[0] + "" + choices[1][Random.Range(0, choices[1].Length)];
@@ -105,7 +104,7 @@ public class DigrafidCipher : CipherBase
                 encrypt = encrypt + "" + tempKey[0][key.IndexOf(temp[i]) + ((key.IndexOf(temp[i + 1]) / 3) * 9)];
                 encrypt = encrypt + "" + tempKey[1][key.IndexOf(temp[i + 2]) + ((key.IndexOf(temp[i + 1]) % 3) * 9)];
             }
-            if(encrypt.Substring(0, len).Contains("#"))
+            if (encrypt.Substring(0, len).Contains("#"))
             {
                 if (choices[1].Length == 0)
                 {
@@ -132,7 +131,8 @@ public class DigrafidCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwFront[0].Expression, kws[1], kwFront[1].Expression, letters, screenC }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwFront[0].Expression, kws[1], kwFront[1].Expression, letters, screenC }, invert) },
+            Score = 7
         };
     }
 

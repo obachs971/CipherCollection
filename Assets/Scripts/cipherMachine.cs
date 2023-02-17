@@ -247,8 +247,8 @@ public class cipherMachine : MonoBehaviour
                     p.Checksum = checksum;
             }
             pagesList.InsertRange(0, result.Pages);
-            overallTpScore += ciphers[i].Score(word.Length);
-            overallTpScores.Add(string.Format("{0}:{1}", ciphers[i].Code, ciphers[i].Score(word.Length)));
+            overallTpScore += result.Score;
+            overallTpScores.Add(string.Format("{0}:{1}", ciphers[i].Code, result.Score));
         }
         overallTpScoreString = string.Format("{0} = {1}", overallTpScores.Join(" + "), overallTpScore);
         pagesList.Insert(0, new PageInfo(new ScreenInfo[] { word }));

@@ -5,7 +5,6 @@ using Words;
 public class VigenereCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Vigenère Cipher" : "Vigenère Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "VI"; } }
 
     private readonly bool invert;
@@ -34,7 +33,8 @@ public class VigenereCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword }, invert) },
+            Score = 6
         };
     }
 }

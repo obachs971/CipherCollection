@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
-using Words;
 
 public class AlphabeticalDisorderCipher : CipherBase
 {
     public override string Name { get { return "Alphabetical Disorder Cipher"; } }
-    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "AD"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -41,7 +38,8 @@ public class AlphabeticalDisorderCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { substrings }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { substrings }) },
+            Score = 3
         };
     }
 }

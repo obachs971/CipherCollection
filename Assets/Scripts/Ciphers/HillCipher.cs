@@ -7,14 +7,13 @@ using Rnd = UnityEngine.Random;
 
 public class HillCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Hill Cipher" : "Hill Cipher"; } }
-	public override int Score(int wordLength) { return 7; }
-	public override string Code { get { return "HI"; } }
-    
+    public override string Name { get { return invert ? "Inverted Hill Cipher" : "Hill Cipher"; } }
+    public override string Code { get { return "HI"; } }
+
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }
     public HillCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         List<string> LogMessages = new List<string>();
@@ -76,7 +75,8 @@ public class HillCipher : CipherBase
         {
             LogMessages = LogMessages,
             Encrypted = encryptedWord,
-            Pages = new[] { pages }
+            Pages = new[] { pages },
+            Score = 7
         };
     }
 }

@@ -6,7 +6,6 @@ using Words;
 public class JumpOverCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Jump-Over Cipher" : "Jump-Over Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "JO"; } }
 
     private readonly bool invert;
@@ -71,7 +70,8 @@ public class JumpOverCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, replaceX, (letter + "") }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, replaceX, (letter + "") }, invert) },
+            Score = 6
         };
     }
 }

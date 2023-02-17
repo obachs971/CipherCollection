@@ -6,7 +6,6 @@ using Words;
 public class TrifidCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Trifid Cipher" : "Trifid Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "TF"; } }
 
     private readonly bool invert;
@@ -63,7 +62,8 @@ public class TrifidCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression }, invert) },
+            Score = 6
         };
     }
 }

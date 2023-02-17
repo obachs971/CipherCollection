@@ -5,7 +5,6 @@ using Words;
 public class CaesarShuffleCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Caesar Shuffle Cipher" : "Caesar Shuffle Cipher"; } }
-    public override int Score(int wordLength) { return 12 + wordLength*-1; }
     public override string Code { get { return "CS"; } }
 
     private readonly bool invert;
@@ -68,7 +67,8 @@ public class CaesarShuffleCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kwa, null, kwb }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kwa, null, kwb }, invert) },
+            Score = 12 - word.Length
         };
     }
 }

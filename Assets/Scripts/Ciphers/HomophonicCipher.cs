@@ -5,7 +5,6 @@ using CipherMachine;
 public class HomophonicCipher : CipherBase
 {
     public override string Name { get { return "Homophonic Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "HO"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -47,7 +46,8 @@ public class HomophonicCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { tens, key }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { tens, key }) },
+            Score = 4
         };
     }
 }

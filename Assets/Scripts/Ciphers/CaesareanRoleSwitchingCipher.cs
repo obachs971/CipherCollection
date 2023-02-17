@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using CipherMachine;
-using Words;
 
 public class CaesareanRoleSwitchingCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Caesarean Role-Switching Cipher" : "Caesarean Role-Switching Cipher"; } }
-    public override int Score(int wordLength) { return 1 + wordLength*1; }
     public override string Code { get { return "CW"; } }
 
     private readonly bool invert;
@@ -21,7 +19,7 @@ public class CaesareanRoleSwitchingCipher : CipherBase
         if (invert)
         {
             encrypt = encrypt + "" + keyLetter;
-            foreach(char letter in word)
+            foreach (char letter in word)
             {
                 int offset = (encrypt[encrypt.Length - 1] - 'A') - (letter - 'A');
                 encrypt = encrypt + "" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[CMTools.mod(encrypt[encrypt.Length - 1] - 'A' + offset, 26)];
@@ -33,7 +31,7 @@ public class CaesareanRoleSwitchingCipher : CipherBase
         else
         {
             word = keyLetter + "" + word;
-            for(int i = 1; i < word.Length; i++)
+            for (int i = 1; i < word.Length; i++)
             {
                 int offset = (word[i - 1] - 'A') - (word[i] - 'A');
                 encrypt = encrypt + "" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[CMTools.mod(word[i - 1] - 'A' + offset, 26)];
@@ -45,7 +43,8 @@ public class CaesareanRoleSwitchingCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keyLetter + "" }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyLetter + "" }, invert) },
+            Score = 1 + word.Length
         };
     }
 }

@@ -8,14 +8,13 @@ using Words;
 public class PingPongStraddlingCheckerboardCipher : CipherBase
 {
     public override string Name { get { return "Ping-Pong Straddling Checkerboard Cipher"; } }
-    public override int Score(int wordLength) { return 8; }
     public override string Code { get { return "PP"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var wordList = new Data();
 
-        tryAgain:
+    tryAgain:
         var kw1 = wordList.PickWord(4, 8);
         var kw2 = wordList.PickWord(4, 8);
 
@@ -86,7 +85,8 @@ public class PingPongStraddlingCheckerboardCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, d1E.Expression, kw2, d2E.Expression, fwKwFront.Expression + "/" + fwColumnOrder.Expression, d3E.Expression, bkKwFront.Expression + "/" + bkColumnOrder.Expression, d4E.Expression }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, d1E.Expression, kw2, d2E.Expression, fwKwFront.Expression + "/" + fwColumnOrder.Expression, d3E.Expression, bkKwFront.Expression + "/" + bkColumnOrder.Expression, d4E.Expression }) },
+            Score = 8
         };
     }
 

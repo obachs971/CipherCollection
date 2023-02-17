@@ -1,13 +1,10 @@
-using CipherMachine;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Words;
+using CipherMachine;
 
 public class M209Cipher : CipherBase
 {
     public override string Name { get { return "M-209 Cipher"; } }
-    public override int Score(int wordLength) { return 10; }
     public override string Code { get { return "MC"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -59,7 +56,8 @@ public class M209Cipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens1), new PageInfo(screens2) }
+            Pages = new PageInfo[] { new PageInfo(screens1), new PageInfo(screens2) },
+            Score = 10
         };
     }
     private string[][] generatePins(List<string> logMessages, int length)

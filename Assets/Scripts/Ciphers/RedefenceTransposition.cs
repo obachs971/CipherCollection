@@ -4,7 +4,6 @@ using CipherMachine;
 public class RedefenceTransposition : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Redefence Transposition" : "Redefence Transposition"; } }
-    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "RE"; } }
     public override bool IsTransposition { get { return true; } }
 
@@ -75,7 +74,8 @@ public class RedefenceTransposition : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { key }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key }, invert) },
+            Score = 3
         };
     }
 }

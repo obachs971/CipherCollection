@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 
 public class ExtinctionTransposition : CipherBase
 {
     public override string Name { get { return "Extinction Transposition"; } }
-    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "ET"; } }
     public override bool IsTransposition { get { return true; } }
 
@@ -12,7 +11,7 @@ public class ExtinctionTransposition : CipherBase
     {
         var attempts = 0;
 
-        redo:
+    redo:
         var log = new List<string>();
 
         var expressions = new ScreenInfo[8];
@@ -23,7 +22,7 @@ public class ExtinctionTransposition : CipherBase
             var v1 = CMTools.mod(e1.Value - 1, encrypted.Length);
 
             var tries = 0;
-            tryAgain:
+        tryAgain:
             var e2 = CMTools.generateValue(bomb);
             var v2 = CMTools.mod(e2.Value - 1, encrypted.Length);
             if (v2 == v1 && tries++ < 5)
@@ -45,7 +44,8 @@ public class ExtinctionTransposition : CipherBase
         {
             Encrypted = encryptedStr,
             LogMessages = log,
-            Pages = CMTools.NewArray(new PageInfo(expressions))
+            Pages = CMTools.NewArray(new PageInfo(expressions)),
+            Score = 3
         };
     }
 }

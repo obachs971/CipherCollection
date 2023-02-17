@@ -4,14 +4,13 @@ using Words;
 
 public class QuagmireCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Quagmire Cipher" : "Quagmire Cipher"; } }
-	public override int Score(int wordLength) { return 6; }
-	public override string Code { get { return "QU"; } }
-    
+    public override string Name { get { return invert ? "Inverted Quagmire Cipher" : "Quagmire Cipher"; } }
+    public override string Code { get { return "QU"; } }
+
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }
     public QuagmireCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -43,7 +42,8 @@ public class QuagmireCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, null, kw2 }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, null, kw2 }, invert) },
+            Score = 6
         };
     }
 }

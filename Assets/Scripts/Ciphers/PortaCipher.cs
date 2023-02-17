@@ -5,7 +5,6 @@ using Words;
 public class PortaCipher : CipherBase
 {
     public override string Name { get { return "Porta Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "PO"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -25,7 +24,8 @@ public class PortaCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }) },
+            Score = 4
         };
     }
 }

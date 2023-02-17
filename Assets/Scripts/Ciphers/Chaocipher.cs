@@ -4,13 +4,12 @@ using Words;
 
 public class Chaocipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Chaocipher" : "Chaocipher"; } }
-	public override int Score(int wordLength) { return 7; }
-	public override string Code { get { return "CH"; } }
+    public override string Name { get { return invert ? "Inverted Chaocipher" : "Chaocipher"; } }
+    public override string Code { get { return "CH"; } }
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }
     public Chaocipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -61,7 +60,8 @@ public class Chaocipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwfronts[0].Expression, kws[1], kwfronts[1].Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwfronts[0].Expression, kws[1], kwfronts[1].Expression }, invert) },
+            Score = 7
         };
     }
 }

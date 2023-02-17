@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class BazeriesCipher : CipherBase
 {
-	public override string Name { get { return invert ? "Inverted Bazeries Cipher" : "Bazeries Cipher"; } }
-	public override int Score(int wordLength) { return 4; }
-	public override string Code { get { return "BA"; } }
-    
+    public override string Name { get { return invert ? "Inverted Bazeries Cipher" : "Bazeries Cipher"; } }
+    public override string Code { get { return "BA"; } }
+
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }
     public BazeriesCipher(bool invert) { this.invert = invert; }
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -73,7 +72,8 @@ public class BazeriesCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { digits[0] + "" + digits[1] + "" + digits[2] + "" + digits[3], keyFront.Expression, replaceJ }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { digits[0] + "" + digits[1] + "" + digits[2] + "" + digits[3], keyFront.Expression, replaceJ }, invert) },
+            Score = 4
         };
     }
 }

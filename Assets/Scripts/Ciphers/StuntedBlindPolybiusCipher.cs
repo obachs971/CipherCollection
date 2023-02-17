@@ -2,14 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
-using KModkit;
 using Words;
-
 
 public class StuntedBlindPolybiusCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Stunted Blind Polybius Cipher" : "Stunted Blind Polybius Cipher"; } }
-    public override int Score(int wordLength) { return 8; }
     public override string Code { get { return "SB"; } }
 
     private readonly bool _invert;
@@ -26,8 +23,8 @@ public class StuntedBlindPolybiusCipher : CipherBase
 
         if (_invert)
         {
-            // To get this to work, we may need to try multiple keywords until we find one where the encoded dot patterns make valid Braille letters.
-            tryAgain:
+        // To get this to work, we may need to try multiple keywords until we find one where the encoded dot patterns make valid Braille letters.
+        tryAgain:
             var kw = wordList.PickWord(8);
             var colSeq = sequencing(kw.Substring(0, 4));
             var rowSeq = sequencing(kw.Substring(4));
@@ -52,13 +49,13 @@ public class StuntedBlindPolybiusCipher : CipherBase
                     if ("ABCNOP".Contains(word[i]))
                     {
                         var isBit = (rot13bits & (1 << r)) != 0;
-                        rot13ed += isBit ? (char) ((word[i] - 'A' + 13) % 26 + 'A') : word[i];
+                        rot13ed += isBit ? (char)((word[i] - 'A' + 13) % 26 + 'A') : word[i];
                         brailleBits[4 * word.Length + 2 * i + 1] = isBit;
                         r++;
                     }
                     else if (word[i] > 'P')
                     {
-                        rot13ed += (char) (word[i] - 13);
+                        rot13ed += (char)(word[i] - 13);
                         brailleBits[4 * word.Length + 2 * i + 1] = true;
                     }
                     else
@@ -98,7 +95,7 @@ public class StuntedBlindPolybiusCipher : CipherBase
                         // No Braille letter fits this pattern — we have to try a different ROT13 combination or a different keyword.
                         goto busted;
 
-                    encrypted += (char) ('A' + brailleCandidates.PickRandom());
+                    encrypted += (char)('A' + brailleCandidates.PickRandom());
                 }
 
                 logMessages.Add(string.Format("After ROT-13: {0}", rot13ed));
@@ -112,10 +109,11 @@ public class StuntedBlindPolybiusCipher : CipherBase
                 {
                     LogMessages = logMessages,
                     Encrypted = encrypted,
-                    Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }, _invert) }
+                    Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }, _invert) },
+                    Score = 8
                 };
 
-                busted:;
+            busted:;
             }
             goto tryAgain;
         }
@@ -147,7 +145,8 @@ public class StuntedBlindPolybiusCipher : CipherBase
 
                 // The encrypted word should be the same length as the original; the rest is shown on the module to be appended by the user
                 Encrypted = encrypted.Substring(0, word.Length),
-                Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, encrypted.Substring(word.Length) }, _invert) }
+                Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, encrypted.Substring(word.Length) }, _invert) },
+                Score = 8
             };
         }
     }

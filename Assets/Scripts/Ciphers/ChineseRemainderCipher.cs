@@ -8,7 +8,6 @@ using Rnd = UnityEngine.Random;
 public class ChineseRemainderCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Chinese Remainder Cipher" : "Chinese Remainder Cipher"; } }
-    public override int Score(int wordLength) { return _invert ? 11 + wordLength : 8; }
     public override string Code { get { return "RM"; } }
 
     private readonly bool _invert;
@@ -119,7 +118,8 @@ public class ChineseRemainderCipher : CipherBase
         {
             Encrypted = encrypted,
             LogMessages = logMessages,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { moduliStr, null, offsetsStr }, invert: true) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { moduliStr, null, offsetsStr }, invert: true) },
+            Score = 11 + word.Length
         };
     }
 
@@ -156,7 +156,8 @@ public class ChineseRemainderCipher : CipherBase
         {
             Encrypted = encrypted.Substring(0, word.Length),
             LogMessages = logMessages,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { moduliStr, null, encrypted.Substring(word.Length) }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { moduliStr, null, encrypted.Substring(word.Length) }) },
+            Score = 8
         };
     }
 

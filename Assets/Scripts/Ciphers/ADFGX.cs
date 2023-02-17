@@ -6,7 +6,6 @@ using UnityEngine;
 public class ADFGXCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted ADFGX Cipher" : "ADFGX Cipher"; } }
-    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "AX"; } }
 
     private readonly bool invert;
@@ -40,22 +39,22 @@ public class ADFGXCipher : CipherBase
         char[] temp = kw2.ToCharArray();
         System.Array.Sort(temp);
         string order = new string(temp);
-        for(int i = 0; i < order.Length; i++)
+        for (int i = 0; i < order.Length; i++)
         {
-            for(int j = i + 1; j < order.Length; j++)
+            for (int j = i + 1; j < order.Length; j++)
             {
                 if (order[i] == order[j])
                 {
                     order = order.Substring(0, j) + order.Substring(j + 1);
                     j--;
-                } 
+                }
             }
         }
         int[] keynum = new int[kw2.Length];
         int cur = 1;
-        for(int i = 0; i < order.Length; i++)
+        for (int i = 0; i < order.Length; i++)
         {
-            for(int j = 0; j < kw2.Length; j++)
+            for (int j = 0; j < kw2.Length; j++)
             {
                 if (order[i] == kw2[j])
                     keynum[j] = cur++;
@@ -75,7 +74,7 @@ public class ADFGXCipher : CipherBase
         {
             int bot = med.Length / keynum.Length - 1;
             med = med.Replace("-", "");
-            cur = 0; 
+            cur = 0;
             int mod = med.Length % keynum.Length;
             for (int i = 1; i <= keynum.Length; i++)
             {
@@ -115,7 +114,8 @@ public class ADFGXCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, kw2, null, replaceJ }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, kw2, null, replaceJ }, invert) },
+            Score = 5
         };
     }
 }

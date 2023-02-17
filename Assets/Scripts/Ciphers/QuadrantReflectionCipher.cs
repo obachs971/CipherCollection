@@ -1,12 +1,11 @@
-﻿using CipherMachine;
-using KeepCoding;
 using System.Collections.Generic;
 using System.Linq;
+using CipherMachine;
+using KeepCoding;
 
 internal class QuadrantReflectionCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Quadrant Reflection Cipher" : "Quadrant Reflection Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "QR"; } }
 
     private readonly bool invert;
@@ -35,12 +34,12 @@ internal class QuadrantReflectionCipher : CipherBase
         LogMessages.Add("Removed letters, in order: " + removedLetters.Join(""));
         LogMessages.Add("Encrypted word: " + encrypt);
 
-
         return new ResultInfo
         {
             LogMessages = LogMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keywords[0], letteredScreenInfo[0], keywords[1], letteredScreenInfo[1], keywords[2], letteredScreenInfo[2], keywords[3], letteredScreenInfo[3] }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keywords[0], letteredScreenInfo[0], keywords[1], letteredScreenInfo[1], keywords[2], letteredScreenInfo[2], keywords[3], letteredScreenInfo[3] }, invert) },
+            Score = 7
         };
     }
 }

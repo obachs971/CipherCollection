@@ -4,7 +4,6 @@ using CipherMachine;
 public class GrilleTransposition : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Grille Transposition" : "Grille Transposition"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "GT"; } }
     public override bool IsTransposition { get { return true; } }
 
@@ -59,7 +58,8 @@ public class GrilleTransposition : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keyNumber.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyNumber.Expression }, invert) },
+            Score = 4
         };
     }
 }

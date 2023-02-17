@@ -5,7 +5,6 @@ using UnityEngine;
 public class StripCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Strip Cipher" : "Strip Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "ST"; } }
 
     private readonly bool invert;
@@ -38,7 +37,8 @@ public class StripCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { nums[0], val.Expression, nums[1] }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { nums[0], val.Expression, nums[1] }, invert) },
+            Score = 7
         };
     }
     private string[] getStrips(int length)

@@ -5,7 +5,6 @@ using UnityEngine;
 public class LogicCipher : CipherBase
 {
     public override string Name { get { return "Logic Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "LO"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -45,7 +44,8 @@ public class LogicCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { key, right.Expression, bins[0], null, bins[1], null, puzzle[1] }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key, right.Expression, bins[0], null, bins[1], null, puzzle[1] }) },
+            Score = 7
         };
     }
     private string[] generatePuzzle()

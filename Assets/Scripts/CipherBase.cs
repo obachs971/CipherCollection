@@ -1,7 +1,6 @@
 ﻿public abstract class CipherBase
 {
     public abstract string Name { get; }
-    public abstract int Score(int wordLength);
     public abstract string Code { get; }
     public virtual bool IsInvert { get { return false; } }
     public virtual bool IsTransposition { get { return false; } }

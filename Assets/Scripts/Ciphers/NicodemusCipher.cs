@@ -6,7 +6,6 @@ using Words;
 public class NicodemusCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Nicodemus Cipher" : "Nicodemus Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "NC"; } }
 
     private readonly bool invert;
@@ -54,7 +53,7 @@ public class NicodemusCipher : CipherBase
             }
             for (int i = 0; i < grid.Length; i++)
             {
-                for(int j = 0; j < grid[i].Length; j++)
+                for (int j = 0; j < grid[i].Length; j++)
                 {
                     if (grid[i][j] != '-')
                         encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(grid[i][j]) - alpha.IndexOf(kw[j]), 26)];
@@ -74,11 +73,11 @@ public class NicodemusCipher : CipherBase
                 grid[i] = word.Substring(i * kw.Length, kw.Length).ToCharArray();
                 logMessages.Add(new string(grid[i]));
             }
-            for(int i = 0; i < key.Length; i++)
+            for (int i = 0; i < key.Length; i++)
             {
-                for(int j = 0; j < grid.Length; j++)
+                for (int j = 0; j < grid.Length; j++)
                 {
-                    for(int k = 0; k < grid[j].Length; k++)
+                    for (int k = 0; k < grid[j].Length; k++)
                     {
                         if (key[k] == i && grid[j][k] != '-')
                             encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(grid[j][k]) + alpha.IndexOf(kw[k]), 26)];
@@ -90,7 +89,8 @@ public class NicodemusCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, invert) },
+            Score = 6
         };
     }
 }

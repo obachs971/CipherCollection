@@ -6,7 +6,6 @@ using Words;
 public class GlobalOffsetCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Global Offset Cipher" : "Global Offset Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "GO"; } }
 
     private readonly bool invert;
@@ -55,7 +54,8 @@ public class GlobalOffsetCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, replaceX, (letter + "") }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, replaceX, (letter + "") }, invert) },
+            Score = 4
         };
     }
 }

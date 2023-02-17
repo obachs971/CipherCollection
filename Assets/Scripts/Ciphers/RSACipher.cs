@@ -5,7 +5,6 @@ using UnityEngine;
 public class RSACipher : CipherBase
 {
     public override string Name { get { return "RSA Cipher"; } }
-    public override int Score(int wordLength) { return 17; }
     public override string Code { get { return "RS"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -73,7 +72,8 @@ public class RSACipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(screens) }
+            Pages = new[] { new PageInfo(screens) },
+            Score = 17
         };
     }
     private int[] generateValues(int len)

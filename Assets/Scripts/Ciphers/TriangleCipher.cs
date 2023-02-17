@@ -5,7 +5,6 @@ using Words;
 public class TriangleCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Triangle Cipher" : "Triangle Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "TC"; } }
 
     private readonly bool invert;
@@ -14,8 +13,8 @@ public class TriangleCipher : CipherBase
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        string[] pos = { 
-            "11",  
+        string[] pos = {
+            "11",
             "21","22",
             "31","32","33",
             "41","42","43","44",
@@ -53,7 +52,7 @@ public class TriangleCipher : CipherBase
             num = UnityEngine.Random.Range(1, 3);
             int index = key.IndexOf(letter);
             index = ((index / 3) * 3) + ((index + num) % 3);
-            if(key[index] == '#')
+            if (key[index] == '#')
                 index = ((index / 3) * 3) + ((index + num) % 3);
             encrypt = encrypt + "" + key[index];
             directions = directions + "" + order[num - 1];
@@ -64,7 +63,8 @@ public class TriangleCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, directions.Substring(0, directions.Length / 2), screenB, directions.Substring(directions.Length / 2)}, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, directions.Substring(0, directions.Length / 2), screenB, directions.Substring(directions.Length / 2) }, invert) },
+            Score = 7
         };
     }
 }

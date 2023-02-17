@@ -4,7 +4,6 @@ using CipherMachine;
 public class AMSCOTransposition : CipherBase
 {
     public override string Name { get { return invert ? "Inverted AMSCO Transposition" : "AMSCO Transposition"; } }
-    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "AM"; } }
     public override bool IsTransposition { get { return true; } }
 
@@ -92,7 +91,8 @@ public class AMSCOTransposition : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { key }, invert) }
+            Pages = new PageInfo[] { new PageInfo(new ScreenInfo[] { key }, invert) },
+            Score = 3
         };
     }
     private int sum(string s)

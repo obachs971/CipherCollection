@@ -4,7 +4,6 @@ using CipherMachine;
 public class AtbashCipher : CipherBase
 {
     public override string Name { get { return "Atbash Cipher"; } }
-    public override int Score(int wordLength) { return 3; }
     public override string Code { get { return "AT"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -12,13 +11,14 @@ public class AtbashCipher : CipherBase
         var logMessages = new List<string>();
         string encrypt = "";
         foreach (char c in word)
-            encrypt = encrypt + "" + (char) (155 - c);
+            encrypt = encrypt + "" + (char)(155 - c);
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[0]) }
+            Pages = new[] { new PageInfo(new ScreenInfo[0]) },
+            Score = 3
         };
     }
 }

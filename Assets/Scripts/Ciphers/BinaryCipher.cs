@@ -7,7 +7,6 @@ using Words;
 public class BinaryCipher : CipherBase
 {
     public override string Name { get { return "Binary Cipher"; } }
-    public override int Score(int wordLength) { return 8; }
     public override string Code { get { return "BN"; } }
     private readonly static string[] grids =
     {
@@ -19,7 +18,7 @@ public class BinaryCipher : CipherBase
         "XXX--X------X---", "XX----X-X---X---", "XXXXX-----------", "XXX---------X-X-",
         "X-X-X----X--X---", "X-X--X--X---X---"
     };
-    
+
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
@@ -32,7 +31,7 @@ public class BinaryCipher : CipherBase
         logMessages.Add(string.Format("Binary Key: {0}", key));
         logMessages.Add(string.Format("Grid #5: {0}", grid5));
         string encrypt = "", screen4 = "";
-        foreach(char letter in word)
+        foreach (char letter in word)
         {
             List<string> poss = getPossible(numToBin(letter - 'A' + 1, 5), grid5);
             string[] chosen = poss.Shuffle()[0].Split(' ');
@@ -42,7 +41,7 @@ public class BinaryCipher : CipherBase
             logMessages.Add(string.Format("{0} -> {1} + {2} -> {3}", letter, encrypt[encrypt.Length - 1], screen4[screen4.Length - 1], chosen[2]));
         }
         string grid3 = "", grid4 = "";
-        foreach(char bit in grid5)
+        foreach (char bit in grid5)
         {
             string bits = bit == '1' ? UnityEngine.Random.Range(0, 2) + "" : new string("01".ToCharArray().Shuffle());
             grid3 = grid3 + "" + bits[0];
@@ -53,20 +52,20 @@ public class BinaryCipher : CipherBase
         var v1 = CMTools.generateValue(bomb);
         var v2 = CMTools.generateValue(bomb);
         int[] values = { v1.Value % 8, v2.Value % 8, };
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             grid1[i] = ((values[0] + i) % 8) + 1;
             grid1[i + 8] = ((values[1] + i) % 8) + 1;
         }
-        for(int i = 0; i < 16; i++)
+        for (int i = 0; i < 16; i++)
         {
             if (grid3[i] == '0')
-                grid2= grid2 + "" + ((grid1[i] + 1) % 2);
+                grid2 = grid2 + "" + ((grid1[i] + 1) % 2);
             else
                 grid2 = grid2 + "" + (grid1[i] % 2);
         }
         string hex1 = "", hex2 = "", hex = "0123456789ABCDEF";
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             char[] temp = grid2.Substring(i * 4, 4).ToCharArray();
             Array.Reverse(temp);
@@ -94,7 +93,8 @@ public class BinaryCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { hex1, v1.Expression, hex2, v2.Expression, keyword, kwfront.Expression, screen4 }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { hex1, v1.Expression, hex2, v2.Expression, keyword, kwfront.Expression, screen4 }) },
+            Score = 8
         };
     }
     //Returns a valid binary grid that will encrypt the word.
@@ -102,7 +102,7 @@ public class BinaryCipher : CipherBase
     {
         string letters = new string(word.Distinct().ToArray());
         List<string> bins = new List<string>();
-        foreach(char c in letters)
+        foreach (char c in letters)
         {
             string bin = numToBin(c - 'A' + 1, 5);
             bins.Add(bin.ToUpperInvariant());
@@ -111,11 +111,11 @@ public class BinaryCipher : CipherBase
         for (int i = 1; i <= 65535; i++)
             nums.Add(i);
         nums.Shuffle();
-        for(int i = 0; i < nums.Count(); i++)
+        for (int i = 0; i < nums.Count(); i++)
         {
             bool flag = true;
             string grid = numToBin(nums[i], 16);
-            foreach(string bin in bins)
+            foreach (string bin in bins)
             {
                 List<string> temp = getPossible(bin, grid);
                 flag = flag && (temp.Count > 0);
@@ -130,9 +130,9 @@ public class BinaryCipher : CipherBase
     private List<string> getPossible(string bin, string grid)
     {
         List<string> poss = new List<string>();
-        for(int i = 0; i < 26; i++)
+        for (int i = 0; i < 26; i++)
         {
-            for(int j = 0; j < 16; j++)
+            for (int j = 0; j < 16; j++)
             {
                 string temp = grids[i].ToUpperInvariant();
                 for (int a = 0; a <= j % 4; a++)
@@ -140,7 +140,7 @@ public class BinaryCipher : CipherBase
                 for (int b = 0; b <= j / 4; b++)
                     temp = down(temp);
                 string tempBin = "";
-                for(int k = 0; k < 16; k++)
+                for (int k = 0; k < 16; k++)
                 {
                     if (temp[k] == 'X')
                         tempBin = tempBin + "" + grid[k];
@@ -162,7 +162,7 @@ public class BinaryCipher : CipherBase
     private string numToBin(int n, int min)
     {
         string bin = "";
-        while(n > 0)
+        while (n > 0)
         {
             bin = (n % 2) + "" + bin;
             n /= 2;
@@ -174,7 +174,7 @@ public class BinaryCipher : CipherBase
     private int binToNum(string b)
     {
         int mult = 1, num = 0;
-        for(int i = b.Length - 1; i >= 0; i--)
+        for (int i = b.Length - 1; i >= 0; i--)
         {
             if (b[i] == '1')
                 num += mult;

@@ -6,7 +6,6 @@ using Words;
 public class GrandpreCipher : CipherBase
 {
     public override string Name { get { return "Grandpré Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "GP"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -49,12 +48,13 @@ public class GrandpreCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens1), new PageInfo(screens2) }
+            Pages = new PageInfo[] { new PageInfo(screens1), new PageInfo(screens2) },
+            Score = 4
         };
     }
     private string[] generateWords(int len)
     {
-        tryAgain:
+    tryAgain:
         var wordList = new Data();
         // If len == 8, generate 8 words, etc., so they can form a square
         string[] words = new string[len];

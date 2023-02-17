@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using CipherMachine;
-using Words;
 using UnityEngine;
+
 public class LorenzCipher : CipherBase
 {
     public override string Name { get { return "Lorenz Cipher"; } }
-    public override int Score(int wordLength) { return 10; }
     public override string Code { get { return "LZ"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -39,9 +38,9 @@ public class LorenzCipher : CipherBase
             string[] result = getResult(binalpha[alpha.IndexOf(word[i])], key[1][0][0] + "" + key[1][1][0] + "" + key[1][2][0] + "" + key[1][3][0] + "" + key[1][4][0], boolExp.Value);
             encrypt += result[0];
             bin += result[1];
-            if(rotorShifter[i % rotorShifter.Length] == '1')
+            if (rotorShifter[i % rotorShifter.Length] == '1')
             {
-                for(int j = 0; j < 5; j++)
+                for (int j = 0; j < 5; j++)
                     key[1][j] = key[1][j].Substring(1) + "" + key[1][j][0];
             }
             logMessages.Add(string.Format("{0} + {1}{2}{3}{4}{5} + {6} -> {7}", word[i], key[1][0][0], key[1][1][0], key[1][2][0], key[1][3][0], key[1][4][0], bin[i], encrypt[i]));
@@ -54,10 +53,11 @@ public class LorenzCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { 
+            Pages = new[] {
                 new PageInfo(new ScreenInfo[] { key[0][0],  rotorLets[0] + "", key[0][1], rotorLets[1] + "", key[0][2], rotorLets[2] + "", key[0][3], rotorLets[3] + "" }),
-                new PageInfo(new ScreenInfo[] { key[0][4],  rotorLets[4] + "", rotorShifter, boolExp.Expression, bin}),  
-            }
+                new PageInfo(new ScreenInfo[] { key[0][4],  rotorLets[4] + "", rotorShifter, boolExp.Expression, bin}),
+            },
+            Score = 10
         };
     }
     private string[][] generatePins(List<string> logMessages, int length)
@@ -103,9 +103,9 @@ public class LorenzCipher : CipherBase
         };
         string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         string bins = "";
-        if(xor)
+        if (xor)
         {
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
                 bins += b1[i] != b2[i] ? "1" : "0";
         }
         else
@@ -113,7 +113,7 @@ public class LorenzCipher : CipherBase
             for (int i = 0; i < 5; i++)
                 bins += b1[i] == b2[i] ? "1" : "0";
         }
-        if(binalpha.IndexOf(bins) < 0)
+        if (binalpha.IndexOf(bins) < 0)
             return new string[] { alpha[binalpha.IndexOf(bins.Replace("0", "*").Replace("1", "0").Replace("*", "1"))] + "", "1" };
         else
         {

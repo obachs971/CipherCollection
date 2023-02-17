@@ -6,7 +6,6 @@ using Words;
 public class IncrementalPolyalphabeticCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Incremental Polyalphabetic Cipher" : "Incremental Polyalphabetic Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "IP"; } }
 
     private readonly bool invert;
@@ -41,14 +40,15 @@ public class IncrementalPolyalphabeticCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypted,
-            Pages = new PageInfo[] { new PageInfo(screens, invert), new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }, invert) }
+            Pages = new PageInfo[] { new PageInfo(screens, invert), new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }, invert) },
+            Score = 6
         };
     }
 
     // Finds a set of 6 keywords that contain all of the letters A–Z.
     private string[] generateKeywords()
     {
-        tryAgain:
+    tryAgain:
         var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToList();
         string[] kws = new string[6];
         int[] order = { 4, 5, 6, 7, 8 };

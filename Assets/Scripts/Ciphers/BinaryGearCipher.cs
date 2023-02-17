@@ -6,7 +6,6 @@ using Words;
 public class BinaryGearCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Binary Gear Cipher" : "Binary Gear Cipher"; } }
-    public override int Score(int wordLength) { return 9; }
     public override string Code { get { return "BG"; } }
 
     private readonly bool invert;
@@ -26,7 +25,7 @@ public class BinaryGearCipher : CipherBase
         string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
         char let = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle()[0];
         int[] cur = { key.IndexOf(let), 0 };
-        
+
 
         logMessages.Add(string.Format("Keyword: {0}", kw));
         logMessages.Add(string.Format("Screen A: {0} -> {1}", kwfront.Expression, kwfront.Value));
@@ -88,7 +87,7 @@ public class BinaryGearCipher : CipherBase
                 int iter = 0;
                 do
                 {
-                    cur[0] = (cur[0] + 1) % 26; 
+                    cur[0] = (cur[0] + 1) % 26;
                     cur[1] = CMTools.mod(cur[1] - 1, 16);
                     iter++;
                 } while (cur[0] != tempCur);
@@ -96,14 +95,14 @@ public class BinaryGearCipher : CipherBase
                 screen2 = screen2 + "" + (iter / 16);
                 logMessages.Add(string.Format("{0} -> {1}", word[i], bins[cur[1]]));
             }
-            string tempBin = "";         
+            string tempBin = "";
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < word.Length; j++)
                     tempBin = tempBin + "" + bin[i + (j * 4)];
             }
-                
-            for (int i = (tempBin.Length - 4); i >= 0; i-=4)
+
+            for (int i = (tempBin.Length - 4); i >= 0; i -= 4)
             {
                 int tempCur = Array.IndexOf(bins, tempBin.Substring(i, 4));
                 int iter = 0;
@@ -134,7 +133,7 @@ public class BinaryGearCipher : CipherBase
                 cur[1] = CMTools.mod(cur[1] - 1, 16);
             }
         }
-        
+
         let = key[cur[0]];
         logMessages.Add(string.Format("Screen 2: {0}", screen2));
         logMessages.Add(string.Format("Key Letter: {0}", let));
@@ -143,7 +142,8 @@ public class BinaryGearCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, screen2, (let + "") }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, screen2, (let + "") }, invert) },
+            Score = 9
         };
     }
 }

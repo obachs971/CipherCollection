@@ -1,14 +1,10 @@
-using CipherMachine;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+using CipherMachine;
 using Words;
 
 public class PrissyCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Prissy Cipher" : "Prissy Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "PR"; } }
 
     private readonly bool invert;
@@ -54,7 +50,8 @@ public class PrissyCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, value.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, value.Expression }, invert) },
+            Score = 6
         };
     }
 }

@@ -5,7 +5,6 @@ using Words;
 public class BellasoCipher : CipherBase
 {
     public override string Name { get { return "Bellaso Cipher"; } }
-    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "BE"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -23,7 +22,7 @@ public class BellasoCipher : CipherBase
         logMessages.Add(string.Format("Keyword 1: {0}", kws[0]));
         logMessages.Add(string.Format("Keyword 2: {0}", kws[1]));
         logMessages.Add(string.Format("Screen A: {0} -> {1} -> {2}", right.Expression, right.Value, right.Value ? "RIGHT" : "LEFT"));
-        foreach(char letter in word)
+        foreach (char letter in word)
         {
             logMessages.Add(string.Format("{0}", key));
             encrypt = encrypt + "" + key[(key.IndexOf(letter) + 13) % 26];
@@ -37,7 +36,8 @@ public class BellasoCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], right.Expression, kws[1] }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], right.Expression, kws[1] }) },
+            Score = 5
         };
     }
 }

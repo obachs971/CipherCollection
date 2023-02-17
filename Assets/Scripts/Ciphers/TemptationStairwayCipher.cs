@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
 using Words;
@@ -6,7 +6,6 @@ using Words;
 public class TemptationStairwayCipher : CipherBase
 {
     public override string Name { get { return "Temptation Stairway Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "TE"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -53,7 +52,8 @@ public class TemptationStairwayCipher : CipherBase
         {
             Encrypted = encrypted.Substring(0, word.Length),
             LogMessages = log,
-            Pages = CMTools.NewArray(new PageInfo(new ScreenInfo[] { kw, kwExpr.Expression, replaceJ, initialAxisExpr.Expression, encrypted.Substring(word.Length) }))
+            Pages = CMTools.NewArray(new PageInfo(new ScreenInfo[] { kw, kwExpr.Expression, replaceJ, initialAxisExpr.Expression, encrypted.Substring(word.Length) })),
+            Score = 4
         };
     }
 

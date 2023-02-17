@@ -7,7 +7,6 @@ using Words;
 public class MonoalphabeticRubiksCubeCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Monoalphabetic Rubik’s Cube Cipher" : "Monoalphabetic Rubik’s Cube Cipher"; } }
-    public override int Score(int wordLength) { return 11; }
     public override string Code { get { return "MR"; } }
 
     private readonly bool _invert;
@@ -25,13 +24,14 @@ public class MonoalphabeticRubiksCubeCipher : CipherBase
         var alphaKw = wordList.PickWord(4, 8);
         var rotationsKw = wordList.PickWord(4);
         var cube = generateRubiksMonoalphabeticCube(alphaKw, rotationsKw, logMessages);
-        var encrypted = (_invert ? word.Select(ch => (char) (Array.IndexOf(cube, ch) + 'A')) : word.Select(ch => cube[ch - 'A'])).Join("");
+        var encrypted = (_invert ? word.Select(ch => (char)(Array.IndexOf(cube, ch) + 'A')) : word.Select(ch => cube[ch - 'A'])).Join("");
         logMessages.Add(string.Format("Encrypted = {0}", encrypted));
         return new ResultInfo
         {
             Encrypted = encrypted,
             LogMessages = logMessages,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { alphaKw, null, rotationsKw }, invert: _invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { alphaKw, null, rotationsKw }, invert: _invert) },
+            Score = 11
         };
     }
     private char[] generateRubiksMonoalphabeticCube(string alphaKw, string rotationsKw, List<string> logMessages)

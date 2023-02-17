@@ -5,7 +5,6 @@ using UnityEngine;
 public class McDondaldsChickenNuggetBigMacCipher : CipherBase
 {
     public override string Name { get { return "McDondalds™ Chicken Nugget Big Mac Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "MD"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -13,8 +12,8 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
         string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY", encrypt = "";
         int[] vals = generateValues();
         int burgerPrice = vals[0], nuggetPrice = vals[1], nuggetCount = vals[2];
-        string[] screens = { intToPrice(burgerPrice), intToPrice(nuggetPrice), nuggetCount + " Pc.", ""};
-        for(int i = 0; i < 3; i++)
+        string[] screens = { intToPrice(burgerPrice), intToPrice(nuggetPrice), nuggetCount + " Pc.", "" };
+        for (int i = 0; i < 3; i++)
             logMessages.Add(string.Format("Screen {0}: {1}", (i + 1), screens[i]));
         for (int i = 0; i < word.Length / 2; i++)
         {
@@ -29,7 +28,8 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { screens[0], null, screens[1], null, screens[2], null, screens[3] }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { screens[0], null, screens[1], null, screens[2], null, screens[3] }) },
+            Score = 7
         };
     }
     private int[] generateValues()
@@ -46,7 +46,7 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
             goto tryagain;
         int nuggetPrice = possNuggetPrices[Random.Range(0, possNuggetPrices.Count)];
         int nuggetCount = EEA(burgerPrice, nuggetPrice);
-        if(nuggetCount > nuggetPrice)
+        if (nuggetCount > nuggetPrice)
         {
             var temp = nuggetCount;
             nuggetCount = nuggetPrice;
@@ -103,7 +103,7 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
     private string base10To26(int num)
     {
         string conv = "", alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
-        while(num > 0)
+        while (num > 0)
         {
             conv = alpha[num % 26] + "" + conv;
             num /= 26;
@@ -116,7 +116,7 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
     {
         string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY";
         int conv = 0, mult = 1;
-        for(int i = num.Length - 1; i >= 0; i--)
+        for (int i = num.Length - 1; i >= 0; i--)
             conv += (mult * alpha.IndexOf(num[i]));
         return conv;
     }

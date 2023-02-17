@@ -7,7 +7,6 @@ using Words;
 public class RubiksCubeCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Rubik’s Cube Cipher" : "Rubik’s Cube Cipher"; } }
-    public override int Score(int wordLength) { return 11; }
     public override string Code { get { return "RU"; } }
 
     private readonly bool _invert;
@@ -55,14 +54,15 @@ public class RubiksCubeCipher : CipherBase
             logMessages.Add(string.Format("Cube after rotation {0} ({1}×{2}) (front | middle | back):", rotationsKw[ix], numRot, "UFRBLD"[face]));
             for (var row = 0; row < 3; row++)
                 logMessages.Add(Enumerable.Range(0, 3).Select(layer => Enumerable.Range(0, 3).Select(col => 9 * layer + 3 * row + col == 13 ? ' ' : cube[9 * layer + 3 * row + col - (9 * layer + 3 * row + col >= 13 ? 1 : 0)]).Join(" ")).Join(" | "));
-            encrypted += _invert ? (char) (Array.IndexOf(cube, word[ix]) + 'A') : cube[word[ix] - 'A'];
+            encrypted += _invert ? (char)(Array.IndexOf(cube, word[ix]) + 'A') : cube[word[ix] - 'A'];
             logMessages.Add(string.Format("Encoding {0} -> {1}", word[ix], encrypted.Last()));
         }
         return new ResultInfo
         {
             Encrypted = encrypted,
             LogMessages = logMessages,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { alphaKw, null, rotationsKw }, invert: _invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { alphaKw, null, rotationsKw }, invert: _invert) },
+            Score = 11
         };
     }
 }

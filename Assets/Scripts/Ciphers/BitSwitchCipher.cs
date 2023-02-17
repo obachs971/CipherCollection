@@ -1,12 +1,10 @@
-using CipherMachine;
 using System.Collections.Generic;
+using CipherMachine;
 using UnityEngine;
-using Words;
 
 public class BitSwitchCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Bit Switch Cipher" : "Bit Switch Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "BI"; } }
 
     private readonly bool invert;
@@ -54,7 +52,8 @@ public class BitSwitchCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { puzzle.Substring(0, 8), null, puzzle.Substring(8), null, bin }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { puzzle.Substring(0, 8), null, puzzle.Substring(8), null, bin }, invert) },
+            Score = 6
         };
     }
     private int[] generateNumbers(List<string> logMessages, string scrambler)

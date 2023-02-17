@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using CipherMachine;
 using UnityEngine;
-using Words;
 
 public class AlbertiCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Alberti Cipher" : "Alberti Cipher"; } }
-    public override int Score(int wordLength) { return 5; }
     public override string Code { get { return "AL"; } }
 
     private readonly bool invert;
@@ -33,7 +31,7 @@ public class AlbertiCipher : CipherBase
         }
         else
         {
-            foreach(char letter in word)
+            foreach (char letter in word)
             {
                 encrypt = encrypt + "" + alpha[CMTools.mod(alpha.IndexOf(letter) + offset, 26)];
                 offset = CMTools.mod(offset + adder, 26);
@@ -44,7 +42,8 @@ public class AlbertiCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { adder + "", startIndex.Expression }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { adder + "", startIndex.Expression }, invert) },
+            Score = 5
         };
     }
 }

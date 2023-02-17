@@ -7,7 +7,6 @@ using Words;
 public class MonoalphabeticCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Monoalphabetic Cipher" : "Monoalphabetic Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "MA"; } }
 
     private readonly bool invert;
@@ -41,14 +40,15 @@ public class MonoalphabeticCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new PageInfo[] { new PageInfo(screens, invert), new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }) }
+            Pages = new PageInfo[] { new PageInfo(screens, invert), new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }) },
+            Score = 4
         };
     }
 
     // Finds a set of 6 keywords that contain all of the letters A–Z.
     private string[] generateKeywords()
     {
-        tryAgain:
+    tryAgain:
         var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToList();
         string[] kws = new string[6];
         int[] order = { 4, 5, 6, 7, 8 };

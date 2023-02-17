@@ -5,7 +5,6 @@ using Words;
 public class AutokeyCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Autokey Cipher" : "Autokey Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "AU"; } }
 
     private readonly bool invert;
@@ -41,7 +40,8 @@ public class AutokeyCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, invert) },
+            Score = 4
         };
     }
 }

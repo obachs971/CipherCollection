@@ -5,7 +5,6 @@ using Words;
 public class PizzaSliceCipher : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Pizza Slice Cipher" : "Pizza Slice Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "PS"; } }
 
     private readonly bool invert;
@@ -16,7 +15,7 @@ public class PizzaSliceCipher : CipherBase
     {
         var logMessages = new List<string>();
         string encrypt = "";
-        string keyword = new Data().PickWord(4, 8); 
+        string keyword = new Data().PickWord(4, 8);
         var kwfront = CMTools.generateBoolExp(bomb);
         string k = CMTools.getKey(keyword, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
         var rowType = CMTools.generateBoolExp(bomb);
@@ -37,11 +36,11 @@ public class PizzaSliceCipher : CipherBase
         var offset = startingOffset + 0;
         if (invert)
         {
-            for(int i = 0; i < word.Length; i++)
+            for (int i = 0; i < word.Length; i++)
             {
-                for(int j = 0; j < rows.Length; j++)
+                for (int j = 0; j < rows.Length; j++)
                 {
-                    if(rows[j].Contains(word[i] + ""))
+                    if (rows[j].Contains(word[i] + ""))
                     {
                         var l = rows[j][mod(rows[j].IndexOf(word[i]) - (offset % 7), rows[j].Length)];
                         encrypt = encrypt + "" + key[mod(key.IndexOf(l) + (offset / 7), 26)];
@@ -73,7 +72,8 @@ public class PizzaSliceCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword, kwfront.Expression, rowType.Expression, startingOffset + "" }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { keyword, kwfront.Expression, rowType.Expression, startingOffset + "" }, invert) },
+            Score = 6
         };
     }
     private int mod(int n, int m)

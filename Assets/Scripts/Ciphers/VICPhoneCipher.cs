@@ -7,7 +7,6 @@ using Words;
 public class VICPhoneCipher : CipherBase
 {
     public override string Name { get { return "VIC Phone Cipher"; } }
-    public override int Score(int wordLength) { return 8; }
     public override string Code { get { return "VP"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -63,7 +62,8 @@ public class VICPhoneCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, numKey, rows, extra }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, numKey, rows, extra }) },
+            Score = 8
         };
     }
     private string enlarge(string encrypt)

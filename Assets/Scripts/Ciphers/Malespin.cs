@@ -6,7 +6,6 @@ using Words;
 public class MalespinCipher : CipherBase
 {
     public override string Name { get { return "Malespín Cipher"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "MS"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -15,7 +14,7 @@ public class MalespinCipher : CipherBase
         string encrypt = "";
         string[] kws = generateKeywords();
         string key = CMTools.getKey(kws[0] + kws[1] + kws[2] + kws[3] + kws[4] + kws[5], "", true);
-        for(int i = 0; i < kws.Length; i++)
+        for (int i = 0; i < kws.Length; i++)
             logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[0]));
         logMessages.Add(string.Format("Key: {0}", key));
         foreach (char letter in word)
@@ -24,10 +23,11 @@ public class MalespinCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { 
+            Pages = new[] {
                 new PageInfo(new ScreenInfo[] { kws[0], null, kws[1], null, kws[2], null, kws[3] }),
                 new PageInfo(new ScreenInfo[] { kws[4], null, kws[5] }),
-            }
+            },
+            Score = 4
         };
     }
     private string[] generateKeywords()

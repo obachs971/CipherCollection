@@ -5,9 +5,7 @@ using Words;
 public class StrangelyElusiveLetterCipher : CipherBase
 {
     public override string Name { get { return "Strangely Elusive Letter Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "EL"; } }
-
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -23,7 +21,7 @@ public class StrangelyElusiveLetterCipher : CipherBase
         logMessages.Add(string.Format("Screen A: {0} -> {1}", kwfront.Expression, kwfront.Value));
         logMessages.Add(string.Format("Key: {0}", key));
         logMessages.Add(string.Format("Screen 2: {0}", kw2));
-        for(int i = 0; i < word.Length; i++)
+        for (int i = 0; i < word.Length; i++)
         {
             int[] indexes = { key.IndexOf(word[i]), key.IndexOf(kw2[i % kw2.Length]) }, cur = new int[3];
             cur[0] = ((indexes[0] / 9) == (indexes[1] / 9)) ? indexes[0] / 9 : 3 - ((indexes[0] / 9) + (indexes[1] / 9));
@@ -38,7 +36,8 @@ public class StrangelyElusiveLetterCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, kwfront.Expression, kw2 }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw1, kwfront.Expression, kw2 }) },
+            Score = 7
         };
     }
 }

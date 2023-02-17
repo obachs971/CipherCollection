@@ -6,7 +6,6 @@ using Words;
 public class ParallelogramCipher : CipherBase
 {
     public override string Name { get { return "Parallelogram Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "PC"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -40,7 +39,7 @@ public class ParallelogramCipher : CipherBase
         logMessages.Add(string.Format("Key Letter: {0}", letter));
         logMessages.Add(string.Format("Screen 4: {0}", replaceX));
         string[] temp = { kws[1].Replace('X', letter), kws[2].Replace('X', letter) };
-        for(int i = 0; i < word.Length; i++)
+        for (int i = 0; i < word.Length; i++)
         {
             int[] indexes = { key.IndexOf(word[i]), key.IndexOf(temp[0][i % temp[0].Length]), key.IndexOf(temp[1][i % temp[1].Length]) };
             int row = (indexes[0] / 5) + ((indexes[1] / 5) - (indexes[0] / 5)) + ((indexes[2] / 5) - (indexes[0] / 5));
@@ -52,7 +51,8 @@ public class ParallelogramCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwfront.Expression, kws[1], (letter + ""), kws[2], null, replaceX }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwfront.Expression, kws[1], (letter + ""), kws[2], null, replaceX }) },
+            Score = 6
         };
     }
 }

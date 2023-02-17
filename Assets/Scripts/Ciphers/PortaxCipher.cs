@@ -4,7 +4,6 @@ using CipherMachine;
 public class PortaxCipher : CipherBase
 {
     public override string Name { get { return "Portax Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "PX"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -43,7 +42,8 @@ public class PortaxCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { key }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key }) },
+            Score = 6
         };
     }
 }

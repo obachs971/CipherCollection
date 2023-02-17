@@ -1,12 +1,10 @@
-using CipherMachine;
 using System.Collections.Generic;
+using CipherMachine;
 using UnityEngine;
-using Words;
 
 public class EnigmaCipher : CipherBase
 {
     public override string Name { get { return "Enigma Cipher"; } }
-    public override int Score(int wordLength) { return 7; }
     public override string Code { get { return "EN"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
@@ -39,7 +37,8 @@ public class EnigmaCipher : CipherBase
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { rotorLets, rotorNums[0], plugboardDisplay[0], rotorNums[1], plugboardDisplay[1], rotorNums[2], null, reflector + "" }) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { rotorLets, rotorNums[0], plugboardDisplay[0], rotorNums[1], plugboardDisplay[1], rotorNums[2], null, reflector + "" }) },
+            Score = 7
         };
     }
     //Generates the Plugboard

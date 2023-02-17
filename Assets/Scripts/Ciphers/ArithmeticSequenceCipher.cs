@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using CipherMachine;
 using Words;
 
@@ -7,7 +7,6 @@ using Rnd = UnityEngine.Random;
 public class ArithmeticSequenceCipher : CipherBase
 {
     public override string Name { get { return "Arithmetic Sequence Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "AS"; } }
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -44,7 +43,8 @@ public class ArithmeticSequenceCipher : CipherBase
         {
             Encrypted = encrypted,
             LogMessages = log,
-            Pages = CMTools.NewArray(new PageInfo(new ScreenInfo[] { kw, be.Expression, "", ignoreLetter.ToString() }))
+            Pages = CMTools.NewArray(new PageInfo(new ScreenInfo[] { kw, be.Expression, "", ignoreLetter.ToString() })),
+            Score = 6
         };
     }
 }

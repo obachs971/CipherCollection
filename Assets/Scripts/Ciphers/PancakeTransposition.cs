@@ -6,7 +6,6 @@ using Words;
 public class PancakeTransposition : CipherBase
 {
     public override string Name { get { return invert ? "Inverted Pancake Transposition" : "Pancake Transposition"; } }
-    public override int Score(int wordLength) { return 4; }
     public override string Code { get { return "PA"; } }
     public override bool IsTransposition { get { return true; } }
 
@@ -22,7 +21,7 @@ public class PancakeTransposition : CipherBase
         string numbers = "12345678".Substring(0, word.Length);
         string[] nums = { "", "" };
         List<string> list = new List<string>();
-        if(invert)
+        if (invert)
         {
             for (int i = 0; i < 7; i++)
             {
@@ -31,7 +30,7 @@ public class PancakeTransposition : CipherBase
                 int[] n = { "12345678".IndexOf(numbers[0]), "12345678".IndexOf(numbers[1]) };
                 Array.Sort(n);
                 string temp = encrypt.Substring(0, n[0]) + reverse(encrypt.Substring(n[0], (n[1] - n[0]) + 1)) + encrypt.Substring(n[1] + 1);
-                if(list.Contains(temp))
+                if (list.Contains(temp))
                     goto reshuffle;
                 nums[0] = nums[0] + "" + numbers[0];
                 nums[1] = nums[1] + "" + numbers[1];
@@ -59,14 +58,15 @@ public class PancakeTransposition : CipherBase
             }
         }
         if (word.Equals(encrypt)) goto tryagain;
-            
+
         logMessages.Add(string.Format("Screen 1: {0}", nums[0]));
         logMessages.Add(string.Format("Screen 2: {0}", nums[1]));
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { nums[0], null, nums[1] }, invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { nums[0], null, nums[1] }, invert) },
+            Score = 4
         };
     }
     private string reverse(string s)

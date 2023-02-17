@@ -7,7 +7,6 @@ using Words;
 public class SemaphoreRotationCipher : CipherBase
 {
     public override string Name { get { return _invert ? "Inverted Semaphore Rotation Cipher" : "Semaphore Rotation Cipher"; } }
-    public override int Score(int wordLength) { return 6; }
     public override string Code { get { return "SR"; } }
 
     private static readonly int[][] _semaphores = "45;46;47;04;14;24;34;56;57;02;05;15;25;35;67;06;16;26;36;07;17;03;12;13;27;23".Split(';').Select(str => str.Select(ch => ch - '0').ToArray()).ToArray();
@@ -21,7 +20,7 @@ public class SemaphoreRotationCipher : CipherBase
         var logMessages = new List<string>();
         logMessages.Add(_invert ? "Using encrypt instructions (counter-clockwise)" : "Using decrypt instructions (clockwise)");
         var wordList = new Data();
-        tryAgain:
+    tryAgain:
         var kw = wordList.PickWord(3, word.Length);
         var encrypted = semaphoreRotationCipherAttempt(word, kw, _invert);
         if (encrypted == null)
@@ -32,7 +31,8 @@ public class SemaphoreRotationCipher : CipherBase
         {
             Encrypted = encrypted,
             LogMessages = logMessages,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, _invert) }
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw }, _invert) },
+            Score = 6
         };
     }
 
@@ -46,7 +46,7 @@ public class SemaphoreRotationCipher : CipherBase
             var letter = Array.FindIndex(_semaphores, s => s.SequenceEqual(rotated));
             if (letter == -1)
                 return null;
-            encrypted += (char) ('A' + letter);
+            encrypted += (char)('A' + letter);
         }
         return encrypted;
     }
