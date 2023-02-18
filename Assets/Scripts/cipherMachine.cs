@@ -536,14 +536,14 @@ public class cipherMachine : MonoBehaviour
     }
     IEnumerator TwitchHandleForcedSolve()
     {
-        if (submitScreen && !answer.StartsWith(screenTexts[2].text))
+        if (submitScreen && !answer.StartsWith(screenTexts[6].text))
         {
             KMSelectable[] arrows = new KMSelectable[] { leftArrow, rightArrow };
             arrows[UnityEngine.Random.Range(0, 2)].OnInteract();
             yield return new WaitForSeconds(0.1f);
         }
-        int start = submitScreen ? screenTexts[2].text.Length : 0;
-        for (int i = start; i < 6; i++)
+        int start = submitScreen ? screenTexts[6].text.Length : 0;
+        for (int i = start; i < answer.Length; i++)
         {
             keyboard[getPositionFromChar(answer[i])].OnInteract();
             yield return new WaitForSeconds(0.1f);
