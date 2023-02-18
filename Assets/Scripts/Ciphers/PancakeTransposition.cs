@@ -15,7 +15,6 @@ public class PancakeTransposition : CipherBase
     public PancakeTransposition(bool invert) { this.invert = invert; }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
-        tryagain:
         var logMessages = new List<string>();
         string encrypt = word.ToUpperInvariant();
         string numbers = "12345678".Substring(0, word.Length);
