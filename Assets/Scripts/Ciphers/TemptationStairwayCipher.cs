@@ -12,7 +12,7 @@ public class TemptationStairwayCipher : CipherBase
     {
         var log = new List<string>();
 
-        var wordNoJ = word.Select(ch => ch == 'J' ? randomLetter(except: 'J') : ch).Join("");
+        var wordNoJ = word.Select(ch => ch == 'J' ? randomLetter() : ch).Join("");
         while (wordNoJ.Length % 3 != 0)
             wordNoJ += randomLetter();
         log.Add(string.Format("Encrypting: {0}", wordNoJ));
@@ -59,6 +59,6 @@ public class TemptationStairwayCipher : CipherBase
 
     private static char randomLetter(char? except = null)
     {
-        return (except == null ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Except(new[] { except.Value })).PickRandom();
+        return (except == null ? "ABCDEFGHIKLMNOPQRSTUVWXYZ" : "ABCDEFGHIKLMNOPQRSTUVWXYZ".Except(new[] { except.Value })).PickRandom();
     }
 }

@@ -62,6 +62,7 @@ public class cipherMachine : MonoBehaviour
         new M209Cipher(),
         new McDondaldsChickenNuggetBigMacCipher(),
         new MechanicalCipher(invert: false), new MechanicalCipher(invert: true),
+        //new MirroredMatrixCipher(),
         new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true),
         new MonosodiumGlutamateCipher(invert: false), new MonosodiumGlutamateCipher(invert: true),
         new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true),
