@@ -55,6 +55,7 @@ public class MirroredMatrixCipher : CipherBase
         {
             log.Add(string.Format("{0} + {1} + {2} → {3}", encrypted, indexRemoved + 1, letterRemoved, encrypted.Substring(0, indexRemoved) + letterRemoved + encrypted.Substring(indexRemoved)));
             encrypted = encrypted.Substring(0, indexRemoved) + letterRemoved + encrypted.Substring(indexRemoved);
+            wordNoJ = wordNoJ.Substring(0, indexRemoved) + letterRemoved + wordNoJ.Substring(indexRemoved);
         }
         
         var replaceJ = word.Select((ch, ix) => word[ix] == 'J' ? wordNoJ[ix] : randomLetter(except: wordNoJ[ix])).Join("");
@@ -65,7 +66,7 @@ public class MirroredMatrixCipher : CipherBase
             Encrypted = encrypted,
             LogMessages = log,
             Pages = CMTools.NewArray(new PageInfo(new ScreenInfo[] { kw, kwExpr.Expression, initialAxisExpr.Expression, direction.Expression, replaceJ, indexRemoved >= 0 ? (indexRemoved + 1) + "" : null })),
-            Score = 4
+            Score = 7
         };
     }
     private static char randomLetter(char? except = null)
@@ -120,7 +121,7 @@ public class MirroredMatrixCipher : CipherBase
                     row = 4 - row;
                 break;
             default:
-                if ((4 - row) == col)
+                if (row == col)
                 {
                     var temp = row;
                     row = 4 - col;

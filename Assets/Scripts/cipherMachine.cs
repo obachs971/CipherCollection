@@ -62,7 +62,7 @@ public class cipherMachine : MonoBehaviour
         new M209Cipher(),
         new McDondaldsChickenNuggetBigMacCipher(),
         new MechanicalCipher(invert: false), new MechanicalCipher(invert: true),
-        //new MirroredMatrixCipher(),
+        new MirroredMatrixCipher(),
         new MonoalphabeticCipher(invert: false), new MonoalphabeticCipher(invert: true),
         new MonosodiumGlutamateCipher(invert: false), new MonosodiumGlutamateCipher(invert: true),
         new RubiksCubeCipher(invert: false), new RubiksCubeCipher(invert: true), new MonoalphabeticRubiksCubeCipher(invert: false), new MonoalphabeticRubiksCubeCipher(invert: true),
@@ -188,7 +188,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         // For debugging
-        //word = answer = "JOKINGLY";
+        //word = answer = "JUNGLES";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 
