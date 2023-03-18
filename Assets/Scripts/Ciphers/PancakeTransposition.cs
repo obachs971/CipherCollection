@@ -34,7 +34,7 @@ public class PancakeTransposition : CipherBase
             nums[0] = invert ? nums[0] + numbers[0] : numbers[0] + nums[0];
             nums[1] = invert ? nums[1] + numbers[1] : numbers[1] + nums[1];
             string newEncrypt = encrypt.Substring(0, n[0]) + reverse(encrypt.Substring(n[0], (n[1] - n[0]) + 1)) + encrypt.Substring(n[1] + 1);
-            logMessages.Add(string.Format("{0} + {1}{2} -> {3}", encrypt, nums[0][0], nums[1][0], newEncrypt));
+            logMessages.Add(string.Format("{0} + {1}{2} -> {3}", encrypt, numbers[0], numbers[1], newEncrypt));
             encrypt = newEncrypt;
             arrangement = newArrangement;
             arrangementsUsed.Add(arrangement);

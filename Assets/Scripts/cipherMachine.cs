@@ -41,6 +41,7 @@ public class cipherMachine : MonoBehaviour
         new CondiCipher(invert: false), new CondiCipher(invert: true),
         new ConjugatedMatrixBifidCipher(invert: false), new ConjugatedMatrixBifidCipher(invert: true),
         new CubeCipher(invert: false), new CubeCipher(invert: true),
+        new DifferentialCipher(invert: false), new DifferentialCipher(invert: true),
         new DigrafidCipher(invert: false), new DigrafidCipher(invert: true),
         new Dreamcipher(invert: false), new Dreamcipher(invert: true),
         new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true),

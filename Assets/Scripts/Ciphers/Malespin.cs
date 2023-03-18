@@ -15,7 +15,7 @@ public class MalespinCipher : CipherBase
         string[] kws = generateKeywords();
         string key = CMTools.getKey(kws[0] + kws[1] + kws[2] + kws[3] + kws[4] + kws[5], "", true);
         for (int i = 0; i < kws.Length; i++)
-            logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[0]));
+            logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[i]));
         logMessages.Add(string.Format("Key: {0}", key));
         foreach (char letter in word)
             encrypt = encrypt + "" + key[(key.IndexOf(letter) + 13) % 26];
