@@ -90,6 +90,10 @@ namespace CipherMachine
             var value = getValue(character, Bomb);
             return new ValueExpression<int> { Expression = character.ToString(), Value = value };
         }
+        public static int generateValue(KMBombInfo Bomb, char character)
+        {
+            return getValue(character, Bomb);
+        }
         private static int getValue(char l, KMBombInfo Bomb)
         {
             switch (l)

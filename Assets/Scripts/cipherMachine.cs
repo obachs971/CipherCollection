@@ -75,6 +75,7 @@ public class cipherMachine : MonoBehaviour
         new OwOCipher(invert: false), new OwOCipher(invert: true),
         new PancakeTransposition(invert: false), new PancakeTransposition(invert: true),
         new ParallelogramCipher(),
+        new PigpenMazeCipher(invert: false), new PigpenMazeCipher(invert: true),
         new PingPongStraddlingCheckerboardCipher(),
         new PizzaSliceCipher(invert: false), new PizzaSliceCipher(invert: true),
         new PlayfairCipher(invert: false), new PlayfairCipher(invert: true),
@@ -189,7 +190,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         // For debugging
-        //word = answer = "JUNGLES";
+        //word = answer = "COZY";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 
