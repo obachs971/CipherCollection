@@ -8,7 +8,7 @@ public class GridlockCipher : CipherBase
 {
     public override string Name { get { return "Gridlock Cipher"; } }
     public override string Code { get { return "GL"; } }
-    private int cursor = 0;
+    private int cursor;
     
 
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
@@ -35,9 +35,7 @@ public class GridlockCipher : CipherBase
         logMessages.Add(string.Format("Screen A: {0} -> {1}", keyExp.Expression, keyExp.Value));
         logMessages.Add(string.Format("Key: {0}", key));
         int len = Rnd.Range(0, 7) + 2;
-        string numStr = "";
-        for (int i = 0; i < len; i++)
-            numStr += "0123456789"[Rnd.Range(0, 10)];
+        string numStr = new string("0123456789".ToCharArray().Shuffle()).Substring(0, len);
         bool repeat = check(numStr);
         while(repeat)
         {
@@ -48,6 +46,7 @@ public class GridlockCipher : CipherBase
         List<int> digits = new List<int>();
         foreach (char d in numStr)
             digits.Add(d - '0');
+        cursor = 0;
         foreach (char letter in word)
             encrypt += encryptLetter(letter, key, digits, logMessages);
 
