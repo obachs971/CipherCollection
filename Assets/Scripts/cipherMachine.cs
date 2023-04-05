@@ -52,6 +52,7 @@ public class cipherMachine : MonoBehaviour
         new GlobalOffsetCipher(invert: false), new GlobalOffsetCipher(invert: true),
         new GracieCipher(invert: false), new GracieCipher(invert: true),
         new GrandpreCipher(),
+        new GridlockCipher(),
         new GrilleTransposition(invert: false), new GrilleTransposition(invert: true),
         new GROMARKCipher(invert: false), new GROMARKCipher(invert: true),
         new HillCipher(invert: false), new HillCipher(invert: true),
@@ -190,7 +191,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         // For debugging
-        //word = answer = "COZY";
+        //word = answer = "OBJECT";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 

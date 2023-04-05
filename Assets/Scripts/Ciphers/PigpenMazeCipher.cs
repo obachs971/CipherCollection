@@ -48,7 +48,8 @@ public class PigpenMazeCipher : CipherBase
             logMessages.Add(string.Format("{0}", new string(row)));
 
         string kw = data.PickWord(3, word.Length);
-        string positions = kw.Replace("Z", "");
+        while(kw.Contains("Z"))
+            kw = data.PickWord(3, word.Length);
         string kwVals = data.PickWord(4);
         string movePriority = getMovementPriority(kwVals);
         logMessages.Add(string.Format("Page 1 Screen 4: {0}", kwVals));
@@ -60,16 +61,16 @@ public class PigpenMazeCipher : CipherBase
         {
             for(int i = 0; i < word.Length; i++)
             {
-                encrypt += encryptLetter(maze, word[i], positions[i % positions.Length], movePriority, invert);
-                logMessages.Add(string.Format("{0} + {1} -> {2}", word[i], positions[i % positions.Length], encrypt[i]));
+                encrypt += encryptLetter(maze, word[i], kw[i % kw.Length], movePriority, invert);
+                logMessages.Add(string.Format("{0} + {1} -> {2}", word[i], kw[i % kw.Length], encrypt[i]));
             }
         }
         else
         {
             for (int i = 0; i < word.Length; i++)
             {
-                encrypt += encryptLetter(maze, word[i], positions[i % positions.Length], movePriority, invert);
-                logMessages.Add(string.Format("{0} + {1} -> {2}", word[i], positions[i % positions.Length], encrypt[i]));
+                encrypt += encryptLetter(maze, word[i], kw[i % kw.Length], movePriority, invert);
+                logMessages.Add(string.Format("{0} + {1} -> {2}", word[i], kw[i % kw.Length], encrypt[i]));
             }
         }
 
@@ -89,7 +90,7 @@ public class PigpenMazeCipher : CipherBase
                 new PageInfo(new ScreenInfo[] { str.Substring(0, 8), str.Substring(8, 4), str.Substring(12, 8), str.Substring(20, 4), screen3, screenC, kwVals, startCoord }, invert),
                 new PageInfo(new ScreenInfo[] { kw, null, replaceZ }, invert),
             },
-            Score = 4
+            Score = 6 + (word.Length / 2)
         };
     }
     private char[][] generateMaze()
