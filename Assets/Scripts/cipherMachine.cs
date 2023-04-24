@@ -198,29 +198,51 @@ public class cipherMachine : MonoBehaviour
         // If there are no settings specified in the mission, or the settings don’t specify cipher codes, use default values
         if (settings == null)
             settings = new MissionSettings();
-        if (settings.Ciphers == null)
+        if (settings.Ciphers == null && settings.PickInner == null)
         {
-            settings.Ciphers = settings.Pick == null ? new string[] { "N", "T", "N" } : Enumerable.Repeat("A", settings.Pick.Value).ToArray();
-            settings.CipherSettings = Enumerable.Repeat(CipherSetting.Random, settings.Pick ?? 3).ToArray();
+            settings.Ciphers = new[]
+            {
+                new CipherConfig[]
+                {
+                    new CipherConfig("N", CipherSetting.Random),
+                    new CipherConfig("T", CipherSetting.Random),
+                    new CipherConfig("N", CipherSetting.Random)
+                }
+            };
+            settings.Order = CipherOrder.Fixed;
+        }
+        else if (settings.Ciphers == null)
+        {
+            settings.Ciphers = new[] { Enumerable.Repeat(new CipherConfig("A", CipherSetting.Random), settings.PickInner.Value).ToArray() };
+            settings.Order = CipherOrder.Fixed;
         }
 
-        // Determine which ciphers are possible candidate for each code
+        // Do the requested shuffling
+        if (settings.Order == CipherOrder.Random || settings.Order == CipherOrder.FixInner)
+            settings.Ciphers.Shuffle();
+        if (settings.Order == CipherOrder.Random || settings.Order == CipherOrder.FixOuter)
+            foreach (var inner in settings.Ciphers)
+                inner.Shuffle();
+
+        // If ‘PickOuter’ is specified, reduce the set of groups to the desired number
+        if (settings.PickOuter != null)
+            settings.Ciphers = Enumerable.Range(0, settings.Ciphers.Length).ToList().Shuffle().Take(settings.PickOuter.Value).OrderBy(ix => ix).Select(ix => settings.Ciphers[ix]).ToArray();
+
+        // If ‘PickInner’ is specified, reduce the set of candidates in each group to the desired number
+        if (settings.PickInner != null)
+            for (var i = 0; i < settings.Ciphers.Length; i++)
+                settings.Ciphers[i] = Enumerable.Range(0, settings.Ciphers[i].Length).ToList().Shuffle().Take(settings.PickInner.Value).OrderBy(ix => ix).Select(ix => settings.Ciphers[i][ix]).ToArray();
+
+        // Determine which ciphers are possible candidates for each code
         var candidates = settings.Ciphers
-            .Select((code, ix) =>
-                code == "A" ? _allCiphers :
-                code == "N" ? _allCiphers.Where(cipher => !cipher.IsTransposition).ToArray() :
-                code == "T" ? _allCiphers.Where(cipher => cipher.IsTransposition).ToArray() :
-                _allCiphers.Where(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase) && (settings.CipherSettings[ix] == CipherSetting.Random || (settings.CipherSettings[ix] == CipherSetting.EncryptOnly) == cipher.IsInvert)).ToArray())
+            .SelectMany(cfgs => cfgs
+                .Select(cfg =>
+                    cfg.Code == "A" ? _allCiphers :
+                    cfg.Code == "N" ? _allCiphers.Where(cipher => !cipher.IsTransposition).ToArray() :
+                    cfg.Code == "T" ? _allCiphers.Where(cipher => cipher.IsTransposition).ToArray() :
+                    _allCiphers.Where(cipher => cipher.Code.Equals(cfg.Code, StringComparison.InvariantCultureIgnoreCase) && (cfg.Setting == CipherSetting.Random || (cfg.Setting == CipherSetting.EncryptOnly) == cipher.IsInvert)).ToArray())
+                .ToArray())
             .ToArray();
-
-        if (settings.Order == CipherOrder.Random)
-            candidates.Shuffle();
-        else
-            Array.Reverse(candidates);
-
-        // If ‘pick’ is specified, reduce the set of candidates to the desired number, but keep the order fixed
-        if (settings.Pick != null)
-            candidates = Enumerable.Range(0, candidates.Length).ToList().Shuffle().Take(settings.Pick.Value).OrderBy(ix => ix).Select(ix => candidates[ix]).ToArray();
 
         // Decide on the actual list of ciphers
         var ciphers = new List<CipherBase>();
@@ -235,7 +257,7 @@ public class cipherMachine : MonoBehaviour
         var pagesList = new List<PageInfo>();
         overallTpScore = 0;
         var overallTpScores = new List<string>();
-        for (var i = 0; i < ciphers.Count; i++)
+        for (var i = ciphers.Count - 1; i >= 0; i--)
         {
             Debug.LogFormat("[Cipher Machine #{0}] Encrypting {1} with {2} ({3})", moduleId, word, ciphers[i].Name, ciphers[i].Code);
             var result = ciphers[i].Encrypt(word, Bomb);
@@ -247,7 +269,7 @@ public class cipherMachine : MonoBehaviour
             foreach (var p in result.Pages)
             {
                 p.Code = ciphers[i].Code;
-                if (i > 0)
+                if (i < ciphers.Count - 1)
                     p.Checksum = checksum;
             }
             pagesList.InsertRange(0, result.Pages);
@@ -401,60 +423,20 @@ public class cipherMachine : MonoBehaviour
                     switch (kv[0].Trim().ToLowerInvariant())
                     {
                         case "ciphers":
-                            var ciphersRaw = kv[1].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                            var ciphers = new List<string>();
-                            var cipherSettings = new List<CipherSetting>();
-                            foreach (var c in ciphersRaw)
-                            {
-                                if (c.Length < 1 || c.Length > 3 || (c.Length == 1 && !"ANT".Contains(c[0])))
-                                {
-                                    warnings.Add(string.Format("Invalid cipher: {0}. Valid values are: “A” (any cipher), “T” (random transposition), “N” (random non-transposition), a two-letter code (specific cipher), or a two-letter code followed by “d”/“e” for “decrypt-only”/“encrypt-only”.", c));
-                                    continue;
-                                }
-                                var code = c;
-                                var cs = CipherSetting.Random;
-                                if (c.Length > 1)
-                                {
-                                    code = c.Substring(0, 2);
-                                    if (!_allCiphers.Any(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase)))
-                                    {
-                                        warnings.Add(string.Format("Invalid cipher code: {0}. Valid cipher codes are: {1}.", code, _allCiphers.Select(cipher => cipher.Code).Distinct().OrderBy(x => x).Join(", ")));
-                                        continue;
-                                    }
-                                    if (c.Length == 3)
-                                    {
-                                        var ed = c.Substring(2);
-                                        if (ed.Equals("e", StringComparison.InvariantCultureIgnoreCase))
-                                            cs = CipherSetting.EncryptOnly;
-                                        else if (ed.Equals("d", StringComparison.InvariantCultureIgnoreCase))
-                                            cs = CipherSetting.DecryptOnly;
-                                        else
-                                        {
-                                            warnings.Add(string.Format("Invalid cipher code: {0}. The third character must be “d” (decrypt only), “e” (encrypt only) or absent (random).", c));
-                                            continue;
-                                        }
-                                        if (!_allCiphers.Any(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase) && (cs == CipherSetting.EncryptOnly) == cipher.IsInvert))
-                                        {
-                                            warnings.Add(string.Format("Cipher {0} does not have {1} version.", code, cs == CipherSetting.EncryptOnly ? "an encrypt-only" : "a decrypt-only"));
-                                            cs = CipherSetting.Random;
-                                        }
-                                    }
-                                }
-                                ciphers.Add(code);
-                                cipherSettings.Add(cs);
-                            }
-                            if (ciphers.Count > 0)
-                            {
-                                set.Ciphers = ciphers.ToArray();
-                                set.CipherSettings = cipherSettings.ToArray();
-                            }
+                            var result = ParseCiphers(kv[1], warnings);
+                            if (result != null && result.All(inner => inner != null))
+                                set.Ciphers = result;
                             break;
 
                         case "order":
                             if (kv[1].Trim().Equals("fixed", StringComparison.InvariantCultureIgnoreCase))
                                 set.Order = CipherOrder.Fixed;
+                            else if (kv[1].Trim().Equals("fixinner", StringComparison.InvariantCultureIgnoreCase))
+                                set.Order = CipherOrder.FixInner;
+                            else if (kv[1].Trim().Equals("fixouter", StringComparison.InvariantCultureIgnoreCase))
+                                set.Order = CipherOrder.FixOuter;
                             else
-                                warnings.Add("The ‘order’ option only accepts the value ‘fixed’. To force a random order of ciphers, simply omit the ‘order’ option.");
+                                warnings.Add("The ‘order’ option only accepts the following values: ‘fixed’ (keep order completely fixed); ‘fixinner’ (keep order of ciphers within a group fixed); or ‘fixouter’ (keep the order of the groups fixed). To have both randomized, simply omit the ‘order’ option.");
                             break;
 
                         case "len":
@@ -467,10 +449,19 @@ public class cipherMachine : MonoBehaviour
 
                         case "pick":
                             int pickNum;
+                            Match m;
                             if (int.TryParse(kv[1].Trim(), out pickNum))
-                                set.Pick = pickNum;
+                            {
+                                set.PickOuter = 1;
+                                set.PickInner = pickNum;
+                            }
+                            else if ((m = Regex.Match(kv[1], @"^\s*(\d+|a)\s*/\s*(\d+|a)\s*$")).Success)
+                            {
+                                set.PickOuter = m.Groups[1].Value.Equals("a", StringComparison.InvariantCultureIgnoreCase) ? (int?) null : int.Parse(m.Groups[1].Value);
+                                set.PickInner = m.Groups[2].Value.Equals("a", StringComparison.InvariantCultureIgnoreCase) ? (int?) null : int.Parse(m.Groups[2].Value);
+                            }
                             else
-                                warnings.Add(string.Format("The ‘pick’ option requires a number. {0} is not a number.", kv[1].Trim()));
+                                warnings.Add("Valid syntax for the ‘pick’ option: (1) 3 (picks 3 ciphers from one group of ciphers); (2) 2/3 (picks 2 groups, and then 3 ciphers from each group); (3) a/3 (uses all groups and picks 3 ciphers from each group); (4) 2/a (picks 2 groups and uses all ciphers from those groups); (5) a/a (uses all specified ciphers).");
                             break;
 
                         default:
@@ -492,6 +483,74 @@ public class cipherMachine : MonoBehaviour
         var settings = missionSettings[rndIx];
         missionSettings.RemoveAt(rndIx);
         return settings;
+    }
+
+    private static CipherConfig[][] ParseCiphers(string syntax, List<string> warnings)
+    {
+        if (!syntax.Contains('('))
+            syntax = string.Format("({0})", syntax);
+
+        var m = Regex.Match(syntax, @"^\s*(?:\(([^\(\)]*)\)\s*)+$");
+        if (!m.Success)
+        {
+            warnings.Add("Ciphers list has invalid syntax. Expected either a list of ciphers (e.g. “CA GT AT”), or a set of parentheses containing lists of ciphers (e.g. “(CA GT AT) (HI BW RU)”). You can also use “A” for “any cipher”, “T” for “random transposition” and “N” for “random non-transposition”.");
+            return null;
+        }
+        var parentheses = m.Groups[1].Captures.Cast<Capture>().Select(c => c.Value).ToArray();
+        Debug.LogFormat("<> Parentheses: {0}", parentheses.Join("\n"));
+        return parentheses.Select(paren => ParseCiphersParenthesis(paren, warnings)).ToArray();
+    }
+
+    private static CipherConfig[] ParseCiphersParenthesis(string syntax, List<string> warnings)
+    {
+        var ciphersRaw = syntax.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        var ciphers = new List<CipherConfig>();
+        foreach (var c in ciphersRaw)
+        {
+            if (c.Length < 1 || c.Length > 3 || (c.Length == 1 && !"ANT".Contains(c[0])))
+            {
+                warnings.Add(string.Format("Invalid cipher: {0}. Valid values are: “A” (any cipher), “T” (random transposition), “N” (random non-transposition), a two-letter code (specific cipher), or a two-letter code followed by “d”/“e” for “decrypt-only”/“encrypt-only”.", c));
+                continue;
+            }
+            var code = c;
+            var cs = CipherSetting.Random;
+            if (c.Length > 1)
+            {
+                code = c.Substring(0, 2);
+                if (!_allCiphers.Any(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    warnings.Add(string.Format("Invalid cipher code: {0}. Valid cipher codes are: {1}.", code, _allCiphers.Select(cipher => cipher.Code).Distinct().OrderBy(x => x).Join(", ")));
+                    continue;
+                }
+                if (c.Length == 3)
+                {
+                    var ed = c.Substring(2);
+                    if (ed.Equals("e", StringComparison.InvariantCultureIgnoreCase))
+                        cs = CipherSetting.EncryptOnly;
+                    else if (ed.Equals("d", StringComparison.InvariantCultureIgnoreCase))
+                        cs = CipherSetting.DecryptOnly;
+                    else
+                    {
+                        warnings.Add(string.Format("Invalid cipher code: {0}. The third character must be “d” (decrypt only), “e” (encrypt only) or absent (random).", c));
+                        continue;
+                    }
+                    if (!_allCiphers.Any(cipher => cipher.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase) && (cs == CipherSetting.EncryptOnly) == cipher.IsInvert))
+                    {
+                        warnings.Add(string.Format("Cipher {0} does not have {1} version.", code, cs == CipherSetting.EncryptOnly ? "an encrypt-only" : "a decrypt-only"));
+                        cs = CipherSetting.Random;
+                    }
+                }
+            }
+            ciphers.Add(new CipherConfig(code, cs));
+        }
+
+        if (ciphers.Count == 0)
+        {
+            warnings.Add("No valid ciphers specified. Using defaults.");
+            return null;
+        }
+
+        return ciphers.ToArray();
     }
 
 #pragma warning disable 414
