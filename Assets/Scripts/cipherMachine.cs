@@ -43,6 +43,7 @@ public class cipherMachine : MonoBehaviour
         new CubeCipher(invert: false), new CubeCipher(invert: true),
         new DifferentialCipher(invert: false), new DifferentialCipher(invert: true),
         new DigrafidCipher(invert: false), new DigrafidCipher(invert: true),
+        new DoubleSquareRotationCipher(invert: false), new DoubleSquareRotationCipher(invert: true),
         new Dreamcipher(invert: false), new Dreamcipher(invert: true),
         new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true),
         new EnigmaCipher(),
@@ -60,6 +61,7 @@ public class cipherMachine : MonoBehaviour
         new IncrementalPolyalphabeticCipher(invert: false), new IncrementalPolyalphabeticCipher(invert: true),
         new JumpOverCipher(invert: false), new JumpOverCipher(invert: true),
         new LogicCipher(),
+        new LogicalTernaryManipulationCipher(invert: false), new LogicalTernaryManipulationCipher(invert: true),
         new LorenzCipher(),
         new M209Cipher(),
         new McDondaldsChickenNuggetBigMacCipher(),
@@ -191,7 +193,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         // For debugging
-        //word = answer = "OBJECT";
+        //word = answer = "PLUM";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 
