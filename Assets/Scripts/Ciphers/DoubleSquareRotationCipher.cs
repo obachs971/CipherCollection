@@ -109,8 +109,7 @@ public class DoubleSquareRotationCipher : CipherBase
             {
                 new PageInfo(new ScreenInfo[] {kws[0], kwFronts[0].Expression, kws[1], kwFronts[1].Expression, rotatingValues, null, replaceJ }, invert)
             },
-            // Score = ?
-            // Sean or Timwi, please determine the score for this cipher. - Kilo
+             Score = 6
         };
     }
 }
