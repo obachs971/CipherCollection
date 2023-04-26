@@ -158,8 +158,7 @@ public class LogicalTernaryManipulationCipher : CipherBase
             {
                 new PageInfo(new ScreenInfo[] {values[0].Expression, expression.Expression, values[1].Expression }, invert)
             },
-            // Score = ?
-            // I'll let you guys score this one. - Kilo
+             Score = 4
         };
     }
     
