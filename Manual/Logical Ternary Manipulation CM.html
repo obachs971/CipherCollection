@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>Logical Ternary Manipulation CM — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/ktane-utils.js"></script>
+    <style>
+        .dark table, table {
+            margin: 1em auto;
+            border: none;
+        }
+
+        .page-footer::before { content: 'Page '; }
+        .page-footer::after { content: ' of 3'; }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Logical Ternary Manipulation CM</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Component/Cipher Machine.svg" class="diagram">
+                <h2>On the Subject of Logical Ternary Manipulation CM</h2>
+                <p class="flavour-text">A machine that knows no bounds when it comes to ciphers.</p>
+                <p>From the <a href="Synapse%20Cipher.html">Synapse Cipher</a> module by Kilo Bites and VFlyer.</p>
+                <p>Take the letters on screens 1 and 2 and do the following:</p>
+                <ul>
+                    <li>Convert the letters into Values via the Value Table.</li>
+                    <li>Modulo the values according to the length of the encrypted word (4: 16, 5: 32, 6: 64, 7: 128, 8: 256).</li>
+                    <li>Convert the values into binary, adding leading 0s equal to the length of the encrypted word if necessary.</li>
+                </ul>
+                <p>Convert each letter into ternary by using the Ternary Table:</p>
+                <h3 class="centered">Ternary Table</h3>
+                <table style="font-size: 15px">
+                    <tr><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th></tr>
+                    <tr><td>001</td><td>002</td><td>010</td><td>011</td><td>012</td><td>020</td><td>021</td><td>022</td><td>100</td><td>101</td><td>102</td><td>110</td><td>111</td></tr>
+                    <tr><th>N</th><th>O</th><th>P</th><th>Q</th><th>R</th><th>S</th><th>T</th><th>U</th><th>V</th><th>W</th><th>X</th><th>Y</th><th>Z</th></tr>
+                    <tr><td>112</td><td>120</td><td>121</td><td>122</td><td>200</td><td>201</td><td>202</td><td>210</td><td>211</td><td>212</td><td>220</td><td>221</td><td>222</td></tr>
+                </table>
+                <p>If the Boolean Expression on screen A is true, XOR the first half of the bits, then XNOR the last half of the bits. Otherwise, XNOR the first half of the bits, then XOR the last half of the bits. Concatencate the results into one binary string. However, if the length of the encrypted word is odd, then either XOR the entire binary string if it's true, or XNOR otherwise.</p>
+                <p>If the Submit Button is white, follow the instructions under Encrypt Instructions. Otherwise follow the instructions under Decrypt Instructions.</p>
+            </div>
+            <div class="page-footer relative-footer">1</div>
+        </div>
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Logical Ternary Manipulation CM</span>
+            </div>
+            <div class="page-content">
+                <h4 class="centered">Encrypt Instructions</h4>
+                <ul>
+                    <li>If the Xth digit of the resulting binary is a 1, decrement each ternary digit of the Xth ternary value by 1, wrapping around to 2. <b>DO NOT CARRY DIGITS.</b></li>
+                    <li>Otherwise, don't modify the digits.</li>
+                    <li>If after incrementing, any 3-digit ternaries are 000, decrement all the digits in 000 by 1 again.</li>
+                </ul>
+                <h4 class="centered">Decrypt Instructions</h4>
+                <ul>
+                    <li>If the Xth digit of the resulting binary is a 1, increment each ternary digit of the Xth ternary value by 1, wrapping around to 0. <b>DO NOT CARRY DIGITS.</b></li>
+                    <li>Otherwise, don't modify the digits.</li>
+                    <li>If after incrementing, any 3-digit ternaries are 000, increment all the digits in 000 by 1 again.</li>
+                </ul>
+                <p style="font-size: 12px;">Convert the ternary numbers back into letters using the Ternary Table. You should now have a decrypted word.</p>
+                <h4 class="centered">Example 1</h4>
+                <p class="centered">Encrypted Word: APOA</p>
+                <p class="centered">Screen 1: L<br>Screen 2: S</p>
+                <p class="centered">L -&gt; 8 mod 16 -&gt; 8 -&gt; 1000<br>S -&gt; 8 mod 16 -&gt; 8 -&gt; 1000</p>
+                <p class="centered">Boolean Expression on Screen A is true</p>
+                <table>
+                    <tr><th>A</th><th>P</th><th>O</th><th>A</th>
+                    <tr><td>001</td><td>121</td><td>120</td><td>001</td>
+                </table>
+                <p class="centered"><b>10 XOR 10 = 00, 00 XNOR 00 = 11</b> Concatenated Binary: 0011<br>Encrypt Rules</p>
+                <table>
+                    <tr><th>0</th><th>0</th><th>1</th><th>1</th></tr>
+                    <tr><td>001</td><td>121</td><td>120</td><td>001</td></tr>
+                    <tr><td>001</td><td>121</td><td>012</td><td>220</td></tr>
+                </table>
+                <p class="centered">Decrypted Word: APEX</p>
+            </div>
+            <div class="page-footer relative-footer">3</div>
+        </div>
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Logical Ternary Manipulation CM</span>
+            </div>
+            <div class="page-content">
+                <h4 class="centered">Example 2</h4>
+                <p class="centered">Encrypted Word: BEQQL</p>
+                <p class="centered">Screen 1: B<br>Screen 2: Z</p>
+                <p class="centered">B -&gt; 2 mod 32 -&gt; 8 -&gt; 00010<br>S -&gt; 5 mod 32 -&gt; 8 -&gt; 00101</p>
+                <p class="centered">Boolean Expression on Screen A is true</p>
+                <table>
+                    <tr><th>B</th><th>E</th><th>Q</th><th>Q</th><th>L</th></tr>
+                    <tr><td>002</td><td>012</td><td>122</td><td>122</td><td>110</td></tr>
+                </table>
+                <p class="centered"><b>Encrypted word length's odd. 00010 XOR 00101 = 00111</b><br>Decrypt Rules</p>
+                <table>
+                    <tr><th>0</th><th>0</th><th>1</th><th>1</th><th>1</th></tr>
+                    <tr><td>002</td><td>012</td><td>122</td><td>122</td><td>110</td></tr>
+                    <tr><td>002</td><td>012</td><td>200</td><td>200</td><td>221</td></tr>
+                </table>
+                <p class="centered">Decrypted Word: BERRY</p>
+            </div>
+            <div class="page-footer relative-footer">3</div>
+        </div>
+    </div>
+</body>
+</html>
