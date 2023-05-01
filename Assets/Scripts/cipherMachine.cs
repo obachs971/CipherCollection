@@ -102,6 +102,7 @@ public class cipherMachine : MonoBehaviour
         new StrangelyElusiveLetterCipher(),
         new StripCipher(invert: false), new StripCipher(invert: true),
         new StuntedBlindPolybiusCipher(invert: false), new StuntedBlindPolybiusCipher(invert: true),
+        new SuperpositionCipher(invert: false), new SuperpositionCipher(invert: true),
         new TemptationStairwayCipher(),
         new TransposedHalvedPolybiusCipher(invert: false), new TransposedHalvedPolybiusCipher(invert: true),
         new TriangleCipher(invert: false), new TriangleCipher(invert: true),
