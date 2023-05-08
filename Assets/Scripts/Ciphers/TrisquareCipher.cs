@@ -38,28 +38,35 @@ public class TrisquareCipher : CipherBase
             logMessages.Add(string.Format("Keyword #{0}: {1}", (i + 1), kws[i]));
             logMessages.Add(string.Format("Key #{0}: {1} -> {2} -> {3}", (i + 1), kwFronts[i].Expression, kwFronts[i].Value, keys[i]));
         }
-        string intersection = "";
         for (int i = 0; i < (word.Length / 2); i++)
         {
             int r1 = keys[0].IndexOf(word[i * 2]) / 5;
             int c1 = keys[0].IndexOf(word[i * 2]) % 5;
             int r2 = keys[1].IndexOf(word[(i * 2) + 1]) / 5;
             int c2 = keys[1].IndexOf(word[(i * 2) + 1]) % 5;
-            intersection = intersection + "" + keys[2][(r1 * 5) + c2];
+            char intersection = keys[2][(r1 * 5) + c2];
             r1 = (r1 + Random.Range(0, 4) + 1) % 5;
             c2 = (c2 + Random.Range(0, 4) + 1) % 5;
-            encrypt = encrypt + "" + keys[0][(r1 * 5) + c1] + "" + keys[1][(r2 * 5) + c2];
-            logMessages.Add(string.Format("{0}{1} -> {2}{3}{4}", word[i * 2], word[(i * 2) + 1], encrypt[i * 2], encrypt[(i * 2) + 1], intersection[i]));
+            encrypt = encrypt + "" + keys[0][(r1 * 5) + c1] + "" + keys[1][(r2 * 5) + c2] + "" + intersection;
+            logMessages.Add(string.Format("{0}{1} -> {2}{3}{4}", word[i * 2], word[(i * 2) + 1], encrypt[i * 3], encrypt[(i * 3) + 1], encrypt[(i * 3) + 2]));
         }
         if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
+        {
+            char letter = word[word.Length - 1];
+            int row = keys[2].IndexOf(letter) / 5;
+            int col = keys[2].IndexOf(letter) % 5;
+            encrypt = encrypt + "" + keys[0][(row * 5) + Random.Range(0, 5)] + "" + keys[1][(Random.Range(0, 5) * 5) + col];
+            logMessages.Add(string.Format("{0} -> {1}{2}", letter, encrypt[encrypt.Length - 2], encrypt[encrypt.Length - 1]));
+        }
+        string screenD = encrypt.Substring(word.Length);
+        encrypt = encrypt.Substring(0, word.Length);
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
-        logMessages.Add(string.Format("Screen D: {0}", intersection));
+        logMessages.Add(string.Format("Screen D: {0}", screenD));
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwFronts[0].Expression, kws[1], kwFronts[1].Expression, kws[2], kwFronts[2].Expression, replaceJ, intersection }) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kws[0], kwFronts[0].Expression, kws[1], kwFronts[1].Expression, kws[2], kwFronts[2].Expression, replaceJ, screenD }) },
             Score = 9
         };
     }
