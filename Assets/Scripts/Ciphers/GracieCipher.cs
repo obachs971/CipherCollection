@@ -21,6 +21,17 @@ public class GracieCipher : CipherBase
         logMessages.Add(string.Format("Keyword: {0}", kw));
         logMessages.Add(string.Format("Screen A: {0} -> {1}", kwfront.Expression, kwfront.Value));
         logMessages.Add(string.Format("Key: {0}", key));
+        string scr2 = "";
+        int pos = -1;
+        if(word.Length % 2 == 1)
+        {
+            pos = UnityEngine.Random.Range(0, word.Length);
+            scr2 = word[pos] + "";
+            var temp = word.Substring(0, pos) + word.Substring(pos + 1);
+            logMessages.Add(string.Format("Screen 2: {0}", (pos + 1)));
+            logMessages.Add(string.Format("{0} + {1} -> {2}", word, (pos + 1), temp));
+            word = temp;
+        }
         if (invert)
         {
             for (int i = 0; i < word.Length / 2; i++)
@@ -87,14 +98,20 @@ public class GracieCipher : CipherBase
                 logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i * 2], word[i * 2 + 1], encrypt[i * 2], encrypt[i * 2 + 1]));
             }
         }
-        if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
+        if (pos >= 0)
+        {
+            var temp = encrypt.Substring(0, pos) + scr2 + encrypt.Substring(pos);
+            logMessages.Add(string.Format("{0} + {1} + {2} -> {3}", encrypt, (pos + 1), scr2, temp));
+            encrypt = temp;
+            scr2 = (pos + 1) + "";
+        }
+            
 
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression }, invert) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, kwfront.Expression, scr2 }, invert) },
             Score = 5
         };
     }

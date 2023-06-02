@@ -32,6 +32,17 @@ public class FoursquareCipher : CipherBase
         }
         logMessages.Add(string.Format("After Replacing Js: {0}", word));
         logMessages.Add(string.Format("Screen 1 Page 2: {0}", replaceJ));
+        string p2sb = "";
+        int pos = -1;
+        if(word.Length % 2 == 1)
+        {
+            pos = UnityEngine.Random.Range(0, word.Length);
+            p2sb = word[pos] + "" + (pos + 1);
+            var temp = word.Substring(0, pos) + word.Substring(pos + 1);
+            logMessages.Add(string.Format("Screen A Page 2: {0}", p2sb.Substring(1)));
+            logMessages.Add(string.Format("{0} + {1} -> {2}", word, p2sb.Substring(1), temp));
+            word = temp;
+        }
         string[] kws = new string[4];
         string[] keys = new string[4];
         var kwFronts = new ValueExpression<bool>[4];
@@ -65,16 +76,22 @@ public class FoursquareCipher : CipherBase
                 encrypt = encrypt + "" + keys[1][(r1 * 5) + c2] + "" + keys[2][(r2 * 5) + c1];
             }
         }
-        if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
         logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
+        if (pos >= 0)
+        {
+            word = encrypt + "";
+            encrypt = encrypt.Substring(0, pos) + p2sb[0] + encrypt.Substring(pos);
+            p2sb = p2sb.Substring(1);
+            logMessages.Add(string.Format("{0} + {1} + {2} -> {3}", word, p2sb, encrypt[pos], encrypt));
+        }
+        
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
             Pages = new PageInfo[] {
                 new PageInfo(new ScreenInfo[] { kws[0], kwFronts[0].Expression, kws[1], kwFronts[1].Expression, kws[2], kwFronts[2].Expression, kws[3], kwFronts[3].Expression }, invert),
-                new PageInfo(new ScreenInfo[] { replaceJ }, invert)
+                new PageInfo(new ScreenInfo[] { replaceJ, p2sb }, invert)
             },
             Score = 8
         };

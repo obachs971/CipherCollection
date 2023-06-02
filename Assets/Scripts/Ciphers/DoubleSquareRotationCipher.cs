@@ -38,7 +38,7 @@ public class DoubleSquareRotationCipher : CipherBase
             }
         }
         logMessages.Add(string.Format("After Replacing Js: {0}", word));
-        logMessages.Add(string.Format("Screen 4 Page 2: {0}", replaceJ));
+        logMessages.Add(string.Format("Screen 4: {0}", replaceJ));
 
         string[] kws = new string[2];
         string[] keys = new string[2];

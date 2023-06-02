@@ -12,7 +12,15 @@ public class SlidefairCipher : CipherBase
     {
         var logMessages = new List<string>();
         string[] alphas = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
-        string key = "", encrypt = "";
+        string key = "", encrypt = "", sca = "";
+        int pos = -1;
+        if(word.Length % 2 == 1)
+        {
+            pos = UnityEngine.Random.Range(0, word.Length);
+            sca = word[pos] + "";
+            word = word.Substring(0, pos) + word.Substring(pos + 1);
+            logMessages.Add(string.Format("{0}{1}{2} + {3} -> {0}{2}", word.Substring(0, pos), sca, word.Substring(pos), (pos + 1)));
+        }
         for (int i = 0; i < word.Length / 2; i++)
             key = key + "" + alphas[0][Random.Range(1, 26)];
         logMessages.Add(string.Format("Key: {0}", key));
@@ -36,13 +44,17 @@ public class SlidefairCipher : CipherBase
             encrypt = encrypt + "" + alphas[0][n1] + "" + alphas[1][n2];
             logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i * 2], word[i * 2 + 1], encrypt[i * 2], encrypt[i * 2 + 1]));
         }
-        if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
+        if (pos >= 0)
+        {
+            logMessages.Add(string.Format("{0}{2} + {3} + {1} -> {0}{1}{2}", encrypt.Substring(0, pos), sca, encrypt.Substring(pos), (pos + 1)));
+            encrypt = encrypt.Substring(0, pos) + sca + encrypt.Substring(pos);
+            sca = (pos + 1) + "";
+        }
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { key }) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key, sca }) },
             Score = 5
         };
     }

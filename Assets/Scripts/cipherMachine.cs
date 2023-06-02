@@ -194,7 +194,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         // For debugging
-        //word = answer = "BANJO";
+        //word = answer = "DRAFTED";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 

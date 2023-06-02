@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class McDondaldsChickenNuggetBigMacCipher : CipherBase
 {
-    public override string Name { get { return "McDondalds™ Chicken Nugget Big Mac Cipher"; } }
+    public override string Name { get { return "McDondald's™ Chicken Nugget Big Mac Cipher"; } }
     public override string Code { get { return "MD"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
-        string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY", encrypt = "";
+        string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY", encrypt = "", removedLetter = "";
+        int pos = -1;
+        if (word.Length % 2 == 1)
+        {
+            pos = UnityEngine.Random.Range(0, word.Length);
+            logMessages.Add(string.Format("{0} + {1} -> {2}{3}", word, (pos + 1), word.Substring(0, pos), word.Substring(pos + 1)));
+            removedLetter = word[pos] + "";
+            word = word.Substring(0, pos) + word.Substring(pos + 1);
+        }
         int[] vals = generateValues();
         int burgerPrice = vals[0], nuggetPrice = vals[1], nuggetCount = vals[2];
         string[] screens = { intToPrice(burgerPrice), intToPrice(nuggetPrice), nuggetCount + " Pc.", "" };
         for (int i = 0; i < 3; i++)
             logMessages.Add(string.Format("Screen {0}: {1}", (i + 1), screens[i]));
+        
         for (int i = 0; i < word.Length / 2; i++)
         {
             string temp = base10To26(alpha.IndexOf(word[i * 2]) * nuggetPrice + alpha.IndexOf(word[i * 2 + 1]) * burgerPrice);
@@ -22,13 +31,17 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
             encrypt = encrypt + "" + temp.Substring(1);
         }
         logMessages.Add(string.Format("Screen 4: {0}", screens[3]));
-        if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
+        if (pos >= 0)
+        {
+            logMessages.Add(string.Format("{0}{1} + {2} + {3} -> {0}{3}{1}", encrypt.Substring(0, pos), encrypt.Substring(pos), (pos + 1), removedLetter));
+            encrypt = encrypt.Substring(0, pos) + removedLetter + encrypt.Substring(pos);
+            removedLetter = (pos + 1) + "";
+        } 
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { screens[0], null, screens[1], null, screens[2], null, screens[3] }) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { screens[0], removedLetter, screens[1], null, screens[2], null, screens[3] }) },
             Score = 7
         };
     }

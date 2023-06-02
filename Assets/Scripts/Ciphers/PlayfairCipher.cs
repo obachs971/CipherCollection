@@ -20,8 +20,10 @@ public class PlayfairCipher : CipherBase
         string encrypt = "";
         string replaceJ = "";
         string alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-        logMessages.Add(string.Format("Before Replacing Js: {0}", word));
+        string removedLetter = "";
+        int pos = -1;
 
+        logMessages.Add(string.Format("Before Replacing Js: {0}", word));
         for (int i = 0; i < word.Length; i++)
         {
             if (word[i] == 'J')
@@ -34,6 +36,13 @@ public class PlayfairCipher : CipherBase
         }
         logMessages.Add(string.Format("After Replacing Js: {0}", word));
         logMessages.Add(string.Format("Screen 2: {0}", replaceJ));
+        if(word.Length % 2 == 1)
+        {
+            pos = UnityEngine.Random.Range(0, word.Length);
+            removedLetter = word[pos] + "";
+            word = word.Substring(0, pos) + word.Substring(pos + 1);
+            logMessages.Add(string.Format("{0}{1}{2} + {3} ->{0}{2}", word.Substring(0, pos), removedLetter, word.Substring(pos), (pos + 1)));
+        }
         var keyFront = CMTools.generateBoolExp(bomb);
         string key = CMTools.getKey(kw.Replace("J", "I"), alpha.ToString(), keyFront.Value);
         logMessages.Add(string.Format("Keyword: {0}", kw));
@@ -87,14 +96,17 @@ public class PlayfairCipher : CipherBase
             encrypt = encrypt + "" + key[(r1 * 5) + c1] + "" + key[(r2 * 5) + c2];
             logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i * 2], word[(i * 2) + 1], encrypt[i * 2], encrypt[(i * 2) + 1]));
         }
-        if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
-        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
+        if (pos >= 0)
+        {
+            logMessages.Add(string.Format("{0}{2} + {3} + {1} ->{0}{1}{2}", encrypt.Substring(0, pos), removedLetter, encrypt.Substring(pos), (pos + 1)));
+            encrypt = encrypt.Substring(0, pos) + removedLetter + encrypt.Substring(pos);
+            removedLetter = (pos + 1) + "";
+        }
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, replaceJ }, invert) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { kw, keyFront.Expression, replaceJ, removedLetter }, invert) },
             Score = 4
         };
     }

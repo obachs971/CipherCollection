@@ -8,6 +8,15 @@ public class PortaxCipher : CipherBase
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
         var logMessages = new List<string>();
+        int pos = -1;
+        string sca = "";
+        if(word.Length % 2 == 1)
+        {
+            pos = UnityEngine.Random.Range(0, word.Length);
+            sca = word[pos] + "";
+            word = word.Substring(0, pos) + word.Substring(pos + 1);
+            logMessages.Add(string.Format("{0}{1}{2} + {3} -> {0}{2}", word.Substring(0, pos), sca, word.Substring(pos), (pos + 1)));
+        }
         string key = new string("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle()).Substring(0, word.Length / 2);
         logMessages.Add(string.Format("Key: {0}", key));
         char[] c = new char[word.Length];
@@ -34,15 +43,18 @@ public class PortaxCipher : CipherBase
             c[i] = top[n1]; c[i + (c.Length / 2)] = btm[n2];
             logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i], word[i + (word.Length / 2)], c[i], c[i + (c.Length / 2)]));
         }
-        if (word.Length % 2 == 1)
-            c[c.Length - 1] = word[word.Length - 1];
         string encrypt = new string(c);
-        logMessages.Add(string.Format("{0} - > {1}", word, encrypt));
+        if (pos >= 0)
+        {
+            logMessages.Add(string.Format("{0}{2} + {3} + {1} -> {0}{1}{2}", encrypt.Substring(0, pos), sca, encrypt.Substring(pos), (pos + 1)));
+            encrypt = encrypt.Substring(0, pos) + sca + encrypt.Substring(pos);
+            sca = (pos + 1) + "";
+        }
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { key }) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { key, sca }) },
             Score = 6
         };
     }

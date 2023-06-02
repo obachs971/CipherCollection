@@ -29,7 +29,18 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
                 replaceX = replaceX + "" + orphanage.Replace(word[i].ToString(), "")[Random.Range(0, 24)];
         }
         logMessages.Add(string.Format("After Replacing Xs: {0}", word));
+        logMessages.Add(string.Format("Screen 2: {0}", replaceX));
+        string removedLetter = "";
+        int pos = -1;
+        if(word.Length % 2 == 1)
+        {
+            pos = UnityEngine.Random.Range(0, word.Length);
+            removedLetter = word[pos] + "";
+            logMessages.Add(string.Format("{0} + {1} -> {2}{3}", word, (pos + 1), word.Substring(0, pos), word.Substring(pos + 1)));
+            word = word.Substring(0, pos) + word.Substring(pos + 1);
+        }
         string orphans = new string("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray().Shuffle()).Substring(0, 4);
+        //orphans = "HBSQ";
         logMessages.Add(string.Format("Orphans: {0}", orphans));
         foreach (char orphan in orphans)
         {
@@ -76,14 +87,17 @@ public class CompositeSpinningJumpingLeapfrogOrphanageCipher : CipherBase
                 logMessages.Add(string.Format("{0}{1} -> {2}{3}", word[i * 2], word[i * 2 + 1], encrypt[i * 2], encrypt[i * 2 + 1]));
             }
         }
-        if (word.Length % 2 == 1)
-            encrypt = encrypt + "" + word[word.Length - 1];
-        logMessages.Add(string.Format("{0} -> {1}", word, encrypt));
+        if (pos >= 0)
+        {
+            logMessages.Add(string.Format("{0} + {1} + {2} -> {3}{4}{5}", encrypt, (pos + 1), removedLetter, encrypt.Substring(0, pos), removedLetter, encrypt.Substring(pos)));
+            encrypt = encrypt.Substring(0, pos) + removedLetter + encrypt.Substring(pos);
+            removedLetter = (pos + 1) + "";
+        }
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { orphans, null, replaceX }, invert) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { orphans, removedLetter, replaceX }, invert) },
             Score = 6
         };
     }
