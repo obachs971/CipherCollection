@@ -557,11 +557,11 @@ public class cipherMachine : MonoBehaviour
     }
 
 #pragma warning disable 414
-    private string TwitchHelpMessage = "!{0} right/left/r/l [move to other screens] | !{0} submit qwerty [submit the decrypted word] | !{0} score [find out TP score]";
+    private string TwitchHelpMessage = "!{0} right/left/r/l [move to other screens] | !{0} submit qwerty [submit the decrypted word] | !{0} dscore [find out TP dynamic score]";
 #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
-        if (command.EqualsIgnoreCase("score"))
+        if (command.EqualsIgnoreCase("dscore"))
         {
             yield return null;
             yield return string.Format("sendtochat Score for this Cipher Machine: {0}", overallTpScoreString);
