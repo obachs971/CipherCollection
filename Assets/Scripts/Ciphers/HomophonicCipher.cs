@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CipherMachine;
+using UnityEngine;
 
 public class HomophonicCipher : CipherBase
 {
@@ -10,44 +11,54 @@ public class HomophonicCipher : CipherBase
     {
         var logMessages = new List<string>();
         string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        string key = string.Concat(alpha[UnityEngine.Random.Range(0, 26)], alpha[UnityEngine.Random.Range(0, 26)], alpha[UnityEngine.Random.Range(0, 26)]);
-        string encrypt = "";
-        int[][] nums = new int[3][];
-        logMessages.Add(string.Format("Key: {0}", key));
-        for (int aa = 0; aa < nums.Length; aa++)
+        string key = string.Concat(alpha[Random.Range(0, 26)], alpha[Random.Range(0, 26)], alpha[Random.Range(0, 26)]);
+        logMessages.Add(string.Format("Screen A: {0}", key));
+        int[][] nums = new int[key.Length][];
+        for(int i = 0; i < key.Length; i++)
         {
-            int index = alpha.IndexOf(key[aa]);
-            nums[aa] = new int[26];
-            for (int bb = 0; bb < 26; bb++)
-                nums[aa][(bb + index) % 26] = bb + 1 + 26 * aa;
-            logMessages.Add(string.Format("Row {0}: {1}", aa + 1, nums[aa][0]));
+            nums[i] = new int[alpha.Length];
+            int start = key[i] - 'A';
+            for (int j = 0; j < nums[i].Length; j++)
+                nums[i][(start + j) % nums[i].Length] = (i * 26) + (j + 1);
         }
-        List<int> choices = new List<int>();
-        List<int> list = new List<int>() { 0, 1, 2 };
-        for (int i = 0; i < word.Length; i++)
+        int[] randRows = new int[word.Length];
+        int[] encryptNums = new int[word.Length];
+        for(int i = 0; i < nums.Length; i++)
+            randRows[i] = i;
+        for (int i = nums.Length; i < randRows.Length; i++)
+            randRows[i] = Random.Range(0, nums.Length);
+        randRows.Shuffle();
+        for(int i = 0; i < word.Length; i++)
         {
-            choices.Add(list[UnityEngine.Random.Range(0, list.Count())]);
-            list.Remove(choices[i]);
-            if (list.Count() == 0)
-                list = new List<int>() { 0, 1, 2 };
+            encryptNums[i] = nums[randRows[i]][word[i] - 'A'];
+            logMessages.Add(string.Format("{0} -> {1}{2}", word[i], encryptNums[i] / 10, encryptNums[i] % 10));
         }
-        string tens = "";
-        string[] alphas = { "JT", "AKU", "BLV", "CMW", "DNX", "EOY", "FPZ", "GQ", "HR", "IS" };
-        for (int i = 0; i < word.Length; i++)
+        string encrypt = "", sc1 = "", sc2 = "";
+        foreach(int encryptNum in encryptNums)
         {
-            int index = UnityEngine.Random.Range(0, choices.Count());
-            int numEnc = nums[choices[index]][alpha.IndexOf(word[i])];
-            tens = tens + "" + (numEnc / 10);
-            encrypt = encrypt + "" + alphas[numEnc % 10][UnityEngine.Random.Range(0, alphas[numEnc % 10].Length)];
-            choices.RemoveAt(index);
+            encrypt = encrypt + alpha[Random.Range(0, alpha.Length)];
+            sc1 = sc1 + getScreenLetter(encrypt[encrypt.Length - 1], encryptNum / 10);
+            sc2 = sc2 + getScreenLetter(encrypt[encrypt.Length - 1], encryptNum % 10);
         }
-        logMessages.Add(string.Format("{0} -> {1}, {2}", word, tens, encrypt));
+        logMessages.Add(string.Format("Screen 1: {0}", sc1));
+        logMessages.Add(string.Format("Screen 2: {0}", sc2));
         return new ResultInfo
         {
             LogMessages = logMessages,
             Encrypted = encrypt,
-            Pages = new[] { new PageInfo(new ScreenInfo[] { tens, key }) },
+            Pages = new[] { new PageInfo(new ScreenInfo[] { sc1, key, sc2 }) },
             Score = 4
         };
+    }
+    private char getScreenLetter(char encryptLet, int encryptNum)
+    {
+        int[] choices = { (encryptLet - 'A') - encryptNum, (encryptLet - 'A') + encryptNum };
+        choices.Shuffle();
+        foreach (int choice in choices)
+        {
+            if (choice >= 0 && choice <= 25)
+                return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[choice];
+        }
+        return '-';
     }
 }
