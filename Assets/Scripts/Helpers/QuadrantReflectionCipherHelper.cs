@@ -3,12 +3,13 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Words;
+using _rnd = UnityEngine.Random;
 
 internal class QuadrantReflectionCipherHelper
 {
     readonly Data words = new Data();
 
-    private readonly Random _random = new Random();
+    private readonly Random _random = new Random(_rnd.Range(int.MinValue, int.MaxValue));
 
     public int QuadrantSize = 5;
     public int StartingQuadrant;
@@ -22,7 +23,7 @@ internal class QuadrantReflectionCipherHelper
     public QuadrantReflectionCipherHelper()
     {
         _quadrants = new string[4][,];
-        StartingQuadrant = _random.Next(0, _quadrants.Length);
+        StartingQuadrant = _rnd.Range(0, _quadrants.Length);
 
         for (int i = 0; i < _quadrants.Length; i++)
             _quadrants[i] = new string[QuadrantSize, QuadrantSize];
