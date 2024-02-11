@@ -46,6 +46,7 @@ public class cipherMachine : MonoBehaviour
         new DoubleSquareRotationCipher(invert: false), new DoubleSquareRotationCipher(invert: true),
         new Dreamcipher(invert: false), new Dreamcipher(invert: true),
         new DualTriplexReflectorCipher(invert: false), new DualTriplexReflectorCipher(invert: true),
+        new ElsieFourCipher(invert: false), new ElsieFourCipher(invert: true),
         new EnigmaCipher(),
         new ExtinctionTransposition(),
         new FoursquareCipher(invert: false), new FoursquareCipher(invert: true),
@@ -53,6 +54,7 @@ public class cipherMachine : MonoBehaviour
         new GlobalOffsetCipher(invert: false), new GlobalOffsetCipher(invert: true),
         new GracieCipher(invert: false), new GracieCipher(invert: true),
         new GrandpreCipher(),
+        new GRANITCipher(invert: false), new GRANITCipher(invert: true),
         new GridlockCipher(),
         new GrilleTransposition(invert: false), new GrilleTransposition(invert: true),
         new GROMARKCipher(invert: false), new GROMARKCipher(invert: true),
@@ -194,7 +196,7 @@ public class cipherMachine : MonoBehaviour
         var word = answer = settings == null || settings.WordLengths == null ? new Data().PickWord(4, 8) : new Data().PickWord(settings.WordLengths.PickRandom());
 
         // For debugging
-        //word = answer = "DRAFTED";
+        //word = answer = "ZERO";
 
         Debug.LogFormat("[Cipher Machine #{0}] Solution: {1}", moduleId, answer);
 

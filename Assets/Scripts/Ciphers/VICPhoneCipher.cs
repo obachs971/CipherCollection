@@ -15,14 +15,16 @@ public class VICPhoneCipher : CipherBase
         var kwfront = CMTools.generateBoolExp(bomb);
         string key = CMTools.getKey(kw, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", kwfront.Value);
         string rows = new string("0123456789".ToCharArray().Shuffle()).Substring(0, 4);
-        logMessages.Add(string.Format("Keyword: {0}", kw));
-        logMessages.Add(string.Format("Screen B: {0}", rows));
         for (int i = 0; i < 10; i++)
         {
             if (rows.Contains(i + ""))
                 key = key.Substring(0, i) + "-" + key.Substring(i);
         }
-        logMessages.Add(string.Format("Key: {0} -> {1} -> {2}", kwfront.Expression, kwfront.Value, key));
+        logMessages.Add(string.Format("Keyword: {0}", kw));
+        logMessages.Add(string.Format("Screen A: {0} -> {1}", kwfront.Expression, kwfront.Value));
+        logMessages.Add(string.Format("Screen B: {0}", rows));
+        logMessages.Add(string.Format("Key: {0}", key));
+
         List<int> encryptNums = new List<int>();
         foreach (char let in word)
         {

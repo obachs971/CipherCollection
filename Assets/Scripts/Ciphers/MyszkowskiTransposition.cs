@@ -19,7 +19,7 @@ public class MyszkowskiTransposition : CipherBase
         var logMessages = new List<string>();
 
         string encrypt = "";
-        string kw = new Data().PickWord(4, word.Length);
+        string kw = new Data().PickWord(3, word.Length);
         char[] order = kw.ToCharArray();
         Array.Sort(order);
         order = order.Distinct().ToArray();
