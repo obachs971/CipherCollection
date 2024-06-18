@@ -61,6 +61,7 @@ public class cipherMachine : MonoBehaviour
         new HillCipher(invert: false), new HillCipher(invert: true),
         new HomophonicCipher(),
         new IncrementalPolyalphabeticCipher(invert: false), new IncrementalPolyalphabeticCipher(invert: true),
+        new JCipher(invert: false), new JCipher(invert: true),
         new JumpOverCipher(invert: false), new JumpOverCipher(invert: true),
         new LogicCipher(),
         new LogicalTernaryManipulationCipher(invert: false), new LogicalTernaryManipulationCipher(invert: true),
@@ -77,6 +78,7 @@ public class cipherMachine : MonoBehaviour
         new MyszkowskiTransposition(invert: false), new MyszkowskiTransposition(invert: true),
         new NicodemusCipher(invert: false), new NicodemusCipher(invert: true),
         new NotreDameCipher(invert: false), new NotreDameCipher(invert: true),
+        new NTransposition(invert: false), new NTransposition(invert: true),
         new OwOCipher(invert: false), new OwOCipher(invert: true),
         new PancakeTransposition(invert: false), new PancakeTransposition(invert: true),
         new ParallelogramCipher(),
@@ -114,6 +116,7 @@ public class cipherMachine : MonoBehaviour
         new TrisquareCipher(),
         new UbchiTransposition(invert: false), new UbchiTransposition(invert: true),
         new VarietyCipher(),
+        new VCipher(invert: false), new VCipher(invert: true),
         new VICPhoneCipher(),
         new VigenereCipher(invert: false), new VigenereCipher(invert: true));
 
@@ -460,7 +463,7 @@ public class cipherMachine : MonoBehaviour
                                 set.PickOuter = 1;
                                 set.PickInner = pickNum;
                             }
-                            else if ((m = Regex.Match(kv[1], @"^\s*(\d+|a)\s*/\s*(\d+|a)\s*$")).Success)
+                            else if ((m = Regex.Match(kv[1], @"^\s*(\d+|a)\s*/\s*(\d+|a)\s*$")).Success || (m = Regex.Match(kv[1], @"^\s*(\d+|A)\s*/\s*(\d+|A)\s*$")).Success)
                             {
                                 set.PickOuter = m.Groups[1].Value.Equals("a", StringComparison.InvariantCultureIgnoreCase) ? (int?) null : int.Parse(m.Groups[1].Value);
                                 set.PickInner = m.Groups[2].Value.Equals("a", StringComparison.InvariantCultureIgnoreCase) ? (int?) null : int.Parse(m.Groups[2].Value);
