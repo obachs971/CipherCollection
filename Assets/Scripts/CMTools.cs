@@ -67,19 +67,19 @@ namespace CipherMachine
                     break;
                 case 'M':
                     exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = (getValue(exp[0], Bomb) >= getValue(exp[1], Bomb));
+                    result = (getValue(exp[1], Bomb) >= getValue(exp[2], Bomb));
                     break;
                 case 'N':
                     exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = (getValue(exp[0], Bomb) <= getValue(exp[1], Bomb));
+                    result = (getValue(exp[1], Bomb) <= getValue(exp[2], Bomb));
                     break;
                 case 'O':
                     exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = ((getValue(exp[0], Bomb) % 4) / 2 == (getValue(exp[1], Bomb) % 4) / 2);
+                    result = ((getValue(exp[1], Bomb) % 4) / 2 == (getValue(exp[2], Bomb) % 4) / 2);
                     break;
                 case 'P':
                     exp += alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
-                    result = ((getValue(exp[0], Bomb) % 4) / 2 != (getValue(exp[1], Bomb) % 4) / 2);
+                    result = ((getValue(exp[1], Bomb) % 4) / 2 != (getValue(exp[2], Bomb) % 4) / 2);
                     break;
             }
             return new ValueExpression<bool> { Expression = exp, Value = result };
