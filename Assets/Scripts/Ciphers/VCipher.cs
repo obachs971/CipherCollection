@@ -7,8 +7,8 @@ using Words;
 
 public class VCipher : CipherBase 
 {
-    public override string Name { get { return invert ? "Inverted V Cipher" : "V Cipher"; } }
-    public override string Code { get { return "VC"; } }
+    public override string Name { get { return invert ? "Inverted Bubble Cipher" : "Bubble Cipher"; } }
+    public override string Code { get { return "BU"; } }
 
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }

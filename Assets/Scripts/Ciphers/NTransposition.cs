@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class NTransposition : CipherBase 
 {
-    public override string Name { get { return invert ? "Inverted N Transposition" : "N Transposition"; } }
-    public override string Code { get { return "NT"; } }
-
+    public override string Name { get { return invert ? "Inverted Golden Retriever Transposition" : "Golden Retriever Transposition"; } }
+    public override string Code { get { return "GD"; } }
+    public override bool IsTransposition { get { return true; } }
     private readonly bool invert;
     public override bool IsInvert { get { return invert; } }
     public NTransposition(bool invert) { this.invert = invert; }

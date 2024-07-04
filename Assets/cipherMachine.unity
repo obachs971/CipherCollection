@@ -155,7 +155,7 @@ Prefab:
     - target: {fileID: 114183368208140132, guid: 6fa8938500c05c74385ebd3948536eaf,
         type: 2}
       propertyPath: EditorMissionSettings
-      value: 
+      value: '[Cipher Machine] Ciphers = BUE'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6fa8938500c05c74385ebd3948536eaf, type: 2}
