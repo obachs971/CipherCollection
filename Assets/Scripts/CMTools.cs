@@ -18,7 +18,7 @@ namespace CipherMachine
         }
         public static ValueExpression<bool> generateBoolExp(KMBombInfo Bomb)
         {
-            string boolExp = "ABCDEFGHIJKL";
+            string boolExp = "ABCDEFGHIJKLMNOP";
             string alphaVar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             string exp = boolExp[UnityEngine.Random.Range(0, boolExp.Length)] + "" + alphaVar[UnityEngine.Random.Range(0, alphaVar.Length)];
             alphaVar = alphaVar.Replace(exp[1].ToString(), "");
