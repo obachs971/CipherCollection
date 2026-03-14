@@ -413,7 +413,7 @@ public class cipherMachine : MonoBehaviour
             string description = Application.isEditor ? EditorMissionSettings : Game.Mission.Description;
             if (description == null)
                 return null;
-            var matches = Regex.Matches(description, @"^(?:// )?\[Cipher ?Machine\] (.*)$", RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            var matches = Regex.Matches(description, @"^(?:\/{2,3} )?\[Cipher ?Machine\] (.*)$", RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
             var warnings = new List<string>();
             for (var i = 0; i < matches.Count; i++)
             {
