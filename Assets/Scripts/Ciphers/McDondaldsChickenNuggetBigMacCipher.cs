@@ -8,6 +8,7 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
     public override string Code { get { return "MD"; } }
     public override ResultInfo Encrypt(string word, KMBombInfo bomb)
     {
+        regenerate:
         var logMessages = new List<string>();
         string alpha = "ZABCDEFGHIJKLMNOPQRSTUVWXY", encrypt = "", removedLetter = "";
         int pos = -1;
@@ -27,6 +28,17 @@ public class McDondaldsChickenNuggetBigMacCipher : CipherBase
         for (int i = 0; i < word.Length / 2; i++)
         {
             string temp = base10To26(alpha.IndexOf(word[i * 2]) * nuggetPrice + alpha.IndexOf(word[i * 2 + 1]) * burgerPrice);
+            logMessages.Add(string.Format("{0}{1} -> {2}", word[i * 2], word[i * 2 + 1], temp));
+            if (temp.Length != 3)
+            {
+                /*
+                * Rarely the values this cipher generates can be
+                * large enough to encrypt the 2 characters to more
+                * than 3 characters. To ensure this doesn't happen, 
+                * I'll add this condition here to prevent it.
+                */
+                goto regenerate;
+            }
             screens[3] = screens[3] + "" + temp[0];
             encrypt = encrypt + "" + temp.Substring(1);
         }
